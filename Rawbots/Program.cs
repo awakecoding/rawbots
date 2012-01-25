@@ -9,15 +9,35 @@ using OpenTK.Audio;
 using OpenTK.Audio.OpenAL;
 using OpenTK.Input;
 
-namespace StarterKit
+namespace Rawbots
 {
 	class Game : GameWindow
 	{
-		/// <summary>Creates a 800x600 window with the specified title.</summary>
-		public Game()
-			: base(800, 600, GraphicsMode.Default, "OpenTK Quick Start Sample")
+		Robot[] robots;
+		
+		ElectronicBrain electronicBrain;
+		NuclearWarhead nuclearWarhead;
+		Phaser phaser;
+		Missile missile;
+		Cannon cannon;
+		AntiGravityChassis antiGravityChassis;
+		TrackChassis trackChassis;
+		BipodChassis bipodChassis;
+		
+		public Game() : base(800, 600, GraphicsMode.Default, "OpenTK Quick Start Sample")
 		{
 			VSync = VSyncMode.On;
+			
+			robots = new Robot[8];
+			
+			robots[0] = electronicBrain = new ElectronicBrain();
+			robots[1] = nuclearWarhead = new NuclearWarhead();
+			robots[2] = phaser = new Phaser();
+			robots[3] = missile = new Missile();
+			robots[4] = cannon = new Cannon();
+			robots[5] = antiGravityChassis = new AntiGravityChassis();
+			robots[6] = trackChassis = new TrackChassis();
+			robots[7] = bipodChassis = new BipodChassis();
 		}
 
 		/// <summary>Load resources here.</summary>
@@ -72,15 +92,16 @@ namespace StarterKit
 			Matrix4 modelview = Matrix4.LookAt(Vector3.Zero, Vector3.UnitZ, Vector3.UnitY);
 			GL.MatrixMode(MatrixMode.Modelview);
 			GL.LoadMatrix(ref modelview);
-
-			GL.Begin(BeginMode.Triangles);
-
-			GL.Color3(1.0f, 1.0f, 0.0f); GL.Vertex3(-1.0f, -1.0f, 4.0f);
-			GL.Color3(1.0f, 0.0f, 0.0f); GL.Vertex3(1.0f, -1.0f, 4.0f);
-			GL.Color3(0.2f, 0.9f, 1.0f); GL.Vertex3(0.0f, 1.0f, 4.0f);
-
-			GL.End();
-
+			
+			GL.LoadIdentity();
+			//GL.Scale(0.5f,0.5f,1.0f);
+			
+			foreach (Robot robot in robots)
+			{
+				robot.RenderAll();
+				GL.Translate(0.5f, 0.0f, -2.0f);
+			}
+			
 			SwapBuffers();
 		}
 
@@ -90,9 +111,6 @@ namespace StarterKit
 		[STAThread]
 		static void Main()
 		{
-			// The 'using' idiom guarantees proper resource cleanup.
-			// We request 30 UpdateFrame events per second, and unlimited
-			// RenderFrame events (as fast as the computer can handle).
 			using (Game game = new Game())
 			{
 				game.Run(30.0);
