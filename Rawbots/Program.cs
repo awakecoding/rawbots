@@ -89,10 +89,12 @@ namespace Rawbots
 			GL.LoadIdentity();
 			//GL.Scale(0.5f,0.5f,1.0f);
 			
+			GL.Translate(0.0f, 0.0f, -10.0f);
+			
 			foreach (Robot robot in robots)
 			{
 				robot.RenderAll();
-				GL.Translate(0.5f, 0.0f, -2.0f);
+				GL.Translate(0.5f, 0.0f, 0.0f);
 			}
 			
 			SwapBuffers();
