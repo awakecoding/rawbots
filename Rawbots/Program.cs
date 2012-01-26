@@ -24,29 +24,20 @@ namespace Rawbots
 	{
 		Robot[] robots;
 		
-		ElectronicBrain electronicBrain;
-		NuclearWarhead nuclearWarhead;
-		Phaser phaser;
-		Missile missile;
-		Cannon cannon;
-		AntiGravityChassis antiGravityChassis;
-		TrackChassis trackChassis;
-		BipodChassis bipodChassis;
-		
-		public Game() : base(800, 600, GraphicsMode.Default, "OpenTK Quick Start Sample")
+		public Game() : base(800, 600, GraphicsMode.Default, "Rawbots")
 		{
 			VSync = VSyncMode.On;
 			
 			robots = new Robot[8];
 			
-			robots[0] = electronicBrain = new ElectronicBrain();
-			robots[1] = nuclearWarhead = new NuclearWarhead();
-			robots[2] = phaser = new Phaser();
-			robots[3] = missile = new Missile();
-			robots[4] = cannon = new Cannon();
-			robots[5] = antiGravityChassis = new AntiGravityChassis();
-			robots[6] = trackChassis = new TrackChassis();
-			robots[7] = bipodChassis = new BipodChassis();
+			robots[0] = new Robot();
+			robots[1] = new Robot();
+			robots[2] = new Robot();
+			robots[3] = new Robot();
+			robots[4] = new Robot();
+			robots[5] = new Robot();
+			robots[6] = new Robot();
+			robots[7] = new Robot();
 		}
 
 		protected override void OnLoad(EventArgs e)
@@ -87,8 +78,6 @@ namespace Rawbots
 			GL.LoadMatrix(ref modelview);
 			
 			GL.LoadIdentity();
-			//GL.Scale(0.5f,0.5f,1.0f);
-			
 			GL.Translate(0.0f, 0.0f, -10.0f);
 			
 			foreach (Robot robot in robots)

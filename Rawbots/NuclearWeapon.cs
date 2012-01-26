@@ -4,9 +4,9 @@ using OpenTK.Graphics.OpenGL;
 
 namespace Rawbots
 {
-	public class AntiGravityChassis : Robot
+	public class NuclearWeapon : Weapon
 	{
-		public AntiGravityChassis()
+		public NuclearWeapon()
 		{
 		}
 		

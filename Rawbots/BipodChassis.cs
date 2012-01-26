@@ -4,7 +4,7 @@ using OpenTK.Graphics.OpenGL;
 
 namespace Rawbots
 {
-	public class BipodChassis : Robot
+	public class BipodChassis : Chassis
 	{
 		public BipodChassis()
 		{

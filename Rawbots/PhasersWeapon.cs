@@ -4,9 +4,9 @@ using OpenTK.Graphics.OpenGL;
 
 namespace Rawbots
 {
-	public class Phaser : Robot
+	public class PhasersWeapon : Weapon
 	{
-		public Phaser()
+		public PhasersWeapon()
 		{
 		}
 		

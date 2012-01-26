@@ -4,9 +4,9 @@ using OpenTK.Graphics.OpenGL;
 
 namespace Rawbots
 {
-	public class ElectronicBrain : Robot
+	public class TrackedChassis : Chassis
 	{
-		public ElectronicBrain()
+		public TrackedChassis()
 		{
 		}
 		
