@@ -10,6 +10,21 @@ namespace Rawbots
 		{
 		}
 		
+		public override int getCost()
+		{
+			return 4;
+		}
+		
+		public override int getRange()
+		{
+			return 10;
+		}
+		
+		public override int getLethality()
+		{
+			return 4;
+		}
+		
 		public override void Render()
 		{
 			GL.Begin(BeginMode.Triangles);

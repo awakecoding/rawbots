@@ -4,10 +4,25 @@ using OpenTK.Graphics.OpenGL;
 
 namespace Rawbots
 {
-	public class MissilesWeapon : Resource
+	public class MissilesWeapon : Weapon
 	{
 		public MissilesWeapon()
 		{
+		}
+		
+		public override int getCost()
+		{
+			return 4;
+		}
+		
+		public override int getRange()
+		{
+			return 14;
+		}
+		
+		public override int getLethality()
+		{
+			return 3;
 		}
 		
 		public override void Render()

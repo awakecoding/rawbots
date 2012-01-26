@@ -38,6 +38,11 @@ namespace Rawbots
 			robots[5] = new Robot();
 			robots[6] = new Robot();
 			robots[7] = new Robot();
+			
+			robots[0].AddChassis(new BipodChassis());
+			robots[0].AddWeapon(new CannonWeapon());
+			robots[0].AddWeapon(new PhasersWeapon());
+			robots[0].AddElectronics(new Electronics());
 		}
 
 		protected override void OnLoad(EventArgs e)

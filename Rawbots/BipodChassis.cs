@@ -8,6 +8,11 @@ namespace Rawbots
 	{
 		public BipodChassis()
 		{
+			/*
+			 * Slow but cheap and rugged. Can't get over
+			 * hills but can cope with rough ground at a pinch!
+			 * Best used on flat level ground.
+			 */
 		}
 		
 		public override void Render()

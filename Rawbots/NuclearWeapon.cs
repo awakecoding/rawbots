@@ -10,6 +10,27 @@ namespace Rawbots
 		{
 		}
 		
+		public override int getCost()
+		{
+			return 20;
+		}
+		
+		public override int getRange()
+		{
+			return 8;
+		}
+		
+		public override int getLethality()
+		{
+			/*
+			 * Nuclear weapons destroy all robots and factories within an 8 mile
+			 * radius of the robot carrying the device - this includes the carrying robot.
+			 * This is currently the only method we have to destroy factories and war bases!
+			 */
+			
+			return 0;
+		}
+		
 		public override void Render()
 		{
 			GL.Begin(BeginMode.Triangles);

@@ -8,6 +8,11 @@ namespace Rawbots
 	{
 		public AntiGravChassis()
 		{
+			/*
+			 * By far the best system, it simply flies over the
+			 * ground whatever its difficulties. This is the
+			 * only chassis that can span ravines!
+			 */
 		}
 		
 		public override void Render()

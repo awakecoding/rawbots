@@ -8,6 +8,10 @@ namespace Rawbots
 	{
 		public TrackedChassis()
 		{
+			/* 
+			 * Considerably more manoeuvrable than
+			 * bipods but twice the resource units.
+			 */
 		}
 		
 		public override void Render()

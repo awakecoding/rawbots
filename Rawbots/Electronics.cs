@@ -8,6 +8,12 @@ namespace Rawbots
 	{
 		public Electronics()
 		{
+			/*
+			 * This module increases weapon accuracy, giving a notional added
+			 * range of 3 miles to each weapon type, Advance warning of attack
+			 * contributes to the slightly increased resistance to damage from
+			 * enemy fire when this unit is fitted.
+			 */
 		}
 		
 		public override void Render()

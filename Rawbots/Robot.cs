@@ -10,9 +10,39 @@ namespace Rawbots
 {
 	public class Robot
 	{
+		Chassis chassis;
+		Weapon[] weapons;
+		Electronics electronics;
+		
 		public Robot()
 		{
-			
+			chassis = null;
+			weapons = null;
+			electronics = null;
+		}
+		
+		public void AddChassis(Chassis chassis)
+		{
+			this.chassis = chassis;
+		}
+		
+		public void AddWeapon(Weapon weapon)
+		{
+			if (weapons == null)
+			{
+				weapons = new Weapon[1];
+				weapons[0] = weapon;
+			}
+			else
+			{
+				Array.Resize(ref weapons, weapons.Length + 1);
+				weapons[weapons.Length - 1] = weapon;
+			}
+		}
+		
+		public void AddElectronics(Electronics electronics)
+		{
+			this.electronics = electronics;
 		}
 		
 		public void Push()

@@ -7,6 +7,10 @@ namespace Rawbots
 		public Weapon()
 		{
 		}
+		
+		public abstract int getCost();
+		public abstract int getRange();
+		public abstract int getLethality();
 	}
 }
 
