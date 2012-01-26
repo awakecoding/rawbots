@@ -11,12 +11,12 @@
 
 using System;
 
+using Tao.FreeGlut;
+
 using OpenTK;
+using OpenTK.Input;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
-using OpenTK.Audio;
-using OpenTK.Audio.OpenAL;
-using OpenTK.Input;
 
 namespace Rawbots
 {
@@ -27,7 +27,9 @@ namespace Rawbots
 		public Game() : base(800, 600, GraphicsMode.Default, "Rawbots")
 		{
 			VSync = VSyncMode.On;
-			
+
+			Glut.glutInit();
+
 			robots = new Robot[8];
 			
 			robots[0] = new Robot();
@@ -48,7 +50,7 @@ namespace Rawbots
 		protected override void OnLoad(EventArgs e)
 		{
 			base.OnLoad(e);
-
+			
 			GL.ClearColor(0.1f, 0.2f, 0.5f, 0.0f);
 			GL.Enable(EnableCap.DepthTest);
 		}
@@ -90,6 +92,9 @@ namespace Rawbots
 				robot.RenderAll();
 				GL.Translate(0.5f, 0.0f, 0.0f);
 			}
+			
+			Glut.glutWireCube(2.0f);
+			GL.Flush();
 			
 			SwapBuffers();
 		}
