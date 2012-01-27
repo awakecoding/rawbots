@@ -74,12 +74,14 @@ namespace Rawbots
 
         public void setRenderMode(int mode)
         {
-            if(chassis != null)
+            if (chassis != null)
                 chassis.setRenderMode(mode);
 
             if (weapons != null)
+			{
                 for (int i = 0; i < weapons.Length; i++)
                     weapons[i].setRenderMode(mode);
+			}
             
             if (electronics != null)
                 electronics.setRenderMode(mode);
@@ -94,10 +96,12 @@ namespace Rawbots
                 Pop();
             }
 
-            if(weapons != null)
+            if (weapons != null)
+			{
                 for (int i = 0; i < weapons.Length; i++)
                 {
                     Weapon w = weapons[i];
+					
                     if (w != null)
                     {
                         Push();
@@ -105,6 +109,14 @@ namespace Rawbots
                         Pop();
                     }
                 }
+			}
+			
+			if (electronics != null)
+			{
+				Push();
+				electronics.RenderAll();
+				Pop();
+			}
 		}
 	}
 }

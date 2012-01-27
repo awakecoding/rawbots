@@ -80,7 +80,7 @@ namespace Rawbots
             if (Keyboard[Key.Escape])
                 Exit();
             else if (Keyboard[Key.F1])
-                setRenderMode(ModelCube.OUTLINEDSOLID);
+                setRenderMode(ModelCube.OUTLINED_SOLID);
             else if (Keyboard[Key.F2])
                 setRenderMode(ModelCube.SOLID);
             else if (Keyboard[Key.F3])
@@ -115,10 +115,10 @@ namespace Rawbots
             {
                 if (robot != null)
                     robot.RenderAll();
+				
                 GL.Translate(0.5f, 0.0f, 0.0f);
             }
 			
-            //Glut.glutWireCube(2.0f);
 			GL.Flush();
 			
 			SwapBuffers();

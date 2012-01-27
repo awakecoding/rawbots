@@ -25,20 +25,24 @@ namespace Rawbots
 
             GL.Color3(0.71f, 0.71f, 0.71f);
 
-            GL.Translate(-width/2 * 1.0f, 0.0f, height/2 * 1.0f);
+            GL.Translate(-width / 2 * 1.0f, 0.0f, height / 2 * 1.0f);
 
-            for(int i = 0; i < width; i++)
-                for(int j = 0; j < height; j++)
+            for (int i = 0; i < width; i++)
+			{
+                for (int j = 0; j < height; j++)
                 {
-                    GL.Translate(i*1.0f, 0.0f, j*-1.0f);
+                    GL.Translate(i * 1.0f, 0.0f, j * -1.0f);
+					
                     GL.Begin(BeginMode.LineLoop);
                         GL.Vertex3(0.0f, 0.0f, 0.0f);
                         GL.Vertex3(1.0f, 0.0f, 0.0f);
                         GL.Vertex3(1.0f, 0.0f, -1.0f);
                         GL.Vertex3(0.0f, 0.0f, -1.0f);
                     GL.End();
+					
                     GL.Translate(-i * 1.0f, 0.0f, j * 1.0f);
                 }
+			}
 
             GL.PopMatrix();
             GL.PushMatrix();
@@ -47,17 +51,21 @@ namespace Rawbots
             GL.Rotate(90.0f, 0.0f, 0.0f, 1.0f);
 
             for (int i = 0; i < width; i++)
+			{
                 for (int j = 0; j < height; j++)
                 {
                     GL.Translate(i * 1.0f, 0.0f, j * -1.0f);
+					
                     GL.Begin(BeginMode.LineLoop);
-                    GL.Vertex3(0.0f, 0.0f, 0.0f);
-                    GL.Vertex3(1.0f, 0.0f, 0.0f);
-                    GL.Vertex3(1.0f, 0.0f, -1.0f);
-                    GL.Vertex3(0.0f, 0.0f, -1.0f);
+	                    GL.Vertex3(0.0f, 0.0f, 0.0f);
+	                    GL.Vertex3(1.0f, 0.0f, 0.0f);
+	                    GL.Vertex3(1.0f, 0.0f, -1.0f);
+	                    GL.Vertex3(0.0f, 0.0f, -1.0f);
                     GL.End();
-                    GL.Translate(-i * 1.0f, 0.0f, j * 1.0f);
+                    
+					GL.Translate(-i * 1.0f, 0.0f, j * 1.0f);
                 }
+			}
 
             GL.PopMatrix();
         }
