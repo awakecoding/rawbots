@@ -24,7 +24,12 @@ namespace Rawbots
 			 * bipods but twice the resource units.
 			 */
 		}
-		
+
+        public override void setRenderMode(int mode)
+        {
+            
+        }
+
 		public override void Render()
 		{
 			GL.Begin(BeginMode.Triangles);

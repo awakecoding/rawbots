@@ -35,7 +35,12 @@ namespace Rawbots
 		{
 			return 2;
 		}
-		
+
+        public override void setRenderMode(int mode)
+        {
+            
+        }
+
 		public override void Render()
 		{
 			GL.Begin(BeginMode.Triangles);

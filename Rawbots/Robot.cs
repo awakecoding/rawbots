@@ -71,19 +71,40 @@ namespace Rawbots
 			Render();
 			Pop();
 		}
-		
+
+        public void setRenderMode(int mode)
+        {
+            if(chassis != null)
+                chassis.setRenderMode(mode);
+
+            if (weapons != null)
+                for (int i = 0; i < weapons.Length; i++)
+                    weapons[i].setRenderMode(mode);
+            
+            if (electronics != null)
+                electronics.setRenderMode(mode);
+        }
+
 		public void Render()
 		{
-			GL.Begin(BeginMode.Triangles);
+            if (chassis != null)
+            {
+                Push();
+                chassis.RenderAll();
+                Pop();
+            }
 
-			GL.Color3(1.0f, 1.0f, 0.0f);
-			GL.Vertex3(-1.0f, -1.0f, 4.0f);
-			GL.Color3(1.0f, 0.0f, 0.0f);
-			GL.Vertex3(1.0f, -1.0f, 4.0f);
-			GL.Color3(0.2f, 0.9f, 1.0f);
-			GL.Vertex3(0.0f, 1.0f, 4.0f);
-			
-			GL.End();
+            if(weapons != null)
+                for (int i = 0; i < weapons.Length; i++)
+                {
+                    Weapon w = weapons[i];
+                    if (w != null)
+                    {
+                        Push();
+                        w.RenderAll();
+                        Pop();
+                    }
+                }
 		}
 	}
 }

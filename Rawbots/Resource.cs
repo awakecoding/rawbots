@@ -38,6 +38,8 @@ namespace Rawbots
 			Pop();
 		}
 		
+        public abstract void setRenderMode(int mode);
+
 		public abstract void Render();
 	}
 }

@@ -25,7 +25,11 @@ namespace Rawbots
 			 * only chassis that can span ravines!
 			 */
 		}
-		
+
+        public override void setRenderMode(int mode)
+        { 
+        }
+
 		public override void Render()
 		{
 			GL.Begin(BeginMode.Triangles);

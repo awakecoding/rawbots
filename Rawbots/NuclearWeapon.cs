@@ -13,12 +13,22 @@ using System;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
+using Tao.FreeGlut;
+
 namespace Rawbots
 {
 	public class NuclearWeapon : Weapon
 	{
+        private ModelCylinder[] mcComponent;
+        private const int OUTER_CHASSIS = 0;
+        private const int INNER_CHASSIS = 1;
+        private const int TOTAL_COMPONENTS = 2;
+
 		public NuclearWeapon()
 		{
+            mcComponent = new ModelCylinder[TOTAL_COMPONENTS];
+            for(int i = 0; i < mcComponent.Length; i++)
+                mcComponent[i] = new ModelCylinder();
 		}
 		
 		public override int getCost()
@@ -41,19 +51,44 @@ namespace Rawbots
 			
 			return 0;
 		}
-		
+
+        public override void setRenderMode(int mode)
+        {
+            for (int i = 0; i < mcComponent.Length; i++)
+                mcComponent[i].setRenderMode(mode);
+        }
+
 		public override void Render()
 		{
-			GL.Begin(BeginMode.Triangles);
+            //Rotate the object on the X-axis about 90 degrees
+            GL.Rotate(90.0f, 1.0f, 0.0f, 0.0f);
 
-			GL.Color3(1.0f, 1.0f, 0.0f);
-			GL.Vertex3(-1.0f, -1.0f, 4.0f);
-			GL.Color3(1.0f, 0.0f, 0.0f);
-			GL.Vertex3(1.0f, -1.0f, 4.0f);
-			GL.Color3(0.2f, 0.9f, 1.0f);
-			GL.Vertex3(0.0f, 1.0f, 4.0f);
-			
-			GL.End();
+            /************************************************************************/
+            /* Drawing the Outer chassis                                            */
+            /************************************************************************/
+
+            //Set the gray color
+            mcComponent[OUTER_CHASSIS].render(1.0f, 1.0f, 8, 1);
+            //GL.Color3(0.22f, 0.22f, 0.22f);
+            //Glut.glutSolidCylinder(1.0f, 1.0f, 8, 1); //Inner Chasis
+            //GL.Color3(1.0f, 0.0f, 0.0f);
+            //Glut.glutWireCylinder(1.0f, 1.0f, 8, 1); //Show edges
+
+
+            //Translate the object -.21 to be above the outer chassis cylinder
+            GL.Translate(0.0f, 0.0f, -0.21f);
+
+
+            /************************************************************************/
+            /* Drawing the Inner chassis                                            */
+            /************************************************************************/
+
+            mcComponent[INNER_CHASSIS].render(1.0f, 1.0f, 8, 1);
+            //GL.Color3(0.22f, 0.22f, 0.22f);
+            //Glut.glutSolidCylinder(0.8f, 0.2f, 8, 1);
+            //GL.Color3(1.0f, 0.0f, 0.0f);
+            //Glut.glutWireCylinder(0.8f, 0.2f, 8, 1);
+
 		}
 	}
 }

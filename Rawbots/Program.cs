@@ -33,19 +33,26 @@ namespace Rawbots
 			robots = new Robot[8];
 			
 			robots[0] = new Robot();
-			robots[1] = new Robot();
-			robots[2] = new Robot();
-			robots[3] = new Robot();
-			robots[4] = new Robot();
-			robots[5] = new Robot();
-			robots[6] = new Robot();
-			robots[7] = new Robot();
+            //robots[1] = new Robot();
+            //robots[2] = new Robot();
+            //robots[3] = new Robot();
+            //robots[4] = new Robot();
+            //robots[5] = new Robot();
+            //robots[6] = new Robot();
+            //robots[7] = new Robot();
 			
-			robots[0].AddChassis(new BipodChassis());
-			robots[0].AddWeapon(new CannonWeapon());
+//			robots[0].AddChassis(new BipodChassis());
+			robots[0].AddWeapon(/*new CannonWeapon()*/new NuclearWeapon());
 			robots[0].AddWeapon(new PhasersWeapon());
 			robots[0].AddElectronics(new Electronics());
 		}
+
+        private void setRenderMode(int mode)
+        {
+            for(int i = 0; i < robots.Length; i++)
+                if(robots[i] != null)
+                    robots[i].setRenderMode(mode);
+        }
 
 		protected override void OnLoad(EventArgs e)
 		{
@@ -70,8 +77,15 @@ namespace Rawbots
 		{
 			base.OnUpdateFrame(e);
 
-			if (Keyboard[Key.Escape])
-				Exit();
+            if (Keyboard[Key.Escape])
+                Exit();
+            else if (Keyboard[Key.F1])
+                setRenderMode(ModelCube.OUTLINEDSOLID);
+            else if (Keyboard[Key.F2])
+                setRenderMode(ModelCube.SOLID);
+            else if (Keyboard[Key.F3])
+                setRenderMode(ModelCube.WIRE);
+
 		}
 
 		protected override void OnRenderFrame(FrameEventArgs e)
@@ -86,14 +100,20 @@ namespace Rawbots
 			
 			GL.LoadIdentity();
 			GL.Translate(0.0f, 0.0f, -10.0f);
+
+            ReferencePlane.setDimensions(50, 50);
+            ReferencePlane.render();
+
+            TeamNumber.render();
+
+            foreach (Robot robot in robots)
+            {
+                if (robot != null)
+                    robot.RenderAll();
+                GL.Translate(0.5f, 0.0f, 0.0f);
+            }
 			
-			foreach (Robot robot in robots)
-			{
-				robot.RenderAll();
-				GL.Translate(0.5f, 0.0f, 0.0f);
-			}
-			
-			Glut.glutWireCube(2.0f);
+            //Glut.glutWireCube(2.0f);
 			GL.Flush();
 			
 			SwapBuffers();
@@ -104,7 +124,7 @@ namespace Rawbots
 		{
 			using (Game game = new Game())
 			{
-				game.Run(30.0);
+				game.Run(60.0);
 			}
 		}
 	}

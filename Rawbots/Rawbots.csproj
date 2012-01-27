@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{3252AE43-CA0B-484B-8B1E-A3AE739A0421}</ProjectGuid>
     <OutputType>Exe</OutputType>
@@ -33,21 +33,27 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="OpenTK, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4">
       <HintPath>..\Libraries\OpenTK\OpenTK.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml" />
     <Reference Include="Tao.FreeGlut">
       <HintPath>..\Libraries\Tao\Tao.FreeGlut.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ModelCube.cs" />
+    <Compile Include="ModelCylinder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReferencePlane.cs" />
     <Compile Include="Robot.cs" />
     <Compile Include="BipodChassis.cs" />
     <Compile Include="Resource.cs" />
     <Compile Include="Chassis.cs" />
+    <Compile Include="TeamNumber.cs" />
     <Compile Include="Weapon.cs" />
     <Compile Include="Electronics.cs" />
     <Compile Include="NuclearWeapon.cs" />
