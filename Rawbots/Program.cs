@@ -80,7 +80,7 @@ namespace Rawbots
             if (Keyboard[Key.Escape])
                 Exit();
             else if (Keyboard[Key.F1])
-                setRenderMode(ModelCube.OUTLINEDSOLID);
+                setRenderMode(ModelCube.OUTLINED_SOLID);
             else if (Keyboard[Key.F2])
                 setRenderMode(ModelCube.SOLID);
             else if (Keyboard[Key.F3])
