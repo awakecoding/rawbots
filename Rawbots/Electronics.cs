@@ -17,6 +17,8 @@ namespace Rawbots
 {
 	public class Electronics : Resource
 	{
+		ModelCube mc;
+		
 		public Electronics()
 		{
 			/*
@@ -25,23 +27,19 @@ namespace Rawbots
 			 * contributes to the slightly increased resistance to damage from
 			 * enemy fire when this unit is fitted.
 			 */
+			
+			mc = new ModelCube();
+			mc.setColor(0.5f, 0.3f, 0.5f);
 		}
 
         public override void setRenderMode(int mode)
-        { }
+        {
+			
+		}
 
 		public override void Render()
-		{			
-            //GL.Begin(BeginMode.Triangles);
-
-            //GL.Color3(1.0f, 1.0f, 0.0f);
-            //GL.Vertex3(-1.0f, -1.0f, 4.0f);
-            //GL.Color3(1.0f, 0.0f, 0.0f);
-            //GL.Vertex3(1.0f, -1.0f, 4.0f);
-            //GL.Color3(0.2f, 0.9f, 1.0f);
-            //GL.Vertex3(0.0f, 1.0f, 4.0f);
-			
-            //GL.End();
+		{
+			mc.render(1);
 		}
 	}
 }

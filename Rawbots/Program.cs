@@ -110,10 +110,10 @@ namespace Rawbots
             {
                 if (robot != null)
                     robot.RenderAll();
+				
                 GL.Translate(0.5f, 0.0f, 0.0f);
             }
 			
-            //Glut.glutWireCube(2.0f);
 			GL.Flush();
 			
 			SwapBuffers();

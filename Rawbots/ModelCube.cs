@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Collections.Generic;
 using System.Text;
 using Tao.FreeGlut;
@@ -12,7 +13,7 @@ namespace Rawbots
         public const int SOLID = 1;
         public const int WIRE = 2;
         private int mode = OUTLINED_SOLID;
-
+		
         private float colorR = 0.22f;
         private float colorG = 0.22f;
         private float colorB = 0.22f;
@@ -25,7 +26,7 @@ namespace Rawbots
         {
             this.mode = mode;
         }
-
+		
         public void setColor(float r, float g, float b)
         {
             colorR = r;
@@ -149,26 +150,22 @@ namespace Rawbots
         public void render(float size)
         {
             switch (mode)
-            { 
+            {
                 case OUTLINED_SOLID:
                     GL.Color3(colorR, colorG, colorB);
                     renderSolidCube(size);
-					//Glut.glutSolidCube(size);
                     GL.Color3(colorWR, colorWG, colorWB);
                 	renderWireCube(size);
-					//Glut.glutWireCube(size);
                 break;
 				
                 case SOLID:
                     GL.Color3(colorR, colorG, colorB);
 					renderSolidCube(size);
-					//Glut.glutSolidCube(size);
                 break;
 				
                 case WIRE:
 					GL.Color3(colorR, colorG, colorB);
 					renderWireCube(size);
-					//Glut.glutWireCube(size);
                 break;
             }
         }

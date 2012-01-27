@@ -58,7 +58,6 @@ namespace Rawbots
 
             GL.PopMatrix();
             GL.PopMatrix();
-
         }
     }
 }
