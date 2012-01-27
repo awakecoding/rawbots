@@ -12,10 +12,23 @@ using System;
 
 namespace Rawbots
 {
-	public class Tile
+	public class Terrain
 	{
-		public Tile()
+		private Tile[,] tiles;
+		public Tile[,] Tiles { get; set; }
+		
+		public Terrain()
 		{
+			tiles = new Tile[50,50];
+			
+			for (int i = 0; i < tiles.GetLength(0); i++)
+			{
+				for (int j = 0; j < tiles.GetLength(1); j++)
+				{
+					tiles[i,j] = new Tile();
+				}
+			}
 		}
 	}
 }
+

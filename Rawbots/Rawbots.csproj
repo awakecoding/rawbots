@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -11,6 +11,7 @@
     <RootNamespace>Rawbots</RootNamespace>
     <AssemblyName>Rawbots</AssemblyName>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -39,7 +40,7 @@
       <HintPath>..\Libraries\OpenTK\OpenTK.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
-    <Reference Include="Tao.FreeGlut">
+    <Reference Include="Tao.FreeGlut, Version=2.4.0.2, Culture=neutral, PublicKeyToken=6e602a6ad6c0d06d">
       <HintPath>..\Libraries\Tao\Tao.FreeGlut.dll</HintPath>
     </Reference>
   </ItemGroup>
@@ -63,6 +64,7 @@
     <Compile Include="MissilesWeapon.cs" />
     <Compile Include="TrackedChassis.cs" />
     <Compile Include="Tile.cs" />
+    <Compile Include="Terrain.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
