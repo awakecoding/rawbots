@@ -21,7 +21,7 @@ namespace Rawbots
         {
             GL.PushMatrix();
 
-            GL.LoadIdentity();
+ //           GL.LoadIdentity();
 
             GL.Color3(0.71f, 0.71f, 0.71f);
 

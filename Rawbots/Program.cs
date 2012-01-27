@@ -86,6 +86,8 @@ namespace Rawbots
             else if (Keyboard[Key.F3])
                 setRenderMode(ModelCube.WIRE);
 
+            Camera.OnCameraFrame(this);
+
 		}
 
 		protected override void OnRenderFrame(FrameEventArgs e)
@@ -99,7 +101,10 @@ namespace Rawbots
 			GL.LoadMatrix(ref modelview);
 			
 			GL.LoadIdentity();
-			GL.Translate(0.0f, 0.0f, -10.0f);
+            
+            GL.Translate(0.0f, 0.0f, -10.0f);
+
+            Camera.OnCameraUpdate();
 
             ReferencePlane.setDimensions(50, 50);
             ReferencePlane.render();
