@@ -40,9 +40,8 @@ namespace Rawbots
             //robots[5] = new Robot();
             //robots[6] = new Robot();
             //robots[7] = new Robot();
-			
-//			robots[0].AddChassis(new BipodChassis());
-			robots[0].AddWeapon(/*new CannonWeapon()*/new NuclearWeapon());
+
+			robots[0].AddWeapon(new NuclearWeapon());
 			robots[0].AddWeapon(new PhasersWeapon());
 			robots[0].AddElectronics(new Electronics());
 		}

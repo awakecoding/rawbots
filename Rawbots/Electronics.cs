@@ -17,7 +17,8 @@ namespace Rawbots
 {
 	public class Electronics : RobotPart
 	{
-		CubeModel mc;
+		CubeModel cube;
+		HemisphereModel hemisphere;
 		
 		public Electronics()
 		{
@@ -28,13 +29,23 @@ namespace Rawbots
 			 * enemy fire when this unit is fitted.
 			 */
 			
-			mc = new CubeModel();
-			mc.setColor(0.5f, 0.3f, 0.5f);
+			cube = new CubeModel();
+			cube.setColor(0.5f, 0.3f, 0.5f);
+			
+			hemisphere = new HemisphereModel(1.0f);
+			hemisphere.setColor(0.5f, 0.3f, 0.5f);
 		}
+		
+        public override void setRenderMode(RenderMode renderMode)
+        {
+			cube.setRenderMode(renderMode);
+			hemisphere.setRenderMode(renderMode);
+        }
 		
 		public override void Render()
 		{
-			mc.render(1);
+			cube.render(1);
+			hemisphere.render();
 		}
 	}
 }
