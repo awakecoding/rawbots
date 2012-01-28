@@ -8,16 +8,16 @@ namespace Rawbots
 {
     class TeamNumber
     {
-        private static ModelCube[] mcComponent;
+        private static CubeModel[] mcComponent;
         private const int TOTAL = 4;
 
         static TeamNumber()
         {
-            mcComponent = new ModelCube[TOTAL];
+            mcComponent = new CubeModel[TOTAL];
 
             for (int i = 0; i < mcComponent.Length; i++)
             {
-                ModelCube mc = new ModelCube();
+                CubeModel mc = new CubeModel();
                 mc.setColor(1.0f, 1.0f, 1.0f);
                 mcComponent[i] = mc;
             }

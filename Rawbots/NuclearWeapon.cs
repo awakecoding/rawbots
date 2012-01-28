@@ -19,16 +19,17 @@ namespace Rawbots
 {
 	public class NuclearWeapon : Weapon
 	{
-        private ModelCylinder[] mcComponent;
+        private CylinderModel[] mcComponent;
         private const int OUTER_CHASSIS = 0;
         private const int INNER_CHASSIS = 1;
         private const int TOTAL_COMPONENTS = 2;
 
 		public NuclearWeapon()
 		{
-            mcComponent = new ModelCylinder[TOTAL_COMPONENTS];
+            mcComponent = new CylinderModel[TOTAL_COMPONENTS];
+			
             for(int i = 0; i < mcComponent.Length; i++)
-                mcComponent[i] = new ModelCylinder();
+                mcComponent[i] = new CylinderModel();
 		}
 		
 		public override int getCost()
@@ -52,10 +53,10 @@ namespace Rawbots
 			return 0;
 		}
 
-        public override void setRenderMode(int mode)
+        public override void setRenderMode(RenderMode renderMode)
         {
             for (int i = 0; i < mcComponent.Length; i++)
-                mcComponent[i].setRenderMode(mode);
+                mcComponent[i].setRenderMode(renderMode);
         }
 
 		public override void Render()

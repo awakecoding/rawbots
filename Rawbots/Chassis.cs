@@ -13,7 +13,7 @@ using System;
 
 namespace Rawbots
 {
-	public abstract class Chassis : Resource
+	public abstract class Chassis : RobotPart
 	{
 		public Chassis()
 		{

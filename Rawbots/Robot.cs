@@ -18,7 +18,7 @@ using OpenTK.Graphics.OpenGL;
 
 namespace Rawbots
 {
-	public class Robot
+	public class Robot : Model
 	{
 		Chassis chassis;
 		Weapon[] weapons;
@@ -72,19 +72,19 @@ namespace Rawbots
 			Pop();
 		}
 
-        public void setRenderMode(int mode)
+        public override void setRenderMode(RenderMode renderMode)
         {
             if (chassis != null)
-                chassis.setRenderMode(mode);
+                chassis.setRenderMode(renderMode);
 
             if (weapons != null)
 			{
                 for (int i = 0; i < weapons.Length; i++)
-                    weapons[i].setRenderMode(mode);
+                    weapons[i].setRenderMode(renderMode);
 			}
             
             if (electronics != null)
-                electronics.setRenderMode(mode);
+                electronics.setRenderMode(renderMode);
         }
 
 		public void Render()

@@ -15,9 +15,9 @@ using OpenTK.Graphics.OpenGL;
 
 namespace Rawbots
 {
-	public class Electronics : Resource
+	public class Electronics : RobotPart
 	{
-		ModelCube mc;
+		CubeModel mc;
 		
 		public Electronics()
 		{
@@ -28,15 +28,10 @@ namespace Rawbots
 			 * enemy fire when this unit is fitted.
 			 */
 			
-			mc = new ModelCube();
+			mc = new CubeModel();
 			mc.setColor(0.5f, 0.3f, 0.5f);
 		}
-
-        public override void setRenderMode(int mode)
-        {
-			
-		}
-
+		
 		public override void Render()
 		{
 			mc.render(1);

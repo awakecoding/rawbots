@@ -47,11 +47,13 @@ namespace Rawbots
 			robots[0].AddElectronics(new Electronics());
 		}
 
-        private void setRenderMode(int mode)
+        private void setRenderMode(Model.RenderMode renderMode)
         {
-            for(int i = 0; i < robots.Length; i++)
+            for (int i = 0; i < robots.Length; i++)
+			{
                 if(robots[i] != null)
-                    robots[i].setRenderMode(mode);
+                    robots[i].setRenderMode(renderMode);
+			}
         }
 
 		protected override void OnLoad(EventArgs e)
@@ -76,15 +78,15 @@ namespace Rawbots
 		protected override void OnUpdateFrame(FrameEventArgs e)
 		{
 			base.OnUpdateFrame(e);
-
+			
             if (Keyboard[Key.Escape])
                 Exit();
             else if (Keyboard[Key.F1])
-                setRenderMode(ModelCube.OUTLINED_SOLID);
+                setRenderMode(Model.RenderMode.SOLID_WIRE);
             else if (Keyboard[Key.F2])
-                setRenderMode(ModelCube.SOLID);
+                setRenderMode(Model.RenderMode.SOLID);
             else if (Keyboard[Key.F3])
-                setRenderMode(ModelCube.WIRE);
+                setRenderMode(Model.RenderMode.WIRE);
 
             Camera.OnCameraFrame(this);
 
