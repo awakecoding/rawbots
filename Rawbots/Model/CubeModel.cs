@@ -24,107 +24,61 @@ namespace Rawbots
 		{
 		}
 		
-		private void renderSolidCube(float size)
+		private void renderCube(float size, bool solid)
 		{
 			size /= 2;
+			BeginMode beginMode;
+			
+			beginMode = (solid) ? BeginMode.Quads : BeginMode.LineLoop;
 			
 			GL.PushMatrix();
 			
-			GL.Begin(BeginMode.Quads);
+			GL.Begin(beginMode);
+				GL.Normal3(1.0, 0.0, 0.0);
+				GL.Vertex3(+size, -size, +size);
+				GL.Vertex3(+size, -size, -size);
+				GL.Vertex3(+size, +size, -size);
+				GL.Vertex3(+size, +size, +size);
+			GL.End();
 		
-				GL.Normal3( 1.0, 0.0, 0.0);
-				GL.Vertex3(+size,-size,+size);
-				GL.Vertex3(+size,-size,-size);
-				GL.Vertex3(+size,+size,-size);
-				GL.Vertex3(+size,+size,+size);
+			GL.Begin(beginMode);
+				GL.Normal3(0.0, 1.0, 0.0);
+				GL.Vertex3(+size, +size, +size);
+				GL.Vertex3(+size, +size, -size);
+				GL.Vertex3(-size, +size, -size);
+				GL.Vertex3(-size, +size, +size);
+			GL.End();
 		
-				GL.Normal3( 0.0, 1.0, 0.0);
-				GL.Vertex3(+size,+size,+size);
-				GL.Vertex3(+size,+size,-size);
-				GL.Vertex3(-size,+size,-size);
-				GL.Vertex3(-size,+size,+size);
+			GL.Begin(beginMode);
+				GL.Normal3(0.0, 0.0, 1.0);
+				GL.Vertex3(+size, +size, +size);
+				GL.Vertex3(-size, +size, +size);
+				GL.Vertex3(-size, -size, +size);
+				GL.Vertex3(+size, -size, +size);
+			GL.End();
 		
-				GL.Normal3( 0.0, 0.0, 1.0);
-				GL.Vertex3(+size,+size,+size);
-				GL.Vertex3(-size,+size,+size);
-				GL.Vertex3(-size,-size,+size);
-				GL.Vertex3(+size,-size,+size);
-		
+			GL.Begin(beginMode);
 				GL.Normal3(-1.0, 0.0, 0.0);
-				GL.Vertex3(-size,-size,+size);
-				GL.Vertex3(-size,+size,+size);
-				GL.Vertex3(-size,+size,-size);
-				GL.Vertex3(-size,-size,-size);
-		
-				GL.Normal3( 0.0,-1.0, 0.0);
-				GL.Vertex3(-size,-size,+size);
-				GL.Vertex3(-size,-size,-size);
-				GL.Vertex3(+size,-size,-size);
-				GL.Vertex3(+size,-size,+size);
-		
-				GL.Normal3( 0.0, 0.0,-1.0);
-				GL.Vertex3(-size,-size,-size);
-				GL.Vertex3(-size,+size,-size);
-				GL.Vertex3(+size,+size,-size);
-				GL.Vertex3(+size,-size,-size);
-			
-			GL.End();
-			
-			GL.PopMatrix();
-		}
-		
-		private void renderWireCube(float size)
-		{
-			size /= 2;
-			
-			GL.PushMatrix();
-			
-			GL.Begin(BeginMode.LineLoop);
-				GL.Normal3( 1.0, 0.0, 0.0);
-				GL.Vertex3(+size,-size,+size);
-				GL.Vertex3(+size,-size,-size);
-				GL.Vertex3(+size,+size,-size);
-				GL.Vertex3(+size,+size,+size);
+				GL.Vertex3(-size, -size, +size);
+				GL.Vertex3(-size, +size, +size);
+				GL.Vertex3(-size, +size, -size);
+				GL.Vertex3(-size, -size, -size);
 			GL.End();
 		
-			GL.Begin(BeginMode.LineLoop);
-				GL.Normal3( 0.0, 1.0, 0.0);
-				GL.Vertex3(+size,+size,+size);
-				GL.Vertex3(+size,+size,-size);
-				GL.Vertex3(-size,+size,-size);
-				GL.Vertex3(-size,+size,+size);
+			GL.Begin(beginMode);
+				GL.Normal3(0.0,-1.0, 0.0);
+				GL.Vertex3(-size, -size, +size);
+				GL.Vertex3(-size, -size, -size);
+				GL.Vertex3(+size, -size, -size);
+				GL.Vertex3(+size, -size, +size);
 			GL.End();
 		
-			GL.Begin(BeginMode.LineLoop);
-				GL.Normal3( 0.0, 0.0, 1.0);
-				GL.Vertex3(+size,+size,+size);
-				GL.Vertex3(-size,+size,+size);
-				GL.Vertex3(-size,-size,+size);
-				GL.Vertex3(+size,-size,+size);
-			GL.End();
-		
-			GL.Begin(BeginMode.LineLoop);
-				GL.Normal3(-1.0, 0.0, 0.0);
-				GL.Vertex3(-size,-size,+size);
-				GL.Vertex3(-size,+size,+size);
-				GL.Vertex3(-size,+size,-size);
-				GL.Vertex3(-size,-size,-size);
-			GL.End();
-		
-			GL.Begin(BeginMode.LineLoop);
-				GL.Normal3( 0.0,-1.0, 0.0);
-				GL.Vertex3(-size,-size,+size);
-				GL.Vertex3(-size,-size,-size);
-				GL.Vertex3(+size,-size,-size);
-				GL.Vertex3(+size,-size,+size);
-			GL.End();
-		
-			GL.Begin(BeginMode.LineLoop);
-				GL.Normal3( 0.0, 0.0,-1.0);
-				GL.Vertex3(-size,-size,-size);
-				GL.Vertex3(-size,+size,-size);
-				GL.Vertex3(+size,+size,-size);
-				GL.Vertex3(+size,-size,-size);
+			GL.Begin(beginMode);
+				GL.Normal3(0.0, 0.0, -1.0);
+				GL.Vertex3(-size, -size, -size);
+				GL.Vertex3(-size, +size, -size);
+				GL.Vertex3(+size, +size, -size);
+				GL.Vertex3(+size, -size, -size);
 			GL.End();
 			
 			GL.PopMatrix();
@@ -136,20 +90,20 @@ namespace Rawbots
             {				
                 case RenderMode.SOLID:
                     GL.Color3(colorR, colorG, colorB);
-					renderSolidCube(size);
-                break;
+					renderCube(size, true);
+                	break;
 				
                 case RenderMode.WIRE:
 					GL.Color3(colorR, colorG, colorB);
-					renderWireCube(size);
-                break;
+					renderCube(size, false);
+					break;
 				
-                case RenderMode.SOLID_WIRE:
-                    GL.Color3(colorR, colorG, colorB);
-                    renderSolidCube(size);
-                    GL.Color3(wireColorR, wireColorG, wireColorB);
-                	renderWireCube(size);
-                break;
+				case RenderMode.SOLID_WIRE:
+					GL.Color3(colorR, colorG, colorB);
+					renderCube(size, true);
+					GL.Color3(wireColorR, wireColorG, wireColorB);
+                	renderCube(size, false);
+					break;
             }
         }
 

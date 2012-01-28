@@ -19,8 +19,6 @@ namespace Rawbots
 {
     class CylinderModel : Model
     {
-
-
         private void drawSolid(double radius, double height, int slices, int stacks)
         {
             int i, j;
