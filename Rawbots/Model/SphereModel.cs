@@ -13,13 +13,13 @@ using OpenTK.Graphics.OpenGL;
 
 namespace Rawbots
 {
-	public class HemisphereModel : Model
-	{
+	public class SphereModel : Model
+	{		
 		private int p;
 		private int q;
 		private float radius;
 		
-		public HemisphereModel(float radius) : base()
+		public SphereModel(float radius) : base()
 		{
 			p = 40;
 			q = 60;
@@ -30,7 +30,7 @@ namespace Rawbots
 		public int LatitudinalSlices { get { return q; } set { q = value; } }
 		public float Radius { get { return radius; } set { radius = value; } }
 		
-		private void renderHemisphere(bool solid)
+		private void renderSphere(bool solid)
 		{
 			GL.PushMatrix();
 			
@@ -55,6 +55,24 @@ namespace Rawbots
 				GL.End();
 			}
 			
+			for (int j = 0; j < q; j++)
+			{
+				GL.Begin(BeginMode.TriangleStrip);
+		
+				for (int i = 0; i <= p; i++)
+				{				
+					GL.Vertex3(radius * Math.Cos((float) (j + 1) / q * Math.PI / 2.0) * Math.Cos(2.0 * (float) i/p * Math.PI),
+					           -(radius * Math.Sin((float) (j + 1) / q * Math.PI / 2.0)),
+					           radius * Math.Cos((float) (j + 1) / q * Math.PI / 2.0) * Math.Sin(2.0 * (float) i/p * Math.PI));
+		
+					GL.Vertex3(radius * Math.Cos((float) j/q * Math.PI / 2.0) * Math.Cos(2.0 * (float) i/p * Math.PI),
+					           -(radius * Math.Sin((float) j/q * Math.PI / 2.0)),
+					           radius * Math.Cos((float) j/q * Math.PI / 2.0) * Math.Sin(2.0 * (float) i/p * Math.PI));         
+				}
+		
+				GL.End();
+			}
+			
 			GL.PopMatrix();
 		}
 		
@@ -64,19 +82,19 @@ namespace Rawbots
             {
                 case RenderMode.SOLID:
                     GL.Color3(colorR, colorG, colorB);
-					renderHemisphere(true);
+					renderSphere(true);
                 	break;
 				
                 case RenderMode.WIRE:
 					GL.Color3(colorR, colorG, colorB);
-					renderHemisphere(false);
+					renderSphere(false);
 					break;
 				
 				case RenderMode.SOLID_WIRE:
 					GL.Color3(colorR, colorG, colorB);
-					renderHemisphere(true);
+					renderSphere(true);
 					GL.Color3(wireColorR, wireColorG, wireColorB);
-                	renderHemisphere(false);
+                	renderSphere(false);
 					break;
             }
         }
