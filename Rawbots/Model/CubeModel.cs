@@ -24,7 +24,7 @@ namespace Rawbots
 		{
 		}
 		
-		private void renderCube(float size, bool solid)
+		private void renderCube(double size, bool solid)
 		{
 			size /= 2;
 			BeginMode beginMode;
@@ -84,7 +84,7 @@ namespace Rawbots
 			GL.PopMatrix();
 		}
 		
-        public void render(float size)
+        public void render(double size)
         {
             switch (renderMode)
             {				

@@ -25,6 +25,13 @@ namespace Rawbots
 		private double halfCylinderHeight;
 		private HalfCylinderModel halfCylinder;
 		
+		private CubeModel cube;
+		private double phasersWidth;
+		private double phasersRadius;
+		private double phasersHeight;
+		private HalfCylinderModel hcPhasersL;
+		private HalfCylinderModel hcPhasersR;
+		
 		public PhasersWeapon()
 		{
 			cylinderHeight = 0.1f;
@@ -36,6 +43,16 @@ namespace Rawbots
 			halfCylinderHeight = 0.5f;
 			halfCylinder = new HalfCylinderModel(halfCylinderRadius, halfCylinderHeight);
 			halfCylinder.setColor(0.6f, 0.6f, 0.75f);
+			
+			phasersWidth = 0.1f;
+			phasersRadius = 0.1f;
+			phasersHeight = 0.1f;
+			cube = new CubeModel();
+			hcPhasersL = new HalfCylinderModel(phasersRadius, phasersHeight);
+			hcPhasersR = new HalfCylinderModel(phasersRadius, phasersHeight);
+			hcPhasersL.setColor(0.45f, 0.75f, 0.6f);
+			hcPhasersR.setColor(0.45f, 0.75f, 0.6f);
+			cube.setColor(0.45f, 0.75f, 0.6f);
 		}
 		
 		public override int getCost()
@@ -55,7 +72,7 @@ namespace Rawbots
 
 		public override void Render()
 		{
-			/* bottom cylinder */
+			/* phasers base (cylinder) */
 			
 			GL.PushMatrix();
 			
@@ -64,13 +81,40 @@ namespace Rawbots
 			
 			GL.PopMatrix();
 			
-			/* half cylinder */
+			/* phasers support (half cylinder) */
 			
 			GL.PushMatrix();
 			
 			GL.Translate(0.0, cylinderHeight, 0.0);
 			GL.Rotate(-90, 1.0, 0.0, 0.0);
 			halfCylinder.render();
+			
+			GL.PopMatrix();
+			
+			/* phasers sides (half cylinders) */
+			
+			GL.PushMatrix();
+			
+			GL.Translate(-phasersWidth, cylinderHeight + 0.2f, 0.0);
+			GL.Rotate(90, 0.0, 0.0, 1.0);
+			hcPhasersL.render();
+			
+			GL.PopMatrix();
+			
+			GL.PushMatrix();
+			
+			GL.Translate(phasersWidth, cylinderHeight + 0.2f, 0.0);
+			GL.Rotate(-90, 0.0, 0.0, 1.0);
+			hcPhasersR.render();
+			
+			GL.PopMatrix();
+			
+			/* phasers center (rectangular prism) */
+			
+			GL.PushMatrix();
+			
+			GL.Translate(0.0f, cylinderHeight + 0.2f, 0.0);
+			cube.render(phasersWidth * 2);
 			
 			GL.PopMatrix();
 		}
