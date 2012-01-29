@@ -33,17 +33,13 @@ namespace Rawbots
 			robots = new Robot[8];
 			
 			robots[0] = new Robot();
-            //robots[1] = new Robot();
-            //robots[2] = new Robot();
-            //robots[3] = new Robot();
-            //robots[4] = new Robot();
-            //robots[5] = new Robot();
-            //robots[6] = new Robot();
-            //robots[7] = new Robot();
-
 			robots[0].AddWeapon(new NuclearWeapon());
 			robots[0].AddWeapon(new PhasersWeapon());
-			robots[0].AddElectronics(new Electronics());
+			//robots[0].AddElectronics(new Electronics());
+			
+			robots[1] = new Robot();
+			robots[1].AddWeapon(new PhasersWeapon());
+			robots[1].AddElectronics(new Electronics());
 		}
 
         private void setRenderMode(Model.RenderMode renderMode)
@@ -117,7 +113,7 @@ namespace Rawbots
                 if (robot != null)
                     robot.RenderAll();
 				
-                GL.Translate(0.5f, 0.0f, 0.0f);
+                GL.Translate(2.5f, 0.0f, 0.0f);
             }
 			
 			GL.Flush();

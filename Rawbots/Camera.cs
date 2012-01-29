@@ -67,7 +67,6 @@ namespace Rawbots
                 Yaw += rotCameraSpeed;
             else if (gw.Keyboard[Key.R])
                 resetCamera();
-            
         }
 
         public static void OnCameraUpdate()
@@ -76,9 +75,6 @@ namespace Rawbots
             GL.Rotate(Pitch, 1.0f, 0.0f, 0.0f);
 
             GL.Translate(xPos, 0.0f, zPos);
-
-            
         }
-
     }
 }

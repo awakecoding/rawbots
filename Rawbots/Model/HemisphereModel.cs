@@ -21,8 +21,8 @@ namespace Rawbots
 		
 		public HemisphereModel(float radius) : base()
 		{
-			p = 4;
-			q = 6;
+			p = 40;
+			q = 60;
 			this.radius = radius;
 		}
 		
