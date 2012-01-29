@@ -37,8 +37,12 @@ namespace Rawbots
 			//robots[0].AddElectronics(new Electronics());
 			
 			robots[1] = new Robot();
-			//robots[1].AddWeapon(new PhasersWeapon());
-			robots[1].AddElectronics(new Electronics());
+			robots[1].AddWeapon(new PhasersWeapon());
+			//robots[1].AddElectronics(new Electronics());
+			
+			robots[2] = new Robot();
+			//robots[2].AddWeapon(new PhasersWeapon());
+			robots[2].AddElectronics(new Electronics());
 		}
 
         private void setRenderMode(Model.RenderMode renderMode)

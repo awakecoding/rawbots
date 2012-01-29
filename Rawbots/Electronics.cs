@@ -35,7 +35,7 @@ namespace Rawbots
 			
 			cylinderRadius = 0.4f;
 			cylinderHeight = 0.4f;
-			cylinder = new CylinderModel();
+			cylinder = new CylinderModel(cylinderRadius, cylinderHeight);
 			cylinder.setColor(0.4f, 0.5f, 0.6f);
 			
 			hemisphereRadius = 0.3f;
@@ -57,7 +57,7 @@ namespace Rawbots
 			
 			GL.Translate(0.0, cylinderHeight, 0.0);
 			GL.Rotate(90, 1.0, 0.0, 0.0);
-			cylinder.render(cylinderRadius, cylinderHeight, 50, 50);
+			cylinder.render();
 			
 			GL.PopMatrix();
 	

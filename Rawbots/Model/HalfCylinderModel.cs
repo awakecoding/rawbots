@@ -98,7 +98,14 @@ namespace Rawbots
 
                 z0 = z1; z1 += zStep;
             }
-
+			
+			GL.Begin(BeginMode.Quads);
+				GL.Vertex3(-radius, 0.0, 0.0);
+				GL.Vertex3(radius, 0.0, 0.0);
+				GL.Vertex3(radius, 0.0, height);
+				GL.Vertex3(-radius, 0.0, height);
+			GL.End();
+			
             sint = null;
             cost = null;
             System.GC.Collect();

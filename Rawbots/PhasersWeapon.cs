@@ -17,16 +17,25 @@ namespace Rawbots
 {
 	public class PhasersWeapon : Weapon
 	{
+		private double cylinderRadius;
+		private double cylinderHeight;
+		private CylinderModel cylinder;
+		
 		private double halfCylinderRadius;
 		private double halfCylinderHeight;
 		private HalfCylinderModel halfCylinder;
 		
 		public PhasersWeapon()
 		{
+			cylinderHeight = 0.1f;
+			cylinderRadius = 0.5f;
+			cylinder = new CylinderModel(cylinderRadius, cylinderHeight);
+			cylinder.setColor(0.7f, 0.6f, 0.75f);
+			
 			halfCylinderRadius = 0.5f;
 			halfCylinderHeight = 0.5f;
 			halfCylinder = new HalfCylinderModel(halfCylinderRadius, halfCylinderHeight);
-			halfCylinder.setColor(0.7f, 0.6f, 0.75f);
+			halfCylinder.setColor(0.6f, 0.6f, 0.75f);
 		}
 		
 		public override int getCost()
@@ -46,8 +55,21 @@ namespace Rawbots
 
 		public override void Render()
 		{
+			/* bottom cylinder */
+			
 			GL.PushMatrix();
 			
+			GL.Rotate(-90, 1.0, 0.0, 0.0);
+			cylinder.render();
+			
+			GL.PopMatrix();
+			
+			/* half cylinder */
+			
+			GL.PushMatrix();
+			
+			GL.Translate(0.0, cylinderHeight, 0.0);
+			GL.Rotate(-90, 1.0, 0.0, 0.0);
 			halfCylinder.render();
 			
 			GL.PopMatrix();

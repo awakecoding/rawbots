@@ -19,7 +19,44 @@ namespace Rawbots
 {
     class CylinderModel : Model
     {
-        private void drawSolid(double radius, double height, int slices, int stacks)
+		private int slices;
+		private int stacks;
+		private double radius;
+		private double height;
+		
+		public CylinderModel(double radius, double height)
+		{
+			slices = 40;
+			stacks = 40;
+			this.radius = radius;
+			this.height = height;
+		}
+		
+        private void CircleTable(ref double [] sint, ref double [] cost, int n)
+        {
+            int i;
+
+            int size = Math.Abs(n);
+
+            double angle = 2 * Math.PI / (double) ((n == 0) ? 1 : n);
+
+            sint = new double[size + 1];
+            cost = new double[size + 1];
+
+            sint[0] = 0.0f;
+            cost[0] = 1.0f;
+
+            for (i = 1; i < size; i++)
+            {
+                sint[i] = Math.Sin(angle * i);
+                cost[i] = Math.Cos(angle * i);
+            }
+
+            sint[size] = sint[0];
+            cost[size] = cost[0];
+        }
+		
+        private void renderSolidCylinder()
         {
             int i, j;
 
@@ -29,7 +66,7 @@ namespace Rawbots
             double[] sint = null;
             double[] cost = null;
 
-            fghCircleTable(ref sint,ref cost, -slices);
+            CircleTable(ref sint,ref cost, -slices);
 
             GL.Begin(BeginMode.TriangleFan);
                 GL.Normal3(0.0, 0.0, -1.0);
@@ -70,7 +107,7 @@ namespace Rawbots
             System.GC.Collect();
         }
 
-        private void drawWire(double radius, double height, int slices, int stacks)
+        private void renderWireCylinder()
         {
             int i, j;
 
@@ -80,7 +117,7 @@ namespace Rawbots
             double[] sint = null;
             double[] cost = null;
 
-            fghCircleTable(ref sint,ref cost, -slices);
+            CircleTable(ref sint,ref cost, -slices);
 
             /* Draw the stacks... */
 
@@ -119,50 +156,26 @@ namespace Rawbots
             cost = null;
             System.GC.Collect();
         }
-
-        private void fghCircleTable(ref double [] sint, ref double [] cost, int n)
-        {
-            int i;
-
-            int size = Math.Abs(n);
-
-            double angle = 2 * Math.PI / (double) ((n == 0) ? 1 : n);
-
-            sint = new double[size + 1];
-            cost = new double[size + 1];
-
-            sint[0] = 0.0f;
-            cost[0] = 1.0f;
-
-            for (i = 1; i < size; i++)
-            {
-                sint[i] = Math.Sin(angle * i);
-                cost[i] = Math.Cos(angle * i);
-            }
-
-            sint[size] = sint[0];
-            cost[size] = cost[0];
-        }
 		
-        public void render(double radius, double height, int slices, int stacks)
+        public void render()
         {
             switch (renderMode)
             {				
                 case RenderMode.SOLID:
                     GL.Color3(colorR, colorG, colorB);
-                    drawSolid(radius, height, slices, stacks);
+                    renderSolidCylinder();
                     break;
 				
                 case RenderMode.WIRE:
                     GL.Color3(colorR, colorG, colorB);
-                    drawWire(radius, height, slices, stacks);
+                    renderWireCylinder();
                     break;
 				
                 case RenderMode.SOLID_WIRE:
                     GL.Color3(colorR, colorG, colorB);
-                    drawSolid(radius, height, slices, stacks);
+                    renderSolidCylinder();
                     GL.Color3(wireColorR, wireColorG, wireColorB);
-                    drawWire(radius, height, slices, stacks);
+                    renderWireCylinder();
                     break;
             }
         }
