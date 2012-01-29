@@ -17,8 +17,16 @@ namespace Rawbots
 {
 	public class PhasersWeapon : Weapon
 	{
+		private double halfCylinderRadius;
+		private double halfCylinderHeight;
+		private HalfCylinderModel halfCylinder;
+		
 		public PhasersWeapon()
 		{
+			halfCylinderRadius = 0.5f;
+			halfCylinderHeight = 0.5f;
+			halfCylinder = new HalfCylinderModel(halfCylinderRadius, halfCylinderHeight);
+			halfCylinder.setColor(0.7f, 0.6f, 0.75f);
 		}
 		
 		public override int getCost()
@@ -38,16 +46,11 @@ namespace Rawbots
 
 		public override void Render()
 		{
-            //GL.Begin(BeginMode.Triangles);
-
-            //GL.Color3(1.0f, 1.0f, 0.0f);
-            //GL.Vertex3(-1.0f, -1.0f, 4.0f);
-            //GL.Color3(1.0f, 0.0f, 0.0f);
-            //GL.Vertex3(1.0f, -1.0f, 4.0f);
-            //GL.Color3(0.2f, 0.9f, 1.0f);
-            //GL.Vertex3(0.0f, 1.0f, 4.0f);
+			GL.PushMatrix();
 			
-            //GL.End();
+			halfCylinder.render();
+			
+			GL.PopMatrix();
 		}
 	}
 }

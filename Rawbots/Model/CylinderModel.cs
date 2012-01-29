@@ -150,7 +150,7 @@ namespace Rawbots
             {				
                 case RenderMode.SOLID:
                     GL.Color3(colorR, colorG, colorB);
-                    drawSolid(radius, height, slices, stacks); ;
+                    drawSolid(radius, height, slices, stacks);
                     break;
 				
                 case RenderMode.WIRE:

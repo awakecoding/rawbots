@@ -34,11 +34,10 @@ namespace Rawbots
 			
 			robots[0] = new Robot();
 			robots[0].AddWeapon(new NuclearWeapon());
-			robots[0].AddWeapon(new PhasersWeapon());
 			//robots[0].AddElectronics(new Electronics());
 			
 			robots[1] = new Robot();
-			robots[1].AddWeapon(new PhasersWeapon());
+			//robots[1].AddWeapon(new PhasersWeapon());
 			robots[1].AddElectronics(new Electronics());
 		}
 
