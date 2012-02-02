@@ -13,7 +13,7 @@ using System;
 
 namespace Rawbots
 {
-	public abstract class Weapon : Resource
+	public abstract class Weapon : RobotPart
 	{
 		public Weapon()
 		{

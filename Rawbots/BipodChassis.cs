@@ -18,7 +18,7 @@ namespace Rawbots
 {
 	public class BipodChassis : Chassis
 	{
-        private ModelCube[] mcComponent;
+        private CubeModel[] mcComponent;
         private const int TORSO = 0;
         private const int UPPER_LEG = 1;
         private const int LOWER_LEG = 2;
@@ -33,16 +33,16 @@ namespace Rawbots
 			 * Best used on flat level ground.
 			 */
 
-            mcComponent = new ModelCube[TOTAL_COMPONENTS];
+            mcComponent = new CubeModel[TOTAL_COMPONENTS];
             for (int i = 0; i < mcComponent.Length; i++)
-                 mcComponent[i] = new ModelCube();
+                 mcComponent[i] = new CubeModel();
             
 		}
-
-        public override void setRenderMode(int mode)
+		
+		public override void setRenderMode(RenderMode renderMode)
         {
             for (int i = 0; i < mcComponent.Length; i++)
-                mcComponent[i].setRenderMode(mode);
+                mcComponent[i].setRenderMode(renderMode);
         }
 
 		public override void Render()

@@ -1,6 +1,17 @@
-﻿using System;
+﻿/**
+ * RawBots: an awesome robot game
+ * 
+ * Copyright 2012 Mark Foo Bonasoro <foo_mark@q8ismobile.com>
+ * 
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this file,
+ * You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Runtime.InteropServices;
 
 using OpenTK.Graphics.OpenGL;
 
@@ -11,6 +22,17 @@ namespace Rawbots
         public static int width;
         public static int height;
 
+        public static int axis = 3;
+        public const int XYZ = 0;
+        public const int XZ = 1;
+        public const int XY = 2;
+        public const int NONE = 3;
+
+        public static void setVisibleAxis(int axis)
+        {
+            ReferencePlane.axis = axis;
+        }
+
         public static void setDimensions(int width, int height)
         {
             ReferencePlane.width = width;
@@ -19,58 +41,67 @@ namespace Rawbots
 
         public static void render()
         {
-            GL.PushMatrix();
+            if (axis == XYZ || axis == XZ)
+            {
+                GL.PushMatrix();
 
- //           GL.LoadIdentity();
+                GL.Color3(0.71f, 0.71f, 0.71f);
 
-            GL.Color3(0.71f, 0.71f, 0.71f);
+                GL.Translate(-width / 2 * 1.0f, 0.0f, height / 2 * 1.0f);
 
-            GL.Translate(-width / 2 * 1.0f, 0.0f, height / 2 * 1.0f);
-
-            for (int i = 0; i < width; i++)
-			{
-                for (int j = 0; j < height; j++)
+                //Still Innefficient!
+                GL.Begin(BeginMode.LineLoop);
+                for (int i = 0; i < width; i++)
                 {
-                    GL.Translate(i * 1.0f, 0.0f, j * -1.0f);
-					
-                    GL.Begin(BeginMode.LineLoop);
-                        GL.Vertex3(0.0f, 0.0f, 0.0f);
-                        GL.Vertex3(1.0f, 0.0f, 0.0f);
-                        GL.Vertex3(1.0f, 0.0f, -1.0f);
-                        GL.Vertex3(0.0f, 0.0f, -1.0f);
-                    GL.End();
-					
-                    GL.Translate(-i * 1.0f, 0.0f, j * 1.0f);
+                    for (int j = 0; j < height; j++)
+                    {
+                        float di = i * 1.0f;
+                        float dj = j * -1.0f;
+
+                        GL.Vertex3(0.0f + di, 0.0f, 0.0f + dj);
+                        GL.Vertex3(1.0f + di, 0.0f, 0.0f + dj);
+                        GL.Vertex3(1.0f + di, 0.0f, 0.0f + dj);
+                        GL.Vertex3(1.0f + di, 0.0f, -1.0f + dj);
+                    }
                 }
-			}
+                GL.End();
 
-            GL.PopMatrix();
-            GL.PushMatrix();
+                GL.PopMatrix();
+            }
 
-            GL.Translate(0.0f, -width / 2 * 1.0f, height / 2 * 1.0f);
-            GL.Rotate(90.0f, 0.0f, 0.0f, 1.0f);
+            if (axis == XYZ || axis == XY)
+            {
+                GL.PushMatrix();
 
-            for (int i = 0; i < width; i++)
-			{
-                for (int j = 0; j < height; j++)
+                GL.Translate(0.0f, -width / 2 * 1.0f, height / 2 * 1.0f);
+                GL.Rotate(90.0f, 0.0f, 0.0f, 1.0f);
+
+                GL.Begin(BeginMode.LineLoop);
+                for (int i = 0; i < width; i++)
                 {
-                    GL.Translate(i * 1.0f, 0.0f, j * -1.0f);
-					
-                    GL.Begin(BeginMode.LineLoop);
-	                    GL.Vertex3(0.0f, 0.0f, 0.0f);
-	                    GL.Vertex3(1.0f, 0.0f, 0.0f);
-	                    GL.Vertex3(1.0f, 0.0f, -1.0f);
-	                    GL.Vertex3(0.0f, 0.0f, -1.0f);
-                    GL.End();
-                    
-					GL.Translate(-i * 1.0f, 0.0f, j * 1.0f);
-                }
-			}
+                    for (int j = 0; j < height; j++)
+                    {
+                        float di = i * 1.0f;
+                        float dj = j * -1.0f;
 
-            GL.PopMatrix();
+                        GL.Vertex3(0.0f + di, 0.0f, 0.0f + dj);
+                        GL.Vertex3(1.0f + di, 0.0f, 0.0f + dj);
+                        GL.Vertex3(1.0f + di, 0.0f, -1.0f + dj);
+                        GL.Vertex3(0.0f + di, 0.0f, -1.0f + dj);
+                    }
+                }
+
+                GL.End();
+
+                GL.PopMatrix();
+            }
+        }
+
+        ~ReferencePlane()
+        {
+ //           GL.DeleteBuffers(1, varr);
         }
 
     }
-
     
 }

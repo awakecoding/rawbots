@@ -15,9 +15,9 @@ using OpenTK.Graphics.OpenGL;
 
 namespace Rawbots
 {
-	public abstract class Resource
+	public abstract class RobotPart : Model
 	{
-		public Resource()
+		public RobotPart()
 		{
 		}
 		
@@ -37,8 +37,6 @@ namespace Rawbots
 			Render();
 			Pop();
 		}
-		
-        public abstract void setRenderMode(int mode);
 
 		public abstract void Render();
 	}

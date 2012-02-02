@@ -9,15 +9,16 @@
  */
 
 using System;
+using OpenTK.Graphics.OpenGL;
 
 namespace Rawbots
 {
 	public class Terrain
 	{
-		private Tile[,] tiles;
-		public Tile[,] Tiles { get; set; }
+		private static Tile[,] tiles;
+		public static Tile[,] Tiles { get; set; }
 		
-		public Terrain()
+		static Terrain()
 		{
 			tiles = new Tile[50,50];
 			
@@ -29,6 +30,25 @@ namespace Rawbots
 				}
 			}
 		}
+
+        public static void Render()
+        {
+            GL.PushMatrix();
+
+            GL.Translate(-tiles.GetLength(0) / 2.0f, 0.0f, tiles.GetLength(1) / 2.0f);
+            GL.LineWidth(2.5f);
+            for (int i = 0; i < tiles.GetLength(0); i++)
+            {
+                for (int j = 0; j < tiles.GetLength(1); j++)
+                {
+                    GL.Translate(i * 1.0f, 0.0f, j * -1.0f);
+                    tiles[i, j].RenderAll();
+                    GL.Translate(-i * 1.0f, 0.0f, j * 1.0f);
+                }
+            }
+            GL.LineWidth(1.0f);
+            GL.PopMatrix();
+        }
 	}
 }
 

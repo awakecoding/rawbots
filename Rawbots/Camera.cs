@@ -1,4 +1,14 @@
-﻿using System;
+﻿/**
+ * RawBots: an awesome robot game
+ * 
+ * Copyright 2012 Mark Foo Bonasoro <foo_mark@q8ismobile.com>
+ * 
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this file,
+ * You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 using OpenTK.Input;
@@ -57,7 +67,6 @@ namespace Rawbots
                 Yaw += rotCameraSpeed;
             else if (gw.Keyboard[Key.R])
                 resetCamera();
-            
         }
 
         public static void OnCameraUpdate()
@@ -66,9 +75,6 @@ namespace Rawbots
             GL.Rotate(Pitch, 1.0f, 0.0f, 0.0f);
 
             GL.Translate(xPos, 0.0f, zPos);
-
-            
         }
-
     }
 }

@@ -11,7 +11,6 @@
     <RootNamespace>Rawbots</RootNamespace>
     <AssemblyName>Rawbots</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -45,27 +44,34 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Camera.cs" />
-    <Compile Include="ModelCube.cs" />
-    <Compile Include="ModelCylinder.cs" />
+    <Compile Include="LightRubbleTile.cs" />
+    <Compile Include="Model\Drawable.cs" />
+    <Compile Include="Model\Plane.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReferencePlane.cs" />
     <Compile Include="Robot.cs" />
-    <Compile Include="BipodChassis.cs" />
-    <Compile Include="Resource.cs" />
-    <Compile Include="Chassis.cs" />
     <Compile Include="TeamNumber.cs" />
-    <Compile Include="Weapon.cs" />
-    <Compile Include="Electronics.cs" />
-    <Compile Include="NuclearWeapon.cs" />
-    <Compile Include="CannonWeapon.cs" />
-    <Compile Include="AntiGravChassis.cs" />
-    <Compile Include="PhasersWeapon.cs" />
-    <Compile Include="MissilesWeapon.cs" />
-    <Compile Include="TrackedChassis.cs" />
     <Compile Include="Tile.cs" />
     <Compile Include="Terrain.cs" />
+    <Compile Include="Camera.cs" />
+    <Compile Include="Model\CylinderModel.cs" />
+    <Compile Include="Model\CubeModel.cs" />
+    <Compile Include="Model\Model.cs" />
+    <Compile Include="BipodChassis.cs" />
+    <Compile Include="AntiGravChassis.cs" />
+    <Compile Include="CannonWeapon.cs" />
+    <Compile Include="Electronics.cs" />
+    <Compile Include="MissilesWeapon.cs" />
+    <Compile Include="NuclearWeapon.cs" />
+    <Compile Include="Chassis.cs" />
+    <Compile Include="PhasersWeapon.cs" />
+    <Compile Include="RobotPart.cs" />
+    <Compile Include="TrackedChassis.cs" />
+    <Compile Include="Weapon.cs" />
+    <Compile Include="Model\HemisphereModel.cs" />
+    <Compile Include="Model\SphereModel.cs" />
+    <Compile Include="Model\HalfCylinderModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

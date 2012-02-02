@@ -15,9 +15,14 @@ using OpenTK.Graphics.OpenGL;
 
 namespace Rawbots
 {
-	public class Electronics : Resource
+	public class Electronics : RobotPart
 	{
-		ModelCube mc;
+		private float cylinderRadius;
+		private float cylinderHeight;
+		private CylinderModel cylinder;
+		
+		private float hemisphereRadius;
+		private HemisphereModel hemisphere;
 		
 		public Electronics()
 		{
@@ -28,18 +33,43 @@ namespace Rawbots
 			 * enemy fire when this unit is fitted.
 			 */
 			
-			mc = new ModelCube();
-			mc.setColor(0.5f, 0.3f, 0.5f);
-		}
-
-        public override void setRenderMode(int mode)
-        {
+			cylinderRadius = 0.4f;
+			cylinderHeight = 0.4f;
+			cylinder = new CylinderModel(cylinderRadius, cylinderHeight);
+			cylinder.setColor(0.4f, 0.5f, 0.6f);
 			
+			hemisphereRadius = 0.3f;
+			hemisphere = new HemisphereModel(hemisphereRadius);
+			hemisphere.setColor(0.5f, 0.3f, 0.5f);
 		}
-
+		
+        public override void setRenderMode(RenderMode renderMode)
+        {
+			cylinder.setRenderMode(renderMode);
+			hemisphere.setRenderMode(renderMode);
+        }
+		
 		public override void Render()
 		{
-			mc.render(1);
+			/* cylinder */
+			
+			GL.PushMatrix();
+			
+			GL.Translate(0.0, cylinderHeight, 0.0);
+			GL.Rotate(90, 1.0, 0.0, 0.0);
+			cylinder.render();
+			
+			GL.PopMatrix();
+	
+			/* hemisphere */
+			
+			GL.PushMatrix();
+			
+			GL.Translate(0.0, cylinderHeight + hemisphereRadius, 0.0);
+			GL.Rotate(225, 0.0, 0.0, 1.0);
+			hemisphere.render();
+			
+			GL.PopMatrix();
 		}
 	}
 }

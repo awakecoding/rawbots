@@ -19,16 +19,25 @@ namespace Rawbots
 {
 	public class NuclearWeapon : Weapon
 	{
-        private ModelCylinder[] mcComponent;
+		private double radius;
+		private double height;
+		
+        private CylinderModel[] mcComponent;
         private const int OUTER_CHASSIS = 0;
         private const int INNER_CHASSIS = 1;
         private const int TOTAL_COMPONENTS = 2;
 
 		public NuclearWeapon()
 		{
-            mcComponent = new ModelCylinder[TOTAL_COMPONENTS];
-            for(int i = 0; i < mcComponent.Length; i++)
-                mcComponent[i] = new ModelCylinder();
+			radius = 1.0f;
+			height = 1.0f;
+			
+			/* slices = 8, stacks = 1 */
+			
+            mcComponent = new CylinderModel[TOTAL_COMPONENTS];
+			
+            for (int i = 0; i < mcComponent.Length; i++)
+                mcComponent[i] = new CylinderModel(radius, height);
 		}
 		
 		public override int getCost()
@@ -52,43 +61,32 @@ namespace Rawbots
 			return 0;
 		}
 
-        public override void setRenderMode(int mode)
+        public override void setRenderMode(RenderMode renderMode)
         {
             for (int i = 0; i < mcComponent.Length; i++)
-                mcComponent[i].setRenderMode(mode);
+                mcComponent[i].setRenderMode(renderMode);
         }
 
 		public override void Render()
 		{
-            //Rotate the object on the X-axis about 90 degrees
+            /* Rotate the object on the X-axis about 90 degrees */
             GL.Rotate(90.0f, 1.0f, 0.0f, 0.0f);
 
             /************************************************************************/
             /* Drawing the Outer chassis                                            */
             /************************************************************************/
 
-            //Set the gray color
-            mcComponent[OUTER_CHASSIS].render(1.0f, 1.0f, 8, 1);
-            //GL.Color3(0.22f, 0.22f, 0.22f);
-            //Glut.glutSolidCylinder(1.0f, 1.0f, 8, 1); //Inner Chasis
-            //GL.Color3(1.0f, 0.0f, 0.0f);
-            //Glut.glutWireCylinder(1.0f, 1.0f, 8, 1); //Show edges
+            /* Set the gray color */
+            mcComponent[OUTER_CHASSIS].render();
 
-
-            //Translate the object -.21 to be above the outer chassis cylinder
+            /* Translate the object -.21 to be above the outer chassis cylinder */
             GL.Translate(0.0f, 0.0f, -0.21f);
-
 
             /************************************************************************/
             /* Drawing the Inner chassis                                            */
             /************************************************************************/
 
-            mcComponent[INNER_CHASSIS].render(1.0f, 1.0f, 8, 1);
-            //GL.Color3(0.22f, 0.22f, 0.22f);
-            //Glut.glutSolidCylinder(0.8f, 0.2f, 8, 1);
-            //GL.Color3(1.0f, 0.0f, 0.0f);
-            //Glut.glutWireCylinder(0.8f, 0.2f, 8, 1);
-
+            mcComponent[INNER_CHASSIS].render();
 		}
 	}
 }

@@ -9,13 +9,27 @@
  */
 
 using System;
+using OpenTK.Graphics.OpenGL;
 
 namespace Rawbots
 {
-	public class Tile
+	public class Tile : Drawable
 	{
+        public Plane plane;
+
 		public Tile()
 		{
+            plane = new Plane();
+            plane.setRenderMode(RenderMode.SOLID_WIRE);
 		}
+
+        public override void Render()
+        {
+            GL.PushMatrix();
+
+            plane.render(1.0f);
+
+            GL.PopMatrix();
+        }
 	}
 }
