@@ -29,7 +29,7 @@ namespace Rawbots
 
         public override void Render()
         {
-            sides = NORTH + SOUTH + EAST;
+            sides = NORTH + SOUTH;
 
             if ((sides & WEST) == WEST)
             {
