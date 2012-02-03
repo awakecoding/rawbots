@@ -117,17 +117,17 @@ namespace Rawbots
             ReferencePlane.setDimensions(50, 50);
             ReferencePlane.render();
 
-            TeamNumber.render();
+//            TeamNumber.render();
 
             Terrain.Render();
 
-            foreach (Robot robot in robots)
-            {
-                if (robot != null)
-                    robot.RenderAll();
+            //foreach (Robot robot in robots)
+            //{
+            //    if (robot != null)
+            //        robot.RenderAll();
 
-                GL.Translate(2.5f, 0.0f, 0.0f);
-            }
+            //    GL.Translate(2.5f, 0.0f, 0.0f);
+            //}
 			
 			GL.Flush();
 			
