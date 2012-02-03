@@ -73,6 +73,7 @@
     <Compile Include="Model\SphereModel.cs" />
     <Compile Include="Model\HalfCylinderModel.cs" />
     <Compile Include="Block.cs" />
+    <Compile Include="Map.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

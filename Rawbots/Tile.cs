@@ -26,9 +26,7 @@ namespace Rawbots
         public override void Render()
         {
             GL.PushMatrix();
-
             plane.render(1.0f);
-
             GL.PopMatrix();
         }
 	}

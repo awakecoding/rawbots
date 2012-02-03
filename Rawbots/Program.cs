@@ -22,6 +22,7 @@ namespace Rawbots
 {
 	class Game : GameWindow
 	{
+		Map map;
 		Robot[] robots;
 		
 		public Game() : base(800, 600, GraphicsMode.Default, "Rawbots")
@@ -29,7 +30,9 @@ namespace Rawbots
 			VSync = VSyncMode.On;
 
 			Glut.glutInit();
-
+			
+			map = new Map(50, 50);
+			
 			robots = new Robot[8];
 			
 			robots[0] = new Robot();
@@ -45,7 +48,7 @@ namespace Rawbots
 			robots[2].AddElectronics(new Electronics());
 		}
 
-        private void setRenderMode(Model.RenderMode renderMode)
+        private void setRenderMode(RenderMode renderMode)
         {
             for (int i = 0; i < robots.Length; i++)
 			{
@@ -80,11 +83,11 @@ namespace Rawbots
             if (Keyboard[Key.Escape])
                 Exit();
             else if (Keyboard[Key.F1])
-                setRenderMode(Model.RenderMode.SOLID_WIRE);
+                setRenderMode(RenderMode.SOLID_WIRE);
             else if (Keyboard[Key.F2])
-                setRenderMode(Model.RenderMode.SOLID);
+                setRenderMode(RenderMode.SOLID);
             else if (Keyboard[Key.F3])
-                setRenderMode(Model.RenderMode.WIRE);
+                setRenderMode(RenderMode.WIRE);
             else if (Keyboard[Key.F4])
                 ReferencePlane.setVisibleAxis(ReferencePlane.XYZ);
             else if (Keyboard[Key.F5])
@@ -118,8 +121,8 @@ namespace Rawbots
             ReferencePlane.render();
 
             TeamNumber.render();
-
-            Terrain.Render();
+			
+			map.Render();
 
             foreach (Robot robot in robots)
             {

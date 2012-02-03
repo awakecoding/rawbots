@@ -2,15 +2,15 @@ using System;
 
 namespace Rawbots
 {
-	public abstract class Model
+	public enum RenderMode
 	{
-		public enum RenderMode
-		{
-			SOLID,
-			WIRE,
-			SOLID_WIRE
-		};
-		
+		SOLID,
+		WIRE,
+		SOLID_WIRE
+	};
+	
+	public abstract class Model
+	{		
 		protected float colorR;
 		protected float colorG;
 		protected float colorB;
