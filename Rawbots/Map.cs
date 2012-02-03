@@ -90,33 +90,33 @@ namespace Rawbots
 			
 			/* Render robots */
 			
-            //GL.PushMatrix();
+            GL.PushMatrix();
 			
-            //GL.Translate(-width / 2.0f, 0.0f, height / 2.0f);
+            GL.Translate(-width / 2.0f, 0.0f, height / 2.0f);
 			
-            //foreach (Robot robot in robots)
-            //{
-            //    GL.Translate(robot.PosX * 1.0f, 0.0f, robot.PosY * -1.0f);
-            //    robot.RenderAll();
-            //    GL.Translate(-robot.PosX * 1.0f, 0.0f, robot.PosY * 1.0f);
-            //}
+            foreach (Robot robot in robots)
+            {
+                GL.Translate(robot.PosX * 1.0f, 0.0f, robot.PosY * -1.0f);
+                robot.RenderAll();
+                GL.Translate(-robot.PosX * 1.0f, 0.0f, robot.PosY * 1.0f);
+            }
 			
-            //GL.PopMatrix();
+            GL.PopMatrix();
 			
 			/* Render factories */
 			
-            //GL.PushMatrix();
+            GL.PushMatrix();
 			
-            //GL.Translate(-width / 2.0f, 0.0f, height / 2.0f);
+            GL.Translate(-width / 2.0f, 0.0f, height / 2.0f);
 			
-            //foreach (Factory factory in factories)
-            //{
-            //    GL.Translate(factory.PosX * 1.0f, 0.0f, factory.PosY * -1.0f);
-            //    factory.Render();
-            //    GL.Translate(-factory.PosX * 1.0f, 0.0f, factory.PosY * 1.0f);
-            //}
+            foreach (Factory factory in factories)
+            {
+                GL.Translate(factory.PosX * 1.0f, 0.0f, factory.PosY * -1.0f);
+                factory.Render();
+                GL.Translate(-factory.PosX * 1.0f, 0.0f, factory.PosY * 1.0f);
+            }
 			
-            //GL.PopMatrix();
+            GL.PopMatrix();
         }
 	}
 }

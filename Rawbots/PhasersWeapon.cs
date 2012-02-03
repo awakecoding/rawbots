@@ -91,6 +91,11 @@ namespace Rawbots
 			
 			GL.PopMatrix();
 			
+			/* phasers */
+			
+			GL.PushMatrix();
+			GL.Scale(1.0f, 1.0f, 4.0f);
+			
 			/* phasers sides (half cylinders) */
 			
 			GL.PushMatrix();
@@ -115,6 +120,20 @@ namespace Rawbots
 			
 			GL.Translate(0.0f, cylinderHeight + 0.2f, 0.0);
 			cube.render(phasersWidth * 2);
+			
+			GL.PopMatrix();
+			
+			GL.PopMatrix();
+			
+			/* team number */
+			
+			GL.PushMatrix();
+			
+			GL.Scale(0.3f, 0.3f, 0.3f);
+			GL.Translate(0.0f, 1.25f, 0.5f);
+			GL.Rotate(-90, 1.0f, 0.0f, 0.0f);
+			TeamNumber.render();
+			GL.Translate(0.0f, -1.25f, -0.5f);
 			
 			GL.PopMatrix();
 		}

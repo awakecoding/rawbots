@@ -81,6 +81,17 @@ namespace Rawbots
 				GL.Translate(0.0f, -1.0f, 0.0f);
 			}
 			
+			/* team number */
+			
+			GL.PushMatrix();
+			
+			GL.Scale(0.3f, 0.3f, 0.3f);
+			GL.Translate(0.0f, 1.0f, 2.0f);
+			TeamNumber.render();
+			GL.Translate(0.0f, -1.0f, -1.0f);
+			
+			GL.PopMatrix();
+
 			GL.PopMatrix();
 		}
 	}

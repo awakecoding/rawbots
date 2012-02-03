@@ -56,7 +56,7 @@ namespace Rawbots
 			GL.PushMatrix();
 			
 			GL.Translate(0.0, cylinderHeight, 0.0);
-			GL.Rotate(90, 1.0, 0.0, 0.0);
+			GL.Rotate(90, 1.0f, 0.0f, 0.0f);
 			cylinder.render();
 			
 			GL.PopMatrix();
@@ -66,8 +66,19 @@ namespace Rawbots
 			GL.PushMatrix();
 			
 			GL.Translate(0.0, cylinderHeight + hemisphereRadius, 0.0);
-			GL.Rotate(225, 0.0, 0.0, 1.0);
+			GL.Rotate(225, 0.0f, 0.0f, 1.0f);
 			hemisphere.render();
+			
+			GL.PopMatrix();
+			
+			/* team number */
+			
+			GL.PushMatrix();
+			
+			GL.Scale(0.3f, 0.3f, 0.3f);
+			GL.Translate(0.0f, 0.7f, 1.25f);
+			TeamNumber.render();
+			GL.Translate(0.0f, -0.7f, -1.25f);
 			
 			GL.PopMatrix();
 		}
