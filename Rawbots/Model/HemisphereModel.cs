@@ -10,6 +10,7 @@
 
 using System;
 using OpenTK.Graphics.OpenGL;
+using Tao.FreeGlut;
 
 namespace Rawbots
 {
@@ -33,7 +34,10 @@ namespace Rawbots
 		private void renderHemisphere(bool solid)
 		{
 			GL.PushMatrix();
-			
+
+            int[] state = new int[2];
+            GL.GetInteger(GetPName.PolygonMode, state);
+
 			GL.PolygonMode(MaterialFace.FrontAndBack,
 			               (solid) ? PolygonMode.Fill : PolygonMode.Line);
 			
@@ -54,17 +58,23 @@ namespace Rawbots
 		
 				GL.End();
 			}
-			
+
+            GL.PolygonMode(MaterialFace.Front, (PolygonMode)state[0]);
+            GL.PolygonMode(MaterialFace.Back, (PolygonMode)state[1]);
+
 			GL.PopMatrix();
 		}
 		
         public virtual void render()
         {
+            float[] color = { 0.0f, 0.0f, 0.0f, 0.0f };
+            GL.GetFloat(GetPName.CurrentColor, color);
+
             switch (renderMode)
             {
                 case RenderMode.SOLID:
                     GL.Color3(colorR, colorG, colorB);
-					renderHemisphere(true);
+                    renderHemisphere(true);
                 	break;
 				
                 case RenderMode.WIRE:
@@ -79,6 +89,8 @@ namespace Rawbots
                 	renderHemisphere(false);
 					break;
             }
+
+            GL.Color4(color);
         }
 	}
 }

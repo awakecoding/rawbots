@@ -10,6 +10,7 @@
 
 using System;
 using OpenTK.Graphics.OpenGL;
+using Tao.FreeGlut;
 
 namespace Rawbots
 {
@@ -33,10 +34,13 @@ namespace Rawbots
 		private void renderSphere(bool solid)
 		{
 			GL.PushMatrix();
+
+            int[] state = new int[2];
+            GL.GetInteger(GetPName.PolygonMode, state);
 			
-			GL.PolygonMode(MaterialFace.FrontAndBack,
+            GL.PolygonMode(MaterialFace.FrontAndBack,
 			               (solid) ? PolygonMode.Fill : PolygonMode.Line);
-			
+
 			for (int j = 0; j < q; j++)
 			{
 				GL.Begin(BeginMode.TriangleStrip);
@@ -72,29 +76,32 @@ namespace Rawbots
 		
 				GL.End();
 			}
-			
+
+            GL.PolygonMode(MaterialFace.Front, (PolygonMode)state[0]);
+            GL.PolygonMode(MaterialFace.Back, (PolygonMode)state[1]);
+
 			GL.PopMatrix();
 		}
-		
+
         public virtual void render()
         {
             switch (renderMode)
             {
                 case RenderMode.SOLID:
                     GL.Color3(colorR, colorG, colorB);
-					renderSphere(true);
+    				renderSphere(true);
                 	break;
 				
                 case RenderMode.WIRE:
 					GL.Color3(colorR, colorG, colorB);
-					renderSphere(false);
+                    renderSphere(false);
 					break;
 				
 				case RenderMode.SOLID_WIRE:
 					GL.Color3(colorR, colorG, colorB);
-					renderSphere(true);
+                    renderSphere(true);
 					GL.Color3(wireColorR, wireColorG, wireColorB);
-                	renderSphere(false);
+                    renderSphere(false);
 					break;
             }
         }
