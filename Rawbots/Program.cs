@@ -123,14 +123,6 @@ namespace Rawbots
             TeamNumber.render();
 			
 			map.Render();
-
-            foreach (Robot robot in robots)
-            {
-                if (robot != null)
-                    robot.RenderAll();
-
-                GL.Translate(2.5f, 0.0f, 0.0f);
-            }
 			
 			GL.Flush();
 			

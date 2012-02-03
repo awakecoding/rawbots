@@ -44,7 +44,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HeavyRubbleTile.cs" />
     <Compile Include="LightRubbleTile.cs" />
+    <Compile Include="MediumRubbleTile.cs" />
     <Compile Include="Model\Drawable.cs" />
     <Compile Include="Model\Plane.cs" />
     <Compile Include="Program.cs" />

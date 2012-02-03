@@ -5,12 +5,12 @@ using OpenTK.Graphics.OpenGL;
 
 namespace Rawbots
 {
-    class LightRubbleTile : Tile
+    class HeavyRubbleTile : Tile
     {
         public CubeModel cube;
         public HemisphereModel hemiM;
 
-        public LightRubbleTile()
+        public HeavyRubbleTile()
         {
             cube = new CubeModel();
             cube.setRenderMode(RenderMode.SOLID_WIRE);
@@ -35,6 +35,41 @@ namespace Rawbots
 
             smallPileOne(); //Draw First One
 
+            GL.Translate(-0.25f, 0.0f, 0.25f); //(-.25, 0, .25)
+
+            smallPileOne(); //Draw 2nd One
+
+            GL.Translate(0.0f, 0.0f, -0.5f); //(-.25, 0, -.25)
+
+            smallPileOne(); //Draw 3rd One
+
+            GL.Translate(0.5f, 0.0f, 0.0f); //(.25, 0, -.25) 
+
+            smallPileOne(); //Draw 4th One
+
+            GL.Translate(0.0f, 0.0f, 0.5f); //(.25, 0, .25)
+
+            smallPileOne(); //Draw 5th One
+
+            GL.PopMatrix();
+            GL.PushMatrix();
+
+            GL.Translate(-0.3f, 0.0f, 0.0f);
+
+            smallPileRoundOne();
+
+            GL.Translate(0.6f, 0.0f, 0.0f);
+
+            smallPileRoundOne();
+
+            GL.Translate(-0.3f, 0.0f, -0.3f);
+
+            smallPileRoundOne();
+
+            GL.Translate(0.0f, 0.0f, 0.6f);
+
+            smallPileRoundOne();
+
             GL.PopMatrix();
         }
 
@@ -50,5 +85,16 @@ namespace Rawbots
 
             GL.PopMatrix();
         }
+
+        public void smallPileRoundOne()
+        {
+            GL.PushMatrix();
+
+            GL.Scale(0.15f, 0.15f, 0.15f);
+            hemiM.render();
+
+            GL.PopMatrix();
+        }
+
     }
 }

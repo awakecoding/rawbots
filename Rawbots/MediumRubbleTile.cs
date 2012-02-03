@@ -5,21 +5,14 @@ using OpenTK.Graphics.OpenGL;
 
 namespace Rawbots
 {
-    class LightRubbleTile : Tile
+    class MediumRubbleTile : Tile
     {
         public CubeModel cube;
-        public HemisphereModel hemiM;
 
-        public LightRubbleTile()
+        public MediumRubbleTile()
         {
             cube = new CubeModel();
             cube.setRenderMode(RenderMode.SOLID_WIRE);
-            cube.setColor(0.64f, 0.64f, 0.67f);
-
-            hemiM = new HemisphereModel(1.0f);
-            hemiM.LatitudinalSlices = 10;
-            hemiM.LongitudinalSlices = 10;
-            hemiM.setRenderMode(RenderMode.SOLID_WIRE);
             cube.setColor(0.64f, 0.64f, 0.67f);
         }
 
@@ -34,6 +27,22 @@ namespace Rawbots
             //(0, 0, 0)
 
             smallPileOne(); //Draw First One
+
+            GL.Translate(-0.25f, 0.0f, 0.25f); //(-.25, 0, .25)
+
+            smallPileOne(); //Draw 2nd One
+
+            GL.Translate(0.0f, 0.0f, -0.5f); //(-.25, 0, -.25)
+
+            smallPileOne(); //Draw 3rd One
+
+            GL.Translate(0.5f, 0.0f, 0.0f); //(.25, 0, -.25) 
+
+            smallPileOne(); //Draw 4th One
+
+            GL.Translate(0.0f, 0.0f, 0.5f); //(.25, 0, .25)
+
+            smallPileOne(); //Draw 5th One
 
             GL.PopMatrix();
         }

@@ -19,15 +19,50 @@ namespace Rawbots
 		public Tile[,] Tiles { get { return tiles; } }
 		
 		public Terrain(int width, int height)
-		{
-			tiles = new Tile[width, height];
+        {
+			bool test = false;
+            tiles = new Tile[width, height];
 			
-			for (int i = 0; i < tiles.GetLength(0); i++)
+			if (test)
 			{
-				for (int j = 0; j < tiles.GetLength(1); j++)
-				{
-					tiles[i,j] = new Tile();
-				}
+	            int n = 0;
+	
+	            for (int i = 0; i < tiles.GetLength(0); i++)
+	            {
+	                for (int j = 0; j < tiles.GetLength(1); j++)
+	                {
+	                    switch (n % 4)
+	                    {
+	                        case 0:
+	                            tiles[i, j] = new Tile();
+	                            break;
+							
+	                        case 1:
+	                            tiles[i, j] = new LightRubbleTile();
+	                            break;
+							
+	                        case 2:
+	                            tiles[i, j] = new MediumRubbleTile();
+	                            break;
+							
+	                        case 3:
+	                            tiles[i, j] = new HeavyRubbleTile();
+	                            break;
+	                    }
+	
+	                    n++;
+	                }
+	            }
+			}
+			else
+			{
+	            for (int i = 0; i < tiles.GetLength(0); i++)
+	            {
+	                for (int j = 0; j < tiles.GetLength(1); j++)
+	                {
+						tiles[i, j] = new Tile();
+	                }
+	            }
 			}
 		}
 		
