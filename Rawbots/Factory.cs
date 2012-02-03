@@ -21,16 +21,19 @@ namespace Rawbots
 		Block blockBackMiddle;
 		Block blockBackRight;
 		
+		protected RobotPart robotPart;
+		
 		public int PosX { get; set; }
 		public int PosY { get; set; }
 		
 		private void Init()
 		{
+			robotPart = null;
 			blockFrontLeft = new Block(true);
 			blockFrontRight = new Block(true);
 			blockBackLeft = new Block(false);
 			blockBackMiddle = new Block(false);
-			blockBackRight = new Block(false);	
+			blockBackRight = new Block(false);
 		}
 		
 		public Factory() : base()
@@ -45,6 +48,14 @@ namespace Rawbots
 			Init();
 			PosX = x;
 			PosY = y;
+		}
+		
+		public Factory(int x, int y, RobotPart robotPart) : base()
+		{
+			Init();
+			PosX = x;
+			PosY = y;
+			this.robotPart = robotPart;
 		}
 		
 		public void Render()
@@ -62,6 +73,13 @@ namespace Rawbots
 			GL.Translate(0.0f, 0.0f, 1.0f);
 			blockFrontRight.Render();
 			GL.Translate(-1.0f, 0.0f, -1.0f);
+			
+			if (robotPart != null)
+			{
+				GL.Translate(0.0f, 1.0f, 0.0f);
+				robotPart.RenderAll();
+				GL.Translate(0.0f, -1.0f, 0.0f);
+			}
 			
 			GL.PopMatrix();
 		}

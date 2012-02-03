@@ -55,7 +55,7 @@ namespace Rawbots
 			
 			Factory factory;
 			
-			factory = new Factory(x + 5, y + 2);
+			factory = new PhasersWeaponFactory(x + 5, y + 2);
 			map.AddFactory(factory);
 		}
 
@@ -100,7 +100,6 @@ namespace Rawbots
                 ReferencePlane.setVisibleAxis(ReferencePlane.NONE);
 
             Camera.OnCameraFrame(this);
-
 		}
 
 		protected override void OnRenderFrame(FrameEventArgs e)

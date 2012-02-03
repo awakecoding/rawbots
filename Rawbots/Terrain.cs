@@ -14,7 +14,7 @@ using OpenTK.Graphics.OpenGL;
 namespace Rawbots
 {
 	public class Terrain
-	{		
+	{
 		public Tile[,] tiles;
 		public Tile[,] Tiles { get { return tiles; } }
 		
