@@ -7,18 +7,15 @@ namespace Rawbots
 {
     class Pit : Tile
     {
-        public Plane plane;
-        
         public const int NORTH = 1;
         public const int SOUTH = 2;
         public const int EAST = 4;
         public const int WEST = 8;
 
-        public int sides = 0;
+        private int sides = 0;
 
         public Pit()
         {
-            plane = new Plane();
             sides = NORTH + SOUTH + EAST + WEST;
         }
 

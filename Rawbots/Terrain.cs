@@ -21,8 +21,9 @@ namespace Rawbots
 		public Terrain(int width, int height)
         {
 			bool test = false;
-            tiles = new Tile[width, height];
-			
+            //tiles = new Tile[width, height];
+            tiles = new Tile[1, 1];
+
 			if (test)
 			{
 	            int n = 0;
@@ -56,16 +57,28 @@ namespace Rawbots
 			}
 			else
 			{
-	            for (int i = 0; i < tiles.GetLength(0); i++)
-	            {
-	                for (int j = 0; j < tiles.GetLength(1); j++)
-	                {
-						tiles[i, j] = new Tile();
-	                }
-	            }
+                //for (int i = 0; i < tiles.GetLength(0); i++)
+                //{
+                //    for (int j = 0; j < tiles.GetLength(1); j++)
+                //    {
+                //        tiles[i, j] = new Tile();
+                //    }
+                //}
+
+                tiles[0, 0] = new Boundary();
 			}
 		}
-		
+
+        public int getWidth()
+        {
+            return tiles.GetLength(0);
+        }
+
+        public int getHeight()
+        {
+            return tiles.GetLength(1);
+        }
+
 		public void BeginRender()
 		{
             GL.PushMatrix();
