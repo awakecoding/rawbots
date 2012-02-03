@@ -72,11 +72,11 @@ namespace Rawbots
 			
 			terrain.BeginRender();
 			
-            GL.Translate(-width / 2.0f, 0.0f, height / 2.0f);
-			
-            for (int i = 0; i < width; i++)
+            GL.Translate(-terrain.getWidth() / 2.0f, 0.0f, terrain.getHeight() / 2.0f);
+
+            for (int i = 0; i < terrain.getWidth(); i++)
             {
-                for (int j = 0; j < height; j++)
+                for (int j = 0; j < terrain.getHeight(); j++)
                 {
                     GL.Translate(i * 1.0f, 0.0f, j * -1.0f);
 					terrain.RenderTile(i, j);					
@@ -90,33 +90,33 @@ namespace Rawbots
 			
 			/* Render robots */
 			
-			GL.PushMatrix();
+            //GL.PushMatrix();
 			
-			GL.Translate(-width / 2.0f, 0.0f, height / 2.0f);
+            //GL.Translate(-width / 2.0f, 0.0f, height / 2.0f);
 			
-			foreach (Robot robot in robots)
-			{
-				GL.Translate(robot.PosX * 1.0f, 0.0f, robot.PosY * -1.0f);
-				robot.RenderAll();
-				GL.Translate(-robot.PosX * 1.0f, 0.0f, robot.PosY * 1.0f);
-			}
+            //foreach (Robot robot in robots)
+            //{
+            //    GL.Translate(robot.PosX * 1.0f, 0.0f, robot.PosY * -1.0f);
+            //    robot.RenderAll();
+            //    GL.Translate(-robot.PosX * 1.0f, 0.0f, robot.PosY * 1.0f);
+            //}
 			
-			GL.PopMatrix();
+            //GL.PopMatrix();
 			
 			/* Render factories */
 			
-			GL.PushMatrix();
+            //GL.PushMatrix();
 			
-			GL.Translate(-width / 2.0f, 0.0f, height / 2.0f);
+            //GL.Translate(-width / 2.0f, 0.0f, height / 2.0f);
 			
-			foreach (Factory factory in factories)
-			{
-				GL.Translate(factory.PosX * 1.0f, 0.0f, factory.PosY * -1.0f);
-				factory.Render();
-				GL.Translate(-factory.PosX * 1.0f, 0.0f, factory.PosY * 1.0f);
-			}
+            //foreach (Factory factory in factories)
+            //{
+            //    GL.Translate(factory.PosX * 1.0f, 0.0f, factory.PosY * -1.0f);
+            //    factory.Render();
+            //    GL.Translate(-factory.PosX * 1.0f, 0.0f, factory.PosY * 1.0f);
+            //}
 			
-			GL.PopMatrix();
+            //GL.PopMatrix();
         }
 	}
 }
