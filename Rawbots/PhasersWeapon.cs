@@ -37,12 +37,12 @@ namespace Rawbots
 			cylinderHeight = 0.1f;
 			cylinderRadius = 0.5f;
 			cylinder = new CylinderModel(cylinderRadius, cylinderHeight);
-			cylinder.setColor(0.7f, 0.6f, 0.75f);
+			cylinder.SetColor(0.7f, 0.6f, 0.75f);
 			
 			halfCylinderRadius = 0.5f;
 			halfCylinderHeight = 0.5f;
 			halfCylinder = new HalfCylinderModel(halfCylinderRadius, halfCylinderHeight);
-			halfCylinder.setColor(0.6f, 0.6f, 0.75f);
+			halfCylinder.SetColor(0.6f, 0.6f, 0.75f);
 			
 			phasersWidth = 0.1f;
 			phasersRadius = 0.1f;
@@ -50,9 +50,9 @@ namespace Rawbots
 			cube = new CubeModel();
 			hcPhasersL = new HalfCylinderModel(phasersRadius, phasersHeight);
 			hcPhasersR = new HalfCylinderModel(phasersRadius, phasersHeight);
-			hcPhasersL.setColor(0.45f, 0.75f, 0.6f);
-			hcPhasersR.setColor(0.45f, 0.75f, 0.6f);
-			cube.setColor(0.45f, 0.75f, 0.6f);
+			hcPhasersL.SetColor(0.45f, 0.75f, 0.6f);
+			hcPhasersR.SetColor(0.45f, 0.75f, 0.6f);
+			cube.SetColor(0.45f, 0.75f, 0.6f);
 		}
 		
 		public override int getCost()

@@ -10,6 +10,8 @@
 
 using System;
 using OpenTK.Graphics.OpenGL;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Rawbots
 {
@@ -18,6 +20,7 @@ namespace Rawbots
 		int width;
 		int height;
 		Terrain terrain;
+		List<Robot> robots;
 		
 		public Terrain Terrain { get { return terrain; } }
 		
@@ -26,8 +29,27 @@ namespace Rawbots
 			this.width = width;
 			this.height = height;
 			terrain = new Terrain(this.width, this.height);
+			robots = new List<Robot>();
 		}
 		
+		public void AddRobot(Robot robot)
+		{
+			robots.Add(robot);
+		}
+		
+		public void RemoveRobot(Robot robot)
+		{
+			robots.Remove(robot);
+		}
+		
+        public void SetRenderMode(RenderMode renderMode)
+        {
+			foreach (Robot robot in robots)
+			{
+				robot.SetRenderMode(renderMode);
+			}
+        }	
+	
         public void Render()
         {
             GL.PushMatrix();
@@ -41,7 +63,7 @@ namespace Rawbots
                 for (int j = 0; j < height; j++)
                 {
                     GL.Translate(i * 1.0f, 0.0f, j * -1.0f);
-					terrain.RenderTile(i, j);
+					terrain.RenderTile(i, j);					
                     GL.Translate(-i * 1.0f, 0.0f, j * 1.0f);
                 }
             }
@@ -49,6 +71,19 @@ namespace Rawbots
 			terrain.EndRender();
 			
             GL.PopMatrix();
+			
+			GL.PushMatrix();
+			
+			GL.Translate(-width / 2.0f, 0.0f, height / 2.0f);
+			
+			foreach (Robot robot in robots)
+			{
+				GL.Translate(robot.PosX * 1.0f, 0.0f, robot.PosY * -1.0f);
+				robot.RenderAll();
+				GL.Translate(-robot.PosX * 1.0f, 0.0f, robot.PosY * 1.0f);
+			}
+			
+			GL.PopMatrix();
         }
 	}
 }

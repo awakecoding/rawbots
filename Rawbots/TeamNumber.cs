@@ -28,7 +28,7 @@ namespace Rawbots
             for (int i = 0; i < mcComponent.Length; i++)
             {
                 CubeModel mc = new CubeModel();
-                mc.setColor(1.0f, 1.0f, 1.0f);
+                mc.SetColor(1.0f, 1.0f, 1.0f);
                 mcComponent[i] = mc;
             }
         }

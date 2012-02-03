@@ -34,19 +34,19 @@ namespace Rawbots
 			wireColorB = 0.0f;
 		}
 		
-        public virtual void setRenderMode(RenderMode renderMode)
+        public virtual void SetRenderMode(RenderMode renderMode)
         {
             this.renderMode = renderMode;
         }
 		
-        public void setColor(float r, float g, float b)
+        public void SetColor(float r, float g, float b)
         {
             colorR = r;
             colorG = g;
             colorB = b;
         }
 
-        public void setWireColor(float r, float g, float b)
+        public void SetWireColor(float r, float g, float b)
         {
             wireColorR = r;
             wireColorG = g;

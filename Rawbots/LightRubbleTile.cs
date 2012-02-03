@@ -13,14 +13,14 @@ namespace Rawbots
         public LightRubbleTile()
         {
             cube = new CubeModel();
-            cube.setRenderMode(RenderMode.SOLID_WIRE);
-            cube.setColor(0.64f, 0.64f, 0.67f);
+            cube.SetRenderMode(RenderMode.SOLID_WIRE);
+            cube.SetColor(0.64f, 0.64f, 0.67f);
 
             hemiM = new HemisphereModel(1.0f);
             hemiM.LatitudinalSlices = 10;
             hemiM.LongitudinalSlices = 10;
-            hemiM.setRenderMode(RenderMode.SOLID_WIRE);
-            cube.setColor(0.64f, 0.64f, 0.67f);
+            hemiM.SetRenderMode(RenderMode.SOLID_WIRE);
+            cube.SetColor(0.64f, 0.64f, 0.67f);
         }
 
         public override void Render()

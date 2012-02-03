@@ -23,7 +23,8 @@ namespace Rawbots
 	class Game : GameWindow
 	{
 		Map map;
-		Robot[] robots;
+		int width;
+		int height;
 		
 		public Game() : base(800, 600, GraphicsMode.Default, "Rawbots")
 		{
@@ -31,31 +32,27 @@ namespace Rawbots
 
 			Glut.glutInit();
 			
-			map = new Map(50, 50);
+			width = 50;
+			height = 50;
+			map = new Map(width, height);
 			
-			robots = new Robot[8];
+			Robot robot;
 			
-			robots[0] = new Robot();
-			robots[0].AddWeapon(new NuclearWeapon());
-			//robots[0].AddElectronics(new Electronics());
+			int x = (width / 2);
+			int y = (width / 2);
 			
-			robots[1] = new Robot();
-			robots[1].AddWeapon(new PhasersWeapon());
-			//robots[1].AddElectronics(new Electronics());
+			robot = new Robot(x, y);
+			robot.AddWeapon(new NuclearWeapon());
+			map.AddRobot(robot);
 			
-			robots[2] = new Robot();
-			//robots[2].AddWeapon(new PhasersWeapon());
-			robots[2].AddElectronics(new Electronics());
+			robot = new Robot(x + 2, y);
+			robot.AddWeapon(new PhasersWeapon());
+			map.AddRobot(robot);
+			
+			robot = new Robot(x + 3, y);
+			robot.AddElectronics(new Electronics());
+			map.AddRobot(robot);
 		}
-
-        private void setRenderMode(RenderMode renderMode)
-        {
-            for (int i = 0; i < robots.Length; i++)
-			{
-                if(robots[i] != null)
-                    robots[i].setRenderMode(renderMode);
-			}
-        }
 
 		protected override void OnLoad(EventArgs e)
 		{
@@ -83,11 +80,11 @@ namespace Rawbots
             if (Keyboard[Key.Escape])
                 Exit();
             else if (Keyboard[Key.F1])
-                setRenderMode(RenderMode.SOLID_WIRE);
+                map.SetRenderMode(RenderMode.SOLID_WIRE);
             else if (Keyboard[Key.F2])
-                setRenderMode(RenderMode.SOLID);
+                map.SetRenderMode(RenderMode.SOLID);
             else if (Keyboard[Key.F3])
-                setRenderMode(RenderMode.WIRE);
+                map.SetRenderMode(RenderMode.WIRE);
             else if (Keyboard[Key.F4])
                 ReferencePlane.setVisibleAxis(ReferencePlane.XYZ);
             else if (Keyboard[Key.F5])

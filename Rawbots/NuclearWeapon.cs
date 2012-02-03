@@ -61,10 +61,10 @@ namespace Rawbots
 			return 0;
 		}
 
-        public override void setRenderMode(RenderMode renderMode)
+        public override void SetRenderMode(RenderMode renderMode)
         {
             for (int i = 0; i < mcComponent.Length; i++)
-                mcComponent[i].setRenderMode(renderMode);
+                mcComponent[i].SetRenderMode(renderMode);
         }
 
 		public override void Render()
