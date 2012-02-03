@@ -20,34 +20,38 @@ namespace Rawbots
 		
 		static Terrain()
         {
-            tiles = new Tile[50,50];
+            //tiles = new Tile[50,50];
 
-            int n = 0;
+            //int n = 0;
 
-            for (int i = 0; i < tiles.GetLength(0); i++)
-            {
-                for (int j = 0; j < tiles.GetLength(1); j++)
-                {
-                    switch(n%4)
-                    {
-                        case 0:
-                            tiles[i, j] = new Tile();
-                            break;
-                        case 1:
-                            tiles[i, j] = new LightRubbleTile();
-                            break;
-                        case 2:
-                            tiles[i, j] = new MediumRubbleTile();
-                            break;
-                        case 3:
-                            tiles[i, j] = new HeavyRubbleTile();
-                            break;
-                    }
+            //for (int i = 0; i < tiles.GetLength(0); i++)
+            //{
+            //    for (int j = 0; j < tiles.GetLength(1); j++)
+            //    {
+            //        switch(n%4)
+            //        {
+            //            case 0:
+            //                tiles[i, j] = new Tile();
+            //                break;
+            //            case 1:
+            //                tiles[i, j] = new LightRubbleTile();
+            //                break;
+            //            case 2:
+            //                tiles[i, j] = new MediumRubbleTile();
+            //                break;
+            //            case 3:
+            //                tiles[i, j] = new HeavyRubbleTile();
+            //                break;
+            //        }
 
-                    n++;
-                    //tiles[i,j] = new Tile();
-                }
-            }
+            //        n++;
+            //        //tiles[i,j] = new Tile();
+            //    }
+            //}
+
+            tiles = new Tile[1, 1];
+
+            tiles[0, 0] = new Pit();
 		}
 
         public static void Render()
