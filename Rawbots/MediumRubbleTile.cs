@@ -12,8 +12,8 @@ namespace Rawbots
         public MediumRubbleTile()
         {
             cube = new CubeModel();
-            cube.setRenderMode(RenderMode.SOLID_WIRE);
-            cube.setColor(0.64f, 0.64f, 0.67f);
+            cube.SetRenderMode(RenderMode.SOLID_WIRE);
+            cube.SetColor(0.64f, 0.64f, 0.67f);
         }
 
         public override void Render()

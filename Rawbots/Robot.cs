@@ -24,11 +24,27 @@ namespace Rawbots
 		Weapon[] weapons;
 		Electronics electronics;
 		
+		public int PosX { get; set; }
+		public int PosY { get; set; }
+		
 		public Robot()
 		{
 			chassis = null;
 			weapons = null;
 			electronics = null;
+			
+			PosX = 0;
+			PosY = 0;
+		}
+		
+		public Robot(int x, int y)
+		{
+			chassis = null;
+			weapons = null;
+			electronics = null;
+			
+			PosX = x;
+			PosY = y;
 		}
 		
 		public void AddChassis(Chassis chassis)
@@ -72,19 +88,19 @@ namespace Rawbots
 			Pop();
 		}
 
-        public override void setRenderMode(RenderMode renderMode)
+        public override void SetRenderMode(RenderMode renderMode)
         {
             if (chassis != null)
-                chassis.setRenderMode(renderMode);
+                chassis.SetRenderMode(renderMode);
 
             if (weapons != null)
 			{
                 for (int i = 0; i < weapons.Length; i++)
-                    weapons[i].setRenderMode(renderMode);
+                    weapons[i].SetRenderMode(renderMode);
 			}
             
             if (electronics != null)
-                electronics.setRenderMode(renderMode);
+                electronics.SetRenderMode(renderMode);
         }
 
 		public void Render()

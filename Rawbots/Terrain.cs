@@ -14,64 +14,74 @@ using OpenTK.Graphics.OpenGL;
 namespace Rawbots
 {
 	public class Terrain
-	{
-		private static Tile[,] tiles;
-		public static Tile[,] Tiles { get; set; }
+	{		
+		public Tile[,] tiles;
+		public Tile[,] Tiles { get { return tiles; } }
 		
-		static Terrain()
+		public Terrain(int width, int height)
         {
-            //tiles = new Tile[50,50];
-
-            //int n = 0;
-
-            //for (int i = 0; i < tiles.GetLength(0); i++)
-            //{
-            //    for (int j = 0; j < tiles.GetLength(1); j++)
-            //    {
-            //        switch(n%4)
-            //        {
-            //            case 0:
-            //                tiles[i, j] = new Tile();
-            //                break;
-            //            case 1:
-            //                tiles[i, j] = new LightRubbleTile();
-            //                break;
-            //            case 2:
-            //                tiles[i, j] = new MediumRubbleTile();
-            //                break;
-            //            case 3:
-            //                tiles[i, j] = new HeavyRubbleTile();
-            //                break;
-            //        }
-
-            //        n++;
-            //        //tiles[i,j] = new Tile();
-            //    }
-            //}
-
-            tiles = new Tile[1, 1];
-
-            tiles[0, 0] = new Pit();
+			bool test = false;
+            tiles = new Tile[width, height];
+			
+			if (test)
+			{
+	            int n = 0;
+	
+	            for (int i = 0; i < tiles.GetLength(0); i++)
+	            {
+	                for (int j = 0; j < tiles.GetLength(1); j++)
+	                {
+	                    switch (n % 4)
+	                    {
+	                        case 0:
+	                            tiles[i, j] = new Tile();
+	                            break;
+							
+	                        case 1:
+	                            tiles[i, j] = new LightRubbleTile();
+	                            break;
+							
+	                        case 2:
+	                            tiles[i, j] = new MediumRubbleTile();
+	                            break;
+							
+	                        case 3:
+	                            tiles[i, j] = new HeavyRubbleTile();
+	                            break;
+	                    }
+	
+	                    n++;
+	                }
+	            }
+			}
+			else
+			{
+	            for (int i = 0; i < tiles.GetLength(0); i++)
+	            {
+	                for (int j = 0; j < tiles.GetLength(1); j++)
+	                {
+						tiles[i, j] = new Tile();
+	                }
+	            }
+			}
 		}
-
-        public static void Render()
-        {
+		
+		public void BeginRender()
+		{
             GL.PushMatrix();
-
-            GL.Translate(-tiles.GetLength(0) / 2.0f, 0.0f, tiles.GetLength(1) / 2.0f);
             GL.LineWidth(2.5f);
-            for (int i = 0; i < tiles.GetLength(0); i++)
-            {
-                for (int j = 0; j < tiles.GetLength(1); j++)
-                {
-                    GL.Translate(i * 1.0f, 0.0f, j * -1.0f);
-                    tiles[i, j].RenderAll();
-                    GL.Translate(-i * 1.0f, 0.0f, j * 1.0f);
-                }
-            }
-            GL.LineWidth(1.0f);
+		}
+		
+		public void EndRender()
+		{
+			GL.LineWidth(1.0f);
             GL.PopMatrix();
-        }
+		}
+		
+		public void RenderTile(int x, int y)
+		{
+			tiles[x, y].RenderAll();
+		}
 	}
 }
 

@@ -22,7 +22,7 @@ namespace Rawbots
 		{
 			this.half = half;
 			cube = new CubeModel();
-			cube.setColor(0.4f, 0.7f, 0.1f);
+			cube.SetColor(0.4f, 0.7f, 0.1f);
 		}
 		
         public void render()

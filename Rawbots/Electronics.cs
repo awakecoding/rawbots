@@ -36,17 +36,17 @@ namespace Rawbots
 			cylinderRadius = 0.4f;
 			cylinderHeight = 0.4f;
 			cylinder = new CylinderModel(cylinderRadius, cylinderHeight);
-			cylinder.setColor(0.4f, 0.5f, 0.6f);
+			cylinder.SetColor(0.4f, 0.5f, 0.6f);
 			
 			hemisphereRadius = 0.3f;
 			hemisphere = new HemisphereModel(hemisphereRadius);
-			hemisphere.setColor(0.5f, 0.3f, 0.5f);
+			hemisphere.SetColor(0.5f, 0.3f, 0.5f);
 		}
 		
-        public override void setRenderMode(RenderMode renderMode)
+        public override void SetRenderMode(RenderMode renderMode)
         {
-			cylinder.setRenderMode(renderMode);
-			hemisphere.setRenderMode(renderMode);
+			cylinder.SetRenderMode(renderMode);
+			hemisphere.SetRenderMode(renderMode);
         }
 		
 		public override void Render()
