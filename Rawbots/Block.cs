@@ -10,6 +10,7 @@
  */
 
 using System;
+using OpenTK.Graphics.OpenGL;
 
 namespace Rawbots
 {
@@ -22,12 +23,28 @@ namespace Rawbots
 		{
 			this.half = half;
 			cube = new CubeModel();
-			cube.SetColor(0.4f, 0.7f, 0.1f);
+			cube.SetColor(0.5f, 0.35f, 0.05f);
 		}
 		
-        public void render()
+        public void Render()
         {
-			cube.render(1.0f);
+			GL.PushMatrix();
+			
+			if (half)
+			{
+				GL.Scale(1.0f, 0.5f, 1.0f);
+				GL.Translate(0.0f, 0.5f, 0.0f);
+				cube.render(1.0f);
+				GL.Translate(0.0f, -0.5f, 0.0f);
+			}
+			else
+			{
+				GL.Translate(0.0f, 0.5f, 0.0f);
+				cube.render(1.0f);
+				GL.Translate(0.0f, -0.5f, 0.0f);
+			}
+			
+			GL.PopMatrix();
         }
 	}
 }

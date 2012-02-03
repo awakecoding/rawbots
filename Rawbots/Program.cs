@@ -52,6 +52,11 @@ namespace Rawbots
 			robot = new Robot(x + 3, y);
 			robot.AddElectronics(new Electronics());
 			map.AddRobot(robot);
+			
+			Factory factory;
+			
+			factory = new Factory(x + 5, y + 2);
+			map.AddFactory(factory);
 		}
 
 		protected override void OnLoad(EventArgs e)

@@ -21,6 +21,7 @@ namespace Rawbots
 		int height;
 		Terrain terrain;
 		List<Robot> robots;
+		List<Factory> factories;
 		
 		public Terrain Terrain { get { return terrain; } }
 		
@@ -28,8 +29,11 @@ namespace Rawbots
 		{
 			this.width = width;
 			this.height = height;
+			
 			terrain = new Terrain(this.width, this.height);
+			
 			robots = new List<Robot>();
+			factories = new List<Factory>();
 		}
 		
 		public void AddRobot(Robot robot)
@@ -42,6 +46,16 @@ namespace Rawbots
 			robots.Remove(robot);
 		}
 		
+		public void AddFactory(Factory factory)
+		{
+			factories.Add(factory);
+		}
+		
+		public void RemoveFactory(Factory factory)
+		{
+			factories.Remove(factory);
+		}
+		
         public void SetRenderMode(RenderMode renderMode)
         {
 			foreach (Robot robot in robots)
@@ -52,6 +66,8 @@ namespace Rawbots
 	
         public void Render()
         {
+			/* Render terrain */
+			
             GL.PushMatrix();
 			
 			terrain.BeginRender();
@@ -72,6 +88,8 @@ namespace Rawbots
 			
             GL.PopMatrix();
 			
+			/* Render robots */
+			
 			GL.PushMatrix();
 			
 			GL.Translate(-width / 2.0f, 0.0f, height / 2.0f);
@@ -81,6 +99,21 @@ namespace Rawbots
 				GL.Translate(robot.PosX * 1.0f, 0.0f, robot.PosY * -1.0f);
 				robot.RenderAll();
 				GL.Translate(-robot.PosX * 1.0f, 0.0f, robot.PosY * 1.0f);
+			}
+			
+			GL.PopMatrix();
+			
+			/* Render factories */
+			
+			GL.PushMatrix();
+			
+			GL.Translate(-width / 2.0f, 0.0f, height / 2.0f);
+			
+			foreach (Factory factory in factories)
+			{
+				GL.Translate(factory.PosX * 1.0f, 0.0f, factory.PosY * -1.0f);
+				factory.Render();
+				GL.Translate(-factory.PosX * 1.0f, 0.0f, factory.PosY * 1.0f);
 			}
 			
 			GL.PopMatrix();

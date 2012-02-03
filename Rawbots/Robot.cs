@@ -27,22 +27,23 @@ namespace Rawbots
 		public int PosX { get; set; }
 		public int PosY { get; set; }
 		
-		public Robot()
+		private void Init()
 		{
 			chassis = null;
 			weapons = null;
 			electronics = null;
-			
+		}
+		
+		public Robot()
+		{
+			Init();
 			PosX = 0;
 			PosY = 0;
 		}
 		
 		public Robot(int x, int y)
 		{
-			chassis = null;
-			weapons = null;
-			electronics = null;
-			
+			Init();			
 			PosX = x;
 			PosY = y;
 		}
