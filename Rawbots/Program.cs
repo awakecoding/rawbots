@@ -53,6 +53,10 @@ namespace Rawbots
 			robot.AddElectronics(new Electronics());
 			map.AddRobot(robot);
 			
+			robot = new Robot(x + 4, y);
+			robot.AddChassis(new AntiGravChassis());
+			map.AddRobot(robot);
+			
 			Factory factory;
 			
 			factory = new PhasersWeaponFactory(x + 5, y + 2);
