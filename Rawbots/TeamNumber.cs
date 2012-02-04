@@ -21,6 +21,10 @@ namespace Rawbots
         private static CubeModel[] mcComponent;
         private const int TOTAL = 4;
 
+        private TeamNumber()
+        { 
+        }
+
         static TeamNumber()
         {
             mcComponent = new CubeModel[TOTAL];
