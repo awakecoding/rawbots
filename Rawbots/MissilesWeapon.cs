@@ -134,7 +134,7 @@ namespace Rawbots
 
             GL.PushMatrix();
             GL.Translate(0.0f, -0.2f, 0.0f);
-            teamNumber.render();
+            TeamNumber.render();
             GL.PopMatrix();
 
             //WIRE FRAME BOX - to make sure it fits in one unit cube.
