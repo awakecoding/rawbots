@@ -26,13 +26,10 @@ namespace Rawbots
         private CylinderModel outCylinder;
         private CubeModel middleBox;
         private CubeModel frame;
-        private TeamNumber teamNumber;
         //CubeModel box; //For 1unit cubed box
 
 		public MissilesWeapon()
-		{
-            teamNumber = new TeamNumber();
-            
+		{    
             inCylinderRadius = 0.1f;
             inCylinderHeight = 1.0f;
             inCylinder = new CylinderModel(inCylinderRadius, inCylinderHeight);
