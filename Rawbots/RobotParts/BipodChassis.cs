@@ -35,8 +35,7 @@ namespace Rawbots
 
             mcComponent = new CubeModel[TOTAL_COMPONENTS];
             for (int i = 0; i < mcComponent.Length; i++)
-                 mcComponent[i] = new CubeModel();
-            
+                 mcComponent[i] = new CubeModel();            
 		}
 		
 		public override void SetRenderMode(RenderMode renderMode)
@@ -47,6 +46,9 @@ namespace Rawbots
 
 		public override void Render()
 		{
+            GL.Scale(0.5f, 0.5f, 0.5f);
+
+            GL.PushMatrix();
             //Scale the width to accomadate the legs and flatten it.
             GL.Scale(2.0f, 0.25f, 1.0f);
             
@@ -68,7 +70,17 @@ namespace Rawbots
             GL.Translate(-1.0f, 0.0f, 0.0f);
 
             drawLeg();
-           
+
+            //Team Number
+            GL.PushMatrix();
+            GL.Translate(0.4f, 0.7f, 0.0f);
+            GL.Scale(0.66f, 0.66f, 0.66f);
+            GL.Rotate(90, 1.0f, 0.0f, 0.0f);
+
+            TeamNumber.render();
+            GL.PopMatrix();
+
+            GL.PopMatrix();
 		}
 
         public void drawLeg()
@@ -113,6 +125,8 @@ namespace Rawbots
             mcComponent[FOOT].render(1.0f);
 
             GL.PopMatrix();
+
+            
         }
 	}
 }

@@ -129,8 +129,11 @@ namespace Rawbots
             frame.render(cubeSize);
             GL.PopMatrix();
 
+            //Team number
             GL.PushMatrix();
-            GL.Translate(0.0f, -0.2f, 0.0f);
+            GL.Translate(0.0f, 0.3f, -0.0f);
+            GL.Rotate(90, 1.0f, 0.0f, 0.0f);
+            GL.Scale(0.5f, 0.5f, 0.5f);
             TeamNumber.render();
             GL.PopMatrix();
 

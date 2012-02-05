@@ -22,10 +22,7 @@ namespace Rawbots
 		private double radius;
 		private double height;
 		
-        private CylinderModel[] mcComponent;
-        private const int OUTER_CHASSIS = 0;
-        private const int INNER_CHASSIS = 1;
-        private const int TOTAL_COMPONENTS = 2;
+        private CylinderModel mcComponent;
 
 		public NuclearWeapon()
 		{
@@ -34,10 +31,10 @@ namespace Rawbots
 			
 			/* slices = 8, stacks = 1 */
 			
-            mcComponent = new CylinderModel[TOTAL_COMPONENTS];
-			
-            for (int i = 0; i < mcComponent.Length; i++)
-                mcComponent[i] = new CylinderModel(radius, height);
+            mcComponent = new CylinderModel(radius, height);
+            mcComponent.setSlices(8);
+            mcComponent.setStacks(1);
+            
 		}
 		
 		public override int getCost()
@@ -63,12 +60,13 @@ namespace Rawbots
 
         public override void SetRenderMode(RenderMode renderMode)
         {
-            for (int i = 0; i < mcComponent.Length; i++)
-                mcComponent[i].SetRenderMode(renderMode);
+            mcComponent.SetRenderMode(renderMode);
         }
 
 		public override void Render()
 		{
+            GL.Scale(0.5f, 0.5f, 0.5f);
+
             /* Rotate the object on the X-axis about 90 degrees */
             GL.Rotate(90.0f, 1.0f, 0.0f, 0.0f);
 
@@ -76,8 +74,7 @@ namespace Rawbots
             /* Drawing the Outer chassis                                            */
             /************************************************************************/
 
-            /* Set the gray color */
-            mcComponent[OUTER_CHASSIS].render();
+            mcComponent.render();
 
             /* Translate the object -.21 to be above the outer chassis cylinder */
             GL.Translate(0.0f, 0.0f, -0.21f);
@@ -85,8 +82,19 @@ namespace Rawbots
             /************************************************************************/
             /* Drawing the Inner chassis                                            */
             /************************************************************************/
+            GL.PushMatrix();
+            GL.Scale(0.75f, 0.75f, 0.75f);
+            mcComponent.render();
+            GL.PopMatrix();
 
-            mcComponent[INNER_CHASSIS].render();
+            //Team number
+            GL.PushMatrix();
+            GL.Translate(-0.0f, -0.2f, 0.0f);
+            //GL.Rotate(-90, 1.0f, 0.0f, 0.0f);
+            //GL.Scale(0.66f, 0.66f, 0.66f);
+            TeamNumber.render();
+            GL.PopMatrix();
+            
 		}
 	}
 }
