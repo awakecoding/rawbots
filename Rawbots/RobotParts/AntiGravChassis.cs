@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 /**
  * RawBots: an awesome robot game
  * 
@@ -37,14 +37,17 @@ namespace Rawbots
 			 * only chassis that can span ravines!
 			 */
 			
-			bodyWidth = 0.475f;
+			bodyWidth = 2.0f;
 			bodyHeight = 0.2f;
 			
-			tracksWidth = 0.35f;
+			tracksWidth = 1.0f;
 			tracksHeight = 0.2f;
 			
-			topWidth = 0.4f;
+			topWidth = 1.0f;
 			topHeight = 0.1f;
+			
+			cube = new CubeModel();
+			cube.SetRenderMode(RenderMode.SOLID_WIRE);
 			
 		}
 		
@@ -52,95 +55,57 @@ namespace Rawbots
 		{
 			GL.Translate(Xtranslate, Ytranslate, Ztranslate);
 			GL.Scale(Xscale, Yscale, Zscale);
-			cube = new CubeModel();
+			cube.render(1.0f);
 		}
 		
 		public override void Render()
 		{
+			//Unit size
+			GL.Scale (0.33, 0.33, 0.33);
+			
+			cube.SetColor(0.3f, 0.3f, 0.3f);
 			//central box
 			GL.PushMatrix();
 			GL.Scale(bodyWidth, bodyHeight, bodyWidth);
-			cube = new CubeModel();
-				
-				//top box
-				GL.PushMatrix();
-				drawBox(0.0f, bodyHeight, 0.0f, topWidth, topHeight, topWidth);
-					//Team Number
-					GL.PushMatrix();
-					GL.Scale(0.3f, 0.3f, 0.3f);
-					GL.Translate(0.0f, 0.7f, 1.25f);
-					TeamNumber.render();
-					GL.Translate(0.0f, -0.7f, -1.25f);
-					GL.PopMatrix();
-				GL.PopMatrix();
-			
-				//Peripheral tracks
-				GL.PushMatrix();
-				drawBox(-bodyWidth/2, -bodyHeight, bodyWidth/2, tracksWidth, tracksHeight, tracksWidth);
-				GL.PopMatrix();
-			
-				GL.PushMatrix();
-				drawBox(bodyWidth/2, -bodyHeight, bodyWidth/2, tracksWidth, tracksHeight, tracksWidth);
-				GL.PopMatrix();
-			
-				GL.PushMatrix();
-				drawBox(-bodyWidth/2, bodyHeight, bodyWidth/2, tracksWidth, tracksHeight, tracksWidth);
-				GL.PopMatrix();
-			
-				GL.PushMatrix();
-				drawBox(bodyWidth/2, bodyHeight, bodyWidth/2, tracksWidth, tracksHeight, tracksWidth);
-				GL.PopMatrix();
-				
+			cube.render(1.0);
 			GL.PopMatrix();
 			
+			cube.SetColor(0.4f, 0.4f, 0.4f);
+			//top box
+			GL.PushMatrix();
+			drawBox(0.0f, bodyHeight/2, 0.0f, topWidth, topHeight, topWidth);
+			GL.PopMatrix();
+			
+			cube.SetColor(0.2f, 0.2f, 0.2f);
+			//Peripheral tracks
+			GL.PushMatrix();
+			drawBox(-bodyWidth/2, -bodyHeight, -bodyWidth/2, tracksWidth, tracksHeight, tracksWidth);
+			GL.PopMatrix();
+			
+			GL.PushMatrix();
+			drawBox(bodyWidth/2, -bodyHeight, bodyWidth/2, tracksWidth, tracksHeight, tracksWidth);
+			GL.PopMatrix();
+			
+			GL.PushMatrix();
+			drawBox(-bodyWidth/2, -bodyHeight, bodyWidth/2, tracksWidth, tracksHeight, tracksWidth);
+			GL.PopMatrix();
+			
+			GL.PushMatrix();
+			drawBox(bodyWidth/2, -bodyHeight, -bodyWidth/2, tracksWidth, tracksHeight, tracksWidth);
+			GL.PopMatrix();
+			
+			cube.SetColor(0.9f, 0.9f, 0.9f);
+			//Team Number
+			GL.PushMatrix();
+			GL.Translate(0.0, bodyHeight, 0.0);
+			GL.Rotate(-90.0, 1.0, 0.0, 0.0);
+			GL.Scale(0.5, 0.5, 0.5);
+			TeamNumber.render();
+			GL.PopMatrix();
+				
+			
+			
 			
 		}
 	}
 }
-
-=======
-/**
- * RawBots: an awesome robot game
- * 
- * Copyright 2012 Marc-Andre Moreau <marcandre.moreau@gmail.com>
- * Copyright 2012 Mark Foo Bonasoro <foo_mark@q8ismobile.com>
- * 
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this file,
- * You can obtain one at http://mozilla.org/MPL/2.0/.
- */
-
-using System;
-using OpenTK;
-using OpenTK.Graphics.OpenGL;
-
-namespace Rawbots
-{
-	public class AntiGravChassis : Chassis
-	{
-		public AntiGravChassis()
-		{
-			/*
-			 * By far the best system, it simply flies over the
-			 * ground whatever its difficulties. This is the
-			 * only chassis that can span ravines!
-			 */
-		}
-
-		public override void Render()
-		{
-			GL.Begin(BeginMode.Triangles);
-
-			GL.Color3(1.0f, 1.0f, 0.0f);
-			GL.Vertex3(-1.0f, -1.0f, 4.0f);
-			GL.Color3(1.0f, 0.0f, 0.0f);
-			GL.Vertex3(1.0f, -1.0f, 4.0f);
-			GL.Color3(0.2f, 0.9f, 1.0f);
-			GL.Vertex3(0.0f, 1.0f, 4.0f);
-			
-			GL.End();
-		}
-	}
-}
-
->>>>>>> 73b383fe7fbe53ca457d1bbdd1eeb05f56365e18
