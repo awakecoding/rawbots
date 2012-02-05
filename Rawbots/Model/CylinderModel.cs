@@ -26,12 +26,22 @@ namespace Rawbots
 		
 		public CylinderModel(double radius, double height)
 		{
-			slices = 40;
-			stacks = 40;
+			slices = 8;
+			stacks = 1;
 			this.radius = radius;
 			this.height = height;
 		}
-		
+
+        public void setSlices(int n)
+        {
+            this.slices = n;
+        }
+
+        public void setStacks(int n)
+        {
+            this.stacks = n;
+        }
+
         private void CircleTable(ref double [] sint, ref double [] cost, int n)
         {
             int i;
