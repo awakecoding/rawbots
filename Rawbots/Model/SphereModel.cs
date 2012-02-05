@@ -22,8 +22,8 @@ namespace Rawbots
 		
 		public SphereModel(float radius) : base()
 		{
-			p = 40;
-			q = 60;
+			p = 10;
+			q = 10;
 			this.radius = radius;
 		}
 		

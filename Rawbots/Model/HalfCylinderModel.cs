@@ -23,8 +23,8 @@ namespace Rawbots
 		
 		public HalfCylinderModel(double radius, double height)
 		{
-			slices = 40;
-			stacks = 40;
+			slices = 10;
+			stacks = 10;
 			this.radius = radius;
 			this.height = height;
 		}
