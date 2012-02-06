@@ -20,7 +20,9 @@ namespace Rawbots
 		protected float wireColorB;
 		
 		protected RenderMode renderMode;
-		
+
+        protected float model_height;
+
 		public Model()
 		{
 			renderMode = RenderMode.SOLID;
@@ -32,13 +34,25 @@ namespace Rawbots
 			wireColorR = 1.0f;
 			wireColorG = 0.0f;
 			wireColorB = 0.0f;
+
+            model_height = 1.0f;
 		}
 		
         public virtual void SetRenderMode(RenderMode renderMode)
         {
             this.renderMode = renderMode;
         }
-		
+
+        public void SetHeight(float h)
+        {
+            model_height = h;
+        }
+
+        public float GetHeight()
+        {
+            return model_height;
+        }
+
         public void SetColor(float r, float g, float b)
         {
             colorR = r;
