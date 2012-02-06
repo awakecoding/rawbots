@@ -151,6 +151,17 @@ namespace Rawbots
             Boundary boundary = new Boundary();
             map.SetTile(boundary, x + 45, y + 1);
 
+            robot = new Robot(x + 10, y + 10);
+            robot.AddChassis(new TrackedChassis());
+            robot.AddWeapon(new MissilesWeapon());
+            robot.AddElectronics(new Electronics());
+            map.AddRobot(robot);
+
+            Console.WriteLine("Press ESC to Quit Program.");
+            Console.WriteLine("F1 (Wire/Solid Mode), F2 (Solid Mode), F3 (Wire Mode)");
+            Console.WriteLine("F4 (Show XYZ Plane), F5 (Show XZ Plane), F6 (Show XY Plane), F7 (Show Nothing)");
+            Console.WriteLine("F11 (Enable Camera), F12 (Disable Camera)");
+            
             this.Title = "Rawbots";
 		}
 
