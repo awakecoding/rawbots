@@ -23,6 +23,7 @@ namespace Rawbots
 		List<Robot> robots;
 		List<Factory> factories;
         List<Block> blocks;
+        RemoteControlUnit rmc;
 
 		public Terrain Terrain { get { return terrain; } }
 		
@@ -36,6 +37,9 @@ namespace Rawbots
 			robots = new List<Robot>();
 			factories = new List<Factory>();
             blocks = new List<Block>();
+            rmc = new RemoteControlUnit();
+            rmc.PosX = 43;
+            rmc.PosY = -1;
 		}
 		
 		public void AddRobot(Robot robot)
@@ -63,6 +67,11 @@ namespace Rawbots
             blocks.Add(block);
         }
 
+        public void SetTile(Tile t, int x, int y)
+        {
+            terrain.setTile(t, x, y);
+        }
+
         public void SetRenderMode(RenderMode renderMode)
         {
             for (int i = 0; i < factories.Count; i++)
@@ -83,6 +92,7 @@ namespace Rawbots
             }
 
             TeamNumber.SetRenderMode(renderMode);
+            rmc.SetRenderMode(renderMode);
         }
 
         public void Render()
@@ -155,6 +165,13 @@ namespace Rawbots
 
             GL.PopMatrix();
 
+            GL.PushMatrix();
+
+            GL.Translate(-width / 2.0f, 0.0f, height / 2.0f);
+
+            rmc.Render();
+
+            GL.PopMatrix();
         }
 	}
 }
