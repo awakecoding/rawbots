@@ -26,8 +26,6 @@ namespace Rawbots
 
         public override void Render()
         {
-            sides = NORTH + SOUTH;
-
             if ((sides & WEST) == WEST)
             {
                 GL.PushMatrix();
