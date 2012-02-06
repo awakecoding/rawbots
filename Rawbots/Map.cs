@@ -91,6 +91,8 @@ namespace Rawbots
                 b.SetRenderMode(renderMode);
             }
 
+            terrain.SetRenderMode(renderMode);
+
             TeamNumber.SetRenderMode(renderMode);
             rmc.SetRenderMode(renderMode);
         }
