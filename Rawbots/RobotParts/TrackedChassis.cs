@@ -19,7 +19,7 @@ namespace Rawbots
     {
 
         private const double radius = 0.1;
-        private const double height = 0.2;
+        private const double cylinder_height = 0.2;
 
         private CubeModel[] tcComponent;
         private CylinderModel[] wheelEnd;
@@ -36,7 +36,7 @@ namespace Rawbots
 
             wheelEnd = new CylinderModel[TOTAL_ENDS];
             for (int i = 0; i < TOTAL_ENDS; i++)
-                wheelEnd[i] = new CylinderModel(radius, height);
+                wheelEnd[i] = new CylinderModel(radius, cylinder_height);
 
             tcComponent = new CubeModel[TOTAL_ENDS];
             for (int i = 0; i < TOTAL_ENDS; i++)

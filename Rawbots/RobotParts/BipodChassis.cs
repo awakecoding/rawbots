@@ -35,7 +35,9 @@ namespace Rawbots
 
             mcComponent = new CubeModel[TOTAL_COMPONENTS];
             for (int i = 0; i < mcComponent.Length; i++)
-                 mcComponent[i] = new CubeModel();            
+                 mcComponent[i] = new CubeModel();
+
+            SetHeight(1.0f);
 		}
 		
 		public override void SetRenderMode(RenderMode renderMode)
@@ -46,6 +48,12 @@ namespace Rawbots
 
 		public override void Render()
 		{
+            //GL.PushMatrix();
+            //GL.Translate(0.0f, 0.5f, 0.0f);
+            //GL.Scale(1.0f, 1.0f, 1.0f);
+            //RenderDebugCube();
+            //GL.PopMatrix();
+
             GL.Translate(0.0f, 1.0f, 0.0f);
 
             GL.Scale(0.5f, 0.5f, 0.5f);

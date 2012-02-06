@@ -48,7 +48,8 @@ namespace Rawbots
 			
 			cube = new CubeModel();
 			cube.SetRenderMode(RenderMode.SOLID_WIRE);
-			
+            
+            SetHeight(0.2f);
 		}
 		
 		private void drawBox(float Xtranslate, float Ytranslate, float Ztranslate, float Xscale, float Yscale, float Zscale)
@@ -62,9 +63,15 @@ namespace Rawbots
 		{
             GL.Translate(0.0f, 0.33f, 0.0f);
 
+            //GL.PushMatrix();
+
+            //GL.Scale(1.0f, 0.2f, 1.0f);
+            //debugCube.render(1.0f);
+            //GL.PopMatrix();
+
 			//Unit size
 			GL.Scale (0.33, 0.33, 0.33);
-			
+
 			cube.SetColor(0.3f, 0.3f, 0.3f);
 			//central box
 			GL.PushMatrix();
@@ -104,10 +111,6 @@ namespace Rawbots
 			GL.Scale(0.5, 0.5, 0.5);
 			TeamNumber.Render();
 			GL.PopMatrix();
-				
-			
-			
-			
 		}
 	}
 }

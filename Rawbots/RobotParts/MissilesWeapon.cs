@@ -46,6 +46,7 @@ namespace Rawbots
 
             frame = new CubeModel();
             frame.SetColor(0.1f, 1.0f, 0.0f);
+            SetHeight(0.75f);
 		}
 		
 		public override int getCost()
@@ -74,6 +75,13 @@ namespace Rawbots
 
 		public override void Render()
 		{
+            //GL.PushMatrix();
+
+            //GL.Scale(1.0f, 0.75f, 1.0f);
+            //RenderDebugCube();
+
+            //GL.PopMatrix();
+
             //left missle chamber
             GL.PushMatrix();
             GL.Translate(-0.35f, 0.0f, 0.0f);
