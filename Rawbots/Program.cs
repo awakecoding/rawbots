@@ -145,6 +145,9 @@ namespace Rawbots
             bsh = new BlockSquareHole(true, x + 41, y + 1);
             map.AddBlock(bsh);
 
+            Boundary boundary = new Boundary();
+            map.SetTile(boundary, x + 45, y + 1);
+
             this.Title = "Rawbots";
 		}
 
