@@ -20,6 +20,10 @@ namespace Rawbots
     {
         private CubeModel cube;
 
+        private double cylinderRadius; //antenna
+        private double cylinderHeight;
+        private CylinderModel cylinder;
+
         public int PosX { get; set; }
         public int PosY { get; set; }
 
@@ -33,12 +37,23 @@ namespace Rawbots
 
             cube = new CubeModel();
 
+            cylinderHeight = 0.5f;
+            cylinderRadius = 0.03f;
+            cylinder = new CylinderModel(cylinderRadius, cylinderHeight);
+            cylinder.SetColor(0.2f, 0.2f, 0.2f);
+
             PosX = 0; PosY = 0;
         }
 
         public Base(int x, int y)
         {
             cube = new CubeModel();
+
+            cylinderHeight = 0.5f;
+            cylinderRadius = 0.03f;
+            cylinder = new CylinderModel(cylinderRadius, cylinderHeight);
+            cylinder.SetColor(0.2f, 0.2f, 0.2f);
+
             PosX = x; PosY = y;
         }
 
@@ -171,6 +186,37 @@ namespace Rawbots
             base.SetRenderMode(renderMode);
 
             cube.SetRenderMode(renderMode);
+            cylinder.SetRenderMode(renderMode);
+        }
+
+        private void drawFlag(float Xtranslate, float Ytranslate, float Ztranslate)
+        {
+            GL.PushMatrix();
+            GL.Translate(Xtranslate, Ytranslate, Ztranslate);
+
+            //base
+            cube.SetColor(0.1f, 0.1f, 0.1f);
+            GL.PushMatrix();
+            GL.Scale(0.15f, 0.02f, 0.15f);
+            cube.render(1.0);
+            GL.PopMatrix();
+
+            //pole
+            GL.PushMatrix();
+            //GL.Translate(0.0, 0.0, 0.0);
+            GL.Rotate(-90.0, 1.0, 0.0, 0.0);
+            cylinder.render();
+            GL.PopMatrix();
+
+            //flag
+            cube.SetColor(0.70f, 0.09f, 0.09f); //scarlet
+            GL.PushMatrix();
+            GL.Translate(0.18f, 0.35f, 0.0f);
+            GL.Scale(0.3f, 0.2f, 0.05f);
+            cube.render(1.0);
+            GL.PopMatrix();
+
+            GL.PopMatrix();
         }
 
         public void Render()
@@ -210,6 +256,7 @@ namespace Rawbots
             drawHalfBoxNoDetails(-1.0f, 0.25f, 1.5f);
             drawHalfBoxNoDetails(1.0f, 0.25f, 1.5f);
 
+            drawFlag(-2.0f, 1.01f, 0.0f);
 
             GL.PopMatrix();
         }
