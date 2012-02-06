@@ -33,7 +33,7 @@ namespace Rawbots
             }
             else
             {
-                GL.Translate(0.0f, 0.75f, 0.0f);
+                GL.Translate(0.0f, 0.515f, 0.0f);
                 GL.Scale(0.75f, 0.5f, 0.75f);
                 GL.Translate(0.0f, 0.5f, 0.0f);
             }
