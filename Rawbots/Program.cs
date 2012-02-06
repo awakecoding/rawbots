@@ -133,6 +133,9 @@ namespace Rawbots
             factory = new TrackedChassisFactory(x + 37, y + 5);
             map.AddFactory(factory);
 
+            Base b = new Base(x + 45, y + 5);
+            map.AddBase(b);
+
             Block block = new Block(false, x + 35, y + 1);
             map.AddBlock(block);
 
