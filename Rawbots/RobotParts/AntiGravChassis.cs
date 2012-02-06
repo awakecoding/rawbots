@@ -60,6 +60,8 @@ namespace Rawbots
 		
 		public override void Render()
 		{
+            GL.Translate(0.0f, 0.33f, 0.0f);
+
 			//Unit size
 			GL.Scale (0.33, 0.33, 0.33);
 			

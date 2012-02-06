@@ -46,6 +46,8 @@ namespace Rawbots
 
 		public override void Render()
 		{
+            GL.Translate(0.0f, 1.0f, 0.0f);
+
             GL.Scale(0.5f, 0.5f, 0.5f);
 
             GL.PushMatrix();
@@ -57,6 +59,7 @@ namespace Rawbots
             /************************************************************************/
 
             //Set the gray color
+            mcComponent[0].SetColor(0.8f, 0.8f, 0.8f);
             mcComponent[0].render(1.0f);
 
             //Restore back the original scale (1.0f, 1.0f, 1.0f) by multiplying it to give 1.0f for each axis
@@ -93,6 +96,7 @@ namespace Rawbots
             /************************************************************************/
             /* Draw the upper leg                                                   */
             /************************************************************************/
+            mcComponent[UPPER_LEG].SetColor(0.2196f, 0.298f, 0.498f);
             mcComponent[UPPER_LEG].render(1.0f);
 
             //Restore original point of transformation
@@ -108,7 +112,7 @@ namespace Rawbots
             /************************************************************************/
             /* Draw the lower leg                                                   */
             /************************************************************************/
-
+            mcComponent[LOWER_LEG].SetColor(0.2196f, 0.298f, 0.498f);
             mcComponent[LOWER_LEG].render(1.0f);
 
             //Restore original point of transformation
@@ -121,7 +125,7 @@ namespace Rawbots
             /************************************************************************/
             /* Draw the foot                                                                     */
             /************************************************************************/
-
+            mcComponent[FOOT].SetColor(0.4f, 0.498f, 0.6f);
             mcComponent[FOOT].render(1.0f);
 
             GL.PopMatrix();

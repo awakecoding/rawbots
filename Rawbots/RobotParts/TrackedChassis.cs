@@ -44,10 +44,16 @@ namespace Rawbots
 
         }
 
-        /*public override void setRenderMode(int mode)
+        public override void SetRenderMode(RenderMode mode)
         {
-            
-        }*/
+            base.SetRenderMode(renderMode);
+
+            for (int i = 0; i < TOTAL_ENDS; i++)
+                wheelEnd[i].SetRenderMode(mode);
+
+            for (int i = 0; i < TOTAL_ENDS; i++)
+                tcComponent[i].SetRenderMode(mode);
+        }
 
         public override void Render()
         {
@@ -66,6 +72,7 @@ namespace Rawbots
             GL.Scale(0.6f, 0.1f, 1.0f);
 
             // Draw the middle part of the chassis.
+            tcComponent[topEnd].SetColor(0.804f, 0.8f, 0.8f);
             tcComponent[topEnd].render(1.0f);
 
             GL.PopMatrix();

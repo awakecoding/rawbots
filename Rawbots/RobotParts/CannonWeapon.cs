@@ -91,6 +91,14 @@ namespace Rawbots
             return 2;
         }
 
+        public override void SetRenderMode(RenderMode renderMode)
+        {
+            base.SetRenderMode(renderMode);
+
+            cylinder.SetRenderMode(renderMode);
+            cube.SetRenderMode(renderMode);
+        }
+
         public override void Render()
         {
             //Unit Size

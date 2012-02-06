@@ -65,6 +65,7 @@ namespace Rawbots
 
 		public override void Render()
 		{
+            GL.Translate(0.0f, 0.55f, 0.0f);
             GL.Scale(0.5f, 0.5f, 0.5f);
 
             /* Rotate the object on the X-axis about 90 degrees */
@@ -74,6 +75,7 @@ namespace Rawbots
             /* Drawing the Outer chassis                                            */
             /************************************************************************/
 
+            mcComponent.SetColor(0.498f, 0.298f, 0.498f);
             mcComponent.render();
 
             /* Translate the object -.21 to be above the outer chassis cylinder */
@@ -84,6 +86,7 @@ namespace Rawbots
             /************************************************************************/
             GL.PushMatrix();
             GL.Scale(0.75f, 0.75f, 0.75f);
+            mcComponent.SetColor(0.451f, 0.75f, 0.6f);
             mcComponent.render();
             GL.PopMatrix();
 
