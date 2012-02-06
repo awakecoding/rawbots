@@ -30,7 +30,7 @@ namespace Rawbots
 		public Game() : base(800, 600, GraphicsMode.Default, "Rawbots")
 		{
 			VSync = VSyncMode.On;
-
+            
 			Glut.glutInit();
 			
 			width = 50;
@@ -39,28 +39,113 @@ namespace Rawbots
 			
 			Robot robot;
 
-            int x = 0;//(width / 2);
-            int y = 0;//(width / 2);
+            int x = 0;
+            int y = 0;
 			
-			robot = new Robot(x, y);
-			robot.AddWeapon(new MissilesWeapon());
-            //robot.AddChassis(new BipodChassis());
+			robot = new Robot(x + 1, y + 1);
+            robot.AddElectronics(new Electronics());
             map.AddRobot(robot);
 			
-			robot = new Robot(x + 2, y);
+			robot = new Robot(x + 3, y + 1);
+			robot.AddWeapon(new NuclearWeapon());
+			map.AddRobot(robot);
+			
+			robot = new Robot(x + 5, y + 1);
 			robot.AddWeapon(new PhasersWeapon());
 			map.AddRobot(robot);
-			
-			robot = new Robot(x + 3, y);
-			robot.AddElectronics(new Electronics());
-			map.AddRobot(robot);
-			
+
+            robot = new Robot(x + 7, y + 1);
+            robot.AddWeapon(new MissilesWeapon());
+            map.AddRobot(robot);
+
+            robot = new Robot(x + 9, y + 1);
+            robot.AddWeapon(new CannonWeapon());
+            map.AddRobot(robot);
+
+            robot = new Robot(x + 11, y + 1);
+            robot.AddChassis(new AntiGravChassis());
+            map.AddRobot(robot);
+
+            robot = new Robot(x + 13, y + 1);
+            robot.AddChassis(new TrackedChassis());
+            map.AddRobot(robot);
+
+            robot = new Robot(x + 15, y + 1);
+            robot.AddChassis(new BipodChassis());
+            map.AddRobot(robot);
+
+            Tile tile = new LightRubbleTile();
+            map.SetTile(tile, x + 17, y + 1);
+
+            tile = new MediumRubbleTile();
+            map.SetTile(tile, x + 19, y + 1);
+
+            tile = new HeavyRubbleTile();
+            map.SetTile(tile, x + 21, y + 1);
+
+            Pit pit = new Pit();
+            pit.setVisible(Pit.NORTH);
+            map.SetTile(pit, x + 23, y + 1);
+
+            pit = new Pit();
+            pit.setVisible(Pit.EAST);
+            map.SetTile(pit, x + 25, y + 1);
+
+            pit = new Pit();
+            pit.setVisible(Pit.WEST);
+            map.SetTile(pit, x + 27, y + 1);
+
+            pit = new Pit();
+            pit.setVisible(Pit.SOUTH);
+            map.SetTile(pit, x + 29, y + 1);
+
+            pit = new Pit();
+            pit.setVisible(Pit.EAST + Pit.WEST);
+            map.SetTile(pit, x + 31, y + 1);
+
+            pit = new Pit();
+            pit.setVisible(Pit.NORTH + Pit.SOUTH);
+            map.SetTile(pit, x + 33, y + 1);
+
 			Factory factory;
 			
-			factory = new PhasersWeaponFactory(x + 5, y + 2);
+			factory = new AntiGravChassisFactory(x + 2, y + 5);
 			map.AddFactory(factory);
 
-            map.AddBlock(new BlockSquareHole(false, 10, 10));
+            factory = new BipodChassisFactory(x + 7, y + 5);
+            map.AddFactory(factory);
+
+            factory = new CannonWeaponFactory(x + 12, y + 5);
+            map.AddFactory(factory);
+
+            factory = new ElectronicsFactory(x + 17, y + 5);
+            map.AddFactory(factory);
+
+            factory = new MissilesWeaponFactory(x + 22, y + 5);
+            map.AddFactory(factory);
+
+            factory = new NuclearWeaponFactory(x + 27, y + 5);
+            map.AddFactory(factory);
+
+            factory = new PhasersWeaponFactory(x + 32, y + 5);
+            map.AddFactory(factory);
+
+            factory = new TrackedChassisFactory(x + 37, y + 5);
+            map.AddFactory(factory);
+
+            Block block = new Block(false, x + 35, y + 1);
+            map.AddBlock(block);
+
+            block = new Block(true, x + 37, y + 1);
+            map.AddBlock(block);
+
+            BlockSquareHole bsh = new BlockSquareHole(false, x + 39, y + 1);
+            map.AddBlock(bsh);
+
+            bsh = new BlockSquareHole(true, x + 41, y + 1);
+            map.AddBlock(bsh);
+
+            this.Title = "Rawbots";
 		}
 
 		protected override void OnLoad(EventArgs e)
@@ -77,7 +162,7 @@ namespace Rawbots
 
 			GL.Viewport(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width, ClientRectangle.Height);
 
-			Matrix4 projection = Matrix4.CreatePerspectiveFieldOfView((float) Math.PI / 4, Width / (float) Height, 1.0f, 64.0f);
+			Matrix4 projection = Matrix4.CreatePerspectiveFieldOfView((float) Math.PI / 4, Width / (float) Height, 1.0f, /*64.0f*/120.0f);
 			GL.MatrixMode(MatrixMode.Projection);
 			GL.LoadMatrix(ref projection);
 		}
@@ -113,6 +198,8 @@ namespace Rawbots
 
 		protected override void OnRenderFrame(FrameEventArgs e)
 		{
+            int startTime = Environment.TickCount & Int32.MaxValue;
+
 			base.OnRenderFrame(e);
 
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
@@ -123,26 +210,36 @@ namespace Rawbots
 			
 			GL.LoadIdentity();
             
-            GL.Translate(0.0f, 0.0f, -10.0f);
+            GL.Translate(0.0f, 0.0f, -75.0f);
+            GL.Rotate(45.0f, 1.0f, 1.0f, 0.0f);
 
             Camera.OnCameraUpdate();
 
             ReferencePlane.setDimensions(50, 50);
             ReferencePlane.render();
 
-			map.Render();
+		    map.Render();
 			
 			GL.Flush();
 			
 			SwapBuffers();
-		}
+
+            int totalTime = (Environment.TickCount & Int32.MaxValue) - startTime;
+
+            int fps = 0;
+            
+            if(totalTime > 0)
+                fps = 1000 / totalTime;
+		
+            Title = Title + " FPS: " + fps;
+        }
 
 		[STAThread]
 		static void Main()
 		{
 			using (Game game = new Game())
 			{
-				game.Run(60.0);
+				game.Run();
 			}
 		}
 	}
