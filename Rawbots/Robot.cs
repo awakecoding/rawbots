@@ -106,9 +106,12 @@ namespace Rawbots
 
 		public void Render()
 		{
+            float totalHeight = 0.0f;
+
             if (chassis != null)
             {
                 Push();
+                totalHeight += chassis.GetHeight();
                 chassis.RenderAll();
                 Pop();
             }
@@ -122,6 +125,8 @@ namespace Rawbots
                     if (w != null)
                     {
                         Push();
+                        GL.Translate(0.0f, totalHeight, 0.0f);
+                        totalHeight += w.GetHeight();
                         w.RenderAll();
                         Pop();
                     }
@@ -131,7 +136,8 @@ namespace Rawbots
 			if (electronics != null)
 			{
 				Push();
-				electronics.RenderAll();
+                GL.Translate(0.0f, totalHeight, 0.0f);
+                electronics.RenderAll();
 				Pop();
 			}
 		}
