@@ -23,6 +23,13 @@ namespace Rawbots
             plane.SetRenderMode(RenderMode.SOLID_WIRE);
 		}
 
+        public override void SetRenderMode(RenderMode renderMode)
+        {
+            base.SetRenderMode(renderMode);
+
+            plane.SetRenderMode(renderMode);
+        }
+
         public override void Render()
         {
             GL.PushMatrix();
