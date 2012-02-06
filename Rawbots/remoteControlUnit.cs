@@ -65,7 +65,7 @@ namespace Rawbots
 
         public void Render()
         {
-            GL.Translate(PosX, 0.0f, PosY);
+            GL.Translate(PosX, 0.0f, -PosY);
 
             //Scaling to unit size
             GL.Scale(0.33, 0.33, 0.33);
