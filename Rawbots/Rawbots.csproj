@@ -44,6 +44,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BlockSquareHole.cs" />
     <Compile Include="remoteControlUnit.cs" />
     <Compile Include="Tiles\Boundary.cs" />
     <Compile Include="Tiles\HeavyRubbleTile.cs" />
