@@ -57,7 +57,21 @@ namespace Rawbots
 			PosY = y;
 			this.robotPart = robotPart;
 		}
-		
+
+        public override void SetRenderMode(RenderMode renderMode)
+        {
+            base.SetRenderMode(renderMode);
+
+            blockFrontLeft.SetRenderMode(renderMode);
+            blockFrontRight.SetRenderMode(renderMode);
+            blockBackLeft.SetRenderMode(renderMode);
+            blockBackMiddle.SetRenderMode(renderMode);
+            blockBackRight.SetRenderMode(renderMode);
+
+            if (robotPart != null)
+                robotPart.SetRenderMode(renderMode);
+        }
+
 		public void Render()
 		{
 			GL.PushMatrix();
@@ -87,7 +101,7 @@ namespace Rawbots
 			
 			GL.Scale(0.3f, 0.3f, 0.3f);
 			GL.Translate(0.0f, 1.0f, 2.0f);
-			TeamNumber.render();
+			TeamNumber.Render();
 			GL.Translate(0.0f, -1.0f, -1.0f);
 			
 			GL.PopMatrix();

@@ -63,6 +63,15 @@ namespace Rawbots
 			return 3;
 		}
 
+        public override void SetRenderMode(RenderMode renderMode)
+        {
+            base.SetRenderMode(renderMode);
+            inCylinder.SetRenderMode(renderMode);
+            outCylinder.SetRenderMode(renderMode);
+            middleBox.SetRenderMode(renderMode);
+            frame.SetRenderMode(renderMode);
+        }
+
 		public override void Render()
 		{
             //left missle chamber
@@ -134,7 +143,7 @@ namespace Rawbots
             GL.Translate(0.0f, 0.3f, -0.0f);
             GL.Rotate(90, 1.0f, 0.0f, 0.0f);
             GL.Scale(0.5f, 0.5f, 0.5f);
-            TeamNumber.render();
+            TeamNumber.Render();
             GL.PopMatrix();
 
             //WIRE FRAME BOX - to make sure it fits in one unit cube.

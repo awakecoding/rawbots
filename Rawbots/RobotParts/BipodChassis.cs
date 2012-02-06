@@ -77,7 +77,7 @@ namespace Rawbots
             GL.Scale(0.66f, 0.66f, 0.66f);
             GL.Rotate(90, 1.0f, 0.0f, 0.0f);
 
-            TeamNumber.render();
+            TeamNumber.Render();
             GL.PopMatrix();
 
             GL.PopMatrix();

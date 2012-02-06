@@ -18,8 +18,7 @@ namespace Rawbots
 {
     class TeamNumber
     {
-        private static CubeModel[] mcComponent;
-        private const int TOTAL = 4;
+        private static CubeModel mcComponent;
 
         private TeamNumber()
         { 
@@ -27,17 +26,16 @@ namespace Rawbots
 
         static TeamNumber()
         {
-            mcComponent = new CubeModel[TOTAL];
-
-            for (int i = 0; i < mcComponent.Length; i++)
-            {
-                CubeModel mc = new CubeModel();
-                mc.SetColor(1.0f, 1.0f, 1.0f);
-                mcComponent[i] = mc;
-            }
+            mcComponent = new CubeModel();
+            mcComponent.SetColor(1.0f, 1.0f, 1.0f);
         }
 
-        public static void render()
+        public static void SetRenderMode(RenderMode renderMode)
+        {
+            mcComponent.SetRenderMode(renderMode);
+        }
+
+        public static void Render()
         {
             GL.PushMatrix();
             GL.Translate(0.0f, -0.125f, 0.0f);
@@ -51,28 +49,28 @@ namespace Rawbots
 
             GL.Translate(0.0f, -0.5f, 0.0f);
             GL.Scale(0.25f, 2.0f, 0.33f);
-            mcComponent[0].render(1.0f);
+            mcComponent.render(1.0f);
 
             GL.PopMatrix();
             GL.PushMatrix();
 
             GL.Translate(-0.75f, -0.0f, 0.0f);
             GL.Scale(0.25f, 1.0f, 0.33f);
-            mcComponent[0].render(1.0f);
+            mcComponent.render(1.0f);
 
             GL.PopMatrix();
             GL.PushMatrix();
 
             GL.Translate(-0.37f, 0.375f, 0.0f);
             GL.Scale(1.0f, 0.25f, 0.33f);
-            mcComponent[0].render(1.0f);
+            mcComponent.render(1.0f);
 
             GL.PopMatrix();
             GL.PushMatrix();
 
             GL.Translate(-0.37f, -0.375f, 0.0f);
             GL.Scale(1.0f, 0.25f, 0.33f);
-            mcComponent[0].render(1.0f);
+            mcComponent.render(1.0f);
 
             GL.PopMatrix();
             GL.PopMatrix();
