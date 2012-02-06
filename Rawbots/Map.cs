@@ -23,6 +23,7 @@ namespace Rawbots
 		List<Robot> robots;
 		List<Factory> factories;
         List<Block> blocks;
+        List<Base> bases;
         RemoteControlUnit rmc;
 
 		public Terrain Terrain { get { return terrain; } }
@@ -37,9 +38,10 @@ namespace Rawbots
 			robots = new List<Robot>();
 			factories = new List<Factory>();
             blocks = new List<Block>();
+            bases = new List<Base>();
             rmc = new RemoteControlUnit();
             rmc.PosX = 43;
-            rmc.PosY = -1;
+            rmc.PosY = 1;
 		}
 		
 		public void AddRobot(Robot robot)
@@ -67,6 +69,11 @@ namespace Rawbots
             blocks.Add(block);
         }
 
+        public void AddBase(Base b)
+        {
+            bases.Add(b);
+        }
+
         public void SetTile(Tile t, int x, int y)
         {
             terrain.setTile(t, x, y);
@@ -91,6 +98,12 @@ namespace Rawbots
                 b.SetRenderMode(renderMode);
             }
 
+            for (int i = 0; i < bases.Count; i++)
+            {
+                Base b = bases[i];
+                b.SetRenderMode(renderMode);
+            }
+
             terrain.SetRenderMode(renderMode);
 
             TeamNumber.SetRenderMode(renderMode);
@@ -99,12 +112,12 @@ namespace Rawbots
 
         public void Render()
         {
-			/* Render terrain */
-			
+            /* Render terrain */
+
             GL.PushMatrix();
-			
-			terrain.BeginRender();
-			
+
+            terrain.BeginRender();
+
             GL.Translate(-terrain.getWidth() / 2.0f, 0.0f, terrain.getHeight() / 2.0f);
 
             for (int i = 0; i < terrain.getWidth(); i++)
@@ -112,43 +125,43 @@ namespace Rawbots
                 for (int j = 0; j < terrain.getHeight(); j++)
                 {
                     GL.Translate(i * 1.0f, 0.0f, j * -1.0f);
-					terrain.RenderTile(i, j);					
+                    terrain.RenderTile(i, j);
                     GL.Translate(-i * 1.0f, 0.0f, j * 1.0f);
                 }
             }
-            
-			terrain.EndRender();
-			
+
+            terrain.EndRender();
+
             GL.PopMatrix();
-			
-			/* Render robots */
-			
+
+            /* Render robots */
+
             GL.PushMatrix();
-			
+
             GL.Translate(-width / 2.0f, 0.0f, height / 2.0f);
-			
+
             foreach (Robot robot in robots)
             {
                 GL.Translate(robot.PosX * 1.0f, 0.0f, robot.PosY * -1.0f);
                 robot.RenderAll();
                 GL.Translate(-robot.PosX * 1.0f, 0.0f, robot.PosY * 1.0f);
             }
-			
+
             GL.PopMatrix();
-			
-			/* Render factories */
-			
+
+            /* Render factories */
+
             GL.PushMatrix();
-			
+
             GL.Translate(-width / 2.0f, 0.0f, height / 2.0f);
-			
+
             foreach (Factory factory in factories)
             {
                 GL.Translate(factory.PosX * 1.0f, 0.0f, factory.PosY * -1.0f);
                 factory.Render();
                 GL.Translate(-factory.PosX * 1.0f, 0.0f, factory.PosY * 1.0f);
             }
-			
+
             GL.PopMatrix();
 
             /* Render buildings (or blocks)*/
@@ -166,6 +179,22 @@ namespace Rawbots
             }
 
             GL.PopMatrix();
+
+            /* Render the bases */
+
+            GL.PushMatrix();
+
+            GL.Translate(-width / 2.0f, 0.0f, height / 2.0f);
+            
+            for(int i = 0; i < bases.Count; i++)
+            {
+                Base b = bases[i];
+                b.Render();
+            }
+
+            GL.PopMatrix();
+
+            /*Render Remote Control Unit*/
 
             GL.PushMatrix();
 
