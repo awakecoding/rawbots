@@ -41,6 +41,27 @@ namespace Rawbots
         {
             this.stacks = n;
         }
+		
+		public double getHeight()
+		{
+			return height;
+		}
+		
+		public void setHeight(double d)
+		{
+			this.height = d;	
+		}
+		
+		public double getRadius()
+		{
+			return radius;
+		}
+		
+		public void setRadius(double d)
+		{
+			this.radius = d;	
+		}
+			
 
         private void CircleTable(ref double [] sint, ref double [] cost, int n)
         {
