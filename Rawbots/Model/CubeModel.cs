@@ -94,7 +94,7 @@ namespace Rawbots
                 	break;
 				
                 case RenderMode.WIRE:
-					GL.Color3(colorR, colorG, colorB);
+                    GL.Color3(wireColorR, wireColorG, wireColorB);
 					renderCube(size, false);
 					break;
 				
