@@ -25,7 +25,8 @@ namespace Rawbots
 		Map map;
 		int width;
 		int height;
-		
+        bool camera = false;
+
 		public Game() : base(800, 600, GraphicsMode.Default, "Rawbots")
 		{
 			VSync = VSyncMode.On;
@@ -37,13 +38,14 @@ namespace Rawbots
 			map = new Map(width, height);
 			
 			Robot robot;
-			
-			int x = (width / 2);
-			int y = (width / 2);
+
+            int x = 0;//(width / 2);
+            int y = 0;//(width / 2);
 			
 			robot = new Robot(x, y);
-			robot.AddWeapon(new NuclearWeapon());
-			map.AddRobot(robot);
+			robot.AddWeapon(new MissilesWeapon());
+            //robot.AddChassis(new BipodChassis());
+            map.AddRobot(robot);
 			
 			robot = new Robot(x + 2, y);
 			robot.AddWeapon(new PhasersWeapon());
@@ -53,14 +55,12 @@ namespace Rawbots
 			robot.AddElectronics(new Electronics());
 			map.AddRobot(robot);
 			
-			robot = new Robot(x + 4, y);
-			robot.AddChassis(new AntiGravChassis());
-			map.AddRobot(robot);
-			
 			Factory factory;
 			
 			factory = new PhasersWeaponFactory(x + 5, y + 2);
 			map.AddFactory(factory);
+
+            map.AddBlock(new BlockSquareHole(false, 10, 10));
 		}
 
 		protected override void OnLoad(EventArgs e)
@@ -102,8 +102,13 @@ namespace Rawbots
                 ReferencePlane.setVisibleAxis(ReferencePlane.XY);
             else if (Keyboard[Key.F7])
                 ReferencePlane.setVisibleAxis(ReferencePlane.NONE);
+            else if (Keyboard[Key.F11])
+                camera = false;
+            else if (Keyboard[Key.F12])
+                camera = true;
 
-            Camera.OnCameraFrame(this);
+            if(camera)
+                Camera.OnCameraFrame(this);
 		}
 
 		protected override void OnRenderFrame(FrameEventArgs e)
@@ -125,8 +130,6 @@ namespace Rawbots
             ReferencePlane.setDimensions(50, 50);
             ReferencePlane.render();
 
-            TeamNumber.render();
-			
 			map.Render();
 			
 			GL.Flush();

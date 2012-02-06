@@ -22,7 +22,8 @@ namespace Rawbots
 		Terrain terrain;
 		List<Robot> robots;
 		List<Factory> factories;
-		
+        List<Block> blocks;
+
 		public Terrain Terrain { get { return terrain; } }
 		
 		public Map(int width, int height)
@@ -34,6 +35,7 @@ namespace Rawbots
 			
 			robots = new List<Robot>();
 			factories = new List<Factory>();
+            blocks = new List<Block>();
 		}
 		
 		public void AddRobot(Robot robot)
@@ -55,15 +57,34 @@ namespace Rawbots
 		{
 			factories.Remove(factory);
 		}
-		
+
+        public void AddBlock(Block block)
+        {
+            blocks.Add(block);
+        }
+
         public void SetRenderMode(RenderMode renderMode)
         {
-			foreach (Robot robot in robots)
+            for (int i = 0; i < factories.Count; i++)
+            {
+                Factory f = factories[i];
+                f.SetRenderMode(renderMode);
+            }
+            
+            foreach (Robot robot in robots)
 			{
 				robot.SetRenderMode(renderMode);
 			}
-        }	
-	
+
+            for (int i = 0; i < blocks.Count; i++)
+            {
+                Block b = blocks[i];
+                b.SetRenderMode(renderMode);
+            }
+
+            TeamNumber.SetRenderMode(renderMode);
+        }
+
         public void Render()
         {
 			/* Render terrain */
@@ -117,6 +138,23 @@ namespace Rawbots
             }
 			
             GL.PopMatrix();
+
+            /* Render buildings (or blocks)*/
+
+            GL.PushMatrix();
+
+            GL.Translate(-width / 2.0f, 0.0f, height / 2.0f);
+
+            for (int i = 0; i < blocks.Count; i++)
+            {
+                Block b = blocks[i];
+                GL.Translate(b.PosX * 1.0f, 0.0f, b.PosY * -1.0f);
+                b.Render();
+                GL.Translate(-b.PosX * 1.0f, 0.0f, b.PosY * 1.0f);
+            }
+
+            GL.PopMatrix();
+
         }
 	}
 }
