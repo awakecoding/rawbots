@@ -22,7 +22,6 @@ namespace Rawbots
         {
 			bool test = false;
             tiles = new Tile[width, height];
-            //tiles = new Tile[1, 1];
 
 			if (test)
 			{
@@ -64,10 +63,15 @@ namespace Rawbots
                         tiles[i, j] = new Tile();
                     }
                 }
-
-                //tiles[0, 0] = new Boundary();
 			}
 		}
+
+        public void setTile(Tile tile, int x, int y)
+        {
+            tiles[x, y] = tile;
+
+            System.GC.Collect();
+        }
 
         public int getWidth()
         {
