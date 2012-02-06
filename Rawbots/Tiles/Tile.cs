@@ -16,6 +16,7 @@ namespace Rawbots
 	public class Tile : Drawable
 	{
         public Plane plane;
+        private bool teamNumber = false;
 
 		public Tile()
 		{
@@ -30,10 +31,28 @@ namespace Rawbots
             plane.SetRenderMode(renderMode);
         }
 
+        public void showTeamNumber()
+        {
+            teamNumber = true;
+        }
+
+        public void hideTeamNumber()
+        {
+            teamNumber = false;
+        }
+
         public override void Render()
         {
             GL.PushMatrix();
             plane.render(1.0f);
+            
+            if (teamNumber)
+            {
+                GL.Scale(0.5f, 0.5f, 0.5f);
+                GL.Rotate(90.0f, 1.0f, 0.0f, 0.0f);
+                TeamNumber.Render();
+            }
+
             GL.PopMatrix();
         }
 	}
