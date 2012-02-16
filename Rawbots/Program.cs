@@ -27,6 +27,8 @@ namespace Rawbots
 		int height;
         bool camera = false;
 
+        Camera cam = new Camera(0.0f, 0.0f, 25.0f);
+
 		public Game() : base(800, 600, GraphicsMode.Default, "Rawbots")
 		{
 			VSync = VSyncMode.On;
@@ -209,8 +211,30 @@ namespace Rawbots
             else if (Keyboard[Key.F12])
                 camera = true;
 
-            if(camera)
-                Camera.OnCameraFrame(this);
+            if (camera)
+            {
+                if (Keyboard[Key.Up])
+                    cam.moveLoc(0.0f, 0.0f, 1.0f, 1.0f);
+                if (Keyboard[Key.Down])
+                    cam.moveLoc(0.0f, 0.0f, -1.0f, 1.0f);
+                if (Keyboard[Key.Left])
+                    cam.moveLoc(-1.0f, 0.0f, 0.0f, 1.0f);
+                if (Keyboard[Key.Right])
+                    cam.moveLoc(1.0f, 0.0f, 0.0f, 1.0f);
+
+                if (Keyboard[Key.W])
+                    cam.rotateLoc(-1.0f, 1.0f, 0.0f, 0.0f);
+                if (Keyboard[Key.S])
+                    cam.rotateLoc(1.0f, 1.0f, 0.0f, 0.0f);
+                if (Keyboard[Key.D])
+                    cam.rotateLoc(1.0f, 0.0f, 1.0f, 0.0f);
+                if (Keyboard[Key.A])
+                    cam.rotateLoc(-1.0f, 0.0f, 1.0f, 0.0f);
+                if (Keyboard[Key.Q])
+                    cam.rotateLoc(1.0f, 0.0f, 0.0f, 1.0f);
+                if (Keyboard[Key.E])
+                    cam.rotateLoc(-1.0f, 0.0f, 0.0f, 1.0f);
+            }
 		}
 
 		protected override void OnRenderFrame(FrameEventArgs e)
@@ -221,16 +245,16 @@ namespace Rawbots
 
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-			Matrix4 modelview = Matrix4.LookAt(Vector3.Zero, Vector3.UnitZ, Vector3.UnitY);
-			GL.MatrixMode(MatrixMode.Modelview);
-			GL.LoadMatrix(ref modelview);
+            //Matrix4 modelview = Matrix4.LookAt(Vector3.Zero, Vector3.UnitZ, Vector3.UnitY);
+            //GL.MatrixMode(MatrixMode.Modelview);
+            //GL.LoadMatrix(ref modelview);
 			
-			GL.LoadIdentity();
-            
-            GL.Translate(0.0f, 0.0f, -75.0f);
-            GL.Rotate(45.0f, 1.0f, 1.0f, 0.0f);
+            //GL.Translate(0.0f, 0.0f, -75.0f);
+            //GL.Rotate(45.0f, 1.0f, 1.0f, 0.0f);
 
-            Camera.OnCameraUpdate();
+            //Camera.OnCameraUpdate();
+
+            cam.setView();
 
             ReferencePlane.setDimensions(50, 50);
             ReferencePlane.render();
