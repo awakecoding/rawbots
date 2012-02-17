@@ -173,6 +173,8 @@ namespace Rawbots
 			
 			GL.ClearColor(0.1f, 0.2f, 0.5f, 0.0f);
 			GL.Enable(EnableCap.DepthTest);
+
+            c = new CubeModel();
 		}
 
 		protected override void OnResize(EventArgs e)
@@ -214,28 +216,30 @@ namespace Rawbots
             if (camera)
             {
                 if (Keyboard[Key.Up])
-                    cam.moveLoc(0.0f, 0.0f, 1.0f, 1.0f);
+                    cam.moveLoc(0.0f, 0.0f, 1.0f, 0.5f);
                 if (Keyboard[Key.Down])
-                    cam.moveLoc(0.0f, 0.0f, -1.0f, 1.0f);
+                    cam.moveLoc(0.0f, 0.0f, -1.0f, 0.5f);
                 if (Keyboard[Key.Left])
-                    cam.moveLoc(-1.0f, 0.0f, 0.0f, 1.0f);
+                    cam.moveLoc(-1.0f, 0.0f, 0.0f, 0.5f);
                 if (Keyboard[Key.Right])
-                    cam.moveLoc(1.0f, 0.0f, 0.0f, 1.0f);
+                    cam.moveLoc(1.0f, 0.0f, 0.0f, 0.5f);
 
                 if (Keyboard[Key.W])
-                    cam.rotateLoc(-1.0f, 1.0f, 0.0f, 0.0f);
+                    cam.rotateLoc(-0.5f, 1.0f, 0.0f, 0.0f);
                 if (Keyboard[Key.S])
-                    cam.rotateLoc(1.0f, 1.0f, 0.0f, 0.0f);
+                    cam.rotateLoc(0.5f, 1.0f, 0.0f, 0.0f);
                 if (Keyboard[Key.D])
-                    cam.rotateLoc(1.0f, 0.0f, 1.0f, 0.0f);
+                    cam.rotateLoc(0.5f, 0.0f, 1.0f, 0.0f);
                 if (Keyboard[Key.A])
-                    cam.rotateLoc(-1.0f, 0.0f, 1.0f, 0.0f);
+                    cam.rotateLoc(-0.5f, 0.0f, 1.0f, 0.0f);
                 if (Keyboard[Key.Q])
-                    cam.rotateLoc(1.0f, 0.0f, 0.0f, 1.0f);
+                    cam.rotateLoc(0.5f, 0.0f, 0.0f, 1.0f);
                 if (Keyboard[Key.E])
-                    cam.rotateLoc(-1.0f, 0.0f, 0.0f, 1.0f);
+                    cam.rotateLoc(-0.5f, 0.0f, 0.0f, 1.0f);
             }
 		}
+
+        
 
 		protected override void OnRenderFrame(FrameEventArgs e)
 		{
@@ -252,14 +256,12 @@ namespace Rawbots
             //GL.Translate(0.0f, 0.0f, -75.0f);
             //GL.Rotate(45.0f, 1.0f, 1.0f, 0.0f);
 
-            //Camera.OnCameraUpdate();
-
             cam.setView();
 
             ReferencePlane.setDimensions(50, 50);
             ReferencePlane.render();
 
-		    map.Render();
+            map.Render();
 			
 			GL.Flush();
 			
