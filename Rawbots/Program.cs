@@ -173,8 +173,6 @@ namespace Rawbots
 			
 			GL.ClearColor(0.1f, 0.2f, 0.5f, 0.0f);
 			GL.Enable(EnableCap.DepthTest);
-
-            c = new CubeModel();
 		}
 
 		protected override void OnResize(EventArgs e)
@@ -238,8 +236,6 @@ namespace Rawbots
                     cam.rotateLoc(-0.5f, 0.0f, 0.0f, 1.0f);
             }
 		}
-
-        
 
 		protected override void OnRenderFrame(FrameEventArgs e)
 		{
