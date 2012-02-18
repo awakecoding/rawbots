@@ -159,15 +159,20 @@ namespace Rawbots
             robot.AddWeapon(new MissilesWeapon());
             robot.AddElectronics(new Electronics());
             map.AddRobot(robot);
-
+            
+            this.Title = this.baseTitle;
+			
+			PrintHelp();
+		}
+		
+		public void PrintHelp()
+		{
             Console.WriteLine("Press ESC to Quit Program.");
             Console.WriteLine("F1 (Wire/Solid Mode), F2 (Solid Mode), F3 (Wire Mode)");
             Console.WriteLine("F4 (Show XYZ Plane), F5 (Show XZ Plane), F6 (Show XY Plane), F7 (Show Nothing)");
             Console.WriteLine("F11 (Enable Camera), F12 (Disable Camera)");
-            
-            this.Title = this.baseTitle;
 		}
-
+		
 		protected override void OnLoad(EventArgs e)
 		{
 			base.OnLoad(e);
@@ -211,6 +216,8 @@ namespace Rawbots
                 camera = false;
             else if (Keyboard[Key.F12])
                 camera = true;
+			else if (Keyboard[Key.H])
+				PrintHelp();
 
             if (camera)
             {
