@@ -56,19 +56,60 @@ namespace Rawbots
 			robot = new Robot(x + 5, y + 1);
 			robot.AddWeapon(new PhasersWeapon());
 			map.AddRobot(robot);
-			
-			robot = new Robot(x + 3, y);
-			robot.AddElectronics(new Electronics());
-			map.AddRobot(robot);
-			
-			robot = new Robot(x + 4, y);
-			robot.AddChassis(new AntiGravChassis());
-			map.AddRobot(robot);
-			
-			robot = new Robot(x -5, y);
-			robot.AddChassis(new TrackedChassis());
-			map.AddRobot (robot);
-			
+
+            robot = new Robot(x + 7, y + 1);
+            robot.AddWeapon(new MissilesWeapon());
+            map.AddRobot(robot);
+
+            robot = new Robot(x + 9, y + 1);
+            robot.AddWeapon(new CannonWeapon());
+            map.AddRobot(robot);
+
+            robot = new Robot(x + 11, y + 1);
+            robot.AddChassis(new AntiGravChassis());
+            map.AddRobot(robot);
+
+            robot = new Robot(x + 13, y + 1);
+            robot.AddChassis(new TrackedChassis());
+            map.AddRobot(robot);
+
+            robot = new Robot(x + 15, y + 1);
+            robot.AddChassis(new BipodChassis());
+            map.AddRobot(robot);
+
+            Tile tile = new LightRubbleTile();
+            map.SetTile(tile, x + 17, y + 1);
+
+            tile = new MediumRubbleTile();
+            map.SetTile(tile, x + 19, y + 1);
+
+            tile = new HeavyRubbleTile();
+            map.SetTile(tile, x + 21, y + 1);
+
+            Pit pit = new Pit();
+            pit.setVisible(Pit.NORTH);
+            map.SetTile(pit, x + 23, y + 1);
+
+            pit = new Pit();
+            pit.setVisible(Pit.EAST);
+            map.SetTile(pit, x + 25, y + 1);
+
+            pit = new Pit();
+            pit.setVisible(Pit.WEST);
+            map.SetTile(pit, x + 27, y + 1);
+
+            pit = new Pit();
+            pit.setVisible(Pit.SOUTH);
+            map.SetTile(pit, x + 29, y + 1);
+
+            pit = new Pit();
+            pit.setVisible(Pit.EAST + Pit.WEST);
+            map.SetTile(pit, x + 31, y + 1);
+
+            pit = new Pit();
+            pit.setVisible(Pit.NORTH + Pit.SOUTH);
+            map.SetTile(pit, x + 33, y + 1);
+
 			Factory factory;
 			
 			factory = new AntiGravChassisFactory(x + 2, y + 5);
