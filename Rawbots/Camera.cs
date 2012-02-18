@@ -23,6 +23,7 @@ namespace Rawbots
 {
     class Camera
     {
+		private float delta = 1.0f;
         private bool bViewVolume = true;
 
         private float[] Transform = new float[16];
@@ -34,8 +35,6 @@ namespace Rawbots
             Transform[10] = -1.0f;
             Transform[15] = 1.0f;
             Transform[12] = x; Transform[13] = y; Transform[14] = z;
-
-            
         }
 
         public float[] getRight()
@@ -171,6 +170,55 @@ namespace Rawbots
             GL.GetFloat(GetPName.ModelviewMatrix, Transform);
             GL.PopMatrix();
         }
-        
+
+		public void MoveUp()
+		{
+			moveLoc(0.0f, 0.0f, 1.0f, 0.5f);
+		}
+
+		public void MoveDown()
+		{
+			moveLoc(0.0f, 0.0f, -1.0f, 0.5f);
+		}
+
+		public void MoveLeft()
+		{
+			moveLoc(-1.0f, 0.0f, 0.0f, 0.5f);
+		}
+
+		public void MoveRight()
+		{
+			moveLoc(1.0f, 0.0f, 0.0f, 0.5f);
+		}
+
+		public void RotateUp()
+		{
+			rotateLoc(-delta, 1.0f, 0.0f, 0.0f);
+		}
+
+		public void RotateDown()
+		{
+			rotateLoc(delta, 1.0f, 0.0f, 0.0f);
+		}
+
+		public void RotateLeft()
+		{
+			rotateLoc(-delta, 0.0f, 1.0f, 0.0f);
+		}
+
+		public void RotateRight()
+		{
+			rotateLoc(delta, 0.0f, 1.0f, 0.0f);
+		}
+
+		public void RollLeft()
+		{
+			rotateLoc(delta, 0.0f, 0.0f, 1.0f);
+		}
+
+		public void RollRight()
+		{
+			rotateLoc(-delta, 0.0f, 0.0f, 1.0f);
+		}
     }
 }

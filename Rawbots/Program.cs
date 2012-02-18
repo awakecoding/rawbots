@@ -221,27 +221,27 @@ namespace Rawbots
 
             if (camera)
             {
-                if (Keyboard[Key.Up])
-                    cam.moveLoc(0.0f, 0.0f, 1.0f, 0.5f);
-                if (Keyboard[Key.Down])
-                    cam.moveLoc(0.0f, 0.0f, -1.0f, 0.5f);
-                if (Keyboard[Key.Left])
-                    cam.moveLoc(-1.0f, 0.0f, 0.0f, 0.5f);
-                if (Keyboard[Key.Right])
-                    cam.moveLoc(1.0f, 0.0f, 0.0f, 0.5f);
+				if (Keyboard[Key.Up])
+					cam.MoveUp();
+				if (Keyboard[Key.Down])
+					cam.MoveDown();
+				if (Keyboard[Key.Left])
+					cam.MoveLeft();
+				if (Keyboard[Key.Right])
+					cam.MoveRight();
 
-                if (Keyboard[Key.W])
-                    cam.rotateLoc(-0.5f, 1.0f, 0.0f, 0.0f);
-                if (Keyboard[Key.S])
-                    cam.rotateLoc(0.5f, 1.0f, 0.0f, 0.0f);
-                if (Keyboard[Key.D])
-                    cam.rotateLoc(0.5f, 0.0f, 1.0f, 0.0f);
-                if (Keyboard[Key.A])
-                    cam.rotateLoc(-0.5f, 0.0f, 1.0f, 0.0f);
-                if (Keyboard[Key.Q])
-                    cam.rotateLoc(0.5f, 0.0f, 0.0f, 1.0f);
-                if (Keyboard[Key.E])
-                    cam.rotateLoc(-0.5f, 0.0f, 0.0f, 1.0f);
+				if (Keyboard[Key.W])
+					cam.RotateUp();
+				if (Keyboard[Key.S])
+					cam.RotateDown();
+				if (Keyboard[Key.D])
+					cam.RotateRight();
+				if (Keyboard[Key.A])
+					cam.RotateLeft();
+				if (Keyboard[Key.Q])
+					cam.RollLeft();
+				if (Keyboard[Key.E])
+					cam.RollRight();
             }
 		}
 
