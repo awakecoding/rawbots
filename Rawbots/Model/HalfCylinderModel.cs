@@ -114,7 +114,6 @@ namespace Rawbots
 			
             sint = null;
             cost = null;
-            System.GC.Collect();
 
             GL.PolygonMode(MaterialFace.Front, (PolygonMode)state[0]);
             GL.PolygonMode(MaterialFace.Back, (PolygonMode)state[1]);

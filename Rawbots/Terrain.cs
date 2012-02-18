@@ -76,8 +76,6 @@ namespace Rawbots
         public void setTile(Tile tile, int x, int y)
         {
             tiles[x, y] = tile;
-
-            System.GC.Collect();
         }
 
         public int getWidth()

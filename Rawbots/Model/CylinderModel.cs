@@ -135,7 +135,6 @@ namespace Rawbots
 
             sint = null;
             cost = null;
-            System.GC.Collect();
         }
 
         private void renderWireCylinder()
@@ -185,7 +184,6 @@ namespace Rawbots
 
             sint = null;
             cost = null;
-            System.GC.Collect();
         }
 		
         public void render()

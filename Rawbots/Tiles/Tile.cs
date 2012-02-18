@@ -21,7 +21,7 @@ namespace Rawbots
 		public Tile()
 		{
             plane = new Plane();
-            plane.SetRenderMode(RenderMode.SOLID_WIRE);
+            plane.SetRenderMode(RenderMode.SOLID);
 		}
 
         public override void SetRenderMode(RenderMode renderMode)

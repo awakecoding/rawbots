@@ -92,6 +92,12 @@
     <Compile Include="Factories\ElectronicsFactory.cs" />
     <Compile Include="Tiles\LightPost.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="OpenGL32.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="gliConfig.ini" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

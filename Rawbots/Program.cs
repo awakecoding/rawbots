@@ -25,7 +25,10 @@ namespace Rawbots
 		Map map;
 		int width;
 		int height;
-        bool camera = false;
+        bool camera = true;
+		string baseTitle = "Rawbots";
+		
+        Camera cam = new Camera(0.0f, 0.0f, 25.0f);
 
 		public Game() : base(800, 600, GraphicsMode.Default, "Rawbots")
 		{
@@ -168,17 +171,20 @@ namespace Rawbots
 			
 			lightpost = new LightPost(1);
 			map.SetTile(lightpost, x, y + 49);
+            
+            this.Title = this.baseTitle;
 			
-			
-
+			PrintHelp();
+		}
+		
+		public void PrintHelp()
+		{
             Console.WriteLine("Press ESC to Quit Program.");
             Console.WriteLine("F1 (Wire/Solid Mode), F2 (Solid Mode), F3 (Wire Mode)");
             Console.WriteLine("F4 (Show XYZ Plane), F5 (Show XZ Plane), F6 (Show XY Plane), F7 (Show Nothing)");
             Console.WriteLine("F11 (Enable Camera), F12 (Disable Camera)");
-            
-            this.Title = "Rawbots";
 		}
-
+		
 		protected override void OnLoad(EventArgs e)
 		{
 			base.OnLoad(e);
@@ -222,9 +228,33 @@ namespace Rawbots
                 camera = false;
             else if (Keyboard[Key.Number2])
                 camera = true;
+			else if (Keyboard[Key.H])
+				PrintHelp();
 
-            if(camera)
-                Camera.OnCameraFrame(this);
+            if (camera)
+            {
+				if (Keyboard[Key.Up])
+					cam.MoveUp();
+				if (Keyboard[Key.Down])
+					cam.MoveDown();
+				if (Keyboard[Key.Left])
+					cam.MoveLeft();
+				if (Keyboard[Key.Right])
+					cam.MoveRight();
+
+				if (Keyboard[Key.W])
+					cam.RotateUp();
+				if (Keyboard[Key.S])
+					cam.RotateDown();
+				if (Keyboard[Key.D])
+					cam.RotateRight();
+				if (Keyboard[Key.A])
+					cam.RotateLeft();
+				if (Keyboard[Key.Q])
+					cam.RollLeft();
+				if (Keyboard[Key.E])
+					cam.RollRight();
+            }
 		}
 
 		protected override void OnRenderFrame(FrameEventArgs e)
@@ -235,21 +265,19 @@ namespace Rawbots
 
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-			Matrix4 modelview = Matrix4.LookAt(Vector3.Zero, Vector3.UnitZ, Vector3.UnitY);
-			GL.MatrixMode(MatrixMode.Modelview);
-			GL.LoadMatrix(ref modelview);
+            //Matrix4 modelview = Matrix4.LookAt(Vector3.Zero, Vector3.UnitZ, Vector3.UnitY);
+            //GL.MatrixMode(MatrixMode.Modelview);
+            //GL.LoadMatrix(ref modelview);
 			
-			GL.LoadIdentity();
-            
-            GL.Translate(0.0f, 0.0f, -75.0f);
-            GL.Rotate(45.0f, 1.0f, 1.0f, 0.0f);
+            //GL.Translate(0.0f, 0.0f, -75.0f);
+            //GL.Rotate(45.0f, 1.0f, 1.0f, 0.0f);
 
-            Camera.OnCameraUpdate();
+            cam.setView();
 
             ReferencePlane.setDimensions(50, 50);
             ReferencePlane.render();
 
-		    map.Render();
+            map.Render();
 			
 			GL.Flush();
 			
@@ -259,10 +287,11 @@ namespace Rawbots
 
             int fps = 0;
             
-            if(totalTime > 0)
+            if (totalTime > 0)
                 fps = 1000 / totalTime;
 		
-            Title = "FPS: " + fps;
+
+            Title = this.baseTitle + " FPS: " + fps;
         }
 
 		[STAThread]
