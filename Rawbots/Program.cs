@@ -233,27 +233,31 @@ namespace Rawbots
 
             if (cameraEnabled)
             {
-				if (Keyboard[Key.Up])
-					camera.MoveUp();
-				if (Keyboard[Key.Down])
-					camera.MoveDown();
-				if (Keyboard[Key.Left])
-					camera.MoveLeft();
-				if (Keyboard[Key.Right])
-					camera.MoveRight();
+				Camera.Action action = Camera.Action.NONE;
 
+				if (Keyboard[Key.Up])
+					action |= Camera.Action.MOVE_UP;
+				if (Keyboard[Key.Down])
+					action |= Camera.Action.MOVE_DOWN;
+				if (Keyboard[Key.Left])
+					action |= Camera.Action.MOVE_LEFT;
+				if (Keyboard[Key.Right])
+					action |= Camera.Action.MOVE_RIGHT;
 				if (Keyboard[Key.W])
-					camera.RotateUp();
+					action |= Camera.Action.ROTATE_UP;
 				if (Keyboard[Key.S])
-					camera.RotateDown();
+					action |= Camera.Action.ROTATE_DOWN;
 				if (Keyboard[Key.D])
-					camera.RotateRight();
+					action |= Camera.Action.ROTATE_RIGHT;
 				if (Keyboard[Key.A])
-					camera.RotateLeft();
+					action |= Camera.Action.ROTATE_LEFT;
 				if (Keyboard[Key.Q])
-					camera.RollLeft();
+					action |= Camera.Action.ROLL_LEFT;
 				if (Keyboard[Key.E])
-					camera.RollRight();
+					action |= Camera.Action.ROLL_RIGHT;
+
+				if (action != Camera.Action.NONE)
+					camera.PerformActions(action);
             }
 		}
 
