@@ -109,7 +109,7 @@ namespace Rawbots
             pit = new Pit();
             pit.setVisible(Pit.NORTH + Pit.SOUTH);
             map.SetTile(pit, x + 33, y + 1);
-
+			
 			Factory factory;
 			
 			factory = new AntiGravChassisFactory(x + 2, y + 5);
@@ -153,12 +153,24 @@ namespace Rawbots
 
             Boundary boundary = new Boundary();
             map.SetTile(boundary, x + 45, y + 1);
-
+			
             robot = new Robot(x + 10, y + 10);
             robot.AddChassis(new TrackedChassis());
             robot.AddWeapon(new MissilesWeapon());
             robot.AddElectronics(new Electronics());
             map.AddRobot(robot);
+			
+			Tile lightpost = new LightPost(4);
+			map.SetTile(lightpost, x, y);
+			
+			lightpost = new LightPost(3);
+			map.SetTile(lightpost, x + 49, y);
+			
+			lightpost = new LightPost(2);
+			map.SetTile(lightpost, x + 49, y + 49);
+			
+			lightpost = new LightPost(1);
+			map.SetTile(lightpost, x, y + 49);
             
             this.Title = this.baseTitle;
 			
@@ -198,11 +210,11 @@ namespace Rawbots
 
             if (Keyboard[Key.Escape])
                 Exit();
-            else if (Keyboard[Key.F1])
+            else if (Keyboard[Key.Number8])
                 map.SetRenderMode(RenderMode.SOLID_WIRE);
-            else if (Keyboard[Key.F2])
+            else if (Keyboard[Key.Number9])
                 map.SetRenderMode(RenderMode.SOLID);
-            else if (Keyboard[Key.F3])
+            else if (Keyboard[Key.Number0])
                 map.SetRenderMode(RenderMode.WIRE);
             else if (Keyboard[Key.F4])
                 ReferencePlane.setVisibleAxis(ReferencePlane.XYZ);
@@ -253,13 +265,6 @@ namespace Rawbots
 
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-            //Matrix4 modelview = Matrix4.LookAt(Vector3.Zero, Vector3.UnitZ, Vector3.UnitY);
-            //GL.MatrixMode(MatrixMode.Modelview);
-            //GL.LoadMatrix(ref modelview);
-			
-            //GL.Translate(0.0f, 0.0f, -75.0f);
-            //GL.Rotate(45.0f, 1.0f, 1.0f, 0.0f);
-
             camera.setView();
 
             ReferencePlane.setDimensions(50, 50);
@@ -278,6 +283,7 @@ namespace Rawbots
             if (totalTime > 0)
                 fps = 1000 / totalTime;
 		
+
             Title = this.baseTitle + " FPS: " + fps;
         }
 
