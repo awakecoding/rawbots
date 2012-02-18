@@ -25,8 +25,9 @@ namespace Rawbots
 		Map map;
 		int width;
 		int height;
-        bool camera = false;
-
+        bool camera = true;
+		string baseTitle = "Rawbots";
+		
         Camera cam = new Camera(0.0f, 0.0f, 25.0f);
 
 		public Game() : base(800, 600, GraphicsMode.Default, "Rawbots")
@@ -164,7 +165,7 @@ namespace Rawbots
             Console.WriteLine("F4 (Show XYZ Plane), F5 (Show XZ Plane), F6 (Show XY Plane), F7 (Show Nothing)");
             Console.WriteLine("F11 (Enable Camera), F12 (Disable Camera)");
             
-            this.Title = "Rawbots";
+            this.Title = this.baseTitle;
 		}
 
 		protected override void OnLoad(EventArgs e)
@@ -267,10 +268,10 @@ namespace Rawbots
 
             int fps = 0;
             
-            if(totalTime > 0)
+            if (totalTime > 0)
                 fps = 1000 / totalTime;
 		
-            Title = Title + " FPS: " + fps;
+            Title = this.baseTitle + " FPS: " + fps;
         }
 
 		[STAThread]
