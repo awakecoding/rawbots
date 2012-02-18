@@ -24,7 +24,6 @@ namespace Rawbots
     class Camera
     {
 		private float delta = 1.0f;
-        private bool bViewVolume = true;
 
         private float[] Transform = new float[16];
 
@@ -39,7 +38,7 @@ namespace Rawbots
 
         public float[] getRight()
         { 
-            return new float[] {Transform[0], Transform[1], Transform[2], Transform[3]};
+            return new float[] { Transform[0], Transform[1], Transform[2], Transform[3] };
         }
 
         public void setRight(float x, float y, float z, float w)
@@ -52,7 +51,7 @@ namespace Rawbots
 
         public float[] getUp()
         {
-            return new float[] { Transform[4], Transform[5], Transform[6], Transform[7]};
+            return new float[] { Transform[4], Transform[5], Transform[6], Transform[7] };
         }
 
         public void setUp(float x, float y, float z, float w)
@@ -65,7 +64,7 @@ namespace Rawbots
 
         public float[] getForward()
         {
-            return new float[] { Transform[8], Transform[9], Transform[10], Transform[11]};
+            return new float[] { Transform[8], Transform[9], Transform[10], Transform[11] };
         }
 
         public void setForward(float x, float y, float z, float w)
@@ -93,44 +92,32 @@ namespace Rawbots
         {
             GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadIdentity();
-            float[] viewmatrix={//Remove the three - for non-inverted z-axis
-						  Transform[0], Transform[4], -Transform[8], 0,
-						  Transform[1], Transform[5], -Transform[9], 0,
-						  Transform[2], Transform[6], -Transform[10], 0,
 
-						  -(Transform[0]*Transform[12] +
-						  Transform[1]*Transform[13] +
-						  Transform[2]*Transform[14]),
+            float[] viewmatrix = 
+			{
+				/* remove the three - for non-inverted z-axis */
+				Transform[0], Transform[4], -Transform[8], 0,
+				Transform[1], Transform[5], -Transform[9], 0,
+				Transform[2], Transform[6], -Transform[10], 0,
 
-						  -(Transform[4]*Transform[12] +
-						  Transform[5]*Transform[13] +
-						  Transform[6]*Transform[14]),
+				-(Transform[0] * Transform[12] +
+				Transform[1] * Transform[13] +
+				Transform[2] * Transform[14]),
 
-						  //add a - like above for non-inverted z-axis
-						  (Transform[8]*Transform[12] +
-						  Transform[9]*Transform[13] +
-						  Transform[10]*Transform[14]), 1};
+				-(Transform[4] * Transform[12] +
+				Transform[5] * Transform[13] +
+				Transform[6] * Transform[14]),
 
+				/* add a - like above for non-inverted z-axis */
+				(Transform[8] * Transform[12] +
+				Transform[9] * Transform[13] +
+				Transform[10] * Transform[14]), 1
+			};
 
             GL.LoadMatrix(viewmatrix);
-
-            //if (bViewVolume)
-            //{
-            //    GL.PushMatrix();
-
-            //    float[] mat = new float[16];
-            //    GL.GetFloat(GetPName.ProjectionMatrix, mat);
-            //    GL.LoadMatrix(mat);
-            //    GL.Color3(1.0f, 1.0f, 1.0f);
-            //    Glut.glutWireCube(1.0f);
-
-            //    GL.PopMatrix();
-
-            //    GL.LoadMatrix(viewmatrix);
-            //}
         }
 
-	    public void moveLoc(float x, float y, float z, float distance)
+	    public void MoveLocal(float x, float y, float z, float distance)
         {
             float dx = x * Transform[0] + y * Transform[4] + z * Transform[8];
             float dy = x * Transform[1] + y * Transform[5] + z * Transform[9];
@@ -140,14 +127,14 @@ namespace Rawbots
             Transform[14] += dz * distance;
         }
 
-        public void moveGlob(float x, float y, float z, float distance)
+        public void MoveGlobal(float x, float y, float z, float distance)
         {
             Transform[12] += x * distance;
             Transform[13] += y * distance;
             Transform[14] += z * distance;
         }
 
-        public void rotateLoc(float deg, float x, float y, float z)
+        public void RotateLocal(float deg, float x, float y, float z)
         {
             GL.MatrixMode(MatrixMode.Modelview);
             GL.PushMatrix();
@@ -157,7 +144,7 @@ namespace Rawbots
             GL.PopMatrix();
         }
 
-        public void rotateGlob(float deg, float x, float y, float z)
+        public void RotateGlobal(float deg, float x, float y, float z)
         {
             float dx = x * Transform[0] + y * Transform[1] + z * Transform[2];
             float dy = x * Transform[4] + y * Transform[5] + z * Transform[6];
@@ -173,52 +160,52 @@ namespace Rawbots
 
 		public void MoveUp()
 		{
-			moveLoc(0.0f, 0.0f, 1.0f, 0.5f);
+			MoveLocal(0.0f, 0.0f, 1.0f, 0.5f);
 		}
 
 		public void MoveDown()
 		{
-			moveLoc(0.0f, 0.0f, -1.0f, 0.5f);
+			MoveLocal(0.0f, 0.0f, -1.0f, 0.5f);
 		}
 
 		public void MoveLeft()
 		{
-			moveLoc(-1.0f, 0.0f, 0.0f, 0.5f);
+			MoveLocal(-1.0f, 0.0f, 0.0f, 0.5f);
 		}
 
 		public void MoveRight()
 		{
-			moveLoc(1.0f, 0.0f, 0.0f, 0.5f);
+			MoveLocal(1.0f, 0.0f, 0.0f, 0.5f);
 		}
 
 		public void RotateUp()
 		{
-			rotateLoc(-delta, 1.0f, 0.0f, 0.0f);
+			RotateLocal(-delta, 1.0f, 0.0f, 0.0f);
 		}
 
 		public void RotateDown()
 		{
-			rotateLoc(delta, 1.0f, 0.0f, 0.0f);
+			RotateLocal(delta, 1.0f, 0.0f, 0.0f);
 		}
 
 		public void RotateLeft()
 		{
-			rotateLoc(-delta, 0.0f, 1.0f, 0.0f);
+			RotateLocal(-delta, 0.0f, 1.0f, 0.0f);
 		}
 
 		public void RotateRight()
 		{
-			rotateLoc(delta, 0.0f, 1.0f, 0.0f);
+			RotateLocal(delta, 0.0f, 1.0f, 0.0f);
 		}
 
 		public void RollLeft()
 		{
-			rotateLoc(delta, 0.0f, 0.0f, 1.0f);
+			RotateLocal(delta, 0.0f, 0.0f, 1.0f);
 		}
 
 		public void RollRight()
 		{
-			rotateLoc(-delta, 0.0f, 0.0f, 1.0f);
+			RotateLocal(-delta, 0.0f, 0.0f, 1.0f);
 		}
     }
 }

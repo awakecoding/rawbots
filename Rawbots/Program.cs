@@ -25,10 +25,10 @@ namespace Rawbots
 		Map map;
 		int width;
 		int height;
-        bool camera = true;
+        bool cameraEnabled = true;
 		string baseTitle = "Rawbots";
 		
-        Camera cam = new Camera(0.0f, 0.0f, 25.0f);
+        Camera camera = new Camera(0.0f, 0.0f, 25.0f);
 
 		public Game() : base(800, 600, GraphicsMode.Default, "Rawbots")
 		{
@@ -213,35 +213,35 @@ namespace Rawbots
             else if (Keyboard[Key.F7])
                 ReferencePlane.setVisibleAxis(ReferencePlane.NONE);
             else if (Keyboard[Key.F11])
-                camera = false;
+                cameraEnabled = false;
             else if (Keyboard[Key.F12])
-                camera = true;
+                cameraEnabled = true;
 			else if (Keyboard[Key.H])
 				PrintHelp();
 
-            if (camera)
+            if (cameraEnabled)
             {
 				if (Keyboard[Key.Up])
-					cam.MoveUp();
+					camera.MoveUp();
 				if (Keyboard[Key.Down])
-					cam.MoveDown();
+					camera.MoveDown();
 				if (Keyboard[Key.Left])
-					cam.MoveLeft();
+					camera.MoveLeft();
 				if (Keyboard[Key.Right])
-					cam.MoveRight();
+					camera.MoveRight();
 
 				if (Keyboard[Key.W])
-					cam.RotateUp();
+					camera.RotateUp();
 				if (Keyboard[Key.S])
-					cam.RotateDown();
+					camera.RotateDown();
 				if (Keyboard[Key.D])
-					cam.RotateRight();
+					camera.RotateRight();
 				if (Keyboard[Key.A])
-					cam.RotateLeft();
+					camera.RotateLeft();
 				if (Keyboard[Key.Q])
-					cam.RollLeft();
+					camera.RollLeft();
 				if (Keyboard[Key.E])
-					cam.RollRight();
+					camera.RollRight();
             }
 		}
 
@@ -260,7 +260,7 @@ namespace Rawbots
             //GL.Translate(0.0f, 0.0f, -75.0f);
             //GL.Rotate(45.0f, 1.0f, 1.0f, 0.0f);
 
-            cam.setView();
+            camera.setView();
 
             ReferencePlane.setDimensions(50, 50);
             ReferencePlane.render();
