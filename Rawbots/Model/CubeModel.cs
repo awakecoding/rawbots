@@ -33,13 +33,13 @@ namespace Rawbots
                 || side_size[0] != size)//if the new size is not identical to the old size
             {
                 //Create a new array of vertices
-                verts_side[0] = new double[] {
-                +size, -size, +size,
-                +size, -size, -size,
-                +size, +size, -size,
-                +size, +size, +size};
-
-                System.GC.Collect();
+                verts_side[0] = new double[]
+				{
+					+size, -size, +size,
+					+size, -size, -size,
+					+size, +size, -size,
+					+size, +size, +size
+				};
             }
 
             //Flush out the old data
