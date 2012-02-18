@@ -23,23 +23,37 @@ namespace Rawbots
 	class Game : GameWindow
 	{
 		Map map;
-		int width;
-		int height;
+		int mapWidth;
+		int mapHeight;
         bool cameraEnabled = true;
 		string baseTitle = "Rawbots";
-		
-        Camera camera = new Camera(0.0f, 0.0f, 25.0f);
+
+		Config config;
+
+		Camera camera;
+		Camera globalCamera = new Camera(0.0f, 0.0f, 25.0f);
+		Camera firstPersonCamera = new FirstPersonCamera(0.0f, 0.0f, 25.0f);
 
 		public Game() : base(800, 600, GraphicsMode.Default, "Rawbots")
 		{
 			VSync = VSyncMode.On;
             
 			Glut.glutInit();
-			
-			width = 50;
-			height = 50;
-			map = new Map(width, height);
-			
+
+			config = Config.Load();
+
+			this.Width = config.ScreenWidth;
+			this.Height = config.ScreenHeight;
+
+			if (config.Fullscreen)
+				this.WindowState = WindowState.Fullscreen;
+
+			mapWidth = 50;
+			mapHeight = 50;
+			map = new Map(mapWidth, mapHeight);
+
+			camera = globalCamera;
+
 			Robot robot;
 
             int x = 0;

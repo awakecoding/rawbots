@@ -84,6 +84,9 @@ namespace Rawbots
 		
 		public void RenderAll()
 		{
+			if (!show)
+				return;
+
 			Push();
 			Render();
 			Pop();
@@ -106,6 +109,9 @@ namespace Rawbots
 
 		public void Render()
 		{
+			if (!show)
+				return;
+
             float totalHeight = 0.0f;
 
             if (chassis != null)

@@ -10,7 +10,9 @@ namespace Rawbots
 	};
 	
 	public abstract class Model
-	{		
+	{
+		protected bool show;
+
 		protected float colorR;
 		protected float colorG;
 		protected float colorB;
@@ -21,12 +23,12 @@ namespace Rawbots
 		
 		protected RenderMode renderMode;
 
-        protected float model_height;
+        protected float modelHeight;
 
 		public Model()
 		{
-			renderMode = RenderMode.SOLID;
-			
+			show = true;
+
 			colorR = 0.22f;
 			colorG = 0.22f;
 			colorB = 0.22f;
@@ -35,9 +37,16 @@ namespace Rawbots
 			wireColorG = 0.0f;
 			wireColorB = 0.0f;
 
-            model_height = 1.0f;
+            modelHeight = 1.0f;
+
+			renderMode = RenderMode.SOLID;
 		}
-		
+
+		public void Show(bool show)
+		{
+			this.show = show;
+		}
+
         public virtual void SetRenderMode(RenderMode renderMode)
         {
             this.renderMode = renderMode;
@@ -45,12 +54,12 @@ namespace Rawbots
 
         public void SetHeight(float h)
         {
-            model_height = h;
+            modelHeight = h;
         }
 
         public float GetHeight()
         {
-            return model_height;
+            return modelHeight;
         }
 
         public void SetColor(float r, float g, float b)

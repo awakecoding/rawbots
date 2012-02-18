@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Base.cs" />
     <Compile Include="BlockSquareHole.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="FirstPersonCamera.cs" />
     <Compile Include="RemoteControlUnit.cs" />
     <Compile Include="Tiles\Boundary.cs" />
