@@ -12,7 +12,14 @@ namespace Rawbots
         public Boundary()
         {
             cube = new CubeModel();
-            cube.SetRenderMode(RenderMode.SOLID_WIRE);
+            
+        }
+
+        public override void SetRenderMode(RenderMode renderMode)
+        {
+            base.SetRenderMode(renderMode);
+
+            cube.SetRenderMode(renderMode);
         }
 
         public override void Render()

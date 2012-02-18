@@ -17,8 +17,15 @@ namespace Rawbots
 {
 	public abstract class RobotPart : Model
 	{
+        public CubeModel debugCube;
+        public bool debug;
+
 		public RobotPart()
 		{
+            debugCube = new CubeModel();
+            debugCube.SetRenderMode(RenderMode.WIRE);
+            debugCube.SetWireColor(1.0f, 1.0f, 1.0f);
+            debug = true;
 		}
 		
 		public void Push()
@@ -37,6 +44,11 @@ namespace Rawbots
 			Render();
 			Pop();
 		}
+
+        public void RenderDebugCube()
+        {
+            debugCube.render(1.0f);
+        }
 
 		public abstract void Render();
 	}

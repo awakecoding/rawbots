@@ -46,6 +46,7 @@ namespace Rawbots
 
             frame = new CubeModel();
             frame.SetColor(0.1f, 1.0f, 0.0f);
+            SetHeight(0.75f);
 		}
 		
 		public override int getCost()
@@ -63,8 +64,24 @@ namespace Rawbots
 			return 3;
 		}
 
+        public override void SetRenderMode(RenderMode renderMode)
+        {
+            base.SetRenderMode(renderMode);
+            inCylinder.SetRenderMode(renderMode);
+            outCylinder.SetRenderMode(renderMode);
+            middleBox.SetRenderMode(renderMode);
+            frame.SetRenderMode(renderMode);
+        }
+
 		public override void Render()
 		{
+            //GL.PushMatrix();
+
+            //GL.Scale(1.0f, 0.75f, 1.0f);
+            //RenderDebugCube();
+
+            //GL.PopMatrix();
+
             //left missle chamber
             GL.PushMatrix();
             GL.Translate(-0.35f, 0.0f, 0.0f);
@@ -134,7 +151,7 @@ namespace Rawbots
             GL.Translate(0.0f, 0.3f, -0.0f);
             GL.Rotate(90, 1.0f, 0.0f, 0.0f);
             GL.Scale(0.5f, 0.5f, 0.5f);
-            TeamNumber.render();
+            TeamNumber.Render();
             GL.PopMatrix();
 
             //WIRE FRAME BOX - to make sure it fits in one unit cube.

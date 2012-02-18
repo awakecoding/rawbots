@@ -17,32 +17,60 @@ namespace Rawbots
 	public class Block : Model
 	{
 		bool half;
-		CubeModel cube;
-		
+        CubeModel cube;
+
+        public int PosX { get; set; }
+        public int PosY { get; set; }
+
 		public Block(bool half) : base()
 		{
 			this.half = half;
 			cube = new CubeModel();
 			cube.SetColor(0.5f, 0.35f, 0.05f);
 		}
-		
-        public void Render()
+
+        public Block(bool half, int x, int y)
+        {
+            this.half = half;
+            PosX = x;
+            PosY = y;
+            cube = new CubeModel();
+        }
+
+        public CubeModel getCube()
+        {
+            return cube;
+        }
+
+        public bool isHalf()
+        {
+            return this.half;
+        }
+
+        public override void SetRenderMode(RenderMode renderMode)
+        {
+            base.SetRenderMode(renderMode);
+
+            cube.SetRenderMode(renderMode);
+        }
+
+        public virtual void Render()
         {
 			GL.PushMatrix();
-			
+
+            cube.SetColor(0.5f, 0.35f, 0.05f);
+
 			if (half)
 			{
 				GL.Scale(1.0f, 0.5f, 1.0f);
 				GL.Translate(0.0f, 0.5f, 0.0f);
-				cube.render(1.0f);
-				GL.Translate(0.0f, -0.5f, 0.0f);
 			}
 			else
 			{
 				GL.Translate(0.0f, 0.5f, 0.0f);
-				cube.render(1.0f);
-				GL.Translate(0.0f, -0.5f, 0.0f);
 			}
+
+            cube.render(1.0f);
 			
 			GL.PopMatrix();
         }

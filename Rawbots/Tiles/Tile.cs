@@ -16,17 +16,43 @@ namespace Rawbots
 	public class Tile : Drawable
 	{
         public Plane plane;
+        private bool teamNumber = false;
 
 		public Tile()
 		{
             plane = new Plane();
-            plane.SetRenderMode(RenderMode.SOLID_WIRE);
+            plane.SetRenderMode(RenderMode.SOLID);
 		}
+
+        public override void SetRenderMode(RenderMode renderMode)
+        {
+            base.SetRenderMode(renderMode);
+
+            plane.SetRenderMode(renderMode);
+        }
+
+        public void showTeamNumber()
+        {
+            teamNumber = true;
+        }
+
+        public void hideTeamNumber()
+        {
+            teamNumber = false;
+        }
 
         public override void Render()
         {
             GL.PushMatrix();
             plane.render(1.0f);
+            
+            if (teamNumber)
+            {
+                GL.Scale(0.5f, 0.5f, 0.5f);
+                GL.Rotate(90.0f, 1.0f, 0.0f, 0.0f);
+                TeamNumber.Render();
+            }
+
             GL.PopMatrix();
         }
 	}

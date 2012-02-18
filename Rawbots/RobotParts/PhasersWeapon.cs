@@ -70,6 +70,17 @@ namespace Rawbots
 			return 4;
 		}
 
+        public override void SetRenderMode(RenderMode renderMode)
+        {
+            base.SetRenderMode(renderMode);
+
+            cylinder.SetRenderMode(renderMode);
+            halfCylinder.SetRenderMode(renderMode);
+            cube.SetRenderMode(renderMode);
+            hcPhasersL.SetRenderMode(renderMode);
+            hcPhasersR.SetRenderMode(renderMode);
+        }
+
 		public override void Render()
 		{
 			/* phasers base (cylinder) */
@@ -132,7 +143,7 @@ namespace Rawbots
 			GL.Scale(0.3f, 0.3f, 0.3f);
 			GL.Translate(0.0f, 1.25f, 0.5f);
 			GL.Rotate(-90, 1.0f, 0.0f, 0.0f);
-			TeamNumber.render();
+			TeamNumber.Render();
 			GL.Translate(0.0f, -1.25f, -0.5f);
 			
 			GL.PopMatrix();

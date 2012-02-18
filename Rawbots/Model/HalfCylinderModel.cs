@@ -53,8 +53,14 @@ namespace Rawbots
             cost[size] = cost[0];
         }
 		
-        private void renderHalfCylinder()
+        private void renderHalfCylinder(bool solid)
         {
+            int[] state = new int[2];
+            GL.GetInteger(GetPName.PolygonMode, state);
+
+            GL.PolygonMode(MaterialFace.FrontAndBack,
+                           (solid) ? PolygonMode.Fill : PolygonMode.Line);
+
             int i, j;
 
             double z0, z1;
@@ -108,7 +114,9 @@ namespace Rawbots
 			
             sint = null;
             cost = null;
-            System.GC.Collect();
+
+            GL.PolygonMode(MaterialFace.Front, (PolygonMode)state[0]);
+            GL.PolygonMode(MaterialFace.Back, (PolygonMode)state[1]);
         }
 		
         public void render()
@@ -117,19 +125,19 @@ namespace Rawbots
             {				
                 case RenderMode.SOLID:
                     GL.Color3(colorR, colorG, colorB);
-                    renderHalfCylinder();
+                    renderHalfCylinder(true);
                     break;
 				
                 case RenderMode.WIRE:
                     GL.Color3(colorR, colorG, colorB);
-                    renderHalfCylinder();
+                    renderHalfCylinder(false);
                     break;
 				
                 case RenderMode.SOLID_WIRE:
                     GL.Color3(colorR, colorG, colorB);
-                    renderHalfCylinder();
+                    renderHalfCylinder(true);
                     GL.Color3(wireColorR, wireColorG, wireColorB);
-                    renderHalfCylinder();
+                    renderHalfCylinder(false);
                     break;
             }
         }
