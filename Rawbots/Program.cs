@@ -22,37 +22,50 @@ namespace Rawbots
 {
 	class Game : GameWindow
 	{
-		Robot[] robots;
+		Map map;
+		int width;
+		int height;
 		
 		public Game() : base(800, 600, GraphicsMode.Default, "Rawbots")
 		{
 			VSync = VSyncMode.On;
 
 			Glut.glutInit();
-
-			robots = new Robot[8];
 			
-			robots[0] = new Robot();
-            //robots[1] = new Robot();
-            //robots[2] = new Robot();
-            //robots[3] = new Robot();
-            //robots[4] = new Robot();
-            //robots[5] = new Robot();
-            //robots[6] = new Robot();
-            //robots[7] = new Robot();
+			width = 50;
+			height = 50;
+			map = new Map(width, height);
 			
-//			robots[0].AddChassis(new BipodChassis());
-			robots[0].AddWeapon(/*new CannonWeapon()*/new NuclearWeapon());
-			robots[0].AddWeapon(new PhasersWeapon());
-			robots[0].AddElectronics(new Electronics());
+			Robot robot;
+			
+			int x = (width / 2);
+			int y = (width / 2);
+			
+			robot = new Robot(x, y);
+			robot.AddWeapon(new NuclearWeapon());
+			map.AddRobot(robot);
+			
+			robot = new Robot(x + 2, y);
+			robot.AddWeapon(new PhasersWeapon());
+			map.AddRobot(robot);
+			
+			robot = new Robot(x + 3, y);
+			robot.AddElectronics(new Electronics());
+			map.AddRobot(robot);
+			
+			robot = new Robot(x + 4, y);
+			robot.AddChassis(new AntiGravChassis());
+			map.AddRobot(robot);
+			
+			robot = new Robot(x -5, y);
+			robot.AddChassis(new TrackedChassis());
+			map.AddRobot (robot);
+			
+			Factory factory;
+			
+			factory = new PhasersWeaponFactory(x + 5, y + 2);
+			map.AddFactory(factory);
 		}
-
-        private void setRenderMode(int mode)
-        {
-            for(int i = 0; i < robots.Length; i++)
-                if(robots[i] != null)
-                    robots[i].setRenderMode(mode);
-        }
 
 		protected override void OnLoad(EventArgs e)
 		{
@@ -80,12 +93,21 @@ namespace Rawbots
             if (Keyboard[Key.Escape])
                 Exit();
             else if (Keyboard[Key.F1])
-                setRenderMode(ModelCube.OUTLINEDSOLID);
+                map.SetRenderMode(RenderMode.SOLID_WIRE);
             else if (Keyboard[Key.F2])
-                setRenderMode(ModelCube.SOLID);
+                map.SetRenderMode(RenderMode.SOLID);
             else if (Keyboard[Key.F3])
-                setRenderMode(ModelCube.WIRE);
+                map.SetRenderMode(RenderMode.WIRE);
+            else if (Keyboard[Key.F4])
+                ReferencePlane.setVisibleAxis(ReferencePlane.XYZ);
+            else if (Keyboard[Key.F5])
+                ReferencePlane.setVisibleAxis(ReferencePlane.XZ);
+            else if (Keyboard[Key.F6])
+                ReferencePlane.setVisibleAxis(ReferencePlane.XY);
+            else if (Keyboard[Key.F7])
+                ReferencePlane.setVisibleAxis(ReferencePlane.NONE);
 
+            Camera.OnCameraFrame(this);
 		}
 
 		protected override void OnRenderFrame(FrameEventArgs e)
@@ -99,21 +121,18 @@ namespace Rawbots
 			GL.LoadMatrix(ref modelview);
 			
 			GL.LoadIdentity();
-			GL.Translate(0.0f, 0.0f, -10.0f);
+            
+            GL.Translate(0.0f, 0.0f, -10.0f);
+
+            Camera.OnCameraUpdate();
 
             ReferencePlane.setDimensions(50, 50);
             ReferencePlane.render();
 
             TeamNumber.render();
-
-            foreach (Robot robot in robots)
-            {
-                if (robot != null)
-                    robot.RenderAll();
-                GL.Translate(0.5f, 0.0f, 0.0f);
-            }
 			
-            //Glut.glutWireCube(2.0f);
+			map.Render();
+			
 			GL.Flush();
 			
 			SwapBuffers();

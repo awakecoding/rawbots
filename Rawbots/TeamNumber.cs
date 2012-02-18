@@ -1,4 +1,14 @@
-﻿using System;
+﻿/**
+ * RawBots: an awesome robot game
+ * 
+ * Copyright 2012 Mark Foo Bonasoro <foo_mark@q8ismobile.com>
+ * 
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this file,
+ * You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Tao.FreeGlut;
@@ -8,23 +18,31 @@ namespace Rawbots
 {
     class TeamNumber
     {
-        private static ModelCube[] mcComponent;
+        private static CubeModel[] mcComponent;
         private const int TOTAL = 4;
+
+        private TeamNumber()
+        { 
+        }
 
         static TeamNumber()
         {
-            mcComponent = new ModelCube[TOTAL];
+            mcComponent = new CubeModel[TOTAL];
 
             for (int i = 0; i < mcComponent.Length; i++)
             {
-                ModelCube mc = new ModelCube();
-                mc.setColor(1.0f, 1.0f, 1.0f);
+                CubeModel mc = new CubeModel();
+                mc.SetColor(1.0f, 1.0f, 1.0f);
                 mcComponent[i] = mc;
             }
         }
 
         public static void render()
         {
+            GL.PushMatrix();
+            GL.Translate(0.0f, -0.125f, 0.0f);
+            GL.Scale(0.5f, 0.5f, 1.0f);
+
             GL.PushMatrix();
 
             GL.Translate(0.375f, 0.75f, 0.0f);
@@ -58,7 +76,7 @@ namespace Rawbots
 
             GL.PopMatrix();
             GL.PopMatrix();
-
+            GL.PopMatrix();
         }
     }
 }

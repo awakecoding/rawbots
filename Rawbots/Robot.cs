@@ -18,17 +18,34 @@ using OpenTK.Graphics.OpenGL;
 
 namespace Rawbots
 {
-	public class Robot
+	public class Robot : Model
 	{
 		Chassis chassis;
 		Weapon[] weapons;
 		Electronics electronics;
 		
-		public Robot()
+		public int PosX { get; set; }
+		public int PosY { get; set; }
+		
+		private void Init()
 		{
 			chassis = null;
 			weapons = null;
 			electronics = null;
+		}
+		
+		public Robot()
+		{
+			Init();
+			PosX = 0;
+			PosY = 0;
+		}
+		
+		public Robot(int x, int y)
+		{
+			Init();			
+			PosX = x;
+			PosY = y;
 		}
 		
 		public void AddChassis(Chassis chassis)
@@ -72,17 +89,19 @@ namespace Rawbots
 			Pop();
 		}
 
-        public void setRenderMode(int mode)
+        public override void SetRenderMode(RenderMode renderMode)
         {
-            if(chassis != null)
-                chassis.setRenderMode(mode);
+            if (chassis != null)
+                chassis.SetRenderMode(renderMode);
 
             if (weapons != null)
+			{
                 for (int i = 0; i < weapons.Length; i++)
-                    weapons[i].setRenderMode(mode);
+                    weapons[i].SetRenderMode(renderMode);
+			}
             
             if (electronics != null)
-                electronics.setRenderMode(mode);
+                electronics.SetRenderMode(renderMode);
         }
 
 		public void Render()
@@ -94,10 +113,12 @@ namespace Rawbots
                 Pop();
             }
 
-            if(weapons != null)
+            if (weapons != null)
+			{
                 for (int i = 0; i < weapons.Length; i++)
                 {
                     Weapon w = weapons[i];
+					
                     if (w != null)
                     {
                         Push();
@@ -105,6 +126,14 @@ namespace Rawbots
                         Pop();
                     }
                 }
+			}
+			
+			if (electronics != null)
+			{
+				Push();
+				electronics.RenderAll();
+				Pop();
+			}
 		}
 	}
 }
