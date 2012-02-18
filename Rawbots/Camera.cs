@@ -224,7 +224,7 @@ namespace Rawbots
 			RotateLocal(-delta, 0.0f, 0.0f, 1.0f);
 		}
 
-		public void PerformActions(Action actions)
+		public virtual void PerformActions(Action actions)
 		{
 			if ((actions & Action.MOVE_UP) != 0)
 				MoveUp();
