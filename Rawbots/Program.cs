@@ -32,7 +32,7 @@ namespace Rawbots
 
 		Camera camera;
 		Camera globalCamera = new Camera(0.0f, 0.0f, 25.0f);
-		Camera firstPersonCamera = new FirstPersonCamera(0.0f, 0.0f, 25.0f);
+		Camera firstPersonCamera = new FirstPersonCamera(0.0f, 1.0f, 0.0f);
 
 		public Game() : base(800, 600, GraphicsMode.Default, "Rawbots")
 		{
@@ -53,6 +53,8 @@ namespace Rawbots
 			map = new Map(mapWidth, mapHeight);
 
 			camera = globalCamera;
+
+			Mouse.Move += new EventHandler<MouseMoveEventArgs>(OnMouseMove);
 
 			Robot robot;
 
@@ -218,6 +220,11 @@ namespace Rawbots
 			GL.LoadMatrix(ref projection);
 		}
 
+		public void OnMouseMove(object o, MouseMoveEventArgs args)
+		{
+			camera.MouseDeltaMotion(args.XDelta, args.YDelta);
+		}
+
 		protected override void OnUpdateFrame(FrameEventArgs e)
 		{
 			base.OnUpdateFrame(e);
@@ -244,6 +251,14 @@ namespace Rawbots
                 cameraEnabled = true;
 			else if (Keyboard[Key.H])
 				PrintHelp();
+
+			if (Keyboard[Key.Tab])
+			{
+				if (camera == globalCamera)
+					camera = firstPersonCamera;
+				else if (camera == firstPersonCamera)
+					camera = globalCamera;
+			}
 
             if (cameraEnabled)
             {

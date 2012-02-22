@@ -24,5 +24,17 @@ namespace Rawbots
 			if ((actions & Action.ROTATE_LEFT) != 0)
 				RotateLeft();
 		}
+
+		/*
+		public override bool MouseDeltaMotion(int dx, int dy)
+		{
+			if (dx != 0)
+			{
+				RotateDeltaX(dx);
+			}
+
+			return true;
+		}
+		*/
 	}
 }

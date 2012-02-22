@@ -45,11 +45,18 @@ namespace Rawbots
 
 		public Camera(float x, float y, float z)
 		{
+			Reset(x, y, z);
+		}
+
+		public void Reset(float x, float y, float z)
+		{
 			Transform[0] = 1.0f;
 			Transform[5] = 1.0f;
 			Transform[10] = -1.0f;
 			Transform[15] = 1.0f;
-			Transform[12] = x; Transform[13] = y; Transform[14] = z;
+			Transform[12] = x;
+			Transform[13] = y;
+			Transform[14] = z;
 		}
 
 		public float[] getRight()
@@ -214,6 +221,16 @@ namespace Rawbots
 			RotateLocal(delta, 0.0f, 1.0f, 0.0f);
 		}
 
+		public void RotateDeltaX(int dx)
+		{
+			RotateLocal(dx, 0.0f, 1.0f, 0.0f);
+		}
+
+		public void RotateDeltaY(int dy)
+		{
+			RotateLocal(dy, 1.0f, 0.0f, 0.0f);
+		}
+
 		public void RollLeft()
 		{
 			RotateLocal(delta, 0.0f, 0.0f, 1.0f);
@@ -246,6 +263,11 @@ namespace Rawbots
 				RollLeft();
 			if ((actions & Action.ROLL_RIGHT) != 0)
 				RollRight();
+		}
+
+		public virtual bool MouseDeltaMotion(int dx, int dy)
+		{
+			return false;
 		}
 	}
 }
