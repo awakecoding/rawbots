@@ -104,6 +104,70 @@ namespace Rawbots
 			Transform[15] = w;
 		}
 
+		public void lookAt(float eyex, float eyey, float eyez, 
+						   float centerx, float centery, float centerz,
+						   float upx, float upy, float upz)
+		{
+			//float forwardx, forwardy, forwardz;
+			//float sidex, sidey, sidez;
+			//float upx2, upy2, upz2;
+			float[] mat = new float[16];
+
+			Matrix4 look = Matrix4.LookAt(eyex, eyey, eyez, centerx, centery, centerz, upx, upy, upz);
+			//forwardx = centerx - eyex;
+			//forwardy = centery - eyey;
+			//forwardz = centerz - eyez;
+
+			//float mag = (float)Math.Sqrt(forwardx * forwardx + forwardy * forwardy + forwardz * forwardz);
+
+			//forwardx /= mag;
+			//forwardy /= mag;
+			//forwardz /= mag;
+
+			////side = forward x up
+			//sidex = forwardy * upz - forwardz * upy;
+			//sidey = forwardx * upz - forwardz * upx;
+			//sidez = forwardx * upy - forwardy * upx;
+
+			//mag = (float)Math.Sqrt(sidex * sidex + sidey * sidey + sidez * sidez);
+			//sidex /= mag;
+			//sidey /= mag;
+			//sidez /= mag;
+
+			////up = side x forward
+			//upx2 = sidey * forwardz - sidez * forwardy;
+			//upy2 = sidex * forwardz - sidez * forwardx;
+			//upz2 = sidex * forwardy - sidey * forwardx;
+
+			//mat[0] = sidex;
+			//mat[4] = sidey;
+			//mat[8] = sidez;
+			//mat[12] = 0.0f;
+
+			//mat[1] = upx2;
+			//mat[5] = upy2;
+			//mat[9] = upz2;
+			//mat[13] = 0.0f;
+
+			//mat[2] = -forwardx;
+			//mat[6] = -forwardy;
+			//mat[10] = -forwardz;
+			//mat[14] = 0.0f;
+
+			//mat[3] = mat[7] = mat[11] = 0.0f;
+			//mat[15] = 1.0f;
+
+			GL.MatrixMode(MatrixMode.Modelview);
+			GL.PushMatrix();
+			GL.LoadMatrix(ref look);
+			GL.GetFloat(GetPName.ModelviewMatrix, mat);
+			glMatrixToTransform(mat);
+			Transform[12] = eyex;
+			Transform[13] = eyey;
+			Transform[14] = eyez;
+			GL.PopMatrix();
+		}
+
 		public void setView()
 		{
 			GL.MatrixMode(MatrixMode.Modelview);
@@ -131,6 +195,21 @@ namespace Rawbots
 			};
 
 			GL.LoadMatrix(viewmatrix);
+		}
+
+		public void glMatrixToTransform(float[] mat)
+		{
+			Transform[0] = mat[0];
+			Transform[4] = mat[1];
+			Transform[8] = -mat[2];
+
+			Transform[1] = mat[4];
+			Transform[5] = mat[5];
+			Transform[9] = -mat[6];
+
+			Transform[2] = mat[8];
+			Transform[6] = mat[9];
+			Transform[10] = -mat[10];
 		}
 
 		public void MoveLocal(float x, float y, float z, float distance)

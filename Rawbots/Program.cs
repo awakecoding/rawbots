@@ -53,6 +53,16 @@ namespace Rawbots
 			map = new Map(mapWidth, mapHeight);
 
 			camera = globalCamera;
+			//camera.lookAt(0.0f, 25.0f, -40.0f,
+			//				5.0f, 0.0f, 0.0f,
+			//				0.0f, 1.0f, 0.0f);
+			
+			//OR
+			
+			//camera.RotateLocal(15.0f, 1.0f, 0.0f, 0.0f);
+			//camera.MoveLocal(0.0f, 0.0f, 1.0f, -75.0f);
+			//camera.MoveLocal(0.0f, 1.0f, 0.0f, 10.0f);
+			
 
 			Robot robot;
 
@@ -221,32 +231,32 @@ namespace Rawbots
 		protected override void OnUpdateFrame(FrameEventArgs e)
 		{
 			base.OnUpdateFrame(e);
-
-            if (Keyboard[Key.Escape])
-                Exit();
-            else if (Keyboard[Key.Number8])
-                map.SetRenderMode(RenderMode.SOLID_WIRE);
-            else if (Keyboard[Key.Number9])
-                map.SetRenderMode(RenderMode.SOLID);
-            else if (Keyboard[Key.Number0])
-                map.SetRenderMode(RenderMode.WIRE);
-            else if (Keyboard[Key.F4])
-                ReferencePlane.setVisibleAxis(ReferencePlane.XYZ);
-            else if (Keyboard[Key.F5])
-                ReferencePlane.setVisibleAxis(ReferencePlane.XZ);
-            else if (Keyboard[Key.F6])
-                ReferencePlane.setVisibleAxis(ReferencePlane.XY);
-            else if (Keyboard[Key.F7])
-                ReferencePlane.setVisibleAxis(ReferencePlane.NONE);
-            else if (Keyboard[Key.F11])
-                cameraEnabled = false;
-            else if (Keyboard[Key.F12])
-                cameraEnabled = true;
+			
+			if (Keyboard[Key.Escape])
+				Exit();
+			else if (Keyboard[Key.Number8])
+				map.SetRenderMode(RenderMode.SOLID_WIRE);
+			else if (Keyboard[Key.Number9])
+				map.SetRenderMode(RenderMode.SOLID);
+			else if (Keyboard[Key.Number0])
+				map.SetRenderMode(RenderMode.WIRE);
+			else if (Keyboard[Key.F4])
+				ReferencePlane.setVisibleAxis(ReferencePlane.XYZ);
+			else if (Keyboard[Key.F5])
+				ReferencePlane.setVisibleAxis(ReferencePlane.XZ);
+			else if (Keyboard[Key.F6])
+				ReferencePlane.setVisibleAxis(ReferencePlane.XY);
+			else if (Keyboard[Key.F7])
+				ReferencePlane.setVisibleAxis(ReferencePlane.NONE);
+			else if (Keyboard[Key.F11])
+				cameraEnabled = false;
+			else if (Keyboard[Key.F12])
+				cameraEnabled = true;
 			else if (Keyboard[Key.H])
 				PrintHelp();
 
-            if (cameraEnabled)
-            {
+			if (cameraEnabled)
+			{
 				Camera.Action action = Camera.Action.NONE;
 
 				if (Keyboard[Key.Up])
@@ -272,7 +282,9 @@ namespace Rawbots
 
 				if (action != Camera.Action.NONE)
 					camera.PerformActions(action);
-            }
+			}
+
+			
 		}
 
 		protected override void OnRenderFrame(FrameEventArgs e)
@@ -283,7 +295,9 @@ namespace Rawbots
 
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-            camera.setView();
+			GL.MatrixMode(MatrixMode.Modelview);
+
+			camera.setView();
 
             ReferencePlane.setDimensions(50, 50);
             ReferencePlane.render();
