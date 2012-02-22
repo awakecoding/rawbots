@@ -10,6 +10,7 @@
  */
 
 using System;
+using System.IO;
 
 using Tao.FreeGlut;
 
@@ -17,6 +18,8 @@ using OpenTK;
 using OpenTK.Input;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
+
+using QuickFont;
 
 namespace Rawbots
 {
@@ -28,11 +31,31 @@ namespace Rawbots
         bool cameraEnabled = true;
 		string baseTitle = "Rawbots";
 
+		QFont font;
+		QFont monoFont;
+
 		Config config;
+		string resourcePath;
 
 		Camera camera;
 		Camera globalCamera = new Camera(0.0f, 0.0f, 25.0f);
 		Camera firstPersonCamera = new FirstPersonCamera(0.0f, 1.0f, 0.0f);
+
+		bool cameraHelp = false;
+
+		string cameraHelpText =
+			"W: Move Up\r\n" +
+			"A: Move Left\r\n" +
+			"S: Move Down\r\n" +
+			"D: Move Right\r\n" +
+			"Q: Roll Left\r\n" +
+			"E: Roll Right\r\n" +
+			"Left: Rotate Left\r\n" +
+			"Right: Rotate Right\r\n" +
+			"Up: Rotate Down\r\n" +
+			"Down: Rotate Down\r\n" +
+			"Tab: Change Camera\r\n" +
+			"Escape: Exit Game\r\n";
 
 		public Game() : base(800, 600, GraphicsMode.Default, "Rawbots")
 		{
@@ -48,6 +71,8 @@ namespace Rawbots
 			if (config.Fullscreen)
 				this.WindowState = WindowState.Fullscreen;
 
+			resourcePath = DetectResourcePath();
+
 			mapWidth = 50;
 			mapHeight = 50;
 			map = new Map(mapWidth, mapHeight);
@@ -55,6 +80,17 @@ namespace Rawbots
 			camera = globalCamera;
 
 			Mouse.Move += new EventHandler<MouseMoveEventArgs>(OnMouseMove);
+			Keyboard.KeyDown += new EventHandler<KeyboardKeyEventArgs>(OnKeyDown);
+
+			font = new QFont(resourcePath + "/Fonts/Ubuntu-R.ttf", 16);
+			font.Options.Colour = new Color4(1.0f, 1.0f, 1.0f, 1.0f);
+			font.Options.DropShadowActive = false;
+
+			monoFont = new QFont(resourcePath + "/Fonts/UbuntuMono-R.ttf", 16);
+			monoFont.Options.Colour = new Color4(1.0f, 1.0f, 1.0f, 1.0f);
+			monoFont.Options.DropShadowActive = false;
+
+			GL.Disable(EnableCap.Texture2D);
 
 			Robot robot;
 
@@ -192,7 +228,33 @@ namespace Rawbots
 			
 			PrintHelp();
 		}
-		
+
+		private string DetectResourcePath()
+		{
+			string path;
+			string parent;
+			string cwd = Directory.GetCurrentDirectory();
+
+			path = cwd + "/Resources";
+
+			if (Directory.Exists(path))
+				return path;
+
+			parent = Directory.GetParent(cwd).FullName;
+			path = parent + "/Resources";
+
+			if (Directory.Exists(path))
+				return path;
+
+			parent = Directory.GetParent(parent).FullName;
+			path = parent + "/Resources";
+
+			if (Directory.Exists(path))
+				return path;
+
+			return cwd;
+		}
+
 		public void PrintHelp()
 		{
             Console.WriteLine("Press ESC to Quit Program.");
@@ -220,9 +282,28 @@ namespace Rawbots
 			GL.LoadMatrix(ref projection);
 		}
 
-		public void OnMouseMove(object o, MouseMoveEventArgs args)
+		public void OnMouseMove(object sender, MouseMoveEventArgs args)
 		{
 			camera.MouseDeltaMotion(args.XDelta, args.YDelta);
+		}
+
+		public void OnKeyDown(object sender, KeyboardKeyEventArgs args)
+		{
+			switch (args.Key)
+			{
+				case Key.H:
+					cameraHelp = (cameraHelp) ? false : true;
+					break;
+
+				case Key.Tab:
+
+					if (camera == globalCamera)
+						camera = firstPersonCamera;
+					else if (camera == firstPersonCamera)
+						camera = globalCamera;
+
+					break;
+			}
 		}
 
 		protected override void OnUpdateFrame(FrameEventArgs e)
@@ -249,16 +330,6 @@ namespace Rawbots
                 cameraEnabled = false;
             else if (Keyboard[Key.F12])
                 cameraEnabled = true;
-			else if (Keyboard[Key.H])
-				PrintHelp();
-
-			if (Keyboard[Key.Tab])
-			{
-				if (camera == globalCamera)
-					camera = firstPersonCamera;
-				else if (camera == firstPersonCamera)
-					camera = globalCamera;
-			}
 
             if (cameraEnabled)
             {
@@ -304,20 +375,37 @@ namespace Rawbots
             ReferencePlane.render();
 
             map.Render();
+
+			int totalTime = (Environment.TickCount & Int32.MaxValue) - startTime;
+
+			int fps = 0;
+
+			if (totalTime > 0)
+				fps = 1000 / totalTime;
+
+			Title = this.baseTitle + " FPS: " + fps;
+
+			QFont.Begin();
 			
+			GL.PushMatrix();
+			GL.Translate(0.0, 0.0, 0.0);
+			font.Print(Title, QFontAlignment.Left);
+			GL.PopMatrix();
+
+			if (cameraHelp)
+			{
+				GL.PushMatrix();
+				GL.Translate(config.ScreenWidth, 0.0, 0.0);
+				monoFont.Print(cameraHelpText, QFontAlignment.Left);
+				GL.PopMatrix();
+			}
+			
+			QFont.End();
+			GL.Disable(EnableCap.Texture2D);
+
 			GL.Flush();
-			
+
 			SwapBuffers();
-
-            int totalTime = (Environment.TickCount & Int32.MaxValue) - startTime;
-
-            int fps = 0;
-            
-            if (totalTime > 0)
-                fps = 1000 / totalTime;
-		
-
-            Title = this.baseTitle + " FPS: " + fps;
         }
 
 		[STAThread]
