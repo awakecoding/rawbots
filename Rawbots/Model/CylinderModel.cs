@@ -62,31 +62,6 @@ namespace Rawbots
 			this.radius = d;	
 		}
 			
-
-        private void CircleTable(ref double [] sint, ref double [] cost, int n)
-        {
-            int i;
-
-            int size = Math.Abs(n);
-
-            double angle = 2 * Math.PI / (double) ((n == 0) ? 1 : n);
-
-            sint = new double[size + 1];
-            cost = new double[size + 1];
-
-            sint[0] = 0.0f;
-            cost[0] = 1.0f;
-
-            for (i = 1; i < size; i++)
-            {
-                sint[i] = Math.Sin(angle * i);
-                cost[i] = Math.Cos(angle * i);
-            }
-
-            sint[size] = sint[0];
-            cost[size] = cost[0];
-        }
-		
         private void renderSolidCylinder()
         {
             int i, j;
@@ -94,10 +69,12 @@ namespace Rawbots
             double z0, z1;
             double zStep = height / ((stacks > 0) ? stacks : 1);
 
-            double[] sint = null;
-            double[] cost = null;
+			if(sint == null || cost == null) //if they are blank slates, then create a new table
+				CircleTable(ref sint,ref cost, -slices);
 
-            CircleTable(ref sint,ref cost, -slices);
+			if (sint != null || cost != null) //if they were already created...
+				if (sint.Length != Math.Abs(slices) + 1) //but.. the size was different
+					CircleTable(ref sint, ref cost, -slices);
 
             GL.Begin(BeginMode.TriangleFan);
                 GL.Normal3(0.0, 0.0, -1.0);
@@ -132,9 +109,6 @@ namespace Rawbots
 
                 z0 = z1; z1 += zStep;
             }
-
-            sint = null;
-            cost = null;
         }
 
         private void renderWireCylinder()
