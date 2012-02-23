@@ -28,6 +28,7 @@ namespace Rawbots
 		Map map;
 		int mapWidth;
 		int mapHeight;
+		bool useFonts = false;
         bool cameraEnabled = true;
 		string baseTitle = "Rawbots";
 
@@ -91,14 +92,19 @@ namespace Rawbots
 
 			Mouse.Move += new EventHandler<MouseMoveEventArgs>(OnMouseMove);
 			Keyboard.KeyDown += new EventHandler<KeyboardKeyEventArgs>(OnKeyDown);
-
-			font = new QFont(resourcePath + "/Fonts/Ubuntu-R.ttf", 16);
-			font.Options.Colour = new Color4(1.0f, 1.0f, 1.0f, 1.0f);
-			font.Options.DropShadowActive = false;
-
-			monoFont = new QFont(resourcePath + "/Fonts/UbuntuMono-R.ttf", 16);
-			monoFont.Options.Colour = new Color4(1.0f, 1.0f, 1.0f, 1.0f);
-			monoFont.Options.DropShadowActive = false;
+			
+			Console.WriteLine("{0}", resourcePath);
+			
+			if (useFonts)
+			{
+				font = new QFont(resourcePath + "/Fonts/Ubuntu-R.ttf", 16);
+				font.Options.Colour = new Color4(1.0f, 1.0f, 1.0f, 1.0f);
+				font.Options.DropShadowActive = false;
+	
+				monoFont = new QFont(resourcePath + "/Fonts/UbuntuMono-R.ttf", 16);
+				monoFont.Options.Colour = new Color4(1.0f, 1.0f, 1.0f, 1.0f);
+				monoFont.Options.DropShadowActive = false;
+			}
 
 			GL.Disable(EnableCap.Texture2D);
 
@@ -398,24 +404,27 @@ namespace Rawbots
 				fps = 1000 / totalTime;
 
 			Title = this.baseTitle + " FPS: " + fps;
-
-			QFont.Begin();
 			
-			GL.PushMatrix();
-			GL.Translate(0.0, 0.0, 0.0);
-			font.Print(Title, QFontAlignment.Left);
-			GL.PopMatrix();
-
-			if (cameraHelp)
+			if (useFonts)
 			{
+				QFont.Begin();
+				
 				GL.PushMatrix();
-				GL.Translate(config.ScreenWidth, 0.0, 0.0);
-				monoFont.Print(cameraHelpText, QFontAlignment.Left);
+				GL.Translate(0.0, 0.0, 0.0);
+				font.Print(Title, QFontAlignment.Left);
 				GL.PopMatrix();
+	
+				if (cameraHelp)
+				{
+					GL.PushMatrix();
+					GL.Translate(config.ScreenWidth, 0.0, 0.0);
+					monoFont.Print(cameraHelpText, QFontAlignment.Left);
+					GL.PopMatrix();
+				}
+				
+				QFont.End();
+				GL.Disable(EnableCap.Texture2D);
 			}
-			
-			QFont.End();
-			GL.Disable(EnableCap.Texture2D);
 
 			GL.Flush();
 
