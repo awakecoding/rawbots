@@ -25,6 +25,9 @@ namespace Rawbots
 
         protected float modelHeight;
 
+		protected double[] sint;
+		protected double[] cost;
+
 		public Model()
 		{
 			show = true;
@@ -75,5 +78,29 @@ namespace Rawbots
             wireColorG = g;
             wireColorB = b;
         }
+
+		protected void CircleTable(ref double[] sint, ref double[] cost, int n)
+		{
+			int i;
+
+			int size = Math.Abs(n);
+
+			double angle = 2 * Math.PI / (double)((n == 0) ? 1 : n);
+
+			sint = new double[size + 1];
+			cost = new double[size + 1];
+
+			sint[0] = 0.0f;
+			cost[0] = 1.0f;
+
+			for (i = 1; i < size; i++)
+			{
+				sint[i] = Math.Sin(angle * i);
+				cost[i] = Math.Cos(angle * i);
+			}
+
+			sint[size] = sint[0];
+			cost[size] = cost[0];
+		}
 	}
 }
