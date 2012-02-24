@@ -29,30 +29,6 @@ namespace Rawbots
 			this.height = height;
 		}
 		
-        private void CircleTable(ref double [] sint, ref double [] cost, int n)
-        {
-            int i;
-
-            int size = Math.Abs(n);
-
-            double angle = 2 * Math.PI / (double) ((n == 0) ? 1 : n);
-
-            sint = new double[size + 1];
-            cost = new double[size + 1];
-
-            sint[0] = 0.0f;
-            cost[0] = 1.0f;
-
-            for (i = 1; i < size; i++)
-            {
-                sint[i] = Math.Sin(angle * i);
-                cost[i] = Math.Cos(angle * i);
-            }
-
-            sint[size] = sint[0];
-            cost[size] = cost[0];
-        }
-		
         private void renderHalfCylinder(bool solid)
         {
             int[] state = new int[2];
@@ -69,7 +45,12 @@ namespace Rawbots
             double[] sint = null;
             double[] cost = null;
 
-            CircleTable(ref sint, ref cost, -slices);
+			if (sint == null || cost == null)
+				CircleTable(ref sint, ref cost, -slices);
+
+			if (sint != null || cost != null) //if they were already created...
+				if (sint.Length != Math.Abs(slices) + 1) //but.. the size was different
+					CircleTable(ref sint, ref cost, -slices);
 
             GL.Begin(BeginMode.TriangleFan);
                 GL.Normal3(0.0, 0.0, -1.0);
