@@ -8,7 +8,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this file,
  * You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-
 using System;
 using System.IO;
 
@@ -43,7 +42,9 @@ namespace Rawbots
 		Camera firstPersonCamera = new FirstPersonCamera(0.0f, 1.0f, 0.0f);
 
 		bool cameraHelp = false;
-
+		
+		int renderModeCount;
+		
 		string cameraHelpText =
 			"W: Move Up\r\n" +
 			"A: Move Left\r\n" +
@@ -63,7 +64,9 @@ namespace Rawbots
 			VSync = VSyncMode.On;
             
 			Glut.glutInit();
-
+			
+			renderModeCount = 0;
+			
 			config = Config.Load();
 
 			this.Width = config.ScreenWidth;
@@ -92,6 +95,7 @@ namespace Rawbots
 
 			Mouse.Move += new EventHandler<MouseMoveEventArgs>(OnMouseMove);
 			Keyboard.KeyDown += new EventHandler<KeyboardKeyEventArgs>(OnKeyDown);
+			Keyboard.KeyUp += new EventHandler<KeyboardKeyEventArgs>(OnKeyUp);
 			
 			Console.WriteLine("{0}", resourcePath);
 			
@@ -274,7 +278,7 @@ namespace Rawbots
 		public void PrintHelp()
 		{
             Console.WriteLine("Press ESC to Quit Program.");
-            Console.WriteLine("F1 (Wire/Solid Mode), F2 (Solid Mode), F3 (Wire Mode)");
+            Console.WriteLine("R to toggle between Wire/Solid, Solid and Wire Render Modes");
             Console.WriteLine("F4 (Show XYZ Plane), F5 (Show XZ Plane), F6 (Show XY Plane), F7 (Show Nothing)");
             Console.WriteLine("F11 (Enable Camera), F12 (Disable Camera)");
 		}
@@ -285,6 +289,7 @@ namespace Rawbots
 			
 			GL.ClearColor(0.1f, 0.2f, 0.5f, 0.0f);
 			GL.Enable(EnableCap.DepthTest);
+			
 		}
 
 		protected override void OnResize(EventArgs e)
@@ -321,6 +326,35 @@ namespace Rawbots
 					break;
 			}
 		}
+		
+		public void OnKeyUp(object sender, KeyboardKeyEventArgs args)
+		{
+				switch(args.Key)
+				{
+					case Key.R:
+					renderModeCount = renderModeCount % 3;
+					break;
+				}
+				
+				switch(renderModeCount)
+				{
+					case 0:
+					map.SetRenderMode(RenderMode.SOLID_WIRE);
+					renderModeCount++;
+					break;
+					
+					case 1:
+					map.SetRenderMode(RenderMode.SOLID);
+					renderModeCount++;
+					break;
+					
+					case 2:
+					map.SetRenderMode(RenderMode.WIRE);
+					renderModeCount++;
+					break;
+				}
+			
+		}
 
 		protected override void OnUpdateFrame(FrameEventArgs e)
 		{
@@ -328,12 +362,6 @@ namespace Rawbots
 
             if (Keyboard[Key.Escape])
                 Exit();
-            else if (Keyboard[Key.Number8])
-                map.SetRenderMode(RenderMode.SOLID_WIRE);
-            else if (Keyboard[Key.Number9])
-                map.SetRenderMode(RenderMode.SOLID);
-            else if (Keyboard[Key.Number0])
-                map.SetRenderMode(RenderMode.WIRE);
             else if (Keyboard[Key.F4])
                 ReferencePlane.setVisibleAxis(ReferencePlane.XYZ);
             else if (Keyboard[Key.F5])
@@ -346,6 +374,7 @@ namespace Rawbots
                 cameraEnabled = false;
             else if (Keyboard[Key.F12])
                 cameraEnabled = true;
+				
 
 			if (cameraEnabled)
 			{
