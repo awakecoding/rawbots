@@ -8,7 +8,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this file,
  * You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-
 using System;
 using System.IO;
 using System.Collections;
@@ -30,6 +29,7 @@ namespace Rawbots
 		Map map;
 		int mapWidth;
 		int mapHeight;
+		bool useFonts = false;
         bool cameraEnabled = true;
 		string baseTitle = "Rawbots";
 
@@ -46,7 +46,9 @@ namespace Rawbots
 		RobotCamera robotCamera = new RobotCamera(0.0f, 1.0f, 0.0f);
 
 		bool cameraHelp = false;
-
+		
+		int renderModeCount;
+		
 		string cameraHelpText =
 			"W: Move Up\r\n" +
 			"A: Move Left\r\n" +
@@ -66,7 +68,9 @@ namespace Rawbots
 			VSync = VSyncMode.On;
             
 			Glut.glutInit();
-
+			
+			renderModeCount = 0;
+			
 			config = Config.Load();
 
 			this.Width = config.ScreenWidth;
@@ -95,14 +99,20 @@ namespace Rawbots
 
 			Mouse.Move += new EventHandler<MouseMoveEventArgs>(OnMouseMove);
 			Keyboard.KeyDown += new EventHandler<KeyboardKeyEventArgs>(OnKeyDown);
-
-			font = new QFont(resourcePath + "/Fonts/Ubuntu-R.ttf", 16);
-			font.Options.Colour = new Color4(1.0f, 1.0f, 1.0f, 1.0f);
-			font.Options.DropShadowActive = false;
-
-			monoFont = new QFont(resourcePath + "/Fonts/UbuntuMono-R.ttf", 16);
-			monoFont.Options.Colour = new Color4(1.0f, 1.0f, 1.0f, 1.0f);
-			monoFont.Options.DropShadowActive = false;
+			Keyboard.KeyUp += new EventHandler<KeyboardKeyEventArgs>(OnKeyUp);
+			
+			Console.WriteLine("{0}", resourcePath);
+			
+			if (useFonts)
+			{
+				font = new QFont(resourcePath + "/Fonts/Ubuntu-R.ttf", 16);
+				font.Options.Colour = new Color4(1.0f, 1.0f, 1.0f, 1.0f);
+				font.Options.DropShadowActive = false;
+	
+				monoFont = new QFont(resourcePath + "/Fonts/UbuntuMono-R.ttf", 16);
+				monoFont.Options.Colour = new Color4(1.0f, 1.0f, 1.0f, 1.0f);
+				monoFont.Options.DropShadowActive = false;
+			}
 
 			GL.Disable(EnableCap.Texture2D);
 
@@ -276,7 +286,7 @@ namespace Rawbots
 		public void PrintHelp()
 		{
             Console.WriteLine("Press ESC to Quit Program.");
-            Console.WriteLine("F1 (Wire/Solid Mode), F2 (Solid Mode), F3 (Wire Mode)");
+            Console.WriteLine("R to toggle between Wire/Solid, Solid and Wire Render Modes");
             Console.WriteLine("F4 (Show XYZ Plane), F5 (Show XZ Plane), F6 (Show XY Plane), F7 (Show Nothing)");
             Console.WriteLine("F11 (Enable Camera), F12 (Disable Camera)");
 		}
@@ -287,6 +297,7 @@ namespace Rawbots
 			
 			GL.ClearColor(0.1f, 0.2f, 0.5f, 0.0f);
 			GL.Enable(EnableCap.DepthTest);
+			
 		}
 
 		protected override void OnResize(EventArgs e)
@@ -323,6 +334,35 @@ namespace Rawbots
 					break;
 			}
 		}
+		
+		public void OnKeyUp(object sender, KeyboardKeyEventArgs args)
+		{
+				switch(args.Key)
+				{
+					case Key.R:
+					renderModeCount = renderModeCount % 3;
+					break;
+				}
+				
+				switch(renderModeCount)
+				{
+					case 0:
+					map.SetRenderMode(RenderMode.SOLID_WIRE);
+					renderModeCount++;
+					break;
+					
+					case 1:
+					map.SetRenderMode(RenderMode.SOLID);
+					renderModeCount++;
+					break;
+					
+					case 2:
+					map.SetRenderMode(RenderMode.WIRE);
+					renderModeCount++;
+					break;
+				}
+			
+		}
 
 		protected override void OnUpdateFrame(FrameEventArgs e)
 		{
@@ -330,12 +370,6 @@ namespace Rawbots
 
             if (Keyboard[Key.Escape])
                 Exit();
-            else if (Keyboard[Key.Number8])
-                map.SetRenderMode(RenderMode.SOLID_WIRE);
-            else if (Keyboard[Key.Number9])
-                map.SetRenderMode(RenderMode.SOLID);
-            else if (Keyboard[Key.Number0])
-                map.SetRenderMode(RenderMode.WIRE);
             else if (Keyboard[Key.F4])
                 ReferencePlane.setVisibleAxis(ReferencePlane.XYZ);
             else if (Keyboard[Key.F5])
@@ -348,6 +382,7 @@ namespace Rawbots
                 cameraEnabled = false;
             else if (Keyboard[Key.F12])
                 cameraEnabled = true;
+				
 
 			if (cameraEnabled)
 			{
@@ -404,24 +439,27 @@ namespace Rawbots
 				fps = 1000 / totalTime;
 
 			Title = this.baseTitle + " FPS: " + fps;
-
-			QFont.Begin();
 			
-			GL.PushMatrix();
-			GL.Translate(0.0, 0.0, 0.0);
-			font.Print(Title, QFontAlignment.Left);
-			GL.PopMatrix();
-
-			if (cameraHelp)
+			if (useFonts)
 			{
+				QFont.Begin();
+				
 				GL.PushMatrix();
-				GL.Translate(config.ScreenWidth, 0.0, 0.0);
-				monoFont.Print(cameraHelpText, QFontAlignment.Left);
+				GL.Translate(0.0, 0.0, 0.0);
+				font.Print(Title, QFontAlignment.Left);
 				GL.PopMatrix();
+	
+				if (cameraHelp)
+				{
+					GL.PushMatrix();
+					GL.Translate(config.ScreenWidth, 0.0, 0.0);
+					monoFont.Print(cameraHelpText, QFontAlignment.Left);
+					GL.PopMatrix();
+				}
+				
+				QFont.End();
+				GL.Disable(EnableCap.Texture2D);
 			}
-			
-			QFont.End();
-			GL.Disable(EnableCap.Texture2D);
 
 			GL.Flush();
 

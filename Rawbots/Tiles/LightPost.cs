@@ -13,6 +13,14 @@ namespace Rawbots
 		
 		int position;
 		
+		 // Material property vectors.
+   	//	float[] matAmb = {0.3f, 0.3f, 0.3f, 1.0f};
+   	//	float[] matDif = {0.7f, 0.7f, 0.7f, 1.0f};
+   	//	float[] matSpec = { 0.6f, 0.6f, 0.6f, 1.0f };
+   	//	float[] matShine = { 100.0f };
+   	//	float[] matEmission = {0.0f, 0.0f, 0.0f, 1.0f};
+
+		
         public LightPost(int x)
         {
             cube = new CubeModel();
@@ -38,19 +46,31 @@ namespace Rawbots
 			
 		private void drawLightPost()
 		{
-			sphere.SetColor(0.1f, 0.1f, 0.1f);
-			GL.PushMatrix();
-			GL.Translate(0.0f, 5.60f, 0.0f);
-			GL.Scale(0.2f, 0.1f, 0.2f);
-			sphere.render();
-			GL.PopMatrix();
 			
+	//		GL.ColorMaterial(MaterialFace.FrontAndBack, ColorMaterialParameter.AmbientAndDiffuse);
+	//		GL.Enable(EnableCap.ColorMaterial);
 			
 			//bulb
 			sphere.SetColor(1.0f, 1.0f, 1.0f);
 			GL.PushMatrix();
 			GL.Translate(0.0f, 5.85f, 0.0f);
 			GL.Scale(0.3f, 0.3f, 0.3f);
+			sphere.render();
+			GL.PopMatrix();
+			
+			GL.Enable(EnableCap.Lighting);
+			
+			// Material properties of sphere.
+	//		GL.Material(MaterialFace.Front, MaterialParameter.Ambient, matAmb);
+  	//		GL.Material(MaterialFace.Front, MaterialParameter.Diffuse, matDif);
+   	//		GL.Material(MaterialFace.Front, MaterialParameter.Specular, matSpec);
+   	//		GL.Material(MaterialFace.Front, MaterialParameter.Shininess, matShine);
+   	//		GL.Material(MaterialFace.Front, MaterialParameter.Emission, matEmission);
+			 
+			sphere.SetColor(0.1f, 0.1f, 0.1f);
+			GL.PushMatrix();
+			GL.Translate(0.0f, 5.60f, 0.0f);
+			GL.Scale(0.2f, 0.1f, 0.2f);
 			sphere.render();
 			GL.PopMatrix();
 			
@@ -82,6 +102,8 @@ namespace Rawbots
             GL.Scale(0.3f, 0.2f, 0.3f);
             cube.render(1.0f);
             GL.PopMatrix();
+			
+			GL.Disable(EnableCap.Lighting);
 		}
 		
         public override void Render()

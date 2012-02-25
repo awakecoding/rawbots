@@ -115,64 +115,58 @@ namespace Rawbots
 						   float centerx, float centery, float centerz,
 						   float upx, float upy, float upz)
 		{
-			//float forwardx, forwardy, forwardz;
-			//float sidex, sidey, sidez;
-			//float upx2, upy2, upz2;
+			float forwardx, forwardy, forwardz;
+			float sidex, sidey, sidez;
+			float upx2, upy2, upz2;
 			float[] mat = new float[16];
 
-			Matrix4 look = Matrix4.LookAt(eyex, eyey, eyez, centerx, centery, centerz, upx, upy, upz);
-			//forwardx = centerx - eyex;
-			//forwardy = centery - eyey;
-			//forwardz = centerz - eyez;
+			forwardx = centerx - eyex;
+			forwardy = centery - eyey;
+			forwardz = centerz - eyez;
 
-			//float mag = (float)Math.Sqrt(forwardx * forwardx + forwardy * forwardy + forwardz * forwardz);
+			float mag = (float)Math.Sqrt(forwardx * forwardx + forwardy * forwardy + forwardz * forwardz);
 
-			//forwardx /= mag;
-			//forwardy /= mag;
-			//forwardz /= mag;
+			forwardx /= mag;
+			forwardy /= mag;
+			forwardz /= mag;
 
-			////side = forward x up
-			//sidex = forwardy * upz - forwardz * upy;
-			//sidey = forwardx * upz - forwardz * upx;
-			//sidez = forwardx * upy - forwardy * upx;
+			//side = forward x up
+			sidex = forwardy * upz - forwardz * upy;
+			sidey = forwardz * upx - forwardx * upz;
+			sidez = forwardx * upy - forwardy * upx;
 
-			//mag = (float)Math.Sqrt(sidex * sidex + sidey * sidey + sidez * sidez);
-			//sidex /= mag;
-			//sidey /= mag;
-			//sidez /= mag;
+			mag = (float)Math.Sqrt(sidex * sidex + sidey * sidey + sidez * sidez);
+			sidex /= mag;
+			sidey /= mag;
+			sidez /= mag;
 
-			////up = side x forward
-			//upx2 = sidey * forwardz - sidez * forwardy;
-			//upy2 = sidex * forwardz - sidez * forwardx;
-			//upz2 = sidex * forwardy - sidey * forwardx;
+			//up = side x forward
+			upx2 = sidey * forwardz - sidez * forwardy;
+			upy2 = sidez * forwardx - sidex * forwardz;
+			upz2 = sidex * forwardy - sidey * forwardx;
 
-			//mat[0] = sidex;
-			//mat[4] = sidey;
-			//mat[8] = sidez;
-			//mat[12] = 0.0f;
+			mat[0] = sidex;
+			mat[4] = sidey;
+			mat[8] = sidez;
+			mat[12] = 0.0f;
 
-			//mat[1] = upx2;
-			//mat[5] = upy2;
-			//mat[9] = upz2;
-			//mat[13] = 0.0f;
+			mat[1] = upx2;
+			mat[5] = upy2;
+			mat[9] = upz2;
+			mat[13] = 0.0f;
 
-			//mat[2] = -forwardx;
-			//mat[6] = -forwardy;
-			//mat[10] = -forwardz;
-			//mat[14] = 0.0f;
+			mat[2] = -forwardx;
+			mat[6] = -forwardy;
+			mat[10] = -forwardz;
+			mat[14] = 0.0f;
 
-			//mat[3] = mat[7] = mat[11] = 0.0f;
-			//mat[15] = 1.0f;
+			mat[3] = mat[7] = mat[11] = 0.0f;
+			mat[15] = 1.0f;
 
-			GL.MatrixMode(MatrixMode.Modelview);
-			GL.PushMatrix();
-			GL.LoadMatrix(ref look);
-			GL.GetFloat(GetPName.ModelviewMatrix, mat);
 			glMatrixToTransform(mat);
 			Transform[12] = eyex;
 			Transform[13] = eyey;
 			Transform[14] = eyez;
-			GL.PopMatrix();
 		}
 
 		public void setView()

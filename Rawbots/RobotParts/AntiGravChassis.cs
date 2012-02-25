@@ -47,7 +47,6 @@ namespace Rawbots
 			topHeight = 0.1f;
 			
 			cube = new CubeModel();
-			cube.SetRenderMode(RenderMode.SOLID_WIRE);
             
             SetHeight(0.2f);
 		}
