@@ -227,6 +227,9 @@ namespace Rawbots
 
         public virtual void render()
         {
+            if (material != null)
+                material.apply();
+
             switch (renderMode)
             {
                 case RenderMode.SOLID:
@@ -246,6 +249,8 @@ namespace Rawbots
 					renderWireSphere(Radius, LongitudinalSlices, LatitudinalSlices);
 					break;
             }
+
+            Material.unapply();
         }
 	}
 }

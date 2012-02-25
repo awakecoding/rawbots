@@ -18,6 +18,8 @@ namespace Rawbots
         public Plane plane;
         private bool teamNumber = false;
 
+        private Light light;
+
 		public Tile()
 		{
             plane = new Plane();
@@ -39,6 +41,16 @@ namespace Rawbots
         public void hideTeamNumber()
         {
             teamNumber = false;
+        }
+
+        public void AddLight(Light l)
+        { 
+            light = l;
+        }
+
+        public Light GetLight()
+        {
+            return light;
         }
 
         public override void Render()
