@@ -71,6 +71,9 @@ namespace Rawbots
 				robot.PosY = y;
 
 				robot.Angle = angle;
+
+				if ((actions & Action.TOGGLE_LIGHT) != 0)
+					robot.ToggleLight();
 			}
 		}
 	}

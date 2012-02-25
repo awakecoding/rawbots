@@ -36,7 +36,8 @@ namespace Rawbots
 			ROTATE_LEFT = 0x0040,
 			ROTATE_RIGHT = 0x0080,
 			ROLL_LEFT = 0x0100,
-			ROLL_RIGHT = 0x0200
+			ROLL_RIGHT = 0x0200,
+			TOGGLE_LIGHT = 0x0400
 		}
 
 		private float delta = 1.0f;

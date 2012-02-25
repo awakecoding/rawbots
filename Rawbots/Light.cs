@@ -53,13 +53,11 @@ namespace Rawbots
         public void setPosition(float x, float y, float z, float w)
         {
             Position[0] = x; Position[1] = y; Position[2] = z; Position[3] = w;
-            //matrix = null;
         }
 
         public void setDirection(float x, float y, float z)
         {
             Direction[0] = x; Direction[1] = y; Direction[2] = z;
-            //matrix = null;
         }
 
         //public void lookAt(float eyex, float eyey, float eyez,

@@ -354,6 +354,10 @@ namespace Rawbots
 						camera = globalCamera;
 
 					break;
+
+				case Key.L:
+					camera.PerformActions(Camera.Action.TOGGLE_LIGHT);
+					break;
 			}
 		}
 		

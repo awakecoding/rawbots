@@ -24,6 +24,9 @@ namespace Rawbots
 		Weapon[] weapons;
 		Electronics electronics;
 
+		private Light light;
+		private bool lightOn;
+
 		private float posX;
 		private float posY;
 		private int mapPosX;
@@ -80,7 +83,10 @@ namespace Rawbots
 			chassis = null;
 			weapons = null;
 			electronics = null;
+			lightOn = false;
 			Angle = 0.0f;
+
+			light = new Light();
 		}
 		
 		public Robot()
@@ -96,7 +102,12 @@ namespace Rawbots
 			MapPosX = x;
 			MapPosY = y;
 		}
-		
+
+		public void ToggleLight()
+		{
+			lightOn = (lightOn) ? false : true;
+		}
+
 		public void AddChassis(Chassis chassis)
 		{
 			this.chassis = chassis;
@@ -194,8 +205,16 @@ namespace Rawbots
 			{
 				Push();
                 GL.Translate(0.0f, totalHeight, 0.0f);
+				totalHeight += electronics.GetHeight();
                 electronics.RenderAll();
 				Pop();
+			}
+
+			if (lightOn)
+			{
+				light.setPosition(PosX, totalHeight, PosY, 1.0f);
+				light.setDirection(PosX, 0.0f, PosY);
+				light.apply();
 			}
 		}
 	}
