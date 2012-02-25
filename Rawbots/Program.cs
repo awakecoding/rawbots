@@ -424,7 +424,7 @@ namespace Rawbots
 
 			GL.MatrixMode(MatrixMode.Modelview);
 
-			camera.setView();
+			camera.SetView();
 
             ReferencePlane.setDimensions(50, 50);
             ReferencePlane.render();

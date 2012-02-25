@@ -59,12 +59,12 @@ namespace Rawbots
 			Transform[14] = z;
 		}
 
-		public float[] getRight()
+		public float[] GetRight()
 		{
 			return new float[] { Transform[0], Transform[1], Transform[2], Transform[3] };
 		}
 
-		public void setRight(float x, float y, float z, float w)
+		public void SetRight(float x, float y, float z, float w)
 		{
 			Transform[0] = x;
 			Transform[1] = y;
@@ -72,7 +72,7 @@ namespace Rawbots
 			Transform[3] = w;
 		}
 
-		public float[] getUp()
+		public float[] GetUp()
 		{
 			return new float[] { Transform[4], Transform[5], Transform[6], Transform[7] };
 		}
@@ -85,12 +85,12 @@ namespace Rawbots
 			Transform[7] = w;
 		}
 
-		public float[] getForward()
+		public float[] GetForward()
 		{
 			return new float[] { Transform[8], Transform[9], Transform[10], Transform[11] };
 		}
 
-		public void setForward(float x, float y, float z, float w)
+		public void SetForward(float x, float y, float z, float w)
 		{
 			Transform[8] = x;
 			Transform[9] = y;
@@ -98,12 +98,12 @@ namespace Rawbots
 			Transform[11] = w;
 		}
 
-		public float[] getPosition()
+		public float[] GetPosition()
 		{
 			return new float[] { Transform[12], Transform[13], Transform[14], Transform[15] };
 		}
 
-		public void setPosition(float x, float y, float z, float w)
+		public void SetPosition(float x, float y, float z, float w)
 		{
 			Transform[12] = x;
 			Transform[13] = y;
@@ -111,7 +111,29 @@ namespace Rawbots
 			Transform[15] = w;
 		}
 
-		public void lookAt(float eyex, float eyey, float eyez, 
+		public float GetXZViewAngle()
+		{
+			float x, z;
+			float angle;
+
+			x = x = Transform[8];
+			z = z = Transform[10];
+
+			angle = (float) ((Math.Atan(x / z) * (180.0f / Math.PI)));
+
+			if ((z < 0) && (x >= 0))
+				angle *= -1.0f;
+			else if ((z >= 0) && (x >= 0))
+				angle = 180.0f - angle;
+			else if ((z < 0) && (x < 0))
+				angle *= -1.0f;
+			else if ((z >= 0) && (x < 0))
+				angle = -180.0f + (-1.0f * angle);
+
+			return angle;
+		}
+
+		public void LookAt(float eyex, float eyey, float eyez, 
 						   float centerx, float centery, float centerz,
 						   float upx, float upy, float upz)
 		{
@@ -124,23 +146,23 @@ namespace Rawbots
 			forwardy = centery - eyey;
 			forwardz = centerz - eyez;
 
-			float mag = (float)Math.Sqrt(forwardx * forwardx + forwardy * forwardy + forwardz * forwardz);
+			float mag = (float) Math.Sqrt(forwardx * forwardx + forwardy * forwardy + forwardz * forwardz);
 
 			forwardx /= mag;
 			forwardy /= mag;
 			forwardz /= mag;
 
-			//side = forward x up
+			/* side = forward x up */
 			sidex = forwardy * upz - forwardz * upy;
 			sidey = forwardz * upx - forwardx * upz;
 			sidez = forwardx * upy - forwardy * upx;
 
-			mag = (float)Math.Sqrt(sidex * sidex + sidey * sidey + sidez * sidez);
+			mag = (float) Math.Sqrt(sidex * sidex + sidey * sidey + sidez * sidez);
 			sidex /= mag;
 			sidey /= mag;
 			sidez /= mag;
 
-			//up = side x forward
+			/* up = side x forward */
 			upx2 = sidey * forwardz - sidez * forwardy;
 			upy2 = sidez * forwardx - sidex * forwardz;
 			upz2 = sidex * forwardy - sidey * forwardx;
@@ -169,7 +191,7 @@ namespace Rawbots
 			Transform[14] = eyez;
 		}
 
-		public void setView()
+		public void SetView()
 		{
 			GL.MatrixMode(MatrixMode.Modelview);
 			GL.LoadIdentity();

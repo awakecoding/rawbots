@@ -43,8 +43,11 @@ namespace Rawbots
 			if (attached)
 			{
 				float x, y;
+				float angle;
 				float[] position;
-				position = getPosition();
+
+				position = GetPosition();
+				angle = GetXZViewAngle();
 
 				x = position[0];
 				y = position[2];
@@ -63,10 +66,12 @@ namespace Rawbots
 
 				position[0] = x;
 				position[2] = y;
-				setPosition(position[0], position[1], position[2], position[3]);
+				SetPosition(position[0], position[1], position[2], position[3]);
 
 				robot.PosX = x;
 				robot.PosY = y;
+
+				robot.Angle = angle;
 			}
 		}
 	}
