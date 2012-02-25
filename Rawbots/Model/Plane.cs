@@ -18,8 +18,9 @@ namespace Rawbots
             beginMode = (solid) ? BeginMode.Quads : BeginMode.LineLoop;
 
             GL.PushMatrix();
-
-            GL.Begin(beginMode);
+            
+			GL.Begin(beginMode);
+                GL.Normal3(0.0f, 1.0f, 0.0f);
                 GL.Vertex3(-size, 0.0f, -size);
                 GL.Vertex3(size, 0.0f, -size);
                 GL.Vertex3(size, 0.0f, size);
