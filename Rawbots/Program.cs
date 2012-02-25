@@ -70,7 +70,10 @@ namespace Rawbots
 			Glut.glutInit();
 			
 			renderModeCount = 0;
-			
+
+			if (IsWindows())
+				useFonts = true;
+
 			config = Config.Load();
 
 			this.Width = config.ScreenWidth;
@@ -86,23 +89,12 @@ namespace Rawbots
 			map = new Map(mapWidth, mapHeight);
 
 			camera = globalCamera;
-			//camera.lookAt(0.0f, 25.0f, -40.0f,
-			//				5.0f, 0.0f, 0.0f,
-			//				0.0f, 1.0f, 0.0f);
-			
-			//OR
-			
-			//camera.RotateLocal(15.0f, 1.0f, 0.0f, 0.0f);
-			//camera.MoveLocal(0.0f, 0.0f, 1.0f, -75.0f);
-			//camera.MoveLocal(0.0f, 1.0f, 0.0f, 10.0f);
-			
-
 			Mouse.Move += new EventHandler<MouseMoveEventArgs>(OnMouseMove);
 			Keyboard.KeyDown += new EventHandler<KeyboardKeyEventArgs>(OnKeyDown);
 			Keyboard.KeyUp += new EventHandler<KeyboardKeyEventArgs>(OnKeyUp);
 			
 			Console.WriteLine("{0}", resourcePath);
-			
+
 			if (useFonts)
 			{
 				font = new QFont(resourcePath + "/Fonts/Ubuntu-R.ttf", 16);
@@ -266,25 +258,46 @@ namespace Rawbots
             GL.Enable(EnableCap.ColorMaterial);
 		}
 
+		public bool IsWindows()
+		{
+			int platform = (int) Environment.OSVersion.Platform;
+
+			if ((platform == 4) || (platform == 6) || (platform == 128))
+				return false;
+
+			return true;
+		}
+
+		public string GetPathSeparator()
+		{
+			if (IsWindows())
+				return "\\";
+			else
+				return "/";
+		}
+
 		private string DetectResourcePath()
 		{
 			string path;
 			string parent;
+			string separator;
 			string cwd = Directory.GetCurrentDirectory();
 
-			path = cwd + "/Resources";
+			separator = GetPathSeparator();
+
+			path = cwd + separator + "Resources";
 
 			if (Directory.Exists(path))
 				return path;
 
 			parent = Directory.GetParent(cwd).FullName;
-			path = parent + "/Resources";
+			path = parent + separator + "Resources";
 
 			if (Directory.Exists(path))
 				return path;
 
 			parent = Directory.GetParent(parent).FullName;
-			path = parent + "/Resources";
+			path = parent + separator + "Resources";
 
 			if (Directory.Exists(path))
 				return path;
@@ -460,7 +473,7 @@ namespace Rawbots
 				if (cameraHelp)
 				{
 					GL.PushMatrix();
-					GL.Translate(config.ScreenWidth, 0.0, 0.0);
+					GL.Translate(config.ScreenWidth * 0.75, 0.0, 0.0);
 					monoFont.Print(cameraHelpText, QFontAlignment.Left);
 					GL.PopMatrix();
 				}
