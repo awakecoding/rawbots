@@ -21,6 +21,8 @@ namespace Rawbots
         SphereModel sphere_source = new SphereModel(0.05f);
         ConeModel cone_source = new ConeModel();
 
+        Matrix4 matrix;
+
         bool debug = true;
 
         public Light()
@@ -51,34 +53,37 @@ namespace Rawbots
         public void setPosition(float x, float y, float z, float w)
         {
             Position[0] = x; Position[1] = y; Position[2] = z; Position[3] = w;
+            //matrix = null;
         }
 
         public void setDirection(float x, float y, float z)
         {
             Direction[0] = x; Direction[1] = y; Direction[2] = z;
+            //matrix = null;
         }
 
-		public void lookAt(float eyex, float eyey, float eyez,
-						   float centerx, float centery, float centerz,
-						   float upx, float upy, float upz)
-		{
-			Matrix4 matr = Matrix4.LookAt(eyex, eyey, eyez,
-										  centerx, centery, centery,
-										  upx, upy, upz);
-			setPosition(eyex, eyey, eyez, 1.0f);
+        //public void lookAt(float eyex, float eyey, float eyez,
+        //                   float centerx, float centery, float centerz,
+        //                   float upx, float upy, float upz)
+        //{
+        //    Matrix4 matr = Matrix4.LookAt(eyex, eyey, eyez,
+        //                                  centerx, centery, centerz,
+        //                                  upx, upy, upz);
+        //    matrix = matr;
+        //    setPosition(eyex, eyez, eyey, 1.0f);
 
-			float newX = matr.Row0.Z * -1.0f + matr.Row0.W * 1.0f;
-			float newY = matr.Row1.Z * -1.0f + matr.Row1.W * 1.0f;
-			float newZ = matr.Row2.Z * -1.0f + matr.Row2.W * 1.0f;
+        //    float newX = matr.Row0.Z * -1.0f + matr.Row0.W * 1.0f;
+        //    float newY = matr.Row1.Z * -1.0f + matr.Row1.W * 1.0f;
+        //    float newZ = matr.Row2.Z * -1.0f + matr.Row2.W * 1.0f;
 
-			float mag = (float)Math.Sqrt(newX * newX + newY * newY + newZ * newZ);
+        //    float mag = (float)Math.Sqrt(newX * newX + newY * newY + newZ * newZ);
 
-			newX /= mag;
-			newY /= mag;
-			newZ /= mag;
+        //    newX /= mag;
+        //    newY /= mag;
+        //    newZ /= mag;
 
-			setDirection(newX, newY, newZ);
-		}
+        //    setDirection(newX, newY, newZ);
+        //}
 
         public void setAttenuation(float exp)
         {
@@ -88,6 +93,11 @@ namespace Rawbots
         public void setCutOff(float angle)
         {
             SpotCutOff = angle;
+        }
+
+        public double getRayLength()
+        {
+            return Math.Sqrt(Position[0] * Position[0] + Position[1] * Position[1] + Position[2] * Position[2]);
         }
 
         public void apply()
@@ -115,7 +125,17 @@ namespace Rawbots
                 }
                 else if (SpotCutOff >= 0.0f || SpotCutOff <= 90.0f)
                 {
-                    cone_source.render(3.0f * Math.Tan(SpotCutOff / 180.0f * Math.PI), 3.0f, 20, 20);
+                    GL.Translate(Position[0], Position[1], Position[2]);
+                    sphere_source.render();
+                    //GL.Translate(Position[0], Position[1], Position[2]);
+                    //GL.MultMatrix(ref matrix);
+                    //GL.Color3(1.0f, 0.0f, 0.0f);
+                    //GL.Begin(BeginMode.Lines);
+                    //GL.Vertex3(0.0f, 0.0f, 0.0f);
+                    //GL.Vertex3(0.0f, 0.0f, -1.0f);
+                    //GL.End();
+
+                    //cone_source.render(/*3.0f*/getRayLength() * Math.Tan(SpotCutOff / 180.0f * Math.PI), getRayLength(), 20, 20);
                 }
 
                 GL.PopMatrix();
