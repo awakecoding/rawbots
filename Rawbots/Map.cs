@@ -119,11 +119,13 @@ namespace Rawbots
         {
             /* Render terrain */
 
+			GL.PushMatrix();
+
+			GL.Translate(0.0f, 0.0f, 0.0f);
+
             GL.PushMatrix();
 
             terrain.BeginRender();
-
-            GL.Translate(-terrain.getWidth() / 2.0f, 0.0f, terrain.getHeight() / 2.0f);
 
             for (int i = 0; i < terrain.getWidth(); i++)
             {
@@ -143,13 +145,11 @@ namespace Rawbots
 
             GL.PushMatrix();
 
-            GL.Translate(-width / 2.0f, 0.0f, height / 2.0f);
-
             foreach (Robot robot in robots)
             {
-                GL.Translate(robot.PosX, 0.0f, -robot.PosY);
+				GL.Translate(robot.PosX * 1.0f, 0.0f, robot.PosY * 1.0f);
                 robot.RenderAll();
-                GL.Translate(-robot.PosX, 0.0f, robot.PosY);
+				GL.Translate(-robot.PosX * 1.0f, 0.0f, robot.PosY * -1.0f);
             }
 
             GL.PopMatrix();
@@ -157,8 +157,6 @@ namespace Rawbots
             /* Render factories */
 
             GL.PushMatrix();
-
-            GL.Translate(-width / 2.0f, 0.0f, height / 2.0f);
 
             foreach (Factory factory in factories)
             {
@@ -173,8 +171,6 @@ namespace Rawbots
 
             GL.PushMatrix();
 
-            GL.Translate(-width / 2.0f, 0.0f, height / 2.0f);
-
             for (int i = 0; i < blocks.Count; i++)
             {
                 Block b = blocks[i];
@@ -188,8 +184,6 @@ namespace Rawbots
             /* Render the bases */
 
             GL.PushMatrix();
-
-            GL.Translate(-width / 2.0f, 0.0f, height / 2.0f);
             
             for(int i = 0; i < bases.Count; i++)
             {
@@ -199,15 +193,15 @@ namespace Rawbots
 
             GL.PopMatrix();
 
-            /*Render Remote Control Unit*/
+            /* Render Remote Control Unit */
 
             GL.PushMatrix();
-
-            GL.Translate(-width / 2.0f, 0.0f, height / 2.0f);
 
             rmc.Render();
 
             GL.PopMatrix();
+
+			GL.PopMatrix();
         }
 	}
 }

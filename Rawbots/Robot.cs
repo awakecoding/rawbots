@@ -47,7 +47,7 @@ namespace Rawbots
 			set
 			{
 				mapPosY = value;
-				posY = (float) mapPosY;
+				posY = (float) (-1 * mapPosY);
 			}
 		}
 
@@ -69,7 +69,7 @@ namespace Rawbots
 			set
 			{
 				posY = value;
-				mapPosY = (int) posY;
+				mapPosY = (int) ((-1.0) * posY);
 			}
 		}
 

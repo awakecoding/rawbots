@@ -49,17 +49,17 @@ namespace Rawbots
 				x = position[0];
 				y = position[2];
 
-				if (x < -(mapWidth / 2.0f))
-					x = -(mapWidth / 2.0f);
+				if (x < 0.0f)
+					x = 0.0f;
 
-				if (x > (mapWidth / 2.0f))
-					x = (mapWidth / 2.0f);
+				if (x > mapWidth)
+					x = mapWidth;
 
-				if (y < -(mapHeight / 2.0f))
-					y = -(mapHeight / 2.0f);
+				if (y < -mapHeight)
+					y = -mapHeight;
 
-				if (y > (mapHeight / 2.0f))
-					y = (mapHeight / 2.0f);
+				if (y > 0.0f)
+					y = 0.0f;
 
 				position[0] = x;
 				position[2] = y;
