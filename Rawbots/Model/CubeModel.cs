@@ -256,6 +256,8 @@ namespace Rawbots
 
         private void renderCubeRetained(double size, bool solid)
         {
+
+
             size /= 2;
             BeginMode beginMode;
 
@@ -281,6 +283,9 @@ namespace Rawbots
 
         public void render(double size)
         {
+            if (material != null)
+                material.apply();
+
             switch (renderMode)
             {				
                 case RenderMode.SOLID:
@@ -300,6 +305,8 @@ namespace Rawbots
                     renderCubeRetained(size, false);
 					break;
             }
+
+            Material.unapply();
         }
     }
 }

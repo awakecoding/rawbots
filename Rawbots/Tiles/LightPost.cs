@@ -10,7 +10,9 @@ namespace Rawbots
         public CubeModel cube;
 		public CylinderModel cylinder;
 		public SphereModel sphere;
-		
+
+        private Material material;
+
 		int position;
 		
 		 // Material property vectors.
@@ -31,9 +33,19 @@ namespace Rawbots
 			
 			sphere = new SphereModel(1.0f);
 			sphere.SetColor(0.0f, 0.0f, 0.0f);
-			
+
+            material = new Material();
+            material.setAmbient(0.3f, 0.3f, 0.3f, 1.0f);
+            material.setDiffuse(0.7f, 0.7f, 0.7f, 1.0f);
+            material.setSpecular(0.6f, 0.6f, 0.6f, 1.0f);
+            material.setShine(100.0f);
+            material.setEmission(0.0f, 0.0f, 0.0f, 1.0f);
+
+            cube.AssignMaterial(material);
+            sphere.AssignMaterial(material);
+            cylinder.AssignMaterial(material);
+
 			position = x;
-			
         }
 
         public override void SetRenderMode(RenderMode renderMode)
@@ -42,7 +54,6 @@ namespace Rawbots
 
             cube.SetRenderMode(renderMode);
         }
-
 			
 		private void drawLightPost()
 		{
@@ -51,14 +62,14 @@ namespace Rawbots
 	//		GL.Enable(EnableCap.ColorMaterial);
 			
 			//bulb
-			sphere.SetColor(1.0f, 1.0f, 1.0f);
-			GL.PushMatrix();
+            sphere.SetColor(1.0f, 1.0f, 1.0f);
+            GL.PushMatrix();
 			GL.Translate(0.0f, 5.85f, 0.0f);
 			GL.Scale(0.3f, 0.3f, 0.3f);
 			sphere.render();
 			GL.PopMatrix();
 			
-			GL.Enable(EnableCap.Lighting);
+	//		GL.Enable(EnableCap.Lighting);
 			
 			// Material properties of sphere.
 	//		GL.Material(MaterialFace.Front, MaterialParameter.Ambient, matAmb);
@@ -103,11 +114,14 @@ namespace Rawbots
             cube.render(1.0f);
             GL.PopMatrix();
 			
-			GL.Disable(EnableCap.Lighting);
+	//		GL.Disable(EnableCap.Lighting);
 		}
 		
         public override void Render()
         {
+            Light light = GetLight();
+            if (light != null)
+                light.apply();
 			base.Render();
 			
 			switch(position)
@@ -116,32 +130,32 @@ namespace Rawbots
 				case 1:
 					GL.PushMatrix();
 					GL.Translate (-0.35f, 0.0f, -0.35f);
-					drawLightPost();
-					GL.PopMatrix ();
+                    drawLightPost();
+                    GL.PopMatrix ();
 					break;
 				
 				//top-right corner of tile
 				case 2:
 					GL.PushMatrix();
 					GL.Translate (0.35f, 0.0f, -0.35f);
-					drawLightPost();
-					GL.PopMatrix ();
+                    drawLightPost();
+                    GL.PopMatrix ();
 					break;
 				
 				//bottom-right corner of tile
 				case 3:
 					GL.PushMatrix();
 					GL.Translate (0.35f, 0.0f, 0.35f);
-					drawLightPost();
-					GL.PopMatrix ();
+                    drawLightPost();
+                    GL.PopMatrix ();
 					break;
 				
 				//top-right corner of tile
 				case 4:
 					GL.PushMatrix();
 					GL.Translate (-0.35f, 0.0f, 0.35f);
-					drawLightPost();
-					GL.PopMatrix ();
+                    drawLightPost();
+                    GL.PopMatrix ();
 					break;
 				
 				default:            
@@ -151,8 +165,9 @@ namespace Rawbots
 				                  		'\n' + "and 4 to draw a lightpost in the bottom-left of the tile");           
             		break; 
 			}
-			
-            
+
+            if (light != null)
+                light.unapply();
 			
 
         }

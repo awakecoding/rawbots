@@ -240,8 +240,14 @@ namespace Rawbots
             robot.AddElectronics(new Electronics());
             map.AddRobot(robot);
 			
-			Tile lightpost = new LightPost(4);
+			LightPost lightpost = new LightPost(4);
 			map.SetTile(lightpost, x, y);
+
+            Light light = new Light();
+            light.setCutOff(45.0f);
+            light.setPosition(0.8f, 8.0f, 0.0f, 1.0f);
+            light.setDirection(0.0f, -1.0f, 0.0f);
+            lightpost.AddLight(light);
 			
 			lightpost = new LightPost(3);
 			map.SetTile(lightpost, x + 49, y);
@@ -255,6 +261,9 @@ namespace Rawbots
             this.Title = this.baseTitle;
 			
 			PrintHelp();
+
+            GL.Enable(EnableCap.Lighting);
+            GL.Enable(EnableCap.ColorMaterial);
 		}
 
 		private string DetectResourcePath()
@@ -340,28 +349,27 @@ namespace Rawbots
 				switch(args.Key)
 				{
 					case Key.R:
-					renderModeCount = renderModeCount % 3;
+					renderModeCount = renderModeCount++ % 3;
+
+                    switch (renderModeCount)
+                    {
+                        case 0:
+                            map.SetRenderMode(RenderMode.SOLID_WIRE);
+                            renderModeCount++;
+                            break;
+
+                        case 1:
+                            map.SetRenderMode(RenderMode.SOLID);
+                            renderModeCount++;
+                            break;
+
+                        case 2:
+                            map.SetRenderMode(RenderMode.WIRE);
+                            renderModeCount++;
+                            break;
+                    }
 					break;
 				}
-				
-				switch(renderModeCount)
-				{
-					case 0:
-					map.SetRenderMode(RenderMode.SOLID_WIRE);
-					renderModeCount++;
-					break;
-					
-					case 1:
-					map.SetRenderMode(RenderMode.SOLID);
-					renderModeCount++;
-					break;
-					
-					case 2:
-					map.SetRenderMode(RenderMode.WIRE);
-					renderModeCount++;
-					break;
-				}
-			
 		}
 
 		protected override void OnUpdateFrame(FrameEventArgs e)

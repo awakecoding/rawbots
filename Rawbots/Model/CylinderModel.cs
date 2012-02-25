@@ -166,6 +166,9 @@ namespace Rawbots
 		
         public void render()
         {
+            if (material != null)
+                material.apply();
+
             switch (renderMode)
             {				
                 case RenderMode.SOLID:
@@ -185,6 +188,8 @@ namespace Rawbots
                     renderWireCylinder();
                     break;
             }
+
+            Material.unapply();
         }
     }
 }
