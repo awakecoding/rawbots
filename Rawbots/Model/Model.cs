@@ -27,6 +27,10 @@ namespace Rawbots
 
 		protected double[] sint;
 		protected double[] cost;
+		protected double[] sint2;
+		protected double[] cost2;
+
+		public Material material;
 
 		public Model()
 		{
@@ -43,6 +47,11 @@ namespace Rawbots
             modelHeight = 1.0f;
 
 			renderMode = RenderMode.SOLID;
+		}
+
+		public void AssignMaterial(Material material)
+		{
+			this.material = material;
 		}
 
 		public void Show(bool show)
