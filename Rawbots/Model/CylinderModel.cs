@@ -121,7 +121,11 @@ namespace Rawbots
             double[] sint = null;
             double[] cost = null;
 
-            CircleTable(ref sint,ref cost, -slices);
+			if (sint == null || cost == null) //if they are blank slates, then create a new table
+				CircleTable(ref sint,ref cost, -slices);
+			else if (sint != null || cost != null)
+				if (sint.Length != Math.Abs(slices) + 1)
+					CircleTable(ref sint, ref cost, -slices);
 
             /* Draw the stacks... */
 
