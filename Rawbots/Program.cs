@@ -11,6 +11,8 @@
 
 using System;
 using System.IO;
+using System.Collections;
+using System.Collections.Generic;
 
 using Tao.FreeGlut;
 
@@ -37,9 +39,11 @@ namespace Rawbots
 		Config config;
 		string resourcePath;
 
+		Robot activeRobot;
+
 		Camera camera;
 		Camera globalCamera = new Camera(0.0f, 0.0f, 25.0f);
-		Camera firstPersonCamera = new FirstPersonCamera(0.0f, 1.0f, 0.0f);
+		RobotCamera robotCamera = new RobotCamera(0.0f, 1.0f, 0.0f);
 
 		bool cameraHelp = false;
 
@@ -108,9 +112,13 @@ namespace Rawbots
             int y = 0;
 			
 			robot = new Robot(x + 1, y + 1);
-            robot.AddElectronics(new Electronics());
+			robot.AddChassis(new BipodChassis());
+			robot.AddWeapon(new MissilesWeapon());
             map.AddRobot(robot);
-			
+
+			activeRobot = robot;
+			robotCamera.Attach(robot);
+
 			robot = new Robot(x + 3, y + 1);
 			robot.AddWeapon(new NuclearWeapon());
 			map.AddRobot(robot);
@@ -308,8 +316,8 @@ namespace Rawbots
 				case Key.Tab:
 
 					if (camera == globalCamera)
-						camera = firstPersonCamera;
-					else if (camera == firstPersonCamera)
+						camera = robotCamera;
+					else if (camera == robotCamera)
 						camera = globalCamera;
 
 					break;
@@ -368,9 +376,7 @@ namespace Rawbots
 
 				if (action != Camera.Action.NONE)
 					camera.PerformActions(action);
-			}
-
-			
+			}	
 		}
 
 		protected override void OnRenderFrame(FrameEventArgs e)

@@ -23,29 +23,78 @@ namespace Rawbots
 		Chassis chassis;
 		Weapon[] weapons;
 		Electronics electronics;
-		
-		public int PosX { get; set; }
-		public int PosY { get; set; }
-		
+
+		private float posX;
+		private float posY;
+		private int mapPosX;
+		private int mapPosY;
+
+		public int MapPosX
+		{
+			get { return mapPosX; }
+			
+			set
+			{
+				mapPosX = value;
+				posX = (float) mapPosX;
+			}
+		}
+
+		public int MapPosY
+		{
+			get { return mapPosY; }
+
+			set
+			{
+				mapPosY = value;
+				posY = (float) mapPosY;
+			}
+		}
+
+		public float PosX
+		{
+			get { return posX; }
+
+			set
+			{
+				posX = value;
+				mapPosX = (int) posX;
+			}
+		}
+
+		public float PosY
+		{
+			get { return posY; }
+
+			set
+			{
+				posY = value;
+				mapPosY = (int) posY;
+			}
+		}
+
+		public float Angle { get; set; }
+
 		private void Init()
 		{
 			chassis = null;
 			weapons = null;
 			electronics = null;
+			Angle = 0.0f;
 		}
 		
 		public Robot()
 		{
 			Init();
-			PosX = 0;
-			PosY = 0;
+			MapPosX = 0;
+			MapPosY = 0;
 		}
 		
 		public Robot(int x, int y)
 		{
 			Init();			
-			PosX = x;
-			PosY = y;
+			MapPosX = x;
+			MapPosY = y;
 		}
 		
 		public void AddChassis(Chassis chassis)
@@ -113,6 +162,8 @@ namespace Rawbots
 				return;
 
             float totalHeight = 0.0f;
+
+			GL.Rotate(Angle, 0.0f, 1.0f, 0.0f);
 
             if (chassis != null)
             {

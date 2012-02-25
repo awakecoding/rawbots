@@ -53,6 +53,11 @@ namespace Rawbots
 		{
 			robots.Remove(robot);
 		}
+
+		public List<Robot> GetRobots()
+		{
+			return robots;
+		}
 		
 		public void AddFactory(Factory factory)
 		{
@@ -142,9 +147,9 @@ namespace Rawbots
 
             foreach (Robot robot in robots)
             {
-                GL.Translate(robot.PosX * 1.0f, 0.0f, robot.PosY * -1.0f);
+                GL.Translate(robot.PosX, 0.0f, -robot.PosY);
                 robot.RenderAll();
-                GL.Translate(-robot.PosX * 1.0f, 0.0f, robot.PosY * 1.0f);
+                GL.Translate(-robot.PosX, 0.0f, robot.PosY);
             }
 
             GL.PopMatrix();

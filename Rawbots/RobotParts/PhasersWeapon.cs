@@ -83,6 +83,8 @@ namespace Rawbots
 
 		public override void Render()
 		{
+			GL.PushMatrix();
+
 			/* phasers base (cylinder) */
 			
 			GL.PushMatrix();
@@ -105,7 +107,7 @@ namespace Rawbots
 			/* phasers */
 			
 			GL.PushMatrix();
-			GL.Scale(1.0f, 1.0f, 4.0f);
+			GL.Scale(0.2f, 0.2f, 0.6f);
 			
 			/* phasers sides (half cylinders) */
 			
@@ -146,6 +148,8 @@ namespace Rawbots
 			TeamNumber.Render();
 			GL.Translate(0.0f, -1.25f, -0.5f);
 			
+			GL.PopMatrix();
+
 			GL.PopMatrix();
 		}
 	}
