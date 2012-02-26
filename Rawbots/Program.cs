@@ -402,18 +402,16 @@ namespace Rawbots
 					break;
 				
 					case Key.T:
-					shadingModeCount = shadingModeCount++ % 2;
+					shadingModeCount = ++shadingModeCount % 2;
 					
 					switch (shadingModeCount)
                     {
                         case 0:
                             GL.ShadeModel(ShadingModel.Flat);
-                            shadingModeCount++;
                             break;
 
                         case 1:
                             GL.ShadeModel(ShadingModel.Smooth);
-                            shadingModeCount++;
                             break;
                     }
 					break;
