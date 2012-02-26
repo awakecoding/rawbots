@@ -7,6 +7,28 @@ namespace Rawbots
 {
     public class Material
     {
+		public enum MaterialType {
+			SHINY_STEEL, 
+			ROCK_DIFFUSE, 
+			DIFFUSE_GRAY
+		};
+		
+		float[] shinySteel_ambient = {0.33f, 0.22f, 0.03f, 1.0f};
+		float[] shinySteel_diffuse = {0.78f, 0.57f, 0.11f, 1.0f};
+		float[] shinySteel_specular = {0.99f, 0.91f, 0.81f, 1.0f};
+		float shinySteel_shininess = 50.0f;
+		
+		float[] rockDiffuse_ambient = {0.33f, 0.22f, 0.03f, 1.0f};
+		float[] rockDiffuse_diffuse = {0.78f, 0.57f, 0.11f, 1.0f};
+		float[] rockDiffuse_specular = {0.99f, 0.91f, 0.81f, 1.0f};
+		float rockDiffuse_shininess = 27.8f;
+		
+		float[] diffuseGray_ambient = {0.33f, 0.22f, 0.03f, 1.0f};
+		float[] diffuseGray_diffuse = {0.78f, 0.57f, 0.11f, 1.0f};
+		float[] diffuseGray_specular = {0.99f, 0.91f, 0.81f, 1.0f};
+		float diffuseGray_shininess = 27.8f;
+		
+		
         static float[] DefaultAmbient = { 0.2f, 0.2f, 0.2f, 1.0f };
         static float[] DefaultDiffuse = { 0.8f, 0.8f, 0.8f, 1.0f };
         static float[] DefaultSpecular = { 0.0f, 0.0f, 0.0f, 0.0f };
@@ -70,5 +92,34 @@ namespace Rawbots
             GL.Material(MaterialFace.FrontAndBack, MaterialParameter.Shininess, DefaultShine);
             GL.Material(MaterialFace.FrontAndBack, MaterialParameter.Emission, DefaultEmission);
         }
+		
+		void material(int dlist, float[] ambient, float[] diffuse, float[] specular, float shininess)
+		{
+			GL.NewList(dlist, ListMode.Compile);
+				GL.Material(MaterialFace.FrontAndBack, MaterialParameter.Ambient, ambient);
+				GL.Material(MaterialFace.FrontAndBack, MaterialParameter.Diffuse, diffuse);
+            	GL.Material(MaterialFace.FrontAndBack, MaterialParameter.Specular, specular);
+            	GL.Material(MaterialFace.FrontAndBack, MaterialParameter.Shininess, shininess);
+			GL.EndList();
+		}
+		
+		public void material_select(int my_object, MaterialType my_material)
+		{
+			switch (my_material)
+			{
+				case MaterialType.SHINY_STEEL:
+					material(my_object, shinySteel_ambient, shinySteel_diffuse, shinySteel_specular, shinySteel_shininess);
+					break;
+  
+				case MaterialType.ROCK_DIFFUSE:
+					material(my_object, rockDiffuse_ambient, rockDiffuse_diffuse, rockDiffuse_specular, rockDiffuse_shininess);
+					break;
+  
+				case MaterialType.DIFFUSE_GRAY:
+					material(my_object, diffuseGray_ambient, diffuseGray_diffuse, diffuseGray_specular, diffuseGray_shininess);
+					break;
+			}
+		}
+		
     }
 }

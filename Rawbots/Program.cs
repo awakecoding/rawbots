@@ -53,6 +53,13 @@ namespace Rawbots
 		float[] ambientLight = {0.212f, 0.208f, 0.173f}; //dark yellow light
 		bool ambientLights = true;
 		
+		bool bottomLeftCornerLight = true;
+		bool bottomRightCornerLight = true;
+		bool topRightCornerLight = true;
+		bool topLeftCornerLight = true;
+		bool allPostLights = true;
+		
+		
 		string cameraHelpText =
 			"W: Move Up\r\n" +
 			"A: Move Left\r\n" +
@@ -320,6 +327,11 @@ namespace Rawbots
             Console.WriteLine("R to toggle between Wire/Solid, Solid and Wire Render Modes");
 			Console.WriteLine("T to toggle between Flat and Smooth Shading Modes");
 			Console.WriteLine("Y to turn the ambient lights on and off");
+			Console.WriteLine("U to turn the bottom left lightpost on and off");
+			Console.WriteLine("I to turn the bottom right lightpost on and off");
+			Console.WriteLine("O to turn the top right lightpost on and off");
+			Console.WriteLine("P to turn the top left lightpost on and off");
+			Console.WriteLine("L to turn the all lightposts on and off");
             Console.WriteLine("F4 (Show XYZ Plane), F5 (Show XZ Plane), F6 (Show XY Plane), F7 (Show Nothing)");
             Console.WriteLine("F11 (Enable Camera), F12 (Disable Camera)");
 		}
@@ -426,6 +438,77 @@ namespace Rawbots
 					{
 						ambientLights = true;
 						GL.Enable(EnableCap.Light1);
+					}
+					break;
+				
+				case Key.U:
+					if(bottomLeftCornerLight)
+					{
+						bottomLeftCornerLight = true;
+						GL.Disable(EnableCap.Light0);
+					}
+					else
+					{
+						bottomLeftCornerLight = true;
+						GL.Enable(EnableCap.Light0);
+					}
+					break;
+				
+			 case Key.I:
+					if(bottomRightCornerLight)
+					{
+						bottomRightCornerLight = true;
+						GL.Disable(EnableCap.Light2);
+					}
+					else
+					{
+						bottomRightCornerLight = true;
+						GL.Enable(EnableCap.Light2);
+					}
+					break;
+				
+			case Key.O:
+					if(topRightCornerLight)
+					{
+						topRightCornerLight = true;
+						GL.Disable(EnableCap.Light3);
+					}
+					else
+					{
+						topRightCornerLight = true;
+						GL.Enable(EnableCap.Light3);
+					}
+					break;
+				
+			case Key.P:
+					if(topLeftCornerLight)
+					{
+						topLeftCornerLight = true;
+						GL.Disable(EnableCap.Light4);
+					}
+					else
+					{
+						topLeftCornerLight = true;
+						GL.Enable(EnableCap.Light4);
+					}
+					break;
+				
+			case Key.L:
+					if(allPostLights)
+					{
+						allPostLights = true;
+						GL.Disable(EnableCap.Light4);
+						GL.Disable(EnableCap.Light3);
+						GL.Disable(EnableCap.Light2);
+						GL.Disable(EnableCap.Light0);
+					}
+					else
+					{
+						allPostLights = true;
+						GL.Enable(EnableCap.Light4);
+						GL.Enable(EnableCap.Light3);
+						GL.Enable(EnableCap.Light2);
+						GL.Enable(EnableCap.Light0);
 					}
 					break;
 				
