@@ -230,18 +230,23 @@ namespace Rawbots
             robot.AddChassis(new TrackedChassis());
             robot.AddWeapon(new MissilesWeapon());
             robot.AddElectronics(new Electronics());
+
+            Light light = new Light(LightName.Light0);
+            robot.AddLight(light);
             map.AddRobot(robot);
 			
 			LightPost lightpost = new LightPost(4);
 			map.SetTile(lightpost, x, y);
 
-            Light light = new Light();
+            light = new Light(LightName.Light1);
             light.setCutOff(45.0f);
-            light.setPosition(0.8f, 8.0f, 0.0f, 1.0f);
-            light.setDirection(0.0f, -1.0f, 0.0f);
+            light.lookAt(0.2f, 6.0f, 0.0f,
+                         2.0f, 0.0f, -2.0f,
+                         1.0f, 1.0f, 1.0f);
+            
             lightpost.AddLight(light);
-			
-			lightpost = new LightPost(3);
+            
+            lightpost = new LightPost(3);
 			map.SetTile(lightpost, x + 49, y);
 			
 			lightpost = new LightPost(2);
@@ -372,17 +377,14 @@ namespace Rawbots
                     {
                         case 0:
                             map.SetRenderMode(RenderMode.SOLID_WIRE);
-                            renderModeCount++;
                             break;
 
                         case 1:
                             map.SetRenderMode(RenderMode.SOLID);
-                            renderModeCount++;
                             break;
 
                         case 2:
                             map.SetRenderMode(RenderMode.WIRE);
-                            renderModeCount++;
                             break;
                     }
 					break;
@@ -439,11 +441,20 @@ namespace Rawbots
 			}	
 		}
 
+        float[] globLight = { 0.2f, 0.2f, 0.2f, 1.0f };
+
 		protected override void OnRenderFrame(FrameEventArgs e)
 		{
             int startTime = Environment.TickCount & Int32.MaxValue;
 
 			base.OnRenderFrame(e);
+
+            globLight[0] = 0.0f;
+            globLight[1] = 0.0f;
+            globLight[2] = 0.0f;
+            globLight[3] = 1.0f;
+
+            GL.LightModel(LightModelParameter.LightModelAmbient, globLight);
 
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 

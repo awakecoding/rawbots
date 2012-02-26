@@ -21,11 +21,15 @@ namespace Rawbots
         SphereModel sphere_source = new SphereModel(0.05f);
         ConeModel cone_source = new ConeModel();
 
-        Matrix4 matrix;
+        //float[] matrix;
 
         bool debug = true;
 
-        public Light()
+        LightName lightName;
+
+        float[] DefaultPos = { 0.0f, 0.0f, 0.0f, 1.0f };
+
+        public Light(LightName name)
         {
             sphere_source.LatitudinalSlices = 8;
             sphere_source.LongitudinalSlices = 8;
@@ -33,6 +37,8 @@ namespace Rawbots
             sphere_source.SetRenderMode(RenderMode.WIRE);
             cone_source.SetColor(1.0f, 1.0f, 1.0f);
             cone_source.SetRenderMode(RenderMode.WIRE);
+
+            lightName = name;
         }
 
         public void setAmbient(float r, float g, float b, float a)
@@ -64,10 +70,10 @@ namespace Rawbots
                            float centerx, float centery, float centerz,
                            float upx, float upy, float upz)
         {
-            Matrix4 matr = Matrix4.LookAt(eyex, eyey, eyez,
-                                          centerx, centery, centerz,
-                                          upx, upy, upz);
-            matrix = matr;
+            //Matrix4 matr = Matrix4.LookAt(eyex, eyey, eyez,
+            //                              centerx, centery, centerz,
+            //                              upx, upy, upz);
+            //matrix = matr;
 
             //float newXeye = matr.Row0.X * eyex + matr.Row0.Y * eyey + matr.Row0.Z * eyez + matr.Row0.W * 1.0f;
             //float newYeye = matr.Row1.X * eyex + matr.Row1.Y * eyey + matr.Row1.Z * eyez + matr.Row1.W * 1.0f;
@@ -86,6 +92,7 @@ namespace Rawbots
             //newZdir /= mag;
 
             //setDirection(newXdir, newYdir, newZdir);
+
             setPosition(eyex, eyey, eyez, 1.0f);
 
             float dirX = centerx - eyex; 
@@ -116,10 +123,10 @@ namespace Rawbots
         {
 			bool reEnable = false;
 			
-			GL.Light(LightName.Light0, LightParameter.Ambient, Ambient);
-            GL.Light(LightName.Light0, LightParameter.Diffuse, Diffuse);
-            GL.Light(LightName.Light0, LightParameter.Specular, Specular);
-            GL.Light(LightName.Light0, LightParameter.QuadraticAttenuation, Attenuation);
+			GL.Light(lightName, LightParameter.Ambient, Ambient);
+            GL.Light(lightName, LightParameter.Diffuse, Diffuse);
+            GL.Light(lightName, LightParameter.Specular, Specular);
+            GL.Light(lightName, LightParameter.QuadraticAttenuation, Attenuation);
 
             if (debug)
             {
@@ -149,11 +156,13 @@ namespace Rawbots
                                Position[2] + getRayLength() * Direction[2]);
                     GL.End();
 
-                    //GL.MultMatrix(ref matrix);
+                    //GL.LoadIdentity();
+                    //GL.MultMatrix(matrix);
+                    
                     //GL.Color3(1.0f, 0.0f, 0.0f);
                     //GL.Begin(BeginMode.Lines);
-                    //GL.Vertex3(0.0f, 0.0f, 0.0f);
-                    //GL.Vertex3(0.0f, 0.0f, getRayLength());
+                    //GL.Vertex3(0.0f, 0.0f, 1.0f);
+                    //GL.Vertex3(0.0f, 0.0f, /*getRayLength()*/0.0f);
                     //GL.End();
 
                     //cone_source.render(/*3.0f*/getRayLength() * Math.Tan(SpotCutOff / 180.0f * Math.PI), getRayLength(), 20, 20);
@@ -167,19 +176,42 @@ namespace Rawbots
                 }
             }
 
-            
+            GL.Light(lightName, LightParameter.Position, Position);
+            GL.Light(lightName, LightParameter.SpotCutoff, SpotCutOff);
+            GL.Light(lightName, LightParameter.SpotDirection, Direction);
+            GL.Light(lightName, LightParameter.SpotExponent, SpotExp);
 
-            GL.Light(LightName.Light0, LightParameter.Position, Position);
-            GL.Light(LightName.Light0, LightParameter.SpotCutoff, SpotCutOff);
-            GL.Light(LightName.Light0, LightParameter.SpotDirection, Direction);
-            GL.Light(LightName.Light0, LightParameter.SpotExponent, SpotExp);
-
-            GL.Enable(EnableCap.Light0);
+            GL.Enable(Light.lightNameCapLookUp(lightName));
         }
 
         public void unapply()
         {
-            GL.Disable(EnableCap.Light0);
+            //GL.Disable(Light.lightNameCapLookUp(lightName));
+        }
+
+        public static EnableCap lightNameCapLookUp(LightName name)
+        {
+            switch (name)
+            { 
+                case LightName.Light0:
+                    return EnableCap.Light0;
+                case LightName.Light1:
+                    return EnableCap.Light1;
+                case LightName.Light2:
+                    return EnableCap.Light2;
+                case LightName.Light3:
+                    return EnableCap.Light3;
+                case LightName.Light4:
+                    return EnableCap.Light4;
+                case LightName.Light5:
+                    return EnableCap.Light5;
+                case LightName.Light6:
+                    return EnableCap.Light6;
+                case LightName.Light7:
+                    return EnableCap.Light7;
+            }
+
+            return EnableCap.Light0;
         }
     }
 }

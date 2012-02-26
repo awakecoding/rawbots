@@ -24,6 +24,7 @@ namespace Rawbots
 		List<Factory> factories;
         List<Block> blocks;
         List<Base> bases;
+        List<Light> lights;
         RemoteControlUnit rmc;
 
 		public Terrain Terrain { get { return terrain; } }
@@ -39,6 +40,7 @@ namespace Rawbots
 			factories = new List<Factory>();
             blocks = new List<Block>();
             bases = new List<Base>();
+            lights = new List<Light>();
             rmc = new RemoteControlUnit();
             rmc.PosX = 43;
             rmc.PosY = 1;
@@ -68,6 +70,11 @@ namespace Rawbots
 		{
 			factories.Remove(factory);
 		}
+
+        public void AddLight(Light light)
+        {
+            lights.Add(light);
+        }
 
         public void AddBlock(Block block)
         {
@@ -118,8 +125,10 @@ namespace Rawbots
         public void Render()
         {
             /* Render terrain */
+            for (int i = 0; i < lights.Count; i++)
+                lights[i].apply();
 
-			GL.PushMatrix();
+            GL.PushMatrix();
 
 			GL.Translate(0.0f, 0.0f, 0.0f);
 
@@ -202,6 +211,9 @@ namespace Rawbots
             GL.PopMatrix();
 
 			GL.PopMatrix();
+
+            for (int i = 0; i < lights.Count; i++)
+                lights[i].unapply();
         }
 	}
 }
