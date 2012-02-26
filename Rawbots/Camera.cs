@@ -49,6 +49,14 @@ namespace Rawbots
 			Reset(x, y, z);
 		}
 
+        public Camera(float eyex, float eyey, float eyez, 
+						   float centerx, float centery, float centerz,
+						   float upx, float upy, float upz)
+        {
+            Reset(0.0f, 0.0f, 0.0f);
+            LookAt(eyex, eyey, eyez, centerx, centery, centerz, upx, upy, upz);
+        }
+
 		public void Reset(float x, float y, float z)
 		{
 			Transform[0] = 1.0f;
