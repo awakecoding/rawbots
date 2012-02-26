@@ -252,21 +252,42 @@ namespace Rawbots
 
             light = new Light(LightName.Light1);
             light.setCutOff(45.0f);
-            light.lookAt(0.2f, 6.0f, 0.0f,
-                         2.0f, 0.0f, -2.0f,
+            light.lookAt(0.0f, 6.0f, 0.0f,
+                         2.0f*(float)Math.Sqrt(2.0f), 0.0f, -2.0f*(float)Math.Sqrt(2.0f),
                          1.0f, 1.0f, 1.0f);
             
             lightpost.AddLight(light);
             
             lightpost = new LightPost(3);
 			map.SetTile(lightpost, x + 49, y);
-			
+
+            light = new Light(LightName.Light2);
+            light.setCutOff(45.0f);
+            light.lookAt(0.0f, 6.0f, 0.0f,
+                         -2.0f * (float)Math.Sqrt(2.0f), 0.0f, -2.0f * (float)Math.Sqrt(2.0f),
+                         1.0f, 1.0f, 1.0f);
+            lightpost.AddLight(light);
+
 			lightpost = new LightPost(2);
 			map.SetTile(lightpost, x + 49, y + 49);
+
+            light = new Light(LightName.Light3);
+            light.setCutOff(45.0f);
+            light.lookAt(0.0f, 6.0f, 0.0f,
+                         -2.0f * (float)Math.Sqrt(2.0f), 0.0f, 2.0f * (float)Math.Sqrt(2.0f),
+                         1.0f, 1.0f, 1.0f);
+            lightpost.AddLight(light);
 			
 			lightpost = new LightPost(1);
 			map.SetTile(lightpost, x, y + 49);
-            
+
+            light = new Light(LightName.Light4);
+            light.setCutOff(45.0f);
+            light.lookAt(0.0f, 6.0f, 0.0f,
+                         2.0f * (float)Math.Sqrt(2.0f), 0.0f, 2.0f * (float)Math.Sqrt(2.0f),
+                         1.0f, 1.0f, 1.0f);
+            lightpost.AddLight(light);
+
             this.Title = this.baseTitle;
 			
 			PrintHelp();
@@ -573,9 +594,9 @@ namespace Rawbots
 
 			base.OnRenderFrame(e);
 
-            globLight[0] = 0.0f;
-            globLight[1] = 0.0f;
-            globLight[2] = 0.0f;
+            globLight[0] = 0.2f;
+            globLight[1] = 0.2f;
+            globLight[2] = 0.2f;
             globLight[3] = 1.0f;
 
             GL.LightModel(LightModelParameter.LightModelAmbient, globLight);
