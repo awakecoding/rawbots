@@ -48,6 +48,10 @@ namespace Rawbots
 		bool cameraHelp = false;
 		
 		int renderModeCount;
+		int shadingModeCount;
+		
+		float[] ambientLight = {0.212f, 0.208f, 0.173f}; //dark yellow light
+		bool ambientLights = true;
 		
 		string cameraHelpText =
 			"W: Move Up\r\n" +
@@ -70,6 +74,7 @@ namespace Rawbots
 			Glut.glutInit();
 			
 			renderModeCount = 0;
+			shadingModeCount = 0;
 
 			if (IsWindows())
 				useFonts = true;
@@ -254,8 +259,12 @@ namespace Rawbots
 			
 			PrintHelp();
 
+			GL.Light(LightName.Light1, LightParameter.Ambient, ambientLight);
+			
             GL.Enable(EnableCap.Lighting);
+			GL.Enable(EnableCap.Light1);
             GL.Enable(EnableCap.ColorMaterial);
+			
 		}
 
 		public bool IsWindows()
@@ -309,6 +318,8 @@ namespace Rawbots
 		{
             Console.WriteLine("Press ESC to Quit Program.");
             Console.WriteLine("R to toggle between Wire/Solid, Solid and Wire Render Modes");
+			Console.WriteLine("T to toggle between Flat and Smooth Shading Modes");
+			Console.WriteLine("Y to turn the ambient lights on and off");
             Console.WriteLine("F4 (Show XYZ Plane), F5 (Show XZ Plane), F6 (Show XY Plane), F7 (Show Nothing)");
             Console.WriteLine("F11 (Enable Camera), F12 (Disable Camera)");
 		}
@@ -319,6 +330,7 @@ namespace Rawbots
 			
 			GL.ClearColor(0.1f, 0.2f, 0.5f, 0.0f);
 			GL.Enable(EnableCap.DepthTest);
+			
 			
 		}
 
@@ -386,6 +398,37 @@ namespace Rawbots
                             break;
                     }
 					break;
+				
+					case Key.T:
+					shadingModeCount = shadingModeCount++ % 2;
+					
+					switch (shadingModeCount)
+                    {
+                        case 0:
+                            GL.ShadeModel(ShadingModel.Flat);
+                            shadingModeCount++;
+                            break;
+
+                        case 1:
+                            GL.ShadeModel(ShadingModel.Smooth);
+                            shadingModeCount++;
+                            break;
+                    }
+					break;
+				
+				case Key.Y:
+					if(ambientLights)
+					{
+						ambientLights = false;
+						GL.Disable(EnableCap.Light1);
+					}
+					else
+					{
+						ambientLights = true;
+						GL.Enable(EnableCap.Light1);
+					}
+					break;
+				
 				}
 		}
 
