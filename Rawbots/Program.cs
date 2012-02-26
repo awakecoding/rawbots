@@ -45,6 +45,8 @@ namespace Rawbots
 		Camera globalCamera = new Camera(0.0f, 0.0f, 25.0f);
 		RobotCamera robotCamera = new RobotCamera(0.0f, 1.0f, 0.0f);
 
+        Camera lightCamera1, lightCamera2, lightCamera3, lightCamera4;
+
 		bool cameraHelp = false;
 		
 		int renderModeCount;
@@ -257,7 +259,11 @@ namespace Rawbots
                          1.0f, 1.0f, 1.0f);
             
             lightpost.AddLight(light);
-            
+
+            lightCamera1 = new Camera(0.0f, 6.0f, 0.0f,
+                         2.0f * (float)Math.Sqrt(2.0f), 0.0f, -2.0f * (float)Math.Sqrt(2.0f),
+                         0.0f, 1.0f, 0.0f);
+
             lightpost = new LightPost(3);
 			map.SetTile(lightpost, x + 49, y);
 
@@ -265,8 +271,12 @@ namespace Rawbots
             light.setCutOff(45.0f);
             light.lookAt(0.0f, 6.0f, 0.0f,
                          -2.0f * (float)Math.Sqrt(2.0f), 0.0f, -2.0f * (float)Math.Sqrt(2.0f),
-                         1.0f, 1.0f, 1.0f);
+                        0.0f, 0.0f, 1.0f);
             lightpost.AddLight(light);
+
+            lightCamera2 = new Camera(49.0f, 6.0f, 0.0f,
+                         49.0f - 2.0f * (float)Math.Sqrt(2.0f), 0.0f, -2.0f * (float)Math.Sqrt(2.0f),
+                         0.0f, 1.0f, 0.0f);
 
 			lightpost = new LightPost(2);
 			map.SetTile(lightpost, x + 49, y + 49);
@@ -277,7 +287,11 @@ namespace Rawbots
                          -2.0f * (float)Math.Sqrt(2.0f), 0.0f, 2.0f * (float)Math.Sqrt(2.0f),
                          1.0f, 1.0f, 1.0f);
             lightpost.AddLight(light);
-			
+
+            lightCamera3 = new Camera(49.0f, 6.0f, -49.0f,
+                         49.0f - 2.0f * (float)Math.Sqrt(2.0f), 0.0f, -49.0f + 2.0f * (float)Math.Sqrt(2.0f),
+                         0.0f, 1.0f, 0.0f);
+
 			lightpost = new LightPost(1);
 			map.SetTile(lightpost, x, y + 49);
 
@@ -287,6 +301,10 @@ namespace Rawbots
                          2.0f * (float)Math.Sqrt(2.0f), 0.0f, 2.0f * (float)Math.Sqrt(2.0f),
                          1.0f, 1.0f, 1.0f);
             lightpost.AddLight(light);
+
+            lightCamera4 = new Camera(0.0f, 6.0f, -49.0f,
+                         2.0f * (float)Math.Sqrt(2.0f), 0.0f, -49.0f + 2.0f * (float)Math.Sqrt(2.0f),
+                         0.0f, 1.0f, 0.0f);
 
             this.Title = this.baseTitle;
 			
@@ -398,11 +416,18 @@ namespace Rawbots
 
 				case Key.Tab:
 
-					if (camera == globalCamera)
-						camera = robotCamera;
-					else if (camera == robotCamera)
-						camera = globalCamera;
-
+                    if (camera == globalCamera)
+                        camera = robotCamera;
+                    else if (camera == robotCamera)
+                        camera = lightCamera1;
+                    else if (camera == lightCamera1)
+                        camera = lightCamera2;
+                    else if (camera == lightCamera2)
+                        camera = lightCamera3;
+                    else if (camera == lightCamera3)
+                        camera = lightCamera4;
+                    else if (camera == lightCamera4)
+                        camera = globalCamera;
 					break;
 
 				case Key.L:
