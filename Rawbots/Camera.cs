@@ -37,7 +37,11 @@ namespace Rawbots
 			ROTATE_RIGHT = 0x0080,
 			ROLL_LEFT = 0x0100,
 			ROLL_RIGHT = 0x0200,
-			TOGGLE_LIGHT = 0x0400
+			TOGGLE_LIGHT = 0x0400,
+            TILT_LEFT = 0x0800,
+            TILT_RIGHT= 0x1600,
+            TILT_DOWN = 0x3200,
+            TILT_UP = 0x6400
 		}
 
 		private float delta = 1.0f;
@@ -368,6 +372,9 @@ namespace Rawbots
 			if ((actions & Action.ROLL_RIGHT) != 0)
 				RollRight();
 		}
+
+        public virtual void IdleAction()
+        {}
 
 		public virtual bool MouseDeltaMotion(int dx, int dy)
 		{
