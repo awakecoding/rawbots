@@ -76,5 +76,10 @@ namespace Rawbots
 					robot.ToggleLight();
 			}
 		}
+
+        public override void IdleAction()
+        {
+            base.IdleAction();
+        }
 	}
 }
