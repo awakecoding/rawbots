@@ -269,7 +269,7 @@ namespace Rawbots
             lightpost = new LightPost(3);
 			map.SetTile(lightpost, x + 49, y);
 
-            light = new Light(LightName.Light2);
+            light = new Light(LightName.Light1);
             light.setCutOff(45.0f);
             light.lookAt(0.0f, 6.0f, 0.0f,
                          -2.0f * (float)Math.Sqrt(2.0f), 0.0f, -2.0f * (float)Math.Sqrt(2.0f),
@@ -283,7 +283,7 @@ namespace Rawbots
 			lightpost = new LightPost(2);
 			map.SetTile(lightpost, x + 49, y + 49);
 
-            light = new Light(LightName.Light3);
+            light = new Light(LightName.Light2);
             light.setCutOff(45.0f);
             light.lookAt(0.0f, 6.0f, 0.0f,
                          -2.0f * (float)Math.Sqrt(2.0f), 0.0f, 2.0f * (float)Math.Sqrt(2.0f),
@@ -297,7 +297,7 @@ namespace Rawbots
 			lightpost = new LightPost(1);
 			map.SetTile(lightpost, x, y + 49);
 
-            light = new Light(LightName.Light4);
+            light = new Light(LightName.Light3);
             light.setCutOff(45.0f);
             light.lookAt(0.0f, 6.0f, 0.0f,
                          2.0f * (float)Math.Sqrt(2.0f), 0.0f, 2.0f * (float)Math.Sqrt(2.0f),
@@ -312,10 +312,10 @@ namespace Rawbots
 			
 			PrintHelp();
 
-			GL.Light(LightName.Light1, LightParameter.Ambient, ambientLight);
+			//GL.Light(LightName.Light1, LightParameter.Ambient, ambientLight);
 			
             GL.Enable(EnableCap.Lighting);
-			GL.Enable(EnableCap.Light1);
+			//GL.Enable(EnableCap.Light1);
             GL.Enable(EnableCap.ColorMaterial);
 			
 		}
@@ -480,12 +480,14 @@ namespace Rawbots
 					if(ambientLights)
 					{
 						ambientLights = false;
-						GL.Disable(EnableCap.Light1);
-					}
+						//GL.Disable(EnableCap.Light1);
+                        setGlobalAmbientLight(0.0f, 0.0f, 0.0f, 1.0f);
+                    }
 					else
 					{
 						ambientLights = true;
-						GL.Enable(EnableCap.Light1);
+						//GL.Enable(EnableCap.Light1);
+                        setGlobalAmbientLight(0.2f, 0.2f, 0.2f, 1.0f);
 					}
 					break;
 				
@@ -506,12 +508,12 @@ namespace Rawbots
 					if(bottomRightCornerLight)
 					{
 						bottomRightCornerLight = true;
-						GL.Disable(EnableCap.Light2);
+						GL.Disable(EnableCap.Light1);
 					}
 					else
 					{
 						bottomRightCornerLight = true;
-						GL.Enable(EnableCap.Light2);
+						GL.Enable(EnableCap.Light1);
 					}
 					break;
 				
@@ -519,12 +521,12 @@ namespace Rawbots
 					if(topRightCornerLight)
 					{
 						topRightCornerLight = true;
-						GL.Disable(EnableCap.Light3);
+						GL.Disable(EnableCap.Light2);
 					}
 					else
 					{
 						topRightCornerLight = true;
-						GL.Enable(EnableCap.Light3);
+						GL.Enable(EnableCap.Light2);
 					}
 					break;
 				
@@ -532,31 +534,33 @@ namespace Rawbots
 					if(topLeftCornerLight)
 					{
 						topLeftCornerLight = true;
-						GL.Disable(EnableCap.Light4);
+						GL.Disable(EnableCap.Light3);
 					}
 					else
 					{
 						topLeftCornerLight = true;
-						GL.Enable(EnableCap.Light4);
+						GL.Enable(EnableCap.Light3);
 					}
 					break;
 				
 			case Key.L:
 					if(allPostLights)
 					{
-						allPostLights = true;
-						GL.Disable(EnableCap.Light4);
-						GL.Disable(EnableCap.Light3);
-						GL.Disable(EnableCap.Light2);
-						GL.Disable(EnableCap.Light0);
+						allPostLights = false;
+                        //GL.Disable(EnableCap.Lighting);
+                        GL.Disable(EnableCap.Light3);
+                        GL.Disable(EnableCap.Light2);
+                        GL.Disable(EnableCap.Light1);
+                        GL.Disable(EnableCap.Light0);
 					}
 					else
 					{
 						allPostLights = true;
-						GL.Enable(EnableCap.Light4);
-						GL.Enable(EnableCap.Light3);
-						GL.Enable(EnableCap.Light2);
-						GL.Enable(EnableCap.Light0);
+                        //GL.Enable(EnableCap.Lighting);
+                        GL.Enable(EnableCap.Light3);
+                        GL.Enable(EnableCap.Light2);
+                        GL.Enable(EnableCap.Light1);
+                        GL.Enable(EnableCap.Light0);
 					}
 					break;
 				
@@ -612,9 +616,9 @@ namespace Rawbots
                     action |= Camera.Action.TILT_LEFT;
                 if (Keyboard[Key.Number6])
                     action |= Camera.Action.TILT_RIGHT;
-                if (Keyboard[Key.Number8])
+                if (Keyboard[Key.PageUp])
                     action |= Camera.Action.TILT_UP;
-                if (Keyboard[Key.Number2])
+                if (Keyboard[Key.PageDown])
                     action |= Camera.Action.TILT_DOWN;
 
                 if (action != Camera.Action.NONE)
@@ -626,16 +630,16 @@ namespace Rawbots
 
         float[] globLight = { 0.2f, 0.2f, 0.2f, 1.0f };
 
+        public void setGlobalAmbientLight(float r, float g, float b, float a)
+        {
+            globLight[0] = r; globLight[1] = g; globLight[2] = b; globLight[3] = a;
+        }
+
 		protected override void OnRenderFrame(FrameEventArgs e)
 		{
             int startTime = Environment.TickCount & Int32.MaxValue;
 
 			base.OnRenderFrame(e);
-
-            globLight[0] = 0.2f;
-            globLight[1] = 0.2f;
-            globLight[2] = 0.2f;
-            globLight[3] = 1.0f;
 
             GL.LightModel(LightModelParameter.LightModelAmbient, globLight);
 
@@ -643,7 +647,7 @@ namespace Rawbots
 
 			GL.MatrixMode(MatrixMode.Modelview);
 
-			camera.SetView();
+            camera.SetView();
 
             ReferencePlane.setDimensions(50, 50);
             ReferencePlane.render();
