@@ -132,6 +132,9 @@ namespace Rawbots
 			robot.AddWeapon(new MissilesWeapon());
             map.AddRobot(robot);
 
+            Light light = new Light(LightName.Light7);
+            robot.AddLight(light);
+
 			activeRobot = robot;
 			robotCamera.Attach(robot);
 
@@ -245,14 +248,13 @@ namespace Rawbots
             robot.AddWeapon(new MissilesWeapon());
             robot.AddElectronics(new Electronics());
 
-            Light light = new Light(LightName.Light0);
-            robot.AddLight(light);
+            
             map.AddRobot(robot);
 			
 			LightPost lightpost = new LightPost(4);
 			map.SetTile(lightpost, x, y);
 
-            light = new Light(LightName.Light1);
+            light = new Light(LightName.Light0);
             light.setCutOff(45.0f);
             light.lookAt(0.0f, 6.0f, 0.0f,
                          2.0f*(float)Math.Sqrt(2.0f), 0.0f, -2.0f*(float)Math.Sqrt(2.0f),
@@ -441,7 +443,7 @@ namespace Rawbots
 				switch(args.Key)
 				{
 					case Key.R:
-					renderModeCount = renderModeCount++ % 3;
+					renderModeCount = ++renderModeCount % 3;
 
                     switch (renderModeCount)
                     {
@@ -606,8 +608,19 @@ namespace Rawbots
 				if (Keyboard[Key.E])
 					action |= Camera.Action.ROLL_RIGHT;
 
-				if (action != Camera.Action.NONE)
-					camera.PerformActions(action);
+                if (Keyboard[Key.Number4])
+                    action |= Camera.Action.TILT_LEFT;
+                if (Keyboard[Key.Number6])
+                    action |= Camera.Action.TILT_RIGHT;
+                if (Keyboard[Key.Number8])
+                    action |= Camera.Action.TILT_UP;
+                if (Keyboard[Key.Number2])
+                    action |= Camera.Action.TILT_DOWN;
+
+                if (action != Camera.Action.NONE)
+                    camera.PerformActions(action);
+                else
+                    camera.IdleAction();
 			}	
 		}
 
