@@ -435,64 +435,22 @@ namespace Rawbots
 				case Key.L:
 					camera.PerformActions(Camera.Action.TOGGLE_LIGHT);
 					break;
-			}
-		}
-		
-		public void OnKeyUp(object sender, KeyboardKeyEventArgs args)
-		{
-				switch(args.Key)
-				{
-					case Key.R:
-					renderModeCount = ++renderModeCount % 3;
 
-                    switch (renderModeCount)
-                    {
-                        case 0:
-                            map.SetRenderMode(RenderMode.SOLID_WIRE);
-                            break;
-
-                        case 1:
-                            map.SetRenderMode(RenderMode.SOLID);
-                            break;
-
-                        case 2:
-                            map.SetRenderMode(RenderMode.WIRE);
-                            break;
-                    }
-					break;
-				
-					case Key.T:
-					shadingModeCount = ++shadingModeCount % 2;
-					
-					switch (shadingModeCount)
-                    {
-                        case 0:
-                            GL.ShadeModel(ShadingModel.Flat);
-                            break;
-
-                        case 1:
-                            GL.ShadeModel(ShadingModel.Smooth);
-                            break;
-                    }
-					break;
-				
-				case Key.Y:
-					if(ambientLights)
+				case Key.Number5:
+					if (ambientLights)
 					{
 						ambientLights = false;
-						//GL.Disable(EnableCap.Light1);
-                        setGlobalAmbientLight(0.0f, 0.0f, 0.0f, 1.0f);
-                    }
+						setGlobalAmbientLight(0.0f, 0.0f, 0.0f, 1.0f);
+					}
 					else
 					{
 						ambientLights = true;
-						//GL.Enable(EnableCap.Light1);
-                        setGlobalAmbientLight(0.2f, 0.2f, 0.2f, 1.0f);
+						setGlobalAmbientLight(0.2f, 0.2f, 0.2f, 1.0f);
 					}
 					break;
-				
-				case Key.U:
-					if(bottomLeftCornerLight)
+
+				case Key.Number6:
+					if (bottomLeftCornerLight)
 					{
 						bottomLeftCornerLight = true;
 						GL.Disable(EnableCap.Light0);
@@ -503,9 +461,9 @@ namespace Rawbots
 						GL.Enable(EnableCap.Light0);
 					}
 					break;
-				
-			 case Key.I:
-					if(bottomRightCornerLight)
+
+				case Key.Number7:
+					if (bottomRightCornerLight)
 					{
 						bottomRightCornerLight = true;
 						GL.Disable(EnableCap.Light1);
@@ -516,9 +474,9 @@ namespace Rawbots
 						GL.Enable(EnableCap.Light1);
 					}
 					break;
-				
-			case Key.O:
-					if(topRightCornerLight)
+
+				case Key.Number8:
+					if (topRightCornerLight)
 					{
 						topRightCornerLight = true;
 						GL.Disable(EnableCap.Light2);
@@ -529,9 +487,9 @@ namespace Rawbots
 						GL.Enable(EnableCap.Light2);
 					}
 					break;
-				
-			case Key.P:
-					if(topLeftCornerLight)
+
+				case Key.Number9:
+					if (topLeftCornerLight)
 					{
 						topLeftCornerLight = true;
 						GL.Disable(EnableCap.Light3);
@@ -542,28 +500,65 @@ namespace Rawbots
 						GL.Enable(EnableCap.Light3);
 					}
 					break;
-				
-			case Key.L:
-					if(allPostLights)
+
+				case Key.Number0:
+					if (allPostLights)
 					{
 						allPostLights = false;
-                        //GL.Disable(EnableCap.Lighting);
-                        GL.Disable(EnableCap.Light3);
-                        GL.Disable(EnableCap.Light2);
-                        GL.Disable(EnableCap.Light1);
-                        GL.Disable(EnableCap.Light0);
+						GL.Disable(EnableCap.Light3);
+						GL.Disable(EnableCap.Light2);
+						GL.Disable(EnableCap.Light1);
+						GL.Disable(EnableCap.Light0);
 					}
 					else
 					{
 						allPostLights = true;
-                        //GL.Enable(EnableCap.Lighting);
-                        GL.Enable(EnableCap.Light3);
-                        GL.Enable(EnableCap.Light2);
-                        GL.Enable(EnableCap.Light1);
-                        GL.Enable(EnableCap.Light0);
+						GL.Enable(EnableCap.Light3);
+						GL.Enable(EnableCap.Light2);
+						GL.Enable(EnableCap.Light1);
+						GL.Enable(EnableCap.Light0);
 					}
 					break;
+			}
+		}
+		
+		public void OnKeyUp(object sender, KeyboardKeyEventArgs args)
+		{
+				switch (args.Key)
+				{
+					case Key.R:
+						renderModeCount = ++renderModeCount % 3;
+
+						switch (renderModeCount)
+						{
+							case 0:
+								map.SetRenderMode(RenderMode.SOLID_WIRE);
+								break;
+						
+							case 1:
+								map.SetRenderMode(RenderMode.SOLID);
+								break;
+
+							case 2:
+								map.SetRenderMode(RenderMode.WIRE);
+								break;
+						}
+						break;
 				
+					case Key.T:
+						shadingModeCount = ++shadingModeCount % 2;
+					
+						switch (shadingModeCount)
+						{
+							case 0:
+								GL.ShadeModel(ShadingModel.Flat);
+								break;
+
+							case 1:
+								GL.ShadeModel(ShadingModel.Smooth);
+								break;
+						}
+						break;
 				}
 		}
 
@@ -585,7 +580,6 @@ namespace Rawbots
                 cameraEnabled = false;
             else if (Keyboard[Key.F12])
                 cameraEnabled = true;
-				
 
 			if (cameraEnabled)
 			{
@@ -612,6 +606,7 @@ namespace Rawbots
 				if (Keyboard[Key.E])
 					action |= Camera.Action.ROLL_RIGHT;
 
+				/*
                 if (Keyboard[Key.Number4])
                     action |= Camera.Action.TILT_LEFT;
                 if (Keyboard[Key.Number6])
@@ -619,7 +614,7 @@ namespace Rawbots
                 if (Keyboard[Key.PageUp])
                     action |= Camera.Action.TILT_UP;
                 if (Keyboard[Key.PageDown])
-                    action |= Camera.Action.TILT_DOWN;
+                    action |= Camera.Action.TILT_DOWN;*/
 
                 if (action != Camera.Action.NONE)
                     camera.PerformActions(action);
