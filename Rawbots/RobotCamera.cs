@@ -63,14 +63,16 @@ namespace Rawbots
 				if (y > 0.0f)
 					y = 0.0f;
 
-				position[0] = x;
-				position[2] = y;
-				SetPosition(position[0], position[1], position[2], position[3]);
+				//position[0] = x;
+				//position[2] = y;
+                //MoveLocal(x, 0.0f, y, 1.0f);
+                Console.WriteLine("Robot(" + x + "," + y + " @ " + angle + ")");
+                //SetPosition(position[0], position[1], position[2], position[3]);
 
 				robot.PosX = x;
 				robot.PosY = y;
 
-				robot.Angle = angle;
+				robot.Angle = -angle;
 
 				if ((actions & Action.TOGGLE_LIGHT) != 0)
 					robot.ToggleLight();
