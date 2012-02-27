@@ -432,7 +432,7 @@ namespace Rawbots
                         camera = globalCamera;
 					break;
 
-				case Key.L:
+				case Key.F:
 					camera.PerformActions(Camera.Action.TOGGLE_LIGHT);
 					break;
 
@@ -519,6 +519,22 @@ namespace Rawbots
 						GL.Enable(EnableCap.Light0);
 					}
 					break;
+
+				case Key.J:
+					camera.PerformActions(Camera.Action.TILT_LEFT | Camera.Action.ACTIVE);
+					break;
+
+				case Key.L:
+					camera.PerformActions(Camera.Action.TILT_RIGHT | Camera.Action.ACTIVE);
+					break;
+
+				case Key.I:
+					camera.PerformActions(Camera.Action.TILT_UP | Camera.Action.ACTIVE);
+					break;
+
+				case Key.K:
+					camera.PerformActions(Camera.Action.TILT_DOWN | Camera.Action.ACTIVE);
+					break;
 			}
 		}
 		
@@ -558,6 +574,22 @@ namespace Rawbots
 								GL.ShadeModel(ShadingModel.Smooth);
 								break;
 						}
+						break;
+
+					case Key.J:
+						camera.PerformActions(Camera.Action.TILT_LEFT);
+						break;
+
+					case Key.L:
+						camera.PerformActions(Camera.Action.TILT_RIGHT);
+						break;
+
+					case Key.I:
+						camera.PerformActions(Camera.Action.TILT_UP);
+						break;
+
+					case Key.K:
+						camera.PerformActions(Camera.Action.TILT_DOWN);
 						break;
 				}
 		}
@@ -605,16 +637,6 @@ namespace Rawbots
 					action |= Camera.Action.ROLL_LEFT;
 				if (Keyboard[Key.E])
 					action |= Camera.Action.ROLL_RIGHT;
-
-				/*
-                if (Keyboard[Key.Number4])
-                    action |= Camera.Action.TILT_LEFT;
-                if (Keyboard[Key.Number6])
-                    action |= Camera.Action.TILT_RIGHT;
-                if (Keyboard[Key.PageUp])
-                    action |= Camera.Action.TILT_UP;
-                if (Keyboard[Key.PageDown])
-                    action |= Camera.Action.TILT_DOWN;*/
 
                 if (action != Camera.Action.NONE)
                     camera.PerformActions(action);

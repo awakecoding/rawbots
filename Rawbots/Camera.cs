@@ -26,22 +26,23 @@ namespace Rawbots
 		[Flags]
 		public enum Action
 		{
-			NONE = 0x0000,
-			MOVE_UP = 0x0001,
-			MOVE_DOWN = 0x0002,
-			MOVE_LEFT = 0x0004,
-			MOVE_RIGHT = 0x0008,
-			ROTATE_UP = 0x0010,
-			ROTATE_DOWN = 0x0020,
-			ROTATE_LEFT = 0x0040,
-			ROTATE_RIGHT = 0x0080,
-			ROLL_LEFT = 0x0100,
-			ROLL_RIGHT = 0x0200,
-			TOGGLE_LIGHT = 0x0400,
-            TILT_LEFT = 0x0800,
-            TILT_RIGHT= 0x1600,
-            TILT_DOWN = 0x3200,
-            TILT_UP = 0x6400
+			NONE =				0x00000000,
+			MOVE_UP =			0x00000001,
+			MOVE_DOWN =			0x00000002,
+			MOVE_LEFT =			0x00000004,
+			MOVE_RIGHT =		0x00000008,
+			ROTATE_UP =			0x00000010,
+			ROTATE_DOWN =		0x00000020,
+			ROTATE_LEFT =		0x00000040,
+			ROTATE_RIGHT =		0x00000080,
+			ROLL_LEFT =			0x00000100,
+			ROLL_RIGHT =		0x00000200,
+			TOGGLE_LIGHT =		0x00000400,
+			TILT_UP =			0x00000800,
+			TILT_DOWN =			0x00001000,
+			TILT_LEFT =			0x00002000,
+			TILT_RIGHT =		0x00004000,
+			ACTIVE =			0x00008000
 		}
 
 		private float delta = 1.0f;

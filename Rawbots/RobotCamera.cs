@@ -11,12 +11,21 @@ namespace Rawbots
 		private float mapHeight;
 		private bool attached;
 
+		private bool tiltLeft;
+		private bool tiltRight;
+		private bool tiltUp;
+		private bool tiltDown;
+
 		public RobotCamera(float x, float y, float z)
 			: base(x, y, z)
 		{
 			robot = null;
 			mapWidth = 50.0f;
 			mapHeight = 50.0f;
+			tiltLeft = false;
+			tiltRight = false;
+			tiltUp = false;
+			tiltDown = false;
 		}
 
 		public Robot Attach(Robot robot)
@@ -37,7 +46,19 @@ namespace Rawbots
 
 		public override void PerformActions(Action actions)
 		{
+			bool active;
 			base.PerformActions(actions);
+
+			active = ((actions & Action.ACTIVE) != 0);
+
+			if ((actions & Action.TILT_LEFT) != 0)
+				tiltLeft = active;
+			if ((actions & Action.TILT_RIGHT) != 0)
+				tiltRight = active;
+			if ((actions & Action.TILT_UP) != 0)
+				tiltUp = active;
+			if ((actions & Action.TILT_DOWN) != 0)
+				tiltDown = active;
 
 			if (attached)
 			{
@@ -63,11 +84,7 @@ namespace Rawbots
 				if (y > 0.0f)
 					y = 0.0f;
 
-				//position[0] = x;
-				//position[2] = y;
-                //MoveLocal(x, 0.0f, y, 1.0f);
                 Console.WriteLine("Robot(" + x + "," + y + " @ " + angle + ")");
-                //SetPosition(position[0], position[1], position[2], position[3]);
 
 				robot.PosX = x;
 				robot.PosY = y;
