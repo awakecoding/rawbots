@@ -26,7 +26,6 @@ namespace Rawbots
         public LightPost(int x)
         {
             cube = new CubeModel();
-            //cube.SetColor(0.2f, 0.2f, 0.2f);
 			
 			cylinder = new CylinderModel(0.08f, 6.0f);
 			cylinder.SetColor (0.3f, 0.3f, 0.3f);
@@ -34,12 +33,12 @@ namespace Rawbots
 			sphere = new SphereModel(1.0f);
 			sphere.SetColor(0.0f, 0.0f, 0.0f);
 
-            material = new Material();
-            material.setAmbient(0.3f, 0.3f, 0.3f, 1.0f);
-            material.setDiffuse(0.7f, 0.7f, 0.7f, 1.0f);
-            material.setSpecular(0.6f, 0.6f, 0.6f, 1.0f);
-            material.setShine(100.0f);
-            material.setEmission(0.0f, 0.0f, 0.0f, 1.0f);
+            material = new Material(Material.MaterialType.SHINY_STEEL);
+            //material.setAmbient(0.3f, 0.3f, 0.3f, 1.0f);
+            //material.setDiffuse(0.7f, 0.7f, 0.7f, 1.0f);
+            //material.setSpecular(0.6f, 0.6f, 0.6f, 1.0f);
+            //material.setShine(100.0f);
+            //material.setEmission(0.0f, 0.0f, 0.0f, 1.0f);
 
             cube.AssignMaterial(material);
             sphere.AssignMaterial(material);

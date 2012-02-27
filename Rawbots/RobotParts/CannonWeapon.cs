@@ -74,6 +74,10 @@ namespace Rawbots
 
             cube = new CubeModel();
             cylinder = new CylinderModel(cannonRadius, cannonHeight);
+			
+			material = new Material(Material.MaterialType.SHINY_STEEL);
+			cube.AssignMaterial(material);
+            cylinder.AssignMaterial(material);
         }
 
         public override int getCost()

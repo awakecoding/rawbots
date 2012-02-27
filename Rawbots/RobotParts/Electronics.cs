@@ -41,6 +41,10 @@ namespace Rawbots
 			hemisphereRadius = 0.3f;
 			hemisphere = new HemisphereModel(hemisphereRadius);
 			hemisphere.SetColor(0.8f, 0.8f, 0.8f);
+			
+			material = new Material(Material.MaterialType.SHINY_STEEL);
+			hemisphere.AssignMaterial(material);
+            cylinder.AssignMaterial(material);
 		}
 		
         public override void SetRenderMode(RenderMode renderMode)

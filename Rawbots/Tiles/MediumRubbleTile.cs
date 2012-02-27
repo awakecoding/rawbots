@@ -13,6 +13,9 @@ namespace Rawbots
         {
             cube = new CubeModel();
             cube.SetColor(0.64f, 0.64f, 0.67f);
+			
+			material = new Material(Material.MaterialType.ROCK_DIFFUSE);
+			cube.AssignMaterial(material);
         }
 
         public override void SetRenderMode(RenderMode renderMode)

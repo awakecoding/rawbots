@@ -41,7 +41,13 @@ namespace Rawbots
             tcComponent = new CubeModel[TOTAL_ENDS];
             for (int i = 0; i < TOTAL_ENDS; i++)
                 tcComponent[i] = new CubeModel();
-
+			
+			material = new Material(Material.MaterialType.SHINY_STEEL);
+			for (int i = 0; i < TOTAL_ENDS; i++)
+			{
+				wheelEnd[i].AssignMaterial(material);
+				tcComponent[i].AssignMaterial(material);
+			}
         }
 
         public override void SetRenderMode(RenderMode mode)

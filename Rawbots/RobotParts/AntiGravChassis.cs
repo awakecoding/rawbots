@@ -49,6 +49,10 @@ namespace Rawbots
 			cube = new CubeModel();
             
             SetHeight(0.2f);
+			
+			material = new Material(Material.MaterialType.SHINY_STEEL);
+			cube.AssignMaterial(material);
+			
 		}
 		
 		private void drawBox(float Xtranslate, float Ytranslate, float Ztranslate, float Xscale, float Yscale, float Zscale)

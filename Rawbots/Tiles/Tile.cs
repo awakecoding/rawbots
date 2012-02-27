@@ -24,6 +24,9 @@ namespace Rawbots
 		{
             plane = new Plane();
             plane.SetRenderMode(RenderMode.SOLID);
+			
+			material = new Material(Material.MaterialType.DIFFUSE_GRAY);
+			plane.AssignMaterial(material);
 		}
 
         public override void SetRenderMode(RenderMode renderMode)

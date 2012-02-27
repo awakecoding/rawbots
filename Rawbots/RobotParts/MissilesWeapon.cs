@@ -47,6 +47,12 @@ namespace Rawbots
             frame = new CubeModel();
             frame.SetColor(0.1f, 1.0f, 0.0f);
             SetHeight(0.75f);
+			
+			material = new Material(Material.MaterialType.SHINY_STEEL);
+			inCylinder.AssignMaterial(material);
+            outCylinder.AssignMaterial(material);
+			middleBox.AssignMaterial(material);
+			frame.AssignMaterial(material);
 		}
 		
 		public override int getCost()

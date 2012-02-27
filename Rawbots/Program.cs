@@ -441,7 +441,7 @@ namespace Rawbots
 				switch(args.Key)
 				{
 					case Key.R:
-					renderModeCount = renderModeCount++ % 3;
+					renderModeCount = ++renderModeCount % 3;
 
                     switch (renderModeCount)
                     {

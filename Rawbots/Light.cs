@@ -189,7 +189,7 @@ namespace Rawbots
             //GL.Disable(Light.lightNameCapLookUp(lightName));
         }
 
-        public static EnableCap lightNameCapLookUp(LightName name)
+       public static EnableCap lightNameCapLookUp(LightName name)
         {
             switch (name)
             { 
@@ -213,5 +213,6 @@ namespace Rawbots
 
             return EnableCap.Light0;
         }
+		
     }
 }

@@ -38,6 +38,10 @@ namespace Rawbots
                  mcComponent[i] = new CubeModel();
 
             SetHeight(1.0f);
+			
+			material = new Material(Material.MaterialType.SHINY_STEEL);
+			for (int i = 0; i < mcComponent.Length; i++)
+                 mcComponent[i].AssignMaterial(material);
 		}
 		
 		public override void SetRenderMode(RenderMode renderMode)

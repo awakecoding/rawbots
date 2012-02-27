@@ -19,6 +19,10 @@ namespace Rawbots
             hemiM.LatitudinalSlices = 10;
             hemiM.LongitudinalSlices = 10;
             cube.SetColor(0.64f, 0.64f, 0.67f);
+			
+			material = new Material(Material.MaterialType.ROCK_DIFFUSE);
+			cube.AssignMaterial(material);
+			hemiM.AssignMaterial(material);
         }
 
         public override void SetRenderMode(RenderMode renderMode)

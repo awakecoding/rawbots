@@ -53,6 +53,14 @@ namespace Rawbots
 			hcPhasersL.SetColor(0.45f, 0.75f, 0.6f);
 			hcPhasersR.SetColor(0.45f, 0.75f, 0.6f);
 			cube.SetColor(0.45f, 0.75f, 0.6f);
+			
+			material = new Material(Material.MaterialType.SHINY_STEEL);
+			halfCylinder.AssignMaterial(material);
+            cylinder.AssignMaterial(material);
+			cube.AssignMaterial(material);
+			hcPhasersL.AssignMaterial(material);
+			hcPhasersR.AssignMaterial(material);
+			
 		}
 		
 		public override int getCost()

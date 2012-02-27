@@ -34,6 +34,9 @@ namespace Rawbots
             mcComponent = new CylinderModel(radius, height);
             mcComponent.setSlices(8);
             mcComponent.setStacks(1);
+			
+			material = new Material(Material.MaterialType.SHINY_STEEL);
+            mcComponent.AssignMaterial(material);
             
 		}
 		

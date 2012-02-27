@@ -52,7 +52,10 @@ namespace Rawbots
             cylinder.SetColor(0.3f, 0.3f, 0.3f);
 
             cube = new CubeModel();
-
+			
+			material = new Material(Material.MaterialType.SHINY_STEEL);
+			cube.AssignMaterial(material);
+            cylinder.AssignMaterial(material);
         }
 
         public override void SetRenderMode(RenderMode renderMode)
