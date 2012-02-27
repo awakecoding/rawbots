@@ -39,6 +39,7 @@ namespace Rawbots
             cone_source.SetRenderMode(RenderMode.WIRE);
 
             lightName = name;
+            GL.Enable(lightNameCapLookUp(name));
         }
 
         public void setAmbient(float r, float g, float b, float a)
@@ -128,7 +129,7 @@ namespace Rawbots
             GL.Light(lightName, LightParameter.Specular, Specular);
             GL.Light(lightName, LightParameter.QuadraticAttenuation, Attenuation);
 
-            if (debug)
+            if (debug && GL.IsEnabled(lightNameCapLookUp(lightName)))
             {
                 if (GL.IsEnabled(EnableCap.Lighting))
                 {
@@ -181,7 +182,7 @@ namespace Rawbots
             GL.Light(lightName, LightParameter.SpotDirection, Direction);
             GL.Light(lightName, LightParameter.SpotExponent, SpotExp);
 
-            GL.Enable(Light.lightNameCapLookUp(lightName));
+            //GL.Enable(Light.lightNameCapLookUp(lightName));
         }
 
         public void unapply()
