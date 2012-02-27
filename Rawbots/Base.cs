@@ -43,6 +43,12 @@ namespace Rawbots
             cylinder.SetColor(0.2f, 0.2f, 0.2f);
 
             PosX = 0; PosY = 0;
+			
+			material = new Material(Material.MaterialType.SILK);
+			cylinder.AssignMaterial(material);
+			
+			material = new Material(Material.MaterialType.CONCRETE);
+			cube.AssignMaterial(material);
         }
 
         public Base(int x, int y)

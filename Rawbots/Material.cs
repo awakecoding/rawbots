@@ -10,13 +10,15 @@ namespace Rawbots
 		public enum MaterialType {
 			SHINY_STEEL, 
 			ROCK_DIFFUSE, 
-			DIFFUSE_GRAY
+			DIFFUSE_GRAY,
+			SILK,
+			CONCRETE
 		};
 		
 		float[] shinySteel_ambient = {0.1f, 0.1f, 0.03f, 1.0f};
 		float[] shinySteel_diffuse = {0.1f, 0.1f, 0.0f, 1.0f};
 		float[] shinySteel_specular = {0.1f, 0.1f, 0.1f, 1.0f};
-		float[] shinySteel_shininess = {40.0f};
+		float[] shinySteel_shininess = {30.0f};
 		float[] shinySteel_emission = {0.0f, 0.0f, 0.0f, 0.1f};
 		
 		float[] rockDiffuse_ambient = {0.4f, 0.4f, 0.3f, 1.0f};
@@ -30,6 +32,18 @@ namespace Rawbots
 		float[] diffuseGray_specular = {0.99f, 0.91f, 0.81f, 1.0f};
 		float[] diffuseGray_shininess = {10.0f};
 		float[] diffuseGray_emission = {0.0f, 0.0f, 0.0f, 0.1f};
+		
+		float[] silk_ambient = {0.0f, 0.1f, 0.06f, 1.0f};
+		float[] silk_diffuse = {0.01f, 0.01f, 0.01f, 1.0f};
+		float[] silk_specular = {0.50f, 0.50f, 0.50f, 1.0f};
+		float[] silk_shininess = {32.0f};
+		float[] silk_emission = {0.0f, 0.0f, 0.0f, 0.1f};
+		
+		float[] concrete_ambient = {0.19225f, 0.19225f, 0.19225f, 1.0f};
+		float[] concrete_diffuse = {0.50754f, 0.50754f, 0.50754f, 1.0f};
+		float[] concrete_specular = {0.508273f, 0.508273f, 0.508273f, 1.0f};
+		float[] concrete_shininess = {51.2f};
+		float[] concrete_emission = {0.0f, 0.0f, 0.0f, 0.1f};
 		
         static float[] DefaultAmbient = { 0.2f, 0.2f, 0.2f, 1.0f };
         static float[] DefaultDiffuse = { 0.8f, 0.8f, 0.8f, 1.0f };
@@ -78,6 +92,22 @@ namespace Rawbots
             		Specular = new float[] { diffuseGray_specular[0], diffuseGray_specular[1], diffuseGray_specular[2], diffuseGray_specular[3] };
             		Shine = new float[] { diffuseGray_shininess[0] };
             		Emission = new float[] { rockDiffuse_emission[0], rockDiffuse_emission[1], rockDiffuse_emission[2], rockDiffuse_emission[3] };
+					break;
+				
+				case MaterialType.SILK:
+					Ambient = new float[] { silk_ambient[0], silk_ambient[1], silk_ambient[2], silk_ambient[3] };
+           	 		Diffuse = new float[] { silk_diffuse[0], silk_diffuse[1], silk_diffuse[2], silk_diffuse[3] };
+            		Specular = new float[] { silk_specular[0], silk_specular[1], silk_specular[2], silk_specular[3] };
+            		Shine = new float[] { silk_shininess[0] };
+            		Emission = new float[] { silk_emission[0], silk_emission[1], silk_emission[2], silk_emission[3] };
+					break;
+				
+				case MaterialType.CONCRETE:
+					Ambient = new float[] { concrete_ambient[0], concrete_ambient[1], concrete_ambient[2], concrete_ambient[3] };
+           	 		Diffuse = new float[] { concrete_diffuse[0], concrete_diffuse[1], concrete_diffuse[2], concrete_diffuse[3] };
+            		Specular = new float[] { concrete_specular[0], concrete_specular[1], concrete_specular[2], concrete_specular[3] };
+            		Shine = new float[] { concrete_shininess[0] };
+            		Emission = new float[] { concrete_emission[0], concrete_emission[1], concrete_emission[2], concrete_emission[3] };
 					break;
 			
 				default:
