@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{3252AE43-CA0B-484B-8B1E-A3AE739A0421}</ProjectGuid>
     <OutputType>Exe</OutputType>
@@ -54,8 +54,10 @@
     <Compile Include="Light.cs" />
     <Compile Include="Material.cs" />
     <Compile Include="Model\ConeModel.cs" />
+    <Compile Include="OBJModel.cs" />
     <Compile Include="RemoteControlUnit.cs" />
     <Compile Include="RobotCamera.cs" />
+    <Compile Include="Texture.cs" />
     <Compile Include="Tiles\Boundary.cs" />
     <Compile Include="Tiles\HeavyRubbleTile.cs" />
     <Compile Include="Tiles\LightRubbleTile.cs" />

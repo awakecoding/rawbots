@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 using OpenTK.Graphics.OpenGL;
 
 namespace Rawbots
@@ -57,6 +58,13 @@ namespace Rawbots
         float[] Shine;
         float[] Emission;
 
+		public string matName;
+
+		private string pathFileName;
+		private string relativePath = "";
+
+		Texture texture;
+
         public Material()
         {
             Ambient = new float[] { DefaultAmbient[0], DefaultAmbient[1], DefaultAmbient[2], DefaultAmbient[3] };
@@ -65,7 +73,147 @@ namespace Rawbots
             Shine = new float[] { shinySteel_shininess[0] };
             Emission = new float[] { DefaultEmission[0], DefaultEmission[1], DefaultEmission[2], DefaultEmission[3] };
         }
-		
+
+		private void useDefault()
+		{
+			Ambient = DefaultAmbient;
+			Diffuse = DefaultDiffuse;
+			Specular = DefaultSpecular;
+			Shine = DefaultShine;
+			Emission = DefaultEmission;
+		}
+
+		/**
+		 *	Load OBJ Material file
+		 **/
+		public Material(string filename)
+		{
+			useDefault();
+
+			pathFileName = filename;
+			
+			FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
+			StreamReader sr = new StreamReader(fs);
+
+			string sLine;
+			char[] seperators = new char[] { ' ', '/' };
+			string[] s;
+			float[] fTemp;
+
+			string absolutePath = fs.Name;
+			char[] sep = new char[] { '\\' };
+			string[] splitAbsolutePath = absolutePath.Split(sep);
+
+			for (int i = 0; i < splitAbsolutePath.Length - 1; i++)
+				relativePath += splitAbsolutePath[i] + "\\";
+
+
+			int ic = sr.Read();
+			uint lineNumber = 1;
+
+			while (ic != -1)
+			{
+				char c = (char)ic;
+
+				if(c == 'n') //New Material
+				{
+					sLine = sr.ReadLine();
+					s = sLine.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
+
+					matName = s[1];
+				}
+				else if (c == 'i')
+				{
+					sLine = sr.ReadLine();
+
+					Console.WriteLine("WARNING: Material File " + filename + " Illumination Parameter Not Supported on Line " + lineNumber);
+				}
+				else if (c == 'T')
+				{
+					sLine = sr.ReadLine();
+
+					Console.WriteLine("WARNING: Material File " + filename + " Transmission Filter Parameter Not Supported on Line " + lineNumber);
+				}
+				else if (c == 'K')
+				{
+					int iNext = sr.Read();
+
+					if (iNext == 'd')
+					{
+						sLine = sr.ReadLine();
+						s = sLine.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
+						fTemp = new float[s.Length];
+
+						float.TryParse(s[0], out fTemp[0]);
+						float.TryParse(s[1], out fTemp[1]);
+						float.TryParse(s[2], out fTemp[2]);
+						if (s.Length == 4)
+							float.TryParse(s[3], out fTemp[3]);
+
+						setDiffuse(fTemp[0], fTemp[1], fTemp[2], fTemp.Length == 4 ? fTemp[3] : 1.0f);
+					}
+					else if (iNext == 'a')
+					{
+						sLine = sr.ReadLine();
+						s = sLine.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
+						fTemp = new float[s.Length];
+
+						float.TryParse(s[0], out fTemp[0]);
+						float.TryParse(s[1], out fTemp[1]);
+						float.TryParse(s[2], out fTemp[2]);
+						if (s.Length == 4)
+							float.TryParse(s[3], out fTemp[3]);
+
+						setAmbient(fTemp[0], fTemp[1], fTemp[2], fTemp.Length == 4 ? fTemp[3] : 1.0f);
+					}
+					else if (iNext == 's')
+					{
+						sLine = sr.ReadLine();
+						s = sLine.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
+						fTemp = new float[s.Length];
+
+						float.TryParse(s[0], out fTemp[0]);
+						float.TryParse(s[1], out fTemp[1]);
+						float.TryParse(s[2], out fTemp[2]);
+						if (s.Length == 4)
+							float.TryParse(s[3], out fTemp[3]);
+
+						setSpecular(fTemp[0], fTemp[1], fTemp[2], fTemp.Length == 4 ? fTemp[3] : 1.0f);
+					}
+				}
+				else if (c == 'm') //Texture file
+				{
+					sr.Read(); //'a'
+					sr.Read(); //'p'
+					sr.Read(); //'_'
+					sr.Read(); //'K'
+
+					int iNext = sr.Read();
+
+					if (iNext == 'd' || iNext == 'a' || iNext == 's')
+					{
+						Console.WriteLine("WARNING: Material File " + filename + " Texture and Material Parameter Not Supported on Line " + lineNumber);
+						sr.Read();
+
+						string texFileName = sr.ReadLine();
+
+						texture = new Texture(relativePath + texFileName);
+					}
+				}
+				else if (c != '\n')
+				{
+					sLine = sr.ReadLine();
+				}
+
+				lineNumber++;
+				ic = sr.Read();
+			}
+
+
+			sr.Close();
+			fs.Close();
+		}
+
 		public Material(MaterialType my_material)
         {
             switch (my_material)
@@ -152,6 +300,9 @@ namespace Rawbots
             GL.Material(MaterialFace.FrontAndBack, MaterialParameter.Specular, Specular);
             GL.Material(MaterialFace.FrontAndBack, MaterialParameter.Shininess, Shine);
             GL.Material(MaterialFace.FrontAndBack, MaterialParameter.Emission, Emission);
+
+			if (texture != null)
+				texture.apply();
         }
 		
 		/*public void apply_material(MaterialType my_material)

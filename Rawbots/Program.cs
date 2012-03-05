@@ -76,6 +76,8 @@ namespace Rawbots
 			"Tab: Change Camera\r\n" +
 			"Escape: Exit Game\r\n";
 
+        OBJModel objModel;
+
 		public Game() : base(800, 600, GraphicsMode.Default, "Rawbots")
 		{
 			VSync = VSyncMode.On;
@@ -121,6 +123,8 @@ namespace Rawbots
 			}
 
 			GL.Disable(EnableCap.Texture2D);
+
+            objModel = new OBJModel(resourcePath + "/cube.obj");
 
 			Robot robot;
 
@@ -317,7 +321,7 @@ namespace Rawbots
             GL.Enable(EnableCap.Lighting);
 			//GL.Enable(EnableCap.Light1);
             GL.Enable(EnableCap.ColorMaterial);
-			
+            //GL.Enable(EnableCap.Texture2D);
 		}
 
 		public bool IsWindows()
@@ -665,6 +669,9 @@ namespace Rawbots
 			GL.MatrixMode(MatrixMode.Modelview);
 
             camera.SetView();
+
+            //GL.Scale(0.1f, 0.1f, 0.1f);
+            objModel.Render();
 
             ReferencePlane.setDimensions(50, 50);
             ReferencePlane.render();
