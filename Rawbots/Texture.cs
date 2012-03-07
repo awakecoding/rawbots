@@ -25,7 +25,7 @@ namespace Rawbots
 			Bitmap b = bmp[numTex];
 			BitmapData bd = b.LockBits(new Rectangle(0, 0, b.Width, b.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 
-			GL.ActiveTexture(TextureUnit.Texture0);
+			//GL.ActiveTexture(TextureUnit.Texture0);
 			GL.GenTextures(1, out texId[numTex]);
 
 			GL.BindTexture(TextureTarget.Texture2D, texId[numTex]);
@@ -42,7 +42,7 @@ namespace Rawbots
 		public void apply()
 		{
 			//GL.ActiveTexture(numToActiveUnit());
-			GL.BindTexture(TextureTarget.Texture2D, texId[numTex]);
+			GL.BindTexture(TextureTarget.Texture2D, texId[0]);
 		}
 
 		public void unapply()
