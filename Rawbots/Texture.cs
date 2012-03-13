@@ -8,11 +8,11 @@ using OpenTK.Graphics.OpenGL;
 
 namespace Rawbots
 {
-	class Texture
+	public class Texture
 	{
-		Bitmap[] bmp = new Bitmap[2];
-		uint[] texId = new uint[2];
-		uint numTex = 0;
+		Bitmap bmp;
+		uint texId;
+		//uint numTex = 0;
 
 		public Texture(string filename)
 		{
@@ -21,14 +21,15 @@ namespace Rawbots
 
 		public void addTexture(string filename)
 		{
-			bmp[numTex] = new Bitmap(filename);
-			Bitmap b = bmp[numTex];
+			bmp = new Bitmap(filename);
+			Bitmap b = bmp;
+			b.RotateFlip(RotateFlipType.Rotate180FlipNone);
 			BitmapData bd = b.LockBits(new Rectangle(0, 0, b.Width, b.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 
 			//GL.ActiveTexture(TextureUnit.Texture0);
-			GL.GenTextures(1, out texId[numTex]);
+			GL.GenTextures(1, out texId);
 
-			GL.BindTexture(TextureTarget.Texture2D, texId[numTex]);
+			GL.BindTexture(TextureTarget.Texture2D, texId);
 
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
@@ -36,13 +37,11 @@ namespace Rawbots
 			GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, bd.Width, bd.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, bd.Scan0);
 
 			b.UnlockBits(bd);
-			numTex++;
 		}
 
 		public void apply()
 		{
-			//GL.ActiveTexture(numToActiveUnit());
-			GL.BindTexture(TextureTarget.Texture2D, texId[0]);
+			GL.BindTexture(TextureTarget.Texture2D, texId);
 		}
 
 		public void unapply()
@@ -52,8 +51,7 @@ namespace Rawbots
 
 		public void Release()
 		{
-			for(uint i = 0; i < numTex; i++)
-				GL.DeleteTexture(texId[i]);
+			GL.DeleteTexture(texId);
 		}
 
 		public TextureUnit numToActiveUnit(uint index)

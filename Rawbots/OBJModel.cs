@@ -8,6 +8,29 @@ using OpenTK.Graphics.OpenGL;
 
 namespace Rawbots
 {
+	class FaceGroup
+	{
+		public string groupName;
+		public Material mat;
+
+		public List<Face> Faces = new List<Face>();
+
+		public FaceGroup(string name)
+		{
+			groupName = name;
+		}
+
+		public void SetMaterial(Material m)
+		{
+			mat = m;
+		}
+
+		public void AddFace(Face f)
+		{
+			Faces.Add(f);
+		}
+	}
+
 	class Face
 	{ 
 		public uint[] VertIdx;
@@ -56,6 +79,9 @@ namespace Rawbots
 		private List<float[]> TexCoords = new List<float[]>();
 		private List<Face> Faces = new List<Face>();
 
+		private List<FaceGroup> FaceGroups = new List<FaceGroup>();
+		private FaceGroup currFaceGroup;
+
 		private Material material;
 		private Bitmap imgImage;
 
@@ -90,25 +116,42 @@ namespace Rawbots
 			int ic = sr.Read();
 			uint lineNumber = 1;
 
+			List<Material> MaterialList = null;
+
 			while (ic != -1)
 			{
 				char c = (char)ic;
 
-				if (c == 'v')
+				if (c == 'g')
+				{
+					sLine = sr.ReadLine().Remove(0, 1);
+
+					if (sLine.CompareTo("default") == 0)
+					{
+						Console.WriteLine("WARNING: Default group name ignored.");
+					}
+					else
+					{
+						FaceGroup fg = new FaceGroup(sLine);
+						FaceGroups.Add(fg);
+						currFaceGroup = fg;
+					}
+				}
+				else if (c == 'v')
 				{
 					int iNext = sr.Read();
 					float[] fTemp;
 
 					if (iNext == ' ' || iNext == '\t')
 					{
-                        fTemp = new float[3];
+						fTemp = new float[3];
 						sLine = sr.ReadLine();
-						s = sLine.Split(seperators, StringSplitOptions.RemoveEmptyEntries);                      
+						s = sLine.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
 
 						float.TryParse(s[0], out fTemp[0]);
 						float.TryParse(s[1], out fTemp[1]);
 						float.TryParse(s[2], out fTemp[2]);
-                            
+
 						Vertices.Add(fTemp);
 					}
 					else if (iNext == 't')
@@ -140,159 +183,163 @@ namespace Rawbots
 					}
 					else
 					{
-						sLine = sr.ReadLine(); 
+						sLine = sr.ReadLine();
 					}
 				}
 				else if (c == 'f')
-				{ 
+				{
 					uint[][] iTemp = new uint[3][];
-                    int faceSize;
-                    bool isQuad = false;
+					int faceSize;
+					bool isQuad = false;
 
 					sLine = sr.ReadLine();
 
-					if(HasTexCoords && HasNormals)
+					if (HasTexCoords && HasNormals)
 					{
 						//f v/t/n v/t/n v/t/n (v/t/n)
 						s = sLine.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
 
-                        faceSize = s.Length/3;
-                        isQuad = (faceSize == 4);
+						faceSize = s.Length / 3;
+						isQuad = (faceSize == 4);
 
 						iTemp[0] = isQuad ? new uint[4] : new uint[3];
 						uint.TryParse(s[0], out iTemp[0][0]);
 						uint.TryParse(s[3], out iTemp[0][1]);
 						uint.TryParse(s[6], out iTemp[0][2]);
-                        if(isQuad)
-                            uint.TryParse(s[9], out iTemp[0][3]);
+						if (isQuad)
+							uint.TryParse(s[9], out iTemp[0][3]);
 
 						iTemp[1] = isQuad ? new uint[4] : new uint[3];
 						uint.TryParse(s[1], out iTemp[1][0]);
 						uint.TryParse(s[4], out iTemp[1][1]);
 						uint.TryParse(s[7], out iTemp[1][2]);
-                        if (isQuad)
-                            uint.TryParse(s[10], out iTemp[1][3]);
+						if (isQuad)
+							uint.TryParse(s[10], out iTemp[1][3]);
 
 						iTemp[2] = isQuad ? new uint[4] : new uint[3];
 						uint.TryParse(s[2], out iTemp[2][0]);
 						uint.TryParse(s[5], out iTemp[2][1]);
 						uint.TryParse(s[8], out iTemp[2][2]);
-                        if (isQuad)
-                            uint.TryParse(s[11], out iTemp[2][3]);
+						if (isQuad)
+							uint.TryParse(s[11], out iTemp[2][3]);
 
 						Assertion(iTemp[0][0] - 1, (uint)Vertices.Count, lineNumber);
 						Assertion(iTemp[0][1] - 1, (uint)Vertices.Count, lineNumber);
 						Assertion(iTemp[0][2] - 1, (uint)Vertices.Count, lineNumber);
-                        if(isQuad)
-                            Assertion(iTemp[0][3] - 1, (uint)Vertices.Count, lineNumber);
+						if (isQuad)
+							Assertion(iTemp[0][3] - 1, (uint)Vertices.Count, lineNumber);
 
 						Assertion(iTemp[1][0] - 1, (uint)TexCoords.Count, lineNumber);
 						Assertion(iTemp[1][1] - 1, (uint)TexCoords.Count, lineNumber);
 						Assertion(iTemp[1][2] - 1, (uint)TexCoords.Count, lineNumber);
-                        if (isQuad)
-                            Assertion(iTemp[1][3] - 1, (uint)TexCoords.Count, lineNumber);
+						if (isQuad)
+							Assertion(iTemp[1][3] - 1, (uint)TexCoords.Count, lineNumber);
 
 						Assertion(iTemp[2][0] - 1, (uint)Normals.Count, lineNumber);
 						Assertion(iTemp[2][1] - 1, (uint)Normals.Count, lineNumber);
 						Assertion(iTemp[2][2] - 1, (uint)Normals.Count, lineNumber);
-                        if (isQuad)
-                            Assertion(iTemp[2][3] - 1, (uint)Normals.Count, lineNumber);
+						if (isQuad)
+							Assertion(iTemp[2][3] - 1, (uint)Normals.Count, lineNumber);
 
-						Faces.Add(new Face(iTemp));
+						//Faces.Add(new Face(iTemp));
+						currFaceGroup.AddFace(new Face(iTemp));
 					}
 					else if (HasTexCoords && !HasNormals)
 					{
 						//f v/t v/t v/t (v/t)
 						s = sLine.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
 
-                        faceSize = s.Length / 3;
-                        isQuad = (faceSize == 4);
+						faceSize = s.Length / 3;
+						isQuad = (faceSize == 4);
 
 						iTemp[0] = isQuad ? new uint[4] : new uint[3];
 						uint.TryParse(s[0], out iTemp[0][0]);
 						uint.TryParse(s[2], out iTemp[0][1]);
 						uint.TryParse(s[4], out iTemp[0][2]);
-                        if(isQuad)
-                            uint.TryParse(s[6], out iTemp[0][3]);
+						if (isQuad)
+							uint.TryParse(s[6], out iTemp[0][3]);
 
 						iTemp[1] = isQuad ? new uint[4] : new uint[3];
 						uint.TryParse(s[1], out iTemp[1][0]);
 						uint.TryParse(s[3], out iTemp[1][1]);
 						uint.TryParse(s[5], out iTemp[1][2]);
-                        if(isQuad)
-                            uint.TryParse(s[7], out iTemp[1][3]);
+						if (isQuad)
+							uint.TryParse(s[7], out iTemp[1][3]);
 
 						Assertion(iTemp[0][0] - 1, (uint)Vertices.Count, lineNumber);
 						Assertion(iTemp[0][1] - 1, (uint)Vertices.Count, lineNumber);
 						Assertion(iTemp[0][2] - 1, (uint)Vertices.Count, lineNumber);
-                        if(isQuad)
-                            Assertion(iTemp[0][3] - 1, (uint)Vertices.Count, lineNumber);
+						if (isQuad)
+							Assertion(iTemp[0][3] - 1, (uint)Vertices.Count, lineNumber);
 
 						Assertion(iTemp[1][0] - 1, (uint)TexCoords.Count, lineNumber);
 						Assertion(iTemp[1][1] - 1, (uint)TexCoords.Count, lineNumber);
 						Assertion(iTemp[1][2] - 1, (uint)TexCoords.Count, lineNumber);
-                        if(isQuad)
-                            Assertion(iTemp[1][3] - 1, (uint)Vertices.Count, lineNumber);
+						if (isQuad)
+							Assertion(iTemp[1][3] - 1, (uint)Vertices.Count, lineNumber);
 
-						Faces.Add(new Face(iTemp));
+						//Faces.Add(new Face(iTemp));
+						currFaceGroup.AddFace(new Face(iTemp));
 					}
 					else if (!HasTexCoords && HasNormals)
 					{
 						//f v//n v//n v//n (v//n)
 						s = sLine.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
 
-                        faceSize = s.Length / 3;
-                        isQuad = (faceSize == 4);
+						faceSize = s.Length / 3;
+						isQuad = (faceSize == 4);
 
 						iTemp[0] = isQuad ? new uint[4] : new uint[3];
 						uint.TryParse(s[0], out iTemp[0][0]);
 						uint.TryParse(s[2], out iTemp[0][1]);
 						uint.TryParse(s[4], out iTemp[0][2]);
-                        if(isQuad)
-                            uint.TryParse(s[6], out iTemp[0][3]);
+						if (isQuad)
+							uint.TryParse(s[6], out iTemp[0][3]);
 
 						iTemp[2] = isQuad ? new uint[4] : new uint[3];
 						uint.TryParse(s[1], out iTemp[2][0]);
 						uint.TryParse(s[3], out iTemp[2][1]);
 						uint.TryParse(s[5], out iTemp[2][2]);
-                        if(isQuad)
-                            uint.TryParse(s[7], out iTemp[2][3]);
+						if (isQuad)
+							uint.TryParse(s[7], out iTemp[2][3]);
 
 						Assertion(iTemp[0][0] - 1, (uint)Vertices.Count, lineNumber);
 						Assertion(iTemp[0][1] - 1, (uint)Vertices.Count, lineNumber);
 						Assertion(iTemp[0][2] - 1, (uint)Vertices.Count, lineNumber);
-                        if(isQuad)
-                            Assertion(iTemp[0][3] - 1, (uint)Vertices.Count, lineNumber);
+						if (isQuad)
+							Assertion(iTemp[0][3] - 1, (uint)Vertices.Count, lineNumber);
 
 						Assertion(iTemp[2][0] - 1, (uint)Normals.Count, lineNumber);
 						Assertion(iTemp[2][1] - 1, (uint)Normals.Count, lineNumber);
 						Assertion(iTemp[2][2] - 1, (uint)Normals.Count, lineNumber);
-                        if(isQuad)
-                            Assertion(iTemp[2][3] - 1, (uint)Vertices.Count, lineNumber);
+						if (isQuad)
+							Assertion(iTemp[2][3] - 1, (uint)Vertices.Count, lineNumber);
 
-						Faces.Add(new Face(iTemp));
+						//Faces.Add(new Face(iTemp));
+						currFaceGroup.AddFace(new Face(iTemp));
 					}
 					else
 					{
 						s = sLine.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
 
-                        faceSize = s.Length / 3;
-                        isQuad = (faceSize == 4);
+						faceSize = s.Length / 3;
+						isQuad = (faceSize == 4);
 
 						iTemp[0] = isQuad ? new uint[4] : new uint[3];
 						uint.TryParse(s[0], out iTemp[0][0]);
 						uint.TryParse(s[1], out iTemp[0][1]);
 						uint.TryParse(s[2], out iTemp[0][2]);
-                        if(isQuad)
-                            uint.TryParse(s[3], out iTemp[0][3]);
+						if (isQuad)
+							uint.TryParse(s[3], out iTemp[0][3]);
 
 						Assertion(iTemp[0][0] - 1, (uint)Vertices.Count, lineNumber);
 						Assertion(iTemp[0][1] - 1, (uint)Vertices.Count, lineNumber);
 						Assertion(iTemp[0][2] - 1, (uint)Vertices.Count, lineNumber);
-                        if(isQuad)
-                            Assertion(iTemp[0][3] - 1, (uint)Vertices.Count, lineNumber);
+						if (isQuad)
+							Assertion(iTemp[0][3] - 1, (uint)Vertices.Count, lineNumber);
 
-						Faces.Add(new Face(iTemp));
+						//Faces.Add(new Face(iTemp));
+						currFaceGroup.AddFace(new Face(iTemp));
 					}
 				}
 				else if (c == 'm') //Material Library File
@@ -300,8 +347,31 @@ namespace Rawbots
 					sLine = sr.ReadLine();
 
 					s = sLine.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
-									
-					material = new Material(relativePath + s[1]);
+
+					//material = new Material(relativePath + s[1]);
+					MaterialList = Material.ParseMaterials(relativePath + s[1]);
+				}
+				else if (c == 'u')
+				{
+					sr.Read(); //'s'
+					sr.Read(); //'e'
+					sr.Read(); //'m'
+					sr.Read(); //'t'
+					sr.Read(); //'l'
+					sr.Read(); //' '
+
+					sLine = sr.ReadLine();
+
+					s = sLine.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
+
+					if(MaterialList != null)
+						for (int i = 0; i < MaterialList.Count; i++)
+						{
+							if (MaterialList[i].matName.CompareTo(s[0]) == 0)
+							{
+								currFaceGroup.SetMaterial(MaterialList[i]);
+							}
+						}
 				}
 				else if (c != '\n')
 				{
@@ -327,175 +397,187 @@ namespace Rawbots
 
 		public void Render()
 		{
-			Face f;
-			uint[] tc2indices, n3indices, v3indices;
-			float[] tc2, n3, v3;
-			
-			int iNumFaces = Faces.Count;
-
-            if (HasTexCoords)
-            {
-                GL.Enable(EnableCap.Texture2D);
-                if (material != null)
-                    material.apply();
-            }
-
-			GL.Begin(Faces[0].isQuad ? BeginMode.Quads : BeginMode.Triangles);
-
-			if (HasTexCoords && HasNormals)
+			for (int j = 0; j < FaceGroups.Count; j++)
 			{
-				for (int i = 0; i < iNumFaces; i++)
+				FaceGroup fg = FaceGroups[j];
+
+				List<Face> lf = fg.Faces;
+				
+				Face f;
+				uint[] tc2indices, n3indices, v3indices;
+				float[] tc2, n3, v3;
+
+				int iNumFaces = /*Faces.Count*/lf.Count;
+
+				if (HasTexCoords)
 				{
-					f = Faces[i];
-
-					tc2indices = f.TexCoordIdx;
-					n3indices = f.NormalIdx;
-					v3indices = f.VertIdx;
-
-					tc2 = TexCoords[(int)tc2indices[0]];
-					n3 = Normals[(int)n3indices[0]];
-					v3 = Vertices[(int)v3indices[0]];
-
-					GL.TexCoord2(tc2);
-					GL.Normal3(n3);
-					GL.Vertex3(v3);
-
-					tc2 = TexCoords[(int)tc2indices[1]];
-					n3 = Normals[(int)n3indices[1]];
-					v3 = Vertices[(int)v3indices[1]];
-
-					GL.TexCoord2(tc2);
-					GL.Normal3(n3);
-					GL.Vertex3(v3);
-
-					tc2 = TexCoords[(int)tc2indices[2]];
-					n3 = Normals[(int)n3indices[2]];
-					v3 = Vertices[(int)v3indices[2]];
-
-					GL.TexCoord2(tc2);
-					GL.Normal3(n3);
-					GL.Vertex3(v3);
-
-                    if (Faces[i].isQuad)
-                    {
-                        tc2 = TexCoords[(int)tc2indices[3]];
-                        n3 = Normals[(int)n3indices[3]];
-                        v3 = Vertices[(int)v3indices[3]];
-
-                        GL.TexCoord2(tc2);
-                        GL.Normal3(n3);
-                        GL.Vertex3(v3);
-                    }
-                    
+					GL.Enable(EnableCap.Texture2D);
+					
+					if (/*material*/fg.mat != null)
+						/*material*/fg.mat.apply();
 				}
-			}
-			else if (!HasTexCoords && HasNormals)
-			{
-				for (int i = 0; i < iNumFaces; i++)
+
+				GL.Begin(/*Faces[0]*/lf[0].isQuad ? BeginMode.Quads : BeginMode.Triangles);
+
+				if (HasTexCoords && HasNormals)
 				{
-					f = Faces[i];
+					for (int i = 0; i < iNumFaces; i++)
+					{
+						//f = Faces[i];
+						f = lf[i];
 
-					n3indices = f.NormalIdx;
-					v3indices = f.VertIdx;
+						tc2indices = f.TexCoordIdx;
+						n3indices = f.NormalIdx;
+						v3indices = f.VertIdx;
 
-					n3 = Normals[(int)n3indices[0]];
-					v3 = Vertices[(int)v3indices[0]];
+						tc2 = TexCoords[(int)tc2indices[0]];
+						n3 = Normals[(int)n3indices[0]];
+						v3 = Vertices[(int)v3indices[0]];
 
-					GL.Normal3(n3);
-					GL.Vertex3(v3);
+						GL.TexCoord2(tc2);
+						GL.Normal3(n3);
+						GL.Vertex3(v3);
 
-					n3 = Normals[(int)n3indices[1]];
-					v3 = Vertices[(int)v3indices[1]];
+						tc2 = TexCoords[(int)tc2indices[1]];
+						n3 = Normals[(int)n3indices[1]];
+						v3 = Vertices[(int)v3indices[1]];
 
-					GL.Normal3(n3);
-					GL.Vertex3(v3);
+						GL.TexCoord2(tc2);
+						GL.Normal3(n3);
+						GL.Vertex3(v3);
 
-					n3 = Normals[(int)n3indices[2]];
-					v3 = Vertices[(int)v3indices[2]];
+						tc2 = TexCoords[(int)tc2indices[2]];
+						n3 = Normals[(int)n3indices[2]];
+						v3 = Vertices[(int)v3indices[2]];
 
-					GL.Normal3(n3);
-					GL.Vertex3(v3);
+						GL.TexCoord2(tc2);
+						GL.Normal3(n3);
+						GL.Vertex3(v3);
 
-                    if (Faces[i].isQuad)
-                    {
-                        n3 = Normals[(int)n3indices[3]];
-                        v3 = Vertices[(int)v3indices[3]];
+						if (/*Faces[i]*/lf[i].isQuad)
+						{
+							tc2 = TexCoords[(int)tc2indices[3]];
+							n3 = Normals[(int)n3indices[3]];
+							v3 = Vertices[(int)v3indices[3]];
 
-                        GL.Normal3(n3);
-                        GL.Vertex3(v3);
-                    }
+							GL.TexCoord2(tc2);
+							GL.Normal3(n3);
+							GL.Vertex3(v3);
+						}
+
+					}
 				}
-			}
-			else if (HasTexCoords && !HasNormals)
-			{
-				for (int i = 0; i < iNumFaces; i++)
+				else if (!HasTexCoords && HasNormals)
 				{
-					f = Faces[i];
+					for (int i = 0; i < iNumFaces; i++)
+					{
+						//f = Faces[i];
+						f = lf[i];
 
-					tc2indices = f.TexCoordIdx;
-					v3indices = f.VertIdx;
+						n3indices = f.NormalIdx;
+						v3indices = f.VertIdx;
 
-					tc2 = TexCoords[(int)tc2indices[0]];
-					v3 = Vertices[(int)v3indices[0]];
+						n3 = Normals[(int)n3indices[0]];
+						v3 = Vertices[(int)v3indices[0]];
 
-					GL.TexCoord2(tc2);
-					GL.Vertex3(v3);
+						GL.Normal3(n3);
+						GL.Vertex3(v3);
 
-					tc2 = TexCoords[(int)tc2indices[1]];
-					v3 = Vertices[(int)v3indices[1]];
+						n3 = Normals[(int)n3indices[1]];
+						v3 = Vertices[(int)v3indices[1]];
 
-					GL.TexCoord2(tc2);
-					GL.Vertex3(v3);
+						GL.Normal3(n3);
+						GL.Vertex3(v3);
 
-					tc2 = TexCoords[(int)tc2indices[2]];
-					v3 = Vertices[(int)v3indices[2]];
+						n3 = Normals[(int)n3indices[2]];
+						v3 = Vertices[(int)v3indices[2]];
 
-					GL.TexCoord2(tc2);
-					GL.Vertex3(v3);
+						GL.Normal3(n3);
+						GL.Vertex3(v3);
 
-                    if (Faces[i].isQuad)
-                    {
-                        tc2 = TexCoords[(int)tc2indices[3]];
-                        v3 = Vertices[(int)v3indices[3]];
+						if (/*Faces[i]*/lf[i].isQuad)
+						{
+							n3 = Normals[(int)n3indices[3]];
+							v3 = Vertices[(int)v3indices[3]];
 
-                        GL.TexCoord2(tc2);
-                        GL.Vertex3(v3);
-                    }
+							GL.Normal3(n3);
+							GL.Vertex3(v3);
+						}
+					}
 				}
-			}
-			else
-			{
-				for (int i = 0; i < iNumFaces; i++)
+				else if (HasTexCoords && !HasNormals)
 				{
-					f = Faces[i];
+					for (int i = 0; i < iNumFaces; i++)
+					{
+						//f = Faces[i];
+						f = lf[i];
 
-					v3indices = f.VertIdx;
+						tc2indices = f.TexCoordIdx;
+						v3indices = f.VertIdx;
 
-					v3 = Vertices[(int)v3indices[0]];
+						tc2 = TexCoords[(int)tc2indices[0]];
+						v3 = Vertices[(int)v3indices[0]];
 
-					GL.Vertex3(v3);
+						GL.TexCoord2(tc2);
+						GL.Vertex3(v3);
 
-					v3 = Vertices[(int)v3indices[1]];
+						tc2 = TexCoords[(int)tc2indices[1]];
+						v3 = Vertices[(int)v3indices[1]];
 
-					GL.Vertex3(v3);
+						GL.TexCoord2(tc2);
+						GL.Vertex3(v3);
 
-					v3 = Vertices[(int)v3indices[2]];
+						tc2 = TexCoords[(int)tc2indices[2]];
+						v3 = Vertices[(int)v3indices[2]];
 
-					GL.Vertex3(v3);
+						GL.TexCoord2(tc2);
+						GL.Vertex3(v3);
 
-                    if (Faces[i].isQuad)
-                    {
-                        v3 = Vertices[(int)v3indices[3]];
+						if (/*Faces[i]*/lf[i].isQuad)
+						{
+							tc2 = TexCoords[(int)tc2indices[3]];
+							v3 = Vertices[(int)v3indices[3]];
 
-                        GL.Vertex3(v3);
-                    }
+							GL.TexCoord2(tc2);
+							GL.Vertex3(v3);
+						}
+					}
 				}
+				else
+				{
+					for (int i = 0; i < iNumFaces; i++)
+					{
+						//f = Faces[i];
+						f = lf[i];
+
+						v3indices = f.VertIdx;
+
+						v3 = Vertices[(int)v3indices[0]];
+
+						GL.Vertex3(v3);
+
+						v3 = Vertices[(int)v3indices[1]];
+
+						GL.Vertex3(v3);
+
+						v3 = Vertices[(int)v3indices[2]];
+
+						GL.Vertex3(v3);
+
+						if (/*Faces[i]*/lf[i].isQuad)
+						{
+							v3 = Vertices[(int)v3indices[3]];
+
+							GL.Vertex3(v3);
+						}
+					}
+				}
+
+				GL.End();
+
+				if (HasTexCoords)
+					GL.Disable(EnableCap.Texture2D);
 			}
-
-			GL.End();
-
-            if (HasTexCoords)
-                GL.Disable(EnableCap.Texture2D);
 		}
 	}
 }
