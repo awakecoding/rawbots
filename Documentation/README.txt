@@ -68,3 +68,23 @@ If you have properly set up your development environment and the dependencies as
 Rawbots compilation should be straightforward. Open the solution file (Rawbots.sln) either in Visual Studio
 or MonoDevelop, build and run. That's it, nothing more complicated than that.
 
+* Directory Structure
+
+   |-Documentation 	# Documentation
+
+   |-Libraries		# Libraries
+   |---OpenTK			# OpenTK
+   |-----Data				# Data
+   |-------Audio				# Audio
+   |-------Shaders				# Shaders
+   |-------Textures				# Textures
+   |---Tao			# Tao Framework
+
+   |-Rawbots		# Source Code
+   |---Factories		# Factories (one per robot part)
+   |---Model			# Models (Cube, Sphere, etc)
+   |---Properties		# Project Properties
+   |---Resources		# Resources (fonts, etc)
+   |-----Fonts				# Fonts
+   |---RobotParts		# Robot Parts (phasers, chassis, etc)
+   |---Tiles			# Tiles (rubber, etc)
