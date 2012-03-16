@@ -205,7 +205,7 @@ namespace Rawbots
 						string texFileName = sr.ReadLine();
 
 						//texture = new Texture(relativePath + texFileName);
-						currMaterial.setTexture(new Texture(relativepath + texFileName));
+						currMaterial.setTexture(Texture.AcquireTexture(relativepath + texFileName));
 					}
 				}
 				else if (c != '\n')
@@ -338,7 +338,7 @@ namespace Rawbots
 
 						string texFileName = sr.ReadLine();
 
-						texture = new Texture(relativePath + texFileName);
+						texture = Texture.AcquireTexture(relativePath + texFileName);
 					}
 				}
 				else if (c != '\n')

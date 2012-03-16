@@ -12,21 +12,38 @@ namespace Rawbots
 	{
 		Bitmap bmp;
 		uint texId;
-		//uint numTex = 0;
+		string szFilename;
 
-		public Texture(string filename)
+		private static uint lastTexID = 0;
+		private static List<Texture> textureList = new List<Texture>();
+
+		public static Texture AcquireTexture(string filename)
+		{
+			for (int i = 0; i < textureList.Count; i++)
+			{
+				if (textureList[i].szFilename.CompareTo(filename) == 0) //if it already exists.
+					return textureList[i]; //then send it back the way
+			}
+
+			Texture texture = new Texture(filename); //otherwise, we have to create it
+
+			textureList.Add(texture);
+			return texture;
+		}
+
+		private Texture(string filename)
 		{
 			addTexture(filename);
         }
 
-		public void addTexture(string filename)
+		private void addTexture(string filename)
 		{
+			szFilename = filename;
 			bmp = new Bitmap(filename);
 			Bitmap b = bmp;
 			b.RotateFlip(RotateFlipType.Rotate180FlipNone);
 			BitmapData bd = b.LockBits(new Rectangle(0, 0, b.Width, b.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 
-			//GL.ActiveTexture(TextureUnit.Texture0);
 			GL.GenTextures(1, out texId);
 
 			GL.BindTexture(TextureTarget.Texture2D, texId);
@@ -41,7 +58,12 @@ namespace Rawbots
 
 		public void apply()
 		{
+			if (lastTexID == texId) //if the id is the same, save the trouble of rebinding.
+				return;
+			
 			GL.BindTexture(TextureTarget.Texture2D, texId);
+
+			lastTexID = texId;
 		}
 
 		public void unapply()
@@ -54,7 +76,7 @@ namespace Rawbots
 			GL.DeleteTexture(texId);
 		}
 
-		public TextureUnit numToActiveUnit(uint index)
+		private TextureUnit numToActiveUnit(uint index)
 		{
 			switch (index)
 			{ 
