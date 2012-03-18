@@ -37,7 +37,7 @@ namespace Rawbots
 		QFont monoFont;
 
 		Config config;
-		string resourcePath;
+		public static string resourcePath;
 
 		Robot activeRobot;
 
@@ -75,8 +75,6 @@ namespace Rawbots
 			"Down: Rotate Down\r\n" +
 			"Tab: Change Camera\r\n" +
 			"Escape: Exit Game\r\n";
-
-        OBJModel objModel;
 
 		public Game() : base(800, 600, GraphicsMode.Default, "Rawbots")
 		{
@@ -123,8 +121,6 @@ namespace Rawbots
 			}
 
 			GL.Disable(EnableCap.Texture2D);
-
-            objModel = new OBJModel(resourcePath + "/cube.obj");
 
 			Robot robot;
 
@@ -316,9 +312,7 @@ namespace Rawbots
 			
 			PrintHelp();
 
-			//GL.Light(LightName.Light1, LightParameter.Ambient, ambientLight);
-			
-            GL.Enable(EnableCap.Lighting);
+			GL.Enable(EnableCap.Lighting);
 			//GL.Enable(EnableCap.Light1);
             GL.Enable(EnableCap.ColorMaterial);
             //GL.Enable(EnableCap.Texture2D);
@@ -539,6 +533,9 @@ namespace Rawbots
 				case Key.K:
 					camera.PerformActions(Camera.Action.TILT_DOWN | Camera.Action.ACTIVE);
 					break;
+				case Key.S:
+					SkyBoxSphere.ChangeEnvironment();
+					break;
 			}
 		}
 		
@@ -668,10 +665,9 @@ namespace Rawbots
 
 			GL.MatrixMode(MatrixMode.Modelview);
 
-            camera.SetView();
+			camera.SetView();
 
-            //GL.Scale(0.1f, 0.1f, 0.1f);
-            objModel.Render();
+			SkyBoxSphere.Render(camera);
 
             ReferencePlane.setDimensions(50, 50);
             ReferencePlane.render();

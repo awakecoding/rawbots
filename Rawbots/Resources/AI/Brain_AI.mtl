@@ -1,0 +1,32 @@
+newmtl blinn8SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.19 0.19 0.19
+Tf 1.00 1.00 1.00
+map_Kd gold3.jpg
+Ni 1.00
+Ks 0.50 0.50 0.50
+newmtl blinn10SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.23 0.23 0.23
+Tf 1.00 1.00 1.00
+map_Kd gold5.jpg
+Ni 1.00
+Ks 0.50 0.50 0.50
+newmtl blinn11SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.33 0.33 0.33
+Tf 1.00 1.00 1.00
+map_Kd gold5.jpg
+Ni 1.00
+Ks 0.50 0.50 0.50
+newmtl blinn12SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.22 0.22 0.22
+Tf 1.00 1.00 1.00
+map_Kd gold3_nine.png
+Ni 1.00
+Ks 0.50 0.50 0.50
