@@ -8,17 +8,17 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this file,
  * You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
 using System;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 
-using Tao.FreeGlut;
-
 using OpenTK;
 using OpenTK.Input;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
+using Tao.OpenGl;
 
 using QuickFont;
 
@@ -79,9 +79,7 @@ namespace Rawbots
 		public Game() : base(800, 600, GraphicsMode.Default, "Rawbots")
 		{
 			VSync = VSyncMode.On;
-            
-			Glut.glutInit();
-			
+
 			renderModeCount = 0;
 			shadingModeCount = 0;
 
@@ -316,6 +314,8 @@ namespace Rawbots
 			//GL.Enable(EnableCap.Light1);
             GL.Enable(EnableCap.ColorMaterial);
             //GL.Enable(EnableCap.Texture2D);
+
+			Glu.GLUquadric quadric = Glu.gluNewQuadric();
 		}
 
 		public bool IsWindows()

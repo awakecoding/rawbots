@@ -13,8 +13,6 @@ using System;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
-using Tao.FreeGlut;
-
 namespace Rawbots
 {
 	public class NuclearWeapon : Weapon
