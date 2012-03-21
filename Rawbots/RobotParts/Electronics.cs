@@ -91,8 +91,7 @@ namespace Rawbots
 			//GL.PopMatrix();
 
 			GL.PushMatrix();
-
-			GL.Scale(0.1f, 0.1f, 0.1f);
+			GL.Scale(0.5f, 0.5f, 0.5f);
 			model.Render();
 
 			GL.PopMatrix();

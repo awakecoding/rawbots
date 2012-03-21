@@ -163,7 +163,7 @@ namespace Rawbots
 			//GL.PopMatrix();
 
 			GL.PushMatrix();
-
+			GL.Scale(0.8f, 0.8f, 0.8f);
 			model.Render();
 
 			GL.PopMatrix();

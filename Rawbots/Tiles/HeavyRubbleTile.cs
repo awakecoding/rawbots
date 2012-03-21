@@ -37,7 +37,7 @@ namespace Rawbots
         {
 			GL.PushMatrix();
 
-            base.Render();
+            //base.Render();
 
             GL.Translate(0.0f, -0.05f, 0.0f);
 

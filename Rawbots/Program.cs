@@ -43,7 +43,7 @@ namespace Rawbots
 		Robot activeRobot;
 
 		Camera camera;
-		Camera globalCamera = new Camera(0.0f, 0.0f, 25.0f);
+		Camera globalCamera = new Camera(0.0f, 10.0f, 25.0f);
 		RobotCamera robotCamera = new RobotCamera(0.0f, 1.0f, 0.0f);
 
         Camera lightCamera1, lightCamera2, lightCamera3, lightCamera4;
@@ -242,8 +242,16 @@ namespace Rawbots
             bsh = new BlockSquareHole(true, x + 41, y + 1);
             map.AddBlock(bsh);
 
-            Boundary boundary = new Boundary();
-            map.SetTile(boundary, x + 45, y + 1);
+			Boundary boundary = new Boundary();
+
+			for (int i = 1; i < 48; i++)
+			{
+				map.SetTile(boundary, x, y + i);
+				map.SetTile(boundary, x + i, y + 49);
+				map.SetTile(boundary, x + 49, y + i);
+			}
+
+			//map.SetTile(boundary, x + 45, y + 1);
 			
             robot = new Robot(x + 10, y + 10);
             robot.AddChassis(new TrackedChassis());
@@ -687,11 +695,11 @@ namespace Rawbots
 		
 			SkyBoxSphere.Render(camera);
 
-			GL.Enable(EnableCap.Texture2D);
-			tex.apply();
+			//GL.Enable(EnableCap.Texture2D);
+			//tex.apply();
 
-			Glu.gluSphere(quadric, 1.3f, 32, 32);
-			GL.Disable(EnableCap.Texture2D);
+			//Glu.gluSphere(quadric, 1.3f, 32, 32);
+			//GL.Disable(EnableCap.Texture2D);
             
 			ReferencePlane.setDimensions(50, 50);
             ReferencePlane.render();
