@@ -1,0 +1,60 @@
+# Exported from Wings 3D 1.4.1
+newmtl blinn1SG
+Ns 100.0
+d 1.0
+illum 2
+Kd 0.0 0.0 0.0
+Ka 0.0 0.0 0.0
+Ks 0.33 0.33 0.33
+Ke 0.0 0.0 0.0
+map_Kd dark-metal-texture.jpg
+
+newmtl blinn1SG2
+Ns 100.0
+d 1.0
+illum 2
+Kd 0.0 0.0 0.0
+Ka 0.0 0.0 0.0
+Ks 0.33 0.33 0.33
+Ke 0.0 0.0 0.0
+map_Kd dark-metal-texture.jpg
+
+newmtl blinn2SG
+Ns 100.0
+d 1.0
+illum 2
+Kd 0.0 0.0 0.0
+Ka 0.17 0.17 0.17
+Ks 0.5 0.5 0.5
+Ke 0.0 0.0 0.0
+map_Kd Metallic_Texture_1.jpg
+
+newmtl blinn3SG
+Ns 100.0
+d 1.0
+illum 2
+Kd 0.0 0.0 0.0
+Ka 0.0 0.0 0.0
+Ks 0.5 0.5 0.5
+Ke 0.0 0.0 0.0
+map_Kd Metallic_Texture_1.jpg
+
+newmtl blinn3SG2
+Ns 100.0
+d 1.0
+illum 2
+Kd 0.0 0.0 0.0
+Ka 0.0 0.0 0.0
+Ks 0.5 0.5 0.5
+Ke 0.0 0.0 0.0
+map_Kd Metallic_Texture_1.jpg
+
+newmtl phong2SG
+Ns 100.0
+d 1.0
+illum 2
+Kd 1.0 1.0 1.0
+Ka 0.14 0.14 0.14
+Ks 0.5 0.5 0.5
+Ke 0.0 0.0 0.0
+

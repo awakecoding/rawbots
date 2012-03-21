@@ -17,13 +17,15 @@ namespace Rawbots
 {
 	public class Electronics : RobotPart
 	{
-		private float cylinderRadius;
-		private float cylinderHeight;
-		private CylinderModel cylinder;
+		//private float cylinderRadius;
+		//private float cylinderHeight;
+		//private CylinderModel cylinder;
 		
-		private float hemisphereRadius;
-		private HemisphereModel hemisphere;
-		
+		//private float hemisphereRadius;
+		//private HemisphereModel hemisphere;
+
+		//private OBJModel model;
+
 		public Electronics()
 		{
 			/*
@@ -33,58 +35,62 @@ namespace Rawbots
 			 * enemy fire when this unit is fitted.
 			 */
 			
-			cylinderRadius = 0.4f;
-			cylinderHeight = 0.4f;
-			cylinder = new CylinderModel(cylinderRadius, cylinderHeight);
-			cylinder.SetColor(0.5f, 0.5f, 0.5f);
+			//cylinderRadius = 0.4f;
+			//cylinderHeight = 0.4f;
+			//cylinder = new CylinderModel(cylinderRadius, cylinderHeight);
+			//cylinder.SetColor(0.5f, 0.5f, 0.5f);
 			
-			hemisphereRadius = 0.3f;
-			hemisphere = new HemisphereModel(hemisphereRadius);
-			hemisphere.SetColor(0.8f, 0.8f, 0.8f);
+			//hemisphereRadius = 0.3f;
+			//hemisphere = new HemisphereModel(hemisphereRadius);
+			//hemisphere.SetColor(0.8f, 0.8f, 0.8f);
 			
-			material = new Material(Material.MaterialType.SHINY_STEEL);
-			hemisphere.AssignMaterial(material);
-            cylinder.AssignMaterial(material);
+			//material = new Material(Material.MaterialType.SHINY_STEEL);
+			//hemisphere.AssignMaterial(material);
+			//cylinder.AssignMaterial(material);
+
+			model = new OBJModel(Game.resourcePath + "/Electronics/Electronics.obj");
 		}
 		
         public override void SetRenderMode(RenderMode renderMode)
         {
-			cylinder.SetRenderMode(renderMode);
-			hemisphere.SetRenderMode(renderMode);
+			//cylinder.SetRenderMode(renderMode);
+			//hemisphere.SetRenderMode(renderMode);
         }
 		
 		public override void Render()
 		{
-			/* cylinder */
+			///* cylinder */
 			
-			GL.PushMatrix();
+			//GL.PushMatrix();
 			
-			GL.Translate(0.0, cylinderHeight, 0.0);
-			GL.Rotate(90, 1.0f, 0.0f, 0.0f);
-			cylinder.render();
+			//GL.Translate(0.0, cylinderHeight, 0.0);
+			//GL.Rotate(90, 1.0f, 0.0f, 0.0f);
+			//cylinder.render();
 			
-			GL.PopMatrix();
+			//GL.PopMatrix();
 	
-			/* hemisphere */
+			///* hemisphere */
 			
-			GL.PushMatrix();
+			//GL.PushMatrix();
 			
-			GL.Translate(0.0, cylinderHeight + hemisphereRadius, 0.0);
-			GL.Rotate(225, 0.0f, 0.0f, 1.0f);
-			hemisphere.render();
+			//GL.Translate(0.0, cylinderHeight + hemisphereRadius, 0.0);
+			//GL.Rotate(225, 0.0f, 0.0f, 1.0f);
+			//hemisphere.render();
 			
-			GL.PopMatrix();
+			//GL.PopMatrix();
 			
-			/* team number */
+			///* team number */
 			
-			GL.PushMatrix();
+			//GL.PushMatrix();
 			
-			GL.Scale(0.3f, 0.3f, 0.3f);
-			GL.Translate(0.0f, 0.7f, 1.25f);
-			TeamNumber.Render();
-			GL.Translate(0.0f, -0.7f, -1.25f);
+			//GL.Scale(0.3f, 0.3f, 0.3f);
+			//GL.Translate(0.0f, 0.7f, 1.25f);
+			//TeamNumber.Render();
+			//GL.Translate(0.0f, -0.7f, -1.25f);
 			
-			GL.PopMatrix();
+			//GL.PopMatrix();
+			GL.Scale(0.1f, 0.1f, 0.1f);
+			model.Render();
 		}
 	}
 }

@@ -18,14 +18,16 @@ namespace Rawbots
     public class TrackedChassis : Chassis
     {
 
-        private const double radius = 0.1;
-        private const double cylinder_height = 0.2;
+		//private const double radius = 0.1;
+		//private const double cylinder_height = 0.2;
 
-        private CubeModel[] tcComponent;
-        private CylinderModel[] wheelEnd;
-        private const int bottomEnd = 0;
-        private const int topEnd = 1;
-        private const int TOTAL_ENDS = 2;
+		//private CubeModel[] tcComponent;
+		//private CylinderModel[] wheelEnd;
+		//private const int bottomEnd = 0;
+		//private const int topEnd = 1;
+		//private const int TOTAL_ENDS = 2;
+
+		//private OBJModel model;
 
         public TrackedChassis()
         {
@@ -34,102 +36,106 @@ namespace Rawbots
              * bipods but twice the resource units.
              */
 
-            wheelEnd = new CylinderModel[TOTAL_ENDS];
-            for (int i = 0; i < TOTAL_ENDS; i++)
-                wheelEnd[i] = new CylinderModel(radius, cylinder_height);
+			//wheelEnd = new CylinderModel[TOTAL_ENDS];
+			//for (int i = 0; i < TOTAL_ENDS; i++)
+			//    wheelEnd[i] = new CylinderModel(radius, cylinder_height);
 
-            tcComponent = new CubeModel[TOTAL_ENDS];
-            for (int i = 0; i < TOTAL_ENDS; i++)
-                tcComponent[i] = new CubeModel();
+			//tcComponent = new CubeModel[TOTAL_ENDS];
+			//for (int i = 0; i < TOTAL_ENDS; i++)
+			//    tcComponent[i] = new CubeModel();
 			
-			material = new Material(Material.MaterialType.SHINY_STEEL);
-			for (int i = 0; i < TOTAL_ENDS; i++)
-			{
-				wheelEnd[i].AssignMaterial(material);
-				tcComponent[i].AssignMaterial(material);
-			}
+			//material = new Material(Material.MaterialType.SHINY_STEEL);
+			//for (int i = 0; i < TOTAL_ENDS; i++)
+			//{
+			//    wheelEnd[i].AssignMaterial(material);
+			//    tcComponent[i].AssignMaterial(material);
+			//}
+
+			model = new OBJModel(Game.resourcePath + "/Tracked Chassis/Tracked_chassis.obj");
         }
 
         public override void SetRenderMode(RenderMode mode)
         {
             base.SetRenderMode(renderMode);
 
-            for (int i = 0; i < TOTAL_ENDS; i++)
-                wheelEnd[i].SetRenderMode(mode);
+			//for (int i = 0; i < TOTAL_ENDS; i++)
+			//    wheelEnd[i].SetRenderMode(mode);
 
-            for (int i = 0; i < TOTAL_ENDS; i++)
-                tcComponent[i].SetRenderMode(mode);
+			//for (int i = 0; i < TOTAL_ENDS; i++)
+			//    tcComponent[i].SetRenderMode(mode);
         }
 
         public override void Render()
         {
             //Team Number
-            GL.PushMatrix();
+			//GL.PushMatrix();
 
-            GL.Translate(0.0f, 0.1f, 0.0f);
-            GL.Scale(0.2f, 0.2f, 0.2f);
-            GL.Rotate(-90.0, 1.0f, 0.0f, 0.0f);
+			//GL.Translate(0.0f, 0.1f, 0.0f);
+			//GL.Scale(0.2f, 0.2f, 0.2f);
+			//GL.Rotate(-90.0, 1.0f, 0.0f, 0.0f);
 
-            TeamNumber.Render();
+			//TeamNumber.Render();
 
-            GL.PopMatrix();
-            GL.PushMatrix();
+			//GL.PopMatrix();
+			//GL.PushMatrix();
 
-            GL.Scale(0.6f, 0.1f, 1.0f);
+			//GL.Scale(0.6f, 0.1f, 1.0f);
 
-            // Draw the middle part of the chassis.
-            tcComponent[topEnd].SetColor(0.804f, 0.8f, 0.8f);
-            tcComponent[topEnd].render(1.0f);
+			//// Draw the middle part of the chassis.
+			//tcComponent[topEnd].SetColor(0.804f, 0.8f, 0.8f);
+			//tcComponent[topEnd].render(1.0f);
 
-            GL.PopMatrix();
-            GL.PushMatrix();
+			//GL.PopMatrix();
+			//GL.PushMatrix();
 
-            GL.Translate(-0.4f, 0.0f, 0.0f);
+			//GL.Translate(-0.4f, 0.0f, 0.0f);
 
-            drawWheel();
+			//drawWheel();
 
-            GL.PopMatrix();
-            GL.PushMatrix();
+			//GL.PopMatrix();
+			//GL.PushMatrix();
 
-            GL.Translate(0.4f, 0.0f, 0.0f);
+			//GL.Translate(0.4f, 0.0f, 0.0f);
 
-            drawWheel();
+			//drawWheel();
 
-            GL.PopMatrix();
+			//GL.PopMatrix();
+			GL.Scale(0.1f, 0.1f, 0.1f);
+			model.Render();
         }
 
-        public void drawWheel()
-        {
-            GL.PushMatrix();
+		//public void drawWheel()
+		//{
+		//    GL.PushMatrix();
 
-            GL.Translate(-0.1f, 0.0f, 0.5f);
-            GL.Rotate(90.0f, 0.0f, 1.0f, 0.0f);
-            wheelEnd[topEnd].SetColor(0.22f, 0.3f, 0.5f);
+		//    GL.Translate(-0.1f, 0.0f, 0.5f);
+		//    GL.Rotate(90.0f, 0.0f, 1.0f, 0.0f);
+		//    wheelEnd[topEnd].SetColor(0.22f, 0.3f, 0.5f);
 
-            //Draw the other round end of the wheel.
-            wheelEnd[topEnd].render();
+		//    //Draw the other round end of the wheel.
+		//    wheelEnd[topEnd].render();
 
-            GL.PopMatrix();
-            GL.PushMatrix();
+		//    GL.PopMatrix();
+		//    GL.PushMatrix();
 
-            GL.Translate(-0.1f, 0.0f, -0.5f);
-            GL.Rotate(90.0f, 0.0f, 1.0f, 0.0f);
-            wheelEnd[bottomEnd].SetColor(0.22f, 0.3f, 0.5f);
+		//    GL.Translate(-0.1f, 0.0f, -0.5f);
+		//    GL.Rotate(90.0f, 0.0f, 1.0f, 0.0f);
+		//    wheelEnd[bottomEnd].SetColor(0.22f, 0.3f, 0.5f);
 
-            // Draw one round end of the wheel.
-            wheelEnd[bottomEnd].render();
+		//    // Draw one round end of the wheel.
+		//    wheelEnd[bottomEnd].render();
 
-            GL.PopMatrix();
-            GL.PushMatrix();
+		//    GL.PopMatrix();
+		//    GL.PushMatrix();
 
-            GL.Scale(0.2f, 0.2f, 1.0f);
-            tcComponent[bottomEnd].SetColor(0.22f, 0.3f, 0.5f);
+		//    GL.Scale(0.2f, 0.2f, 1.0f);
+		//    tcComponent[bottomEnd].SetColor(0.22f, 0.3f, 0.5f);
 
-            // Draw the rectangular part of the wheel.
-            tcComponent[bottomEnd].render(1.0f);
+		//    // Draw the rectangular part of the wheel.
+		//    tcComponent[bottomEnd].render(1.0f);
 
-            GL.PopMatrix();
-        }
+		//    GL.PopMatrix();
+		//}
 
     }
 }

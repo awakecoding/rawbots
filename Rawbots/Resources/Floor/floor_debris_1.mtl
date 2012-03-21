@@ -1,0 +1,11 @@
+# Exported from Wings 3D 1.4.1
+newmtl grid1_auv
+Ns 50.0
+d 1.0
+illum 2
+Kd 0.6403599999999999 0.6403599999999999 0.6403599999999999
+Ka 0.55378 0.55378 0.55378
+Ks 0.667 0.667 0.667
+Ke 0.001 0.001 0.001
+map_Kd Rusty metal 3.png
+

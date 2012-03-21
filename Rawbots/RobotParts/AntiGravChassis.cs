@@ -18,17 +18,19 @@ namespace Rawbots
 {
 	public class AntiGravChassis : Chassis
 	{
-		private float bodyWidth;
-		private float bodyHeight;
+		//private float bodyWidth;
+		//private float bodyHeight;
 		
-		private float tracksWidth;
-		private float tracksHeight;
+		//private float tracksWidth;
+		//private float tracksHeight;
 		
-		private float topWidth;
-		private float topHeight;
+		//private float topWidth;
+		//private float topHeight;
 		
-		private CubeModel cube;
-			
+		//private CubeModel cube;
+
+		//private OBJModel model;
+
 		public AntiGravChassis()
 		{
 			/*
@@ -37,83 +39,87 @@ namespace Rawbots
 			 * only chassis that can span ravines!
 			 */
 			
-			bodyWidth = 2.0f;
-			bodyHeight = 0.2f;
+			//bodyWidth = 2.0f;
+			//bodyHeight = 0.2f;
 			
-			tracksWidth = 1.0f;
-			tracksHeight = 0.2f;
+			//tracksWidth = 1.0f;
+			//tracksHeight = 0.2f;
 			
-			topWidth = 1.0f;
-			topHeight = 0.1f;
+			//topWidth = 1.0f;
+			//topHeight = 0.1f;
 			
-			cube = new CubeModel();
+			//cube = new CubeModel();
             
-            SetHeight(0.2f);
+			//SetHeight(0.2f);
 			
-			material = new Material(Material.MaterialType.SHINY_STEEL);
-			cube.AssignMaterial(material);
-			
+			//material = new Material(Material.MaterialType.SHINY_STEEL);
+			//cube.AssignMaterial(material);
+
+			model = new OBJModel(Game.resourcePath + "/Anti-grav Chassis/Anti_gravity_chassis.obj");
 		}
 		
 		private void drawBox(float Xtranslate, float Ytranslate, float Ztranslate, float Xscale, float Yscale, float Zscale)
 		{
-			GL.Translate(Xtranslate, Ytranslate, Ztranslate);
-			GL.Scale(Xscale, Yscale, Zscale);
-			cube.render(1.0f);
+			//GL.Translate(Xtranslate, Ytranslate, Ztranslate);
+			//GL.Scale(Xscale, Yscale, Zscale);
+			//cube.render(1.0f);
 		}
 		
 		public override void Render()
 		{
-            GL.Translate(0.0f, 0.33f, 0.0f);
+			//GL.Translate(0.0f, 0.33f, 0.0f);
 
-            //GL.PushMatrix();
+			////GL.PushMatrix();
 
-            //GL.Scale(1.0f, 0.2f, 1.0f);
-            //debugCube.render(1.0f);
-            //GL.PopMatrix();
+			////GL.Scale(1.0f, 0.2f, 1.0f);
+			////debugCube.render(1.0f);
+			////GL.PopMatrix();
 
-			//Unit size
-			GL.Scale (0.33, 0.33, 0.33);
+			////Unit size
+			//GL.Scale (0.33, 0.33, 0.33);
 
-			cube.SetColor(0.3f, 0.3f, 0.3f);
-			//central box
-			GL.PushMatrix();
-			GL.Scale(bodyWidth, bodyHeight, bodyWidth);
-			cube.render(1.0);
-			GL.PopMatrix();
+			//cube.SetColor(0.3f, 0.3f, 0.3f);
+			////central box
+			//GL.PushMatrix();
+			//GL.Scale(bodyWidth, bodyHeight, bodyWidth);
+			//cube.render(1.0);
+			//GL.PopMatrix();
 			
-			cube.SetColor(0.4f, 0.4f, 0.4f);
-			//top box
-			GL.PushMatrix();
-			drawBox(0.0f, bodyHeight/2, 0.0f, topWidth, topHeight, topWidth);
-			GL.PopMatrix();
+			//cube.SetColor(0.4f, 0.4f, 0.4f);
+			////top box
+			//GL.PushMatrix();
+			//drawBox(0.0f, bodyHeight/2, 0.0f, topWidth, topHeight, topWidth);
+			//GL.PopMatrix();
 			
-			cube.SetColor(0.2f, 0.2f, 0.2f);
-			//Peripheral tracks
-			GL.PushMatrix();
-			drawBox(-bodyWidth/2, -bodyHeight, -bodyWidth/2, tracksWidth, tracksHeight, tracksWidth);
-			GL.PopMatrix();
+			//cube.SetColor(0.2f, 0.2f, 0.2f);
+			////Peripheral tracks
+			//GL.PushMatrix();
+			//drawBox(-bodyWidth/2, -bodyHeight, -bodyWidth/2, tracksWidth, tracksHeight, tracksWidth);
+			//GL.PopMatrix();
 			
-			GL.PushMatrix();
-			drawBox(bodyWidth/2, -bodyHeight, bodyWidth/2, tracksWidth, tracksHeight, tracksWidth);
-			GL.PopMatrix();
+			//GL.PushMatrix();
+			//drawBox(bodyWidth/2, -bodyHeight, bodyWidth/2, tracksWidth, tracksHeight, tracksWidth);
+			//GL.PopMatrix();
 			
-			GL.PushMatrix();
-			drawBox(-bodyWidth/2, -bodyHeight, bodyWidth/2, tracksWidth, tracksHeight, tracksWidth);
-			GL.PopMatrix();
+			//GL.PushMatrix();
+			//drawBox(-bodyWidth/2, -bodyHeight, bodyWidth/2, tracksWidth, tracksHeight, tracksWidth);
+			//GL.PopMatrix();
 			
-			GL.PushMatrix();
-			drawBox(bodyWidth/2, -bodyHeight, -bodyWidth/2, tracksWidth, tracksHeight, tracksWidth);
-			GL.PopMatrix();
+			//GL.PushMatrix();
+			//drawBox(bodyWidth/2, -bodyHeight, -bodyWidth/2, tracksWidth, tracksHeight, tracksWidth);
+			//GL.PopMatrix();
 			
-			cube.SetColor(0.9f, 0.9f, 0.9f);
-			//Team Number
-			GL.PushMatrix();
-			GL.Translate(0.0, bodyHeight, 0.0);
-			GL.Rotate(-90.0, 1.0, 0.0, 0.0);
-			GL.Scale(0.5, 0.5, 0.5);
-			TeamNumber.Render();
-			GL.PopMatrix();
+			//cube.SetColor(0.9f, 0.9f, 0.9f);
+			////Team Number
+			//GL.PushMatrix();
+			//GL.Translate(0.0, bodyHeight, 0.0);
+			//GL.Rotate(-90.0, 1.0, 0.0, 0.0);
+			//GL.Scale(0.5, 0.5, 0.5);
+			//TeamNumber.Render();
+			//GL.PopMatrix();
+
+			GL.Scale(0.07f, 0.07f, 0.07f);
+			model.Render();
 		}
 	}
 }

@@ -13,6 +13,8 @@ using System;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
+using Tao.FreeGlut;
+
 namespace Rawbots
 {
     public class CannonWeapon : Weapon
@@ -50,6 +52,7 @@ namespace Rawbots
 
         //parallelogram
 
+		//private OBJModel model;
 
         public CannonWeapon()
         {
@@ -77,7 +80,9 @@ namespace Rawbots
 			
 			material = new Material(Material.MaterialType.SHINY_STEEL);
 			cube.AssignMaterial(material);
-            //cylinder.AssignMaterial(material);
+            cylinder.AssignMaterial(material);
+
+			model = new OBJModel(Game.resourcePath + "/Cannon/Phasers.obj");
         }
 
         public override int getCost()
@@ -105,111 +110,149 @@ namespace Rawbots
 
         public override void Render()
         {
-            //Unit Size
-            GL.Scale(0.5f, 0.5f, 0.5f);
+			/*
+			//Unit Size
+			GL.Scale(0.5f, 0.5f, 0.5f);
 
-            cube.SetColor(0.8f, 0.8f, 0.8f);
-            //Bottom
-            GL.PushMatrix();
-            GL.Scale(bottomWidth, bottomHeight, bottomLength);
-            cube.render(1.0f);
-            GL.PopMatrix();
+			cube.SetColor(0.8f, 0.8f, 0.8f);
+			//Bottom
+			GL.PushMatrix();
+			GL.Scale(bottomWidth, bottomHeight, bottomLength);
+			cube.render(1.0f);
+			GL.PopMatrix();
 
-            //cube.SetColor(0.6f, 0.6f, 0.6f);
-            //Top
-            GL.PushMatrix();
-            GL.Translate(0.0f, 1.0f, -(bottomLength - topLength) / 2);
-            GL.Scale(topWidth, topHeight, topLength);
-            cube.render(1.0f);
-            GL.PopMatrix();
+			//cube.SetColor(0.6f, 0.6f, 0.6f);
+			//Top
+			GL.PushMatrix();
+			GL.Translate(0.0f, 1.0f, -(bottomLength - topLength) / 2);
+			GL.Scale(topWidth, topHeight, topLength);
+			cube.render(1.0f);
+			GL.PopMatrix();
 
-            //chases and ringes
-            //::chases:://
-            cylinder.SetColor(0.7f, 0.7f, 0.7f);
-            cylinder.setHeight(cannonHeight);
-            cylinder.setRadius(cannonRadius);
-            GL.PushMatrix();
-            GL.Translate(0.4f, 0.5f, 0.0f);
-            cylinder.render();
-            GL.PopMatrix();
+			//chases and ringes
+			//::chases:://
+			cylinder.SetColor(0.7f, 0.7f, 0.7f);
+			cylinder.setHeight(cannonHeight);
+			cylinder.setRadius(cannonRadius);
+			GL.PushMatrix();
+			GL.Translate(0.4f, 0.5f, 0.0f);
+			cylinder.render();
+			GL.PopMatrix();
 
-            GL.PushMatrix();
-            GL.Translate(-0.4f, 0.5f, 0.0f);
-            cylinder.render();
-            GL.PopMatrix();
+			GL.PushMatrix();
+			GL.Translate(-0.4f, 0.5f, 0.0f);
+			cylinder.render();
+			GL.PopMatrix();
 
-            //::ringes1:://
-            cylinder.SetColor(0.9f, 0.9f, 0.9f);
-            cylinder.setHeight(cannonRingHeight1);
-            cylinder.setRadius(cannonRingRadius1);
-            GL.PushMatrix();
-            GL.Translate(0.4f, 0.5f, 0.7f);
-            cylinder.render();
-            GL.PopMatrix();
+			//::ringes1:://
+			cylinder.SetColor(0.9f, 0.9f, 0.9f);
+			cylinder.setHeight(cannonRingHeight1);
+			cylinder.setRadius(cannonRingRadius1);
+			GL.PushMatrix();
+			GL.Translate(0.4f, 0.5f, 0.7f);
+			cylinder.render();
+			GL.PopMatrix();
 
-            GL.PushMatrix();
-            GL.Translate(-0.4f, 0.5f, 0.7f);
-            cylinder.render();
-            GL.PopMatrix();
+			GL.PushMatrix();
+			GL.Translate(-0.4f, 0.5f, 0.7f);
+			cylinder.render();
+			GL.PopMatrix();
 
-            //::ringes2:://
-            cylinder.setHeight(cannonRingHeight2);
-            cylinder.setRadius(cannonRingRadius2);
-            GL.PushMatrix();
-            GL.Translate(0.4f, 0.5f, 0.05f);
-            cylinder.render();
-            GL.PopMatrix();
+			//::ringes2:://
+			cylinder.setHeight(cannonRingHeight2);
+			cylinder.setRadius(cannonRingRadius2);
+			GL.PushMatrix();
+			GL.Translate(0.4f, 0.5f, 0.05f);
+			cylinder.render();
+			GL.PopMatrix();
 
-            GL.PushMatrix();
-            GL.Translate(-0.4f, 0.5f, 0.05f);
-            cylinder.render();
-            GL.PopMatrix();
+			GL.PushMatrix();
+			GL.Translate(-0.4f, 0.5f, 0.05f);
+			cylinder.render();
+			GL.PopMatrix();
 
-            cube.SetColor(0.8f, 0.8f, 0.8f);
-            GL.PushMatrix();
-            GL.Translate(-0.9f, 0.5f, 0.05f);
-            GL.Rotate(90.0, 0.0f, 1.0f, 0.0f);
-            GL.MultMatrix(shear);
-            GL.Scale(0.8f, 0.9f, 0.2f);
-            cube.render(1.0f);
-            GL.PopMatrix();
+			cube.SetColor(0.8f, 0.8f, 0.8f);
+			GL.PushMatrix();
+			GL.Translate(-0.9f, 0.5f, 0.05f);
+			GL.Rotate(90.0, 0.0f, 1.0f, 0.0f);
+			GL.MultMatrix(shear);
+			GL.Scale(0.8f, 0.9f, 0.2f);
+			cube.render(1.0f);
+			GL.PopMatrix();
 
-            GL.PushMatrix();
-            GL.Translate(-0.9f, 0.5f, 0.05f);
-            GL.Rotate(90.0, 0.0f, 1.0f, 0.0f);
-            GL.MultMatrix(shear);
-            GL.Scale(0.8f, 0.9f, 0.2f);
-            cube.render(1.0f);
-            GL.PopMatrix();
+			GL.PushMatrix();
+			GL.Translate(-0.9f, 0.5f, 0.05f);
+			GL.Rotate(90.0, 0.0f, 1.0f, 0.0f);
+			GL.MultMatrix(shear);
+			GL.Scale(0.8f, 0.9f, 0.2f);
+			cube.render(1.0f);
+			GL.PopMatrix();
 
-            GL.PushMatrix();
-            GL.Translate(0.9f, 0.5f, -0.25f);
-            GL.Scale(0.2f, 1.0f, 1.0f);
-            cube.render(1.0f);
-            GL.PopMatrix();
+			GL.PushMatrix();
+			GL.Translate(0.9f, 0.5f, -0.25f);
+			GL.Scale(0.2f, 1.0f, 1.0f);
+			cube.render(1.0f);
+			GL.PopMatrix();
 
-            GL.PushMatrix();
-            GL.Translate(-0.9f, 0.5f, -0.25f);
-            GL.Scale(0.2f, 1.0f, 1.0f);
-            cube.render(1.0f);
-            GL.PopMatrix();
+			GL.PushMatrix();
+			GL.Translate(-0.9f, 0.5f, -0.25f);
+			GL.Scale(0.2f, 1.0f, 1.0f);
+			cube.render(1.0f);
+			GL.PopMatrix();
 
-            cube.SetColor(0.2f, 0.2f, 0.2f);
-            //back
-            GL.PushMatrix();
-            GL.Translate(0.0f, 0.5f, -(bottomLength - backDepth) / 2);
-            GL.Scale(topWidth, 1.0f, backDepth);
-            cube.render(1.0f);
-            GL.PopMatrix();
+			cube.SetColor(0.2f, 0.2f, 0.2f);
+			//back
+			GL.PushMatrix();
+			GL.Translate(0.0f, 0.5f, -(bottomLength - backDepth) / 2);
+			GL.Scale(topWidth, 1.0f, backDepth);
+			cube.render(1.0f);
+			GL.PopMatrix();
 
-            cube.SetColor(0.2f, 0.2f, 0.2f);
-            //Team Number
-            GL.PushMatrix();
-            GL.Translate(0.0f, 1.1f, -0.3f);
-            GL.Rotate(-90.0f, 1.0f, 0.0f, 0.0f);
-            GL.Scale(0.5f, 0.5f, 0.5f);
-            TeamNumber.Render();
-            GL.PopMatrix();
+			cube.SetColor(0.2f, 0.2f, 0.2f);
+			//Team Number
+			GL.PushMatrix();
+			GL.Translate(0.0f, 1.1f, -0.3f);
+			GL.Rotate(-90.0f, 1.0f, 0.0f, 0.0f);
+			GL.Scale(0.5f, 0.5f, 0.5f);
+			TeamNumber.Render();
+			GL.PopMatrix();
+
+			*/
+
+			//GL.PushMatrix();
+
+			//GL.Translate(0.0f, 2.0f, 0.0f);
+			//GL.Color3(0.5f, 0.0f, 0.5f);
+			//Glut.glutSolidSphere(1.0f, 10, 10);
+
+			//GL.PushMatrix();
+
+			//GL.Color3(0.0f, 0.0f, 0.5f);
+			//GL.Translate(0.35f, 0.75f, 0.0f);
+			//GL.Rotate(-90.0f, 1.0f, 0.0f, 0.0f);
+			//GL.Rotate(45.0f, 0.0f, 1.0f, 0.0f);
+			//Glut.glutSolidCone(0.25f, 1.0f, 10, 10);
+			//GL.PopMatrix();
+			//GL.Translate(-0.35f, 0.75f, 0.0f);
+			//GL.Rotate(-90.0f, 1.0f, 0.0f, 0.0f);
+			//GL.Rotate(-45.0f, 0.0f, 1.0f, 0.0f);
+			//Glut.glutSolidCone(0.25f, 1.0f, 10, 10);
+
+			//GL.PopMatrix();
+
+			//GL.Color3(0.5f, 0.0f, 0.0f);
+			//GL.PushMatrix();
+			//GL.Translate(0.25f, 2.0f, 1.0f);
+			//Glut.glutSolidSphere(0.25f, 10, 10);
+			//GL.PopMatrix();
+			//GL.Translate(-0.25f, 2.0f, 1.0f);
+			//Glut.glutSolidSphere(0.25f, 10, 10);
+
+			//GL.PushMatrix();
+
+			//GL.PopMatrix();
+
+			model.Render();
         }
     }
 }

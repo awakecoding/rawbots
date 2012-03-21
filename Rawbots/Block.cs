@@ -16,11 +16,19 @@ namespace Rawbots
 {
 	public class Block : Model
 	{
-		bool half;
+		protected bool half;
         CubeModel cube;
 
         public int PosX { get; set; }
         public int PosY { get; set; }
+
+		static OBJModel fullModel, halfModel;
+
+		static Block()
+		{
+			fullModel = new OBJModel(Game.resourcePath + "/Obstacles/obstacle_full.obj");
+			halfModel = new OBJModel(Game.resourcePath + "/Obstacles/checkered_obstacle.obj");
+		}
 
 		public Block(bool half) : base()
 		{
@@ -58,19 +66,21 @@ namespace Rawbots
         {
 			GL.PushMatrix();
 
-            cube.SetColor(0.5f, 0.35f, 0.05f);
+            //cube.SetColor(0.5f, 0.35f, 0.05f);
 
 			if (half)
 			{
-				GL.Scale(1.0f, 0.5f, 1.0f);
-				GL.Translate(0.0f, 0.5f, 0.0f);
+				//GL.Scale(1.0f, 0.5f, 1.0f);
+				//GL.Translate(0.0f, 0.5f, 0.0f);
+				halfModel.Render();
 			}
 			else
 			{
-				GL.Translate(0.0f, 0.5f, 0.0f);
+				//GL.Translate(0.0f, 0.5f, 0.0f);
+				fullModel.Render();
 			}
 
-            cube.render(1.0f);
+            //cube.render(1.0f);
 			
 			GL.PopMatrix();
         }

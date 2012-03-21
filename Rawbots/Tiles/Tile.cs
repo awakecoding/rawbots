@@ -20,13 +20,17 @@ namespace Rawbots
 
         private Light light;
 
+		//protected OBJModel model;
+
 		public Tile()
 		{
-            plane = new Plane();
-            plane.SetRenderMode(RenderMode.SOLID);
-			
+			plane = new Plane();
+			plane.SetRenderMode(RenderMode.SOLID);
+
 			material = new Material(Material.MaterialType.DIFFUSE_GRAY);
 			plane.AssignMaterial(material);
+
+			model = new OBJModel(Game.resourcePath + "/Floor/floor.obj");
 		}
 
         public override void SetRenderMode(RenderMode renderMode)
@@ -59,14 +63,16 @@ namespace Rawbots
         public override void Render()
         {
             GL.PushMatrix();
-            plane.render(1.0f);
-            
-            if (teamNumber)
-            {
-                GL.Scale(0.5f, 0.5f, 0.5f);
-                GL.Rotate(90.0f, 1.0f, 0.0f, 0.0f);
-                TeamNumber.Render();
-            }
+
+			model.Render();
+			//plane.render(1.0f);
+
+			//if (teamNumber)
+			//{
+			//    GL.Scale(0.5f, 0.5f, 0.5f);
+			//    GL.Rotate(90.0f, 1.0f, 0.0f, 0.0f);
+			//    TeamNumber.Render();
+			//}
 
             GL.PopMatrix();
         }

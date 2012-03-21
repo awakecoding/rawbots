@@ -28,6 +28,8 @@ namespace Rawbots
         private CubeModel frame;
         //CubeModel box; //For 1unit cubed box
 
+		//private OBJModel model;
+
 		public MissilesWeapon()
 		{    
             inCylinderRadius = 0.1f;
@@ -53,6 +55,8 @@ namespace Rawbots
             outCylinder.AssignMaterial(material);
 			middleBox.AssignMaterial(material);
 			frame.AssignMaterial(material);
+
+			model = new OBJModel(Game.resourcePath + "/Missile/Missile.obj");
 		}
 		
 		public override int getCost()
@@ -88,77 +92,80 @@ namespace Rawbots
 
             //GL.PopMatrix();
 
-            //left missle chamber
-            GL.PushMatrix();
-            GL.Translate(-0.35f, 0.0f, 0.0f);
-            //inner chamber
-            GL.PushMatrix();
-            GL.Translate(0.0f, 0.0f, -0.5f);
-            inCylinder.render();
-            GL.PopMatrix();
+			////left missle chamber
+			//GL.PushMatrix();
+			//GL.Translate(-0.35f, 0.0f, 0.0f);
+			////inner chamber
+			//GL.PushMatrix();
+			//GL.Translate(0.0f, 0.0f, -0.5f);
+			//inCylinder.render();
+			//GL.PopMatrix();
 
-            //outer chambers
-                //back chamber
-                GL.PushMatrix();
-                GL.Translate(0.0f, 0.0f, -0.4f);
-                outCylinder.render();
-                GL.PopMatrix();
-                //front chamber
-                GL.PushMatrix();
-                GL.Translate(0.0f, 0.0f, 0.1f);
-                outCylinder.render();
-                GL.PopMatrix();
-            GL.PopMatrix();
+			////outer chambers
+			//    //back chamber
+			//    GL.PushMatrix();
+			//    GL.Translate(0.0f, 0.0f, -0.4f);
+			//    outCylinder.render();
+			//    GL.PopMatrix();
+			//    //front chamber
+			//    GL.PushMatrix();
+			//    GL.Translate(0.0f, 0.0f, 0.1f);
+			//    outCylinder.render();
+			//    GL.PopMatrix();
+			//GL.PopMatrix();
 
-            //right missle chamber
-            GL.PushMatrix();
-            GL.Translate(0.35f, 0.0f, 0.0f);
-            //inner chamber
-            GL.PushMatrix();
-            GL.Translate(0.0f, 0.0f, -0.5f);
-            inCylinder.render();
-            GL.PopMatrix();
+			////right missle chamber
+			//GL.PushMatrix();
+			//GL.Translate(0.35f, 0.0f, 0.0f);
+			////inner chamber
+			//GL.PushMatrix();
+			//GL.Translate(0.0f, 0.0f, -0.5f);
+			//inCylinder.render();
+			//GL.PopMatrix();
 
-            //outer chambers
-                //back chamber
-                GL.PushMatrix();
-                GL.Translate(0.0f, 0.0f, -0.4f);
-                outCylinder.render();
-                GL.PopMatrix();
-                //front chamber
-                GL.PushMatrix();
-                GL.Translate(0.0f, 0.0f, 0.1f);
-                outCylinder.render();
-                GL.PopMatrix();
-            GL.PopMatrix();
+			////outer chambers
+			//    //back chamber
+			//    GL.PushMatrix();
+			//    GL.Translate(0.0f, 0.0f, -0.4f);
+			//    outCylinder.render();
+			//    GL.PopMatrix();
+			//    //front chamber
+			//    GL.PushMatrix();
+			//    GL.Translate(0.0f, 0.0f, 0.1f);
+			//    outCylinder.render();
+			//    GL.PopMatrix();
+			//GL.PopMatrix();
 
-            //Middle cube creation
-            GL.PushMatrix();
-            GL.Scale(0.5f, 0.4f, 0.5f);
-            middleBox.render(cubeSize);
-            GL.PopMatrix();
+			////Middle cube creation
+			//GL.PushMatrix();
+			//GL.Scale(0.5f, 0.4f, 0.5f);
+			//middleBox.render(cubeSize);
+			//GL.PopMatrix();
 
-            //Top frame
-            GL.PushMatrix();
-            GL.Translate(0.0f, 0.2f, 0.0f);
-            GL.Scale(0.7f, 0.1f, 0.7f);
-            frame.render(cubeSize);
-            GL.PopMatrix();
+			////Top frame
+			//GL.PushMatrix();
+			//GL.Translate(0.0f, 0.2f, 0.0f);
+			//GL.Scale(0.7f, 0.1f, 0.7f);
+			//frame.render(cubeSize);
+			//GL.PopMatrix();
 
-            //Bottom frame
-            GL.PushMatrix();
-            GL.Translate(0.0f, -0.2f, 0.0f);
-            GL.Scale(0.7f, 0.1f, 0.7f);
-            frame.render(cubeSize);
-            GL.PopMatrix();
+			////Bottom frame
+			//GL.PushMatrix();
+			//GL.Translate(0.0f, -0.2f, 0.0f);
+			//GL.Scale(0.7f, 0.1f, 0.7f);
+			//frame.render(cubeSize);
+			//GL.PopMatrix();
 
-            //Team number
-            GL.PushMatrix();
-            GL.Translate(0.0f, 0.3f, -0.0f);
-            GL.Rotate(90, 1.0f, 0.0f, 0.0f);
-            GL.Scale(0.5f, 0.5f, 0.5f);
-            TeamNumber.Render();
-            GL.PopMatrix();
+			////Team number
+			//GL.PushMatrix();
+			//GL.Translate(0.0f, 0.3f, -0.0f);
+			//GL.Rotate(90, 1.0f, 0.0f, 0.0f);
+			//GL.Scale(0.5f, 0.5f, 0.5f);
+			//TeamNumber.Render();
+			//GL.PopMatrix();
+
+			GL.Scale(0.1f, 0.1f, 0.1f);
+			model.Render();
 
             //WIRE FRAME BOX - to make sure it fits in one unit cube.
             /*

@@ -25,7 +25,10 @@ namespace Rawbots
 		
 		public int PosX { get; set; }
 		public int PosY { get; set; }
-		
+
+		private OBJModel full;
+		private OBJModel half;
+
 		private void Init()
 		{
 			robotPart = null;
@@ -34,6 +37,10 @@ namespace Rawbots
 			blockBackLeft = new Block(false);
 			blockBackMiddle = new Block(false);
 			blockBackRight = new Block(false);
+
+			//model = new OBJModel(Game.resourcePath + "/Factory/Factory.obj");
+			full = new OBJModel(Game.resourcePath + "/Factory/light_khaki_bldg.obj");
+			half = new OBJModel(Game.resourcePath + "/Factory/light_khaki_bldg_half.obj");
 		}
 		
 		public Factory() : base()
@@ -75,19 +82,26 @@ namespace Rawbots
 		public void Render()
 		{
 			GL.PushMatrix();
-			
+
+			//model.Render();
+
 			GL.Translate(-1.0f, 0.0f, 0.0f);
-			blockBackLeft.Render();
+			full.Render();
+			//blockBackLeft.Render();
 			GL.Translate(0.0f, 0.0f, 1.0f);
-			blockFrontLeft.Render();
+			half.Render();
+			//blockFrontLeft.Render();
 			GL.Translate(1.0f, 0.0f, -1.0f);
-			blockBackMiddle.Render();
+			full.Render();
+			//blockBackMiddle.Render();
 			GL.Translate(1.0f, 0.0f, 0.0f);
-			blockBackRight.Render();
+			full.Render();
+			//blockBackRight.Render();
 			GL.Translate(0.0f, 0.0f, 1.0f);
-			blockFrontRight.Render();
+			half.Render();
+			//blockFrontRight.Render();
 			GL.Translate(-1.0f, 0.0f, -1.0f);
-			
+
 			if (robotPart != null)
 			{
 				GL.Translate(0.0f, 1.0f, 0.0f);
@@ -95,16 +109,16 @@ namespace Rawbots
 				GL.Translate(0.0f, -1.0f, 0.0f);
 			}
 			
-			/* team number */
+			///* team number */
 			
-			GL.PushMatrix();
+			//GL.PushMatrix();
 			
-			GL.Scale(0.3f, 0.3f, 0.3f);
-			GL.Translate(0.0f, 1.0f, 2.0f);
-			TeamNumber.Render();
-			GL.Translate(0.0f, -1.0f, -1.0f);
+			//GL.Scale(0.3f, 0.3f, 0.3f);
+			//GL.Translate(0.0f, 1.0f, 2.0f);
+			//TeamNumber.Render();
+			//GL.Translate(0.0f, -1.0f, -1.0f);
 			
-			GL.PopMatrix();
+			//GL.PopMatrix();
 
 			GL.PopMatrix();
 		}
