@@ -72,7 +72,7 @@ namespace Rawbots
 		}
 	}
 
-	class OBJModel
+	public class OBJModel
 	{
 		private List<float[]> Vertices = new List<float[]>();
 		private List<float[]> Normals = new List<float[]>();
@@ -90,6 +90,8 @@ namespace Rawbots
 
 		private string pathFileName;
 		private string relativePath = "";
+
+		private bool TexEnabled = true;
 
 		public OBJModel(string filename)
 		{
@@ -388,11 +390,21 @@ namespace Rawbots
 			return true;
 		}
 
-		public void Assertion(uint i, uint j, uint lineNo)
+		private void Assertion(uint i, uint j, uint lineNo)
 		{
 			if (i > j)
 				throw new Exception("OBJ File ERROR: " + pathFileName + " IndexOutOfBounds " + i + " > " + j + " @ line " + lineNo);
 				
+		}
+
+		public void ShowTextures()
+		{
+			TexEnabled = true;
+		}
+
+		public void HideTextures()
+		{
+			TexEnabled = false;
 		}
 
 		public void Render()
@@ -409,7 +421,7 @@ namespace Rawbots
 
 				int iNumFaces = /*Faces.Count*/lf.Count;
 
-				if (HasTexCoords)
+				if (HasTexCoords && TexEnabled)
 				{
 					GL.Enable(EnableCap.Texture2D);
 					
@@ -575,7 +587,7 @@ namespace Rawbots
 
 				GL.End();
 
-				if (HasTexCoords)
+				if (HasTexCoords && TexEnabled)
 					GL.Disable(EnableCap.Texture2D);
 			}
 		}
