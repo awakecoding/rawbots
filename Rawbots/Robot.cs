@@ -173,6 +173,32 @@ namespace Rawbots
                 electronics.SetRenderMode(renderMode);
         }
 
+		public void ShowTextures()
+		{
+			if (chassis != null)
+				chassis.ShowTextures();
+
+			if (weapons != null)
+				for (int i = 0; i < weapons.Length; i++)
+					weapons[i].ShowTextures();
+
+			if (electronics != null)
+				electronics.ShowTextures();
+		}
+
+		public void HideTextures()
+		{
+			if (chassis != null)
+				chassis.HideTextures();
+
+			if (weapons != null)
+				for (int i = 0; i < weapons.Length; i++)
+					weapons[i].HideTextures();
+
+			if (electronics != null)
+				electronics.HideTextures();
+		}
+
 		public void Render()
 		{
 			if (!show)

@@ -122,6 +122,30 @@ namespace Rawbots
             rmc.SetRenderMode(renderMode);
         }
 
+		public void ShowTextures()
+		{
+			foreach (Robot robot in robots)
+			{
+				robot.ShowTextures();
+			}
+
+			terrain.ShowTextures();
+
+			rmc.ShowTextures();
+		}
+
+		public void HideTextures()
+		{
+			foreach (Robot robot in robots)
+			{
+				robot.HideTextures();
+			}
+
+			terrain.HideTextures();
+
+			rmc.HideTextures();
+		}
+
         public void Render()
         {
             /* Render terrain */

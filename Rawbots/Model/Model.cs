@@ -32,6 +32,8 @@ namespace Rawbots
 
 		public Material material;
 
+		protected OBJModel model;
+
 		public Model()
 		{
 			show = true;
@@ -110,6 +112,18 @@ namespace Rawbots
 
 			sint[size] = sint[0];
 			cost[size] = cost[0];
+		}
+
+		public void ShowTextures()
+		{
+			if (model != null)
+				model.ShowTextures();
+		}
+
+		public void HideTextures()
+		{
+			if (model != null)
+				model.HideTextures();
 		}
 	}
 }
