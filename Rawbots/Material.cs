@@ -126,6 +126,25 @@ namespace Rawbots
 					currMaterial.setName(s[1]);
 					MaterialList.Add(currMaterial);
 				}
+				else if (c == 'N')
+				{
+					int iNext = sr.Read();
+
+					if (iNext == 's')
+					{
+						sLine = sr.ReadLine();
+						s = sLine.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
+						fTemp = new float[s.Length];
+
+						float.TryParse(s[0], out fTemp[0]);
+
+						currMaterial.setShine((fTemp[0]/100.0f)*128.0f);
+					}
+					else
+					{
+						sLine = sr.ReadLine();
+					}
+				}
 				else if (c == 'i')
 				{
 					sLine = sr.ReadLine();
@@ -262,6 +281,25 @@ namespace Rawbots
 					s = sLine.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
 
 					matName = s[1];
+				}
+				else if (c == 'N')
+				{
+					int iNext = sr.Read();
+
+					if (iNext == 's')
+					{
+						sLine = sr.ReadLine();
+						s = sLine.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
+						fTemp = new float[s.Length];
+
+						float.TryParse(s[0], out fTemp[0]);
+
+						setShine(fTemp[0]);
+					}
+					else
+					{
+						sLine = sr.ReadLine();
+					}
 				}
 				else if (c == 'i')
 				{
