@@ -204,6 +204,8 @@ namespace Rawbots
 			if (!show)
 				return;
 
+			GL.PushMatrix();
+
             float totalHeight = 0.0f;
 
 			GL.Rotate(Angle, 0.0f, 1.0f, 0.0f);
@@ -255,6 +257,8 @@ namespace Rawbots
                     light.apply();
                 }
             }
+
+			GL.PopMatrix();
 		}
 	}
 }

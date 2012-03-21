@@ -1,31 +1,7 @@
-# Exported from Wings 3D 1.4.1
 newmtl lambert2SG
-Ns 100.0
-d 1.0
-illum 2
-Kd 0.6003999999999999 0.6003999999999999 0.6003999999999999
-Ka 0.51382 0.51382 0.51382
-Ks 1.0 1.0 1.0
-Ke 0.0 0.0 0.0
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
 map_Kd boundary.jpg
-
-newmtl lambert2SG2
-Ns 100.0
-d 1.0
-illum 2
-Kd 0.5338 0.5338 0.5338
-Ka 0.5404599999999999 0.5404599999999999 0.5404599999999999
-Ks 1.0 1.0 1.0
-Ke 0.0 0.0 0.0
-map_Kd boundary.jpg
-
-newmtl lambert2SG3
-Ns 100.0
-d 1.0
-illum 2
-Kd 0.5 0.5 0.5
-Ka 0.5 0.5 0.5
-Ks 1.0 1.0 1.0
-Ke 0.0 0.0 0.0
-map_Kd boundary.jpg
-
+Ni 1.00

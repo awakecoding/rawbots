@@ -142,6 +142,8 @@ namespace Rawbots
 
         public void render(double dBase, double dHeight, int iSlices, int iStacks)
         {
+			GL.PushMatrix();
+
             switch (renderMode)
             {
                 case RenderMode.SOLID:
@@ -159,6 +161,8 @@ namespace Rawbots
                     renderWireCone(dBase, dHeight, iSlices, iStacks);
                     break;
             }
+
+			GL.PopMatrix();
         }
 	}
 }

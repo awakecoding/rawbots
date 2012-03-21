@@ -35,7 +35,8 @@ namespace Rawbots
 			
 			material = new Material(Material.MaterialType.SHINY_STEEL);
             mcComponent.AssignMaterial(material);
-            
+
+			model = new OBJModel(Game.resourcePath + "/Nuclear/Nuclear.obj");
 		}
 		
 		public override int getCost()
@@ -66,39 +67,44 @@ namespace Rawbots
 
 		public override void Render()
 		{
-            GL.Translate(0.0f, 0.55f, 0.0f);
-            GL.Scale(0.5f, 0.5f, 0.5f);
+			//GL.Translate(0.0f, 0.55f, 0.0f);
+			//GL.Scale(0.5f, 0.5f, 0.5f);
 
-            /* Rotate the object on the X-axis about 90 degrees */
-            GL.Rotate(90.0f, 1.0f, 0.0f, 0.0f);
+			///* Rotate the object on the X-axis about 90 degrees */
+			//GL.Rotate(90.0f, 1.0f, 0.0f, 0.0f);
 
-            /************************************************************************/
-            /* Drawing the Outer chassis                                            */
-            /************************************************************************/
+			///************************************************************************/
+			///* Drawing the Outer chassis                                            */
+			///************************************************************************/
 
-            mcComponent.SetColor(0.498f, 0.298f, 0.498f);
-            mcComponent.render();
+			//mcComponent.SetColor(0.498f, 0.298f, 0.498f);
+			//mcComponent.render();
 
-            /* Translate the object -.21 to be above the outer chassis cylinder */
-            GL.Translate(0.0f, 0.0f, -0.21f);
+			///* Translate the object -.21 to be above the outer chassis cylinder */
+			//GL.Translate(0.0f, 0.0f, -0.21f);
 
-            /************************************************************************/
-            /* Drawing the Inner chassis                                            */
-            /************************************************************************/
-            GL.PushMatrix();
-            GL.Scale(0.75f, 0.75f, 0.75f);
-            mcComponent.SetColor(0.451f, 0.75f, 0.6f);
-            mcComponent.render();
-            GL.PopMatrix();
+			///************************************************************************/
+			///* Drawing the Inner chassis                                            */
+			///************************************************************************/
+			//GL.PushMatrix();
+			//GL.Scale(0.75f, 0.75f, 0.75f);
+			//mcComponent.SetColor(0.451f, 0.75f, 0.6f);
+			//mcComponent.render();
+			//GL.PopMatrix();
 
-            //Team number
-            GL.PushMatrix();
-            GL.Translate(-0.0f, -0.2f, 0.0f);
-            //GL.Rotate(-90, 1.0f, 0.0f, 0.0f);
-            //GL.Scale(0.66f, 0.66f, 0.66f);
-            TeamNumber.Render();
-            GL.PopMatrix();
-            
+			////Team number
+			//GL.PushMatrix();
+			//GL.Translate(-0.0f, -0.2f, 0.0f);
+			////GL.Rotate(-90, 1.0f, 0.0f, 0.0f);
+			////GL.Scale(0.66f, 0.66f, 0.66f);
+			//TeamNumber.Render();
+			//GL.PopMatrix();
+
+			GL.PushMatrix();
+
+			model.Render();
+
+			GL.PopMatrix();
 		}
 	}
 }

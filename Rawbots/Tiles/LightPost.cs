@@ -129,9 +129,13 @@ namespace Rawbots
 		
         public override void Render()
         {
+			GL.PushMatrix();
+
             Light light = GetLight();
-            if (light != null)
+            
+			if (light != null)
                 light.apply();
+
 			base.Render();
 			
 			switch(position)
@@ -178,8 +182,8 @@ namespace Rawbots
 
             if (light != null)
                 light.unapply();
-			
 
+			GL.PopMatrix();
         }
     }
 }

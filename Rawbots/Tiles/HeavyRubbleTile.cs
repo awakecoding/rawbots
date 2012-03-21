@@ -35,9 +35,9 @@ namespace Rawbots
 
         public override void Render()
         {
-            base.Render();
-
 			GL.PushMatrix();
+
+            base.Render();
 
             GL.Translate(0.0f, -0.05f, 0.0f);
 

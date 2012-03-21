@@ -123,7 +123,9 @@ namespace Rawbots
         public void apply()
         {
 			bool reEnable = false;
-			
+
+			GL.PushMatrix();
+
 			GL.Light(lightName, LightParameter.Ambient, Ambient);
             GL.Light(lightName, LightParameter.Diffuse, Diffuse);
             GL.Light(lightName, LightParameter.Specular, Specular);
@@ -149,7 +151,7 @@ namespace Rawbots
                     sphere_source.render();
                     GL.Translate(-Position[0], -Position[1], -Position[2]);
 
-                    GL.Color3(1.0f, 1.0f, 0.0f);
+                    //GL.Color3(1.0f, 1.0f, 0.0f);
                     GL.Begin(BeginMode.Lines);
                     GL.Vertex3(Position[0], Position[1], Position[2]);
                     GL.Vertex3(Position[0] + getRayLength() * Direction[0],
@@ -183,6 +185,8 @@ namespace Rawbots
             GL.Light(lightName, LightParameter.SpotExponent, SpotExp);
 
             //GL.Enable(Light.lightNameCapLookUp(lightName));
+
+			GL.PopMatrix();
         }
 
         public void unapply()

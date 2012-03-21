@@ -52,8 +52,9 @@ namespace Rawbots
 		
 		int renderModeCount;
 		int shadingModeCount;
-		
-		float[] ambientLight = {0.212f, 0.208f, 0.173f}; //dark yellow light
+
+		float[] ambientLight = {1.0f, 1.0f, 1.0f}; // white bright light
+		//float[] ambientLight = {0.212f, 0.208f, 0.173f}; //dark yellow light
 		bool ambientLights = true;
 		
 		bool bottomLeftCornerLight = true;
@@ -316,7 +317,7 @@ namespace Rawbots
 			GL.Enable(EnableCap.Lighting);
 			//GL.Enable(EnableCap.Light1);
             GL.Enable(EnableCap.ColorMaterial);
-            //GL.Enable(EnableCap.Texture2D);
+            GL.Enable(EnableCap.Texture2D);
 
 			quadric = Glu.gluNewQuadric();
 			Glu.gluQuadricNormals(quadric, Glu.GLU_SMOOTH);  
@@ -662,7 +663,8 @@ namespace Rawbots
 			}	
 		}
 
-        float[] globLight = { 0.2f, 0.2f, 0.2f, 1.0f };
+        //float[] globLight = { 0.2f, 0.2f, 0.2f, 1.0f };
+		float[] globLight = { 1.0f, 1.0f, 1.0f, 1.0f };
 
         public void setGlobalAmbientLight(float r, float g, float b, float a)
         {
