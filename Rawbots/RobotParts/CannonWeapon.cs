@@ -250,7 +250,11 @@ namespace Rawbots
 
 			//GL.PopMatrix();
 
+			GL.PushMatrix();
+
 			model.Render();
+
+			GL.PopMatrix();
         }
     }
 }

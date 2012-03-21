@@ -119,7 +119,12 @@ namespace Rawbots
 	//		GL.Disable(EnableCap.Lighting);
 
 			//GL.Scale(0.1f, 0.1f, 0.1f);
+
+			GL.PushMatrix();
+
 			model.Render();
+
+			GL.PopMatrix();
 		}
 		
         public override void Render()

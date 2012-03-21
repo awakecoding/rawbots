@@ -164,8 +164,12 @@ namespace Rawbots
 			//TeamNumber.Render();
 			//GL.PopMatrix();
 
+			GL.PushMatrix();
+
 			GL.Scale(0.1f, 0.1f, 0.1f);
 			model.Render();
+
+			GL.PopMatrix();
 
             //WIRE FRAME BOX - to make sure it fits in one unit cube.
             /*
