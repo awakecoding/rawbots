@@ -15,7 +15,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using OpenTK.Input;
-using Tao.FreeGlut;
 using OpenTK.Graphics.OpenGL;
 using OpenTK;
 

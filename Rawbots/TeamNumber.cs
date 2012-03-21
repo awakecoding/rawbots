@@ -11,7 +11,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Tao.FreeGlut;
 using OpenTK.Graphics.OpenGL;
 
 namespace Rawbots
