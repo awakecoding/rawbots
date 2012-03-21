@@ -45,6 +45,8 @@
     <Reference Include="Tao.FreeGlut, Version=2.4.0.2, Culture=neutral, PublicKeyToken=6e602a6ad6c0d06d">
       <HintPath>..\Libraries\Tao\Tao.FreeGlut.dll</HintPath>
     </Reference>
+    <Reference Include="Tao.OpenGl, Version=0.0.0.0, Culture=neutral, PublicKeyToken=1ca010269a4501ef" />
+    <Reference Include="Tao.OpenGl.Glu, Version=1.5.0.3, Culture=neutral, PublicKeyToken=3661ea75021374b5" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base.cs" />

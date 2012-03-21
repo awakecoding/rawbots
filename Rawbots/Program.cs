@@ -14,6 +14,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 using Tao.FreeGlut;
+using Tao.OpenGl;
 
 using OpenTK;
 using OpenTK.Input;
@@ -60,8 +61,7 @@ namespace Rawbots
 		bool topRightCornerLight = true;
 		bool topLeftCornerLight = true;
 		bool allPostLights = true;
-		
-		
+
 		string cameraHelpText =
 			"W: Move Up\r\n" +
 			"A: Move Left\r\n" +
@@ -75,6 +75,9 @@ namespace Rawbots
 			"Down: Rotate Down\r\n" +
 			"Tab: Change Camera\r\n" +
 			"Escape: Exit Game\r\n";
+
+		Glu.GLUquadric quadric;
+		Texture tex;
 
 		public Game() : base(800, 600, GraphicsMode.Default, "Rawbots")
 		{
@@ -309,13 +312,17 @@ namespace Rawbots
                          0.0f, 1.0f, 0.0f);
 
             this.Title = this.baseTitle;
-			
+
 			PrintHelp();
 
 			GL.Enable(EnableCap.Lighting);
 			//GL.Enable(EnableCap.Light1);
             GL.Enable(EnableCap.ColorMaterial);
             //GL.Enable(EnableCap.Texture2D);
+			quadric = Glu.gluNewQuadric();
+			Glu.gluQuadricNormals(quadric, Glu.GLU_SMOOTH);  
+			Glu.gluQuadricTexture(quadric, Gl.GL_TRUE);
+			tex = Texture.AcquireTexture(Game.resourcePath + "/space3.jpg");
 		}
 
 		public bool IsWindows()
@@ -376,8 +383,11 @@ namespace Rawbots
 			Console.WriteLine("O to turn the top right lightpost on and off");
 			Console.WriteLine("P to turn the top left lightpost on and off");
 			Console.WriteLine("L to turn the all lightposts on and off");
+			Console.WriteLine("B to switch between Sky Box and Sky Sphere");
             Console.WriteLine("F4 (Show XYZ Plane), F5 (Show XZ Plane), F6 (Show XY Plane), F7 (Show Nothing)");
             Console.WriteLine("F11 (Enable Camera), F12 (Disable Camera)");
+			Console.WriteLine("Camera Controls, W/S (Up/Down), A/D (Left/Right), Q/E (Roll L/R)");
+			Console.WriteLine("I/K (Adv Forward), J/L (Strafe L/R)");
 		}
 		
 		protected override void OnLoad(EventArgs e)
@@ -533,7 +543,7 @@ namespace Rawbots
 				case Key.K:
 					camera.PerformActions(Camera.Action.TILT_DOWN | Camera.Action.ACTIVE);
 					break;
-				case Key.S:
+				case Key.B:
 					SkyBoxSphere.ChangeEnvironment();
 					break;
 			}
@@ -591,6 +601,13 @@ namespace Rawbots
 
 					case Key.K:
 						camera.PerformActions(Camera.Action.TILT_DOWN);
+						break;
+
+					case Key.Z:
+						map.HideTextures();
+						break;
+					case Key.X:
+						map.ShowTextures();
 						break;
 				}
 		}
@@ -666,10 +683,16 @@ namespace Rawbots
 			GL.MatrixMode(MatrixMode.Modelview);
 
 			camera.SetView();
-
+		
 			SkyBoxSphere.Render(camera);
 
-            ReferencePlane.setDimensions(50, 50);
+			GL.Enable(EnableCap.Texture2D);
+			tex.apply();
+
+			Glu.gluSphere(quadric, 1.3f, 32, 32);
+			GL.Disable(EnableCap.Texture2D);
+            
+			ReferencePlane.setDimensions(50, 50);
             ReferencePlane.render();
 
             map.Render();
