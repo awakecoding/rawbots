@@ -41,7 +41,7 @@ namespace Rawbots
 			szFilename = filename;
 			bmp = new Bitmap(filename);
 			Bitmap b = bmp;
-			b.RotateFlip(RotateFlipType.Rotate180FlipNone);
+			b.RotateFlip(RotateFlipType.RotateNoneFlipY);
 			BitmapData bd = b.LockBits(new Rectangle(0, 0, b.Width, b.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 
 			GL.GenTextures(1, out texId);
@@ -50,6 +50,8 @@ namespace Rawbots
 
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
+
+			GL.TexEnv(TextureEnvTarget.TextureEnv, TextureEnvParameter.TextureEnvMode, (int)TextureEnvMode.Modulate);
 
 			GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, bd.Width, bd.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, bd.Scan0);
 
