@@ -13,7 +13,7 @@ using System;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
-using Tao.FreeGlut;
+//using Tao.FreeGlut;
 
 namespace Rawbots
 {
