@@ -148,6 +148,8 @@ namespace Rawbots
 
         public void Render()
         {
+			GL.PushMatrix();
+
             /* Render terrain */
             for (int i = 0; i < lights.Count; i++)
                 lights[i].apply();
@@ -238,6 +240,8 @@ namespace Rawbots
 
             for (int i = 0; i < lights.Count; i++)
                 lights[i].unapply();
+
+			GL.PopMatrix();
         }
 	}
 }

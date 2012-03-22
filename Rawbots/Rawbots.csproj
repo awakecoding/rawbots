@@ -57,11 +57,12 @@
       <HintPath>..\Libraries\OpenTK\OpenTK.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
-    <Reference Include="Tao.OpenGl.Glu">
-      <HintPath>..\Libraries\Tao\bin\Tao.OpenGl.Glu.dll</HintPath>
+    <Reference Include="Tao.OpenGl">
+      <HintPath>..\Libraries\Tao\lib\Tao.OpenGl.dll</HintPath>
     </Reference>
-    <Reference Include="Tao.OpenGl, Version=0.0.0.0, Culture=neutral, PublicKeyToken=1ca010269a4501ef" />
-    <Reference Include="Tao.OpenGl.Glu, Version=1.5.0.3, Culture=neutral, PublicKeyToken=3661ea75021374b5" />
+    <Reference Include="Tao.OpenGl.Glu, Version=1.5.0.3, Culture=neutral, PublicKeyToken=3661ea75021374b5">
+      <HintPath>..\Libraries\Tao\lib\Tao.OpenGl.Glu.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base.cs" />

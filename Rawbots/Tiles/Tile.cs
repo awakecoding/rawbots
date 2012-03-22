@@ -30,7 +30,7 @@ namespace Rawbots
 			material = new Material(Material.MaterialType.DIFFUSE_GRAY);
 			plane.AssignMaterial(material);
 
-			model = new OBJModel(Game.resourcePath + "/Floor/floor.obj");
+			model = new OBJModel(Game.resourcePath + "/Floor/Tile.obj");
 		}
 
         public override void SetRenderMode(RenderMode renderMode)
@@ -64,6 +64,7 @@ namespace Rawbots
         {
             GL.PushMatrix();
 
+			GL.Color3(0.3f, 0.3f, 0.3f);
 			model.Render();
 			//plane.render(1.0f);
 

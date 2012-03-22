@@ -35,11 +35,11 @@ namespace Rawbots
 
         public override void Render()
         {
-            base.Render();
+			GL.PushMatrix();
+
+            //base.Render();
 
             GL.Translate(0.0f, -0.05f, 0.0f);
-
-            GL.PushMatrix();
 
             //(0, 0, 0)
 
@@ -62,6 +62,7 @@ namespace Rawbots
             smallPileOne(); //Draw 5th One
 
             GL.PopMatrix();
+
             GL.PushMatrix();
 
             GL.Translate(-0.3f, 0.0f, 0.0f);

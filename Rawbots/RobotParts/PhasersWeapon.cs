@@ -60,7 +60,9 @@ namespace Rawbots
 			cube.AssignMaterial(material);
 			hcPhasersL.AssignMaterial(material);
 			hcPhasersR.AssignMaterial(material);
-			
+
+			model = new OBJModel(Game.resourcePath + "/Phasers/Phasers.obj");
+
 		}
 		
 		public override int getCost()
@@ -91,72 +93,78 @@ namespace Rawbots
 
 		public override void Render()
 		{
-			GL.PushMatrix();
+			//GL.PushMatrix();
 
-			/* phasers base (cylinder) */
+			///* phasers base (cylinder) */
 			
+			//GL.PushMatrix();
+			
+			//GL.Rotate(-90, 1.0, 0.0, 0.0);
+			//cylinder.render();
+			
+			//GL.PopMatrix();
+			
+			///* phasers support (half cylinder) */
+			
+			//GL.PushMatrix();
+			
+			//GL.Translate(0.0, cylinderHeight, 0.0);
+			//GL.Rotate(-90, 1.0, 0.0, 0.0);
+			//halfCylinder.render();
+			
+			//GL.PopMatrix();
+			
+			///* phasers */
+			
+			//GL.PushMatrix();
+			//GL.Scale(0.2f, 0.2f, 0.6f);
+			
+			///* phasers sides (half cylinders) */
+			
+			//GL.PushMatrix();
+			
+			//GL.Translate(-phasersWidth, cylinderHeight + 0.2f, 0.0);
+			//GL.Rotate(90, 0.0, 0.0, 1.0);
+			//hcPhasersL.render();
+			
+			//GL.PopMatrix();
+			
+			//GL.PushMatrix();
+			
+			//GL.Translate(phasersWidth, cylinderHeight + 0.2f, 0.0);
+			//GL.Rotate(-90, 0.0, 0.0, 1.0);
+			//hcPhasersR.render();
+			
+			//GL.PopMatrix();
+			
+			///* phasers center (rectangular prism) */
+			
+			//GL.PushMatrix();
+			
+			//GL.Translate(0.0f, cylinderHeight + 0.2f, 0.0);
+			//cube.render(phasersWidth * 2);
+			
+			//GL.PopMatrix();
+			
+			//GL.PopMatrix();
+			
+			///* team number */
+			
+			//GL.PushMatrix();
+			
+			//GL.Scale(0.3f, 0.3f, 0.3f);
+			//GL.Translate(0.0f, 1.25f, 0.5f);
+			//GL.Rotate(-90, 1.0f, 0.0f, 0.0f);
+			//TeamNumber.Render();
+			//GL.Translate(0.0f, -1.25f, -0.5f);
+			
+			//GL.PopMatrix();
+
+			//GL.PopMatrix();
+
 			GL.PushMatrix();
-			
-			GL.Rotate(-90, 1.0, 0.0, 0.0);
-			cylinder.render();
-			
-			GL.PopMatrix();
-			
-			/* phasers support (half cylinder) */
-			
-			GL.PushMatrix();
-			
-			GL.Translate(0.0, cylinderHeight, 0.0);
-			GL.Rotate(-90, 1.0, 0.0, 0.0);
-			halfCylinder.render();
-			
-			GL.PopMatrix();
-			
-			/* phasers */
-			
-			GL.PushMatrix();
-			GL.Scale(0.2f, 0.2f, 0.6f);
-			
-			/* phasers sides (half cylinders) */
-			
-			GL.PushMatrix();
-			
-			GL.Translate(-phasersWidth, cylinderHeight + 0.2f, 0.0);
-			GL.Rotate(90, 0.0, 0.0, 1.0);
-			hcPhasersL.render();
-			
-			GL.PopMatrix();
-			
-			GL.PushMatrix();
-			
-			GL.Translate(phasersWidth, cylinderHeight + 0.2f, 0.0);
-			GL.Rotate(-90, 0.0, 0.0, 1.0);
-			hcPhasersR.render();
-			
-			GL.PopMatrix();
-			
-			/* phasers center (rectangular prism) */
-			
-			GL.PushMatrix();
-			
-			GL.Translate(0.0f, cylinderHeight + 0.2f, 0.0);
-			cube.render(phasersWidth * 2);
-			
-			GL.PopMatrix();
-			
-			GL.PopMatrix();
-			
-			/* team number */
-			
-			GL.PushMatrix();
-			
-			GL.Scale(0.3f, 0.3f, 0.3f);
-			GL.Translate(0.0f, 1.25f, 0.5f);
-			GL.Rotate(-90, 1.0f, 0.0f, 0.0f);
-			TeamNumber.Render();
-			GL.Translate(0.0f, -1.25f, -0.5f);
-			
-			GL.PopMatrix();
+			GL.Scale(0.8f, 0.8f, 0.8f);
+			model.Render();
 
 			GL.PopMatrix();
 		}

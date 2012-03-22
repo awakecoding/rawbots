@@ -13,8 +13,6 @@ using System;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
-//using Tao.FreeGlut;
-
 namespace Rawbots
 {
     public class CannonWeapon : Weapon
@@ -252,7 +250,11 @@ namespace Rawbots
 
 			//GL.PopMatrix();
 
+			GL.PushMatrix();
+
 			model.Render();
+
+			GL.PopMatrix();
         }
     }
 }
