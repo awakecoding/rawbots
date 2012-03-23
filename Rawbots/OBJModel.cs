@@ -10,8 +10,8 @@ namespace Rawbots
 {
 	class FaceGroup
 	{
-		public string groupName;
 		public Material mat;
+		public string groupName;
 
 		public List<Face> Faces = new List<Face>();
 
@@ -48,7 +48,7 @@ namespace Rawbots
 			VertIdx[1] = Data[0][1] - 1;
 			VertIdx[2] = Data[0][2] - 1;
 
-            if (isQuad) //if we have a quad
+            if (isQuad) /* if we have a quad */
                 VertIdx[3] = Data[0][3] - 1;
 
 			if (Data[1] != null)
@@ -154,7 +154,7 @@ namespace Rawbots
 
 					if (sLine.CompareTo("default") == 0)
 					{
-						Console.WriteLine("WARNING: Default group name ignored.");
+						//Console.WriteLine("WARNING: Default group name ignored.");
 					}
 					else
 					{
@@ -165,8 +165,8 @@ namespace Rawbots
 				}
 				else if (c == 'v')
 				{
-					int iNext = sr.Read();
 					float[] fTemp;
+					int iNext = sr.Read();
 
 					if (iNext == ' ' || iNext == '\t')
 					{
@@ -273,7 +273,6 @@ namespace Rawbots
 						if (isQuad)
 							Assertion(iTemp[2][3] - 1, (uint)Normals.Count, lineNumber);
 
-						//Faces.Add(new Face(iTemp));
 						currFaceGroup.AddFace(new Face(iTemp));
 					}
 					else if (HasTexCoords && !HasNormals)
@@ -314,7 +313,6 @@ namespace Rawbots
 						if (isQuad)
 							Assertion(iTemp[1][3] - 1, (uint)Vertices.Count, lineNumber);
 
-						//Faces.Add(new Face(iTemp));
 						currFaceGroup.AddFace(new Face(iTemp));
 					}
 					else if (!HasTexCoords && HasNormals)
@@ -357,7 +355,6 @@ namespace Rawbots
 						if (isQuad)
 							Assertion(iTemp[2][3] - 1, (uint)Vertices.Count, lineNumber);
 
-						//Faces.Add(new Face(iTemp));
 						currFaceGroup.AddFace(new Face(iTemp));
 					}
 					else
@@ -382,17 +379,13 @@ namespace Rawbots
 						if (isQuad)
 							Assertion(iTemp[0][3] - 1, (uint)Vertices.Count, lineNumber);
 
-						//Faces.Add(new Face(iTemp));
 						currFaceGroup.AddFace(new Face(iTemp));
 					}
 				}
 				else if (c == 'm') //Material Library File
 				{
 					sLine = sr.ReadLine();
-
 					s = sLine.Split(separators, StringSplitOptions.RemoveEmptyEntries);
-
-					//material = new Material(relativePath + s[1]);
 					MaterialList = Material.ParseMaterials(relativePath + s[1]);
 				}
 				else if (c == 'u')
@@ -512,7 +505,7 @@ namespace Rawbots
 						GL.Normal3(n3);
 						GL.Vertex3(v3);
 
-						if (/*Faces[i]*/lf[i].isQuad)
+						if (lf[i].isQuad)
 						{
 							tc2 = TexCoords[(int)tc2indices[3]];
 							n3 = Normals[(int)n3indices[3]];
@@ -529,7 +522,6 @@ namespace Rawbots
 				{
 					for (int i = 0; i < iNumFaces; i++)
 					{
-						//f = Faces[i];
 						f = lf[i];
 
 						n3indices = f.NormalIdx;
@@ -553,7 +545,7 @@ namespace Rawbots
 						GL.Normal3(n3);
 						GL.Vertex3(v3);
 
-						if (/*Faces[i]*/lf[i].isQuad)
+						if (lf[i].isQuad)
 						{
 							n3 = Normals[(int)n3indices[3]];
 							v3 = Vertices[(int)v3indices[3]];
@@ -567,7 +559,6 @@ namespace Rawbots
 				{
 					for (int i = 0; i < iNumFaces; i++)
 					{
-						//f = Faces[i];
 						f = lf[i];
 
 						tc2indices = f.TexCoordIdx;
@@ -591,7 +582,7 @@ namespace Rawbots
 						GL.TexCoord2(tc2);
 						GL.Vertex3(v3);
 
-						if (/*Faces[i]*/lf[i].isQuad)
+						if (lf[i].isQuad)
 						{
 							tc2 = TexCoords[(int)tc2indices[3]];
 							v3 = Vertices[(int)v3indices[3]];
@@ -605,7 +596,6 @@ namespace Rawbots
 				{
 					for (int i = 0; i < iNumFaces; i++)
 					{
-						//f = Faces[i];
 						f = lf[i];
 
 						v3indices = f.VertIdx;
@@ -622,10 +612,9 @@ namespace Rawbots
 
 						GL.Vertex3(v3);
 
-						if (/*Faces[i]*/lf[i].isQuad)
+						if (lf[i].isQuad)
 						{
 							v3 = Vertices[(int)v3indices[3]];
-
 							GL.Vertex3(v3);
 						}
 					}

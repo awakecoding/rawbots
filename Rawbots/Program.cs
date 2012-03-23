@@ -54,7 +54,6 @@ namespace Rawbots
 		int shadingModeCount;
 
 		float[] ambientLight = {1.0f, 1.0f, 1.0f}; // white bright light
-		//float[] ambientLight = {0.212f, 0.208f, 0.173f}; //dark yellow light
 		bool ambientLights = true;
 		
 		bool bottomLeftCornerLight = true;
@@ -449,7 +448,20 @@ namespace Rawbots
 					break;
 
 				case Key.F:
-					camera.PerformActions(Camera.Action.TOGGLE_LIGHT);
+					if (Keyboard[Key.ControlLeft])
+					{
+						/* toggle fullscreen */
+
+						if (this.WindowState == WindowState.Fullscreen)
+							this.WindowState = WindowState.Normal;
+						else
+							this.WindowState = WindowState.Fullscreen;
+					}
+					else
+					{
+						/* toggle light */
+						camera.PerformActions(Camera.Action.TOGGLE_LIGHT);
+					}
 					break;
 
 				case Key.Number5:
