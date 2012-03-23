@@ -77,6 +77,8 @@ namespace Rawbots
 
 	public class OBJModel
 	{
+		int i, j;
+
 		private List<float[]> Vertices = new List<float[]>();
 		private List<float[]> Normals = new List<float[]>();
 		private List<float[]> TexCoords = new List<float[]>();
@@ -136,7 +138,7 @@ namespace Rawbots
 			char[] sep = new char[] { '\\' };
 			string[] splitAbsolutePath = absolutePath.Split(sep);
 
-			for (int i = 0; i < splitAbsolutePath.Length - 1; i++)
+			for (i = 0; i < splitAbsolutePath.Length - 1; i++)
 				relativePath += splitAbsolutePath[i] + "\\";
 
 			int ic = sr.Read();
@@ -429,10 +431,10 @@ namespace Rawbots
 			return true;
 		}
 
-		private void Assertion(uint i, uint j, uint lineNo)
+		private void Assertion(uint row, uint col, uint lineNo)
 		{
-			if (i > j)
-				throw new Exception("OBJ File ERROR: " + pathFileName + " IndexOutOfBounds " + i + " > " + j + " @ line " + lineNo);
+			if (row > col)
+				throw new Exception("OBJ File ERROR: " + pathFileName + " IndexOutOfBounds " + row + " > " + col + " @ line " + lineNo);
 		}
 
 		public void ShowTextures()
@@ -447,176 +449,108 @@ namespace Rawbots
 
 		public void Render()
 		{
-			for (int j = 0; j < FaceGroups.Count; j++)
+			List<Face> listFace;
+			uint[] tc2indices, n3indices, v3indices;
+
+			foreach (FaceGroup faceGroup in FaceGroups)
 			{
-				FaceGroup fg = FaceGroups[j];
-
-				List<Face> lf = fg.Faces;
-				
-				Face f;
-				uint[] tc2indices, n3indices, v3indices;
-				float[] tc2, n3, v3;
-
-				int iNumFaces = lf.Count; /* Faces.Count */
-
 				if (HasTexCoords && TexEnabled)
 				{
 					GL.Enable(EnableCap.Texture2D);
 
-					if (fg.mat != null)
-						fg.mat.apply(); /*material*/
+					if (faceGroup.mat != null)
+						faceGroup.mat.apply();
 				}
 
-				/* Faces[0] */
-				GL.Begin(lf[0].isQuad ? BeginMode.Quads : BeginMode.Triangles);
+				listFace = faceGroup.Faces;
+				GL.Begin(listFace[0].isQuad ? BeginMode.Quads : BeginMode.Triangles);
 
 				if (HasTexCoords && HasNormals)
 				{
-					for (int i = 0; i < iNumFaces; i++)
+					foreach (Face face in listFace)
 					{
-						//f = Faces[i];
-						f = lf[i];
+						tc2indices = face.TexCoordIdx;
+						n3indices = face.NormalIdx;
+						v3indices = face.VertIdx;
 
-						tc2indices = f.TexCoordIdx;
-						n3indices = f.NormalIdx;
-						v3indices = f.VertIdx;
+						GL.TexCoord2(TexCoords[(int)tc2indices[0]]);
+						GL.Normal3(Normals[(int)n3indices[0]]);
+						GL.Vertex3(Vertices[(int)v3indices[0]]);
 
-						tc2 = TexCoords[(int)tc2indices[0]];
-						n3 = Normals[(int)n3indices[0]];
-						v3 = Vertices[(int)v3indices[0]];
+						GL.TexCoord2(TexCoords[(int)tc2indices[1]]);
+						GL.Normal3(Normals[(int)n3indices[1]]);
+						GL.Vertex3(Vertices[(int)v3indices[1]]);
 
-						GL.TexCoord2(tc2);
-						GL.Normal3(n3);
-						GL.Vertex3(v3);
+						GL.TexCoord2(TexCoords[(int)tc2indices[2]]);
+						GL.Normal3(Normals[(int)n3indices[2]]);
+						GL.Vertex3(Vertices[(int)v3indices[2]]);
 
-						tc2 = TexCoords[(int)tc2indices[1]];
-						n3 = Normals[(int)n3indices[1]];
-						v3 = Vertices[(int)v3indices[1]];
-
-						GL.TexCoord2(tc2);
-						GL.Normal3(n3);
-						GL.Vertex3(v3);
-
-						tc2 = TexCoords[(int)tc2indices[2]];
-						n3 = Normals[(int)n3indices[2]];
-						v3 = Vertices[(int)v3indices[2]];
-
-						GL.TexCoord2(tc2);
-						GL.Normal3(n3);
-						GL.Vertex3(v3);
-
-						if (lf[i].isQuad)
+						if (face.isQuad)
 						{
-							tc2 = TexCoords[(int)tc2indices[3]];
-							n3 = Normals[(int)n3indices[3]];
-							v3 = Vertices[(int)v3indices[3]];
-
-							GL.TexCoord2(tc2);
-							GL.Normal3(n3);
-							GL.Vertex3(v3);
+							GL.TexCoord2(TexCoords[(int)tc2indices[3]]);
+							GL.Normal3(Normals[(int)n3indices[3]]);
+							GL.Vertex3(Vertices[(int)v3indices[3]]);
 						}
-
 					}
 				}
 				else if (!HasTexCoords && HasNormals)
 				{
-					for (int i = 0; i < iNumFaces; i++)
+					foreach (Face face in listFace)
 					{
-						f = lf[i];
+						n3indices = face.NormalIdx;
+						v3indices = face.VertIdx;
 
-						n3indices = f.NormalIdx;
-						v3indices = f.VertIdx;
+						GL.Normal3(Normals[(int)n3indices[0]]);
+						GL.Vertex3(Vertices[(int)v3indices[0]]);
 
-						n3 = Normals[(int)n3indices[0]];
-						v3 = Vertices[(int)v3indices[0]];
+						GL.Normal3(Normals[(int)n3indices[1]]);
+						GL.Vertex3(Vertices[(int)v3indices[1]]);
 
-						GL.Normal3(n3);
-						GL.Vertex3(v3);
+						GL.Normal3(Normals[(int)n3indices[2]]);
+						GL.Vertex3(Vertices[(int)v3indices[2]]);
 
-						n3 = Normals[(int)n3indices[1]];
-						v3 = Vertices[(int)v3indices[1]];
-
-						GL.Normal3(n3);
-						GL.Vertex3(v3);
-
-						n3 = Normals[(int)n3indices[2]];
-						v3 = Vertices[(int)v3indices[2]];
-
-						GL.Normal3(n3);
-						GL.Vertex3(v3);
-
-						if (lf[i].isQuad)
+						if (face.isQuad)
 						{
-							n3 = Normals[(int)n3indices[3]];
-							v3 = Vertices[(int)v3indices[3]];
-
-							GL.Normal3(n3);
-							GL.Vertex3(v3);
+							GL.Normal3(Normals[(int)n3indices[3]]);
+							GL.Vertex3(Vertices[(int)v3indices[3]]);
 						}
 					}
 				}
 				else if (HasTexCoords && !HasNormals)
 				{
-					for (int i = 0; i < iNumFaces; i++)
+					foreach (Face face in listFace)
 					{
-						f = lf[i];
+						tc2indices = face.TexCoordIdx;
+						v3indices = face.VertIdx;
 
-						tc2indices = f.TexCoordIdx;
-						v3indices = f.VertIdx;
+						GL.TexCoord2(TexCoords[(int)tc2indices[0]]);
+						GL.Vertex3(Vertices[(int)v3indices[0]]);
 
-						tc2 = TexCoords[(int)tc2indices[0]];
-						v3 = Vertices[(int)v3indices[0]];
+						GL.TexCoord2(TexCoords[(int)tc2indices[1]]);
+						GL.Vertex3(Vertices[(int)v3indices[1]]);
 
-						GL.TexCoord2(tc2);
-						GL.Vertex3(v3);
+						GL.TexCoord2(TexCoords[(int)tc2indices[2]]);
+						GL.Vertex3(Vertices[(int)v3indices[2]]);
 
-						tc2 = TexCoords[(int)tc2indices[1]];
-						v3 = Vertices[(int)v3indices[1]];
-
-						GL.TexCoord2(tc2);
-						GL.Vertex3(v3);
-
-						tc2 = TexCoords[(int)tc2indices[2]];
-						v3 = Vertices[(int)v3indices[2]];
-
-						GL.TexCoord2(tc2);
-						GL.Vertex3(v3);
-
-						if (lf[i].isQuad)
+						if (face.isQuad)
 						{
-							tc2 = TexCoords[(int)tc2indices[3]];
-							v3 = Vertices[(int)v3indices[3]];
-
-							GL.TexCoord2(tc2);
-							GL.Vertex3(v3);
+							GL.TexCoord2(TexCoords[(int)tc2indices[3]]);
+							GL.Vertex3(Vertices[(int)v3indices[3]]);
 						}
 					}
 				}
 				else
 				{
-					for (int i = 0; i < iNumFaces; i++)
+					foreach (Face face in listFace)
 					{
-						f = lf[i];
+						v3indices = face.VertIdx;
 
-						v3indices = f.VertIdx;
+						GL.Vertex3(Vertices[(int)v3indices[0]]);
+						GL.Vertex3(Vertices[(int)v3indices[1]]);
+						GL.Vertex3(Vertices[(int)v3indices[2]]);
 
-						v3 = Vertices[(int)v3indices[0]];
-
-						GL.Vertex3(v3);
-
-						v3 = Vertices[(int)v3indices[1]];
-
-						GL.Vertex3(v3);
-
-						v3 = Vertices[(int)v3indices[2]];
-
-						GL.Vertex3(v3);
-
-						if (lf[i].isQuad)
-						{
-							v3 = Vertices[(int)v3indices[3]];
-							GL.Vertex3(v3);
-						}
+						if (face.isQuad)
+							GL.Vertex3(Vertices[(int)v3indices[3]]);
 					}
 				}
 
