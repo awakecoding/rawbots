@@ -243,21 +243,18 @@ namespace Rawbots
 
 			Boundary boundary = new Boundary();
 
-			for (int i = 1; i < 48; i++)
+			for (int i = 1; i < mapHeight - 1; i++)
 			{
 				map.SetTile(boundary, x, y + i);
-				map.SetTile(boundary, x + i, y + 49);
-				map.SetTile(boundary, x + 49, y + i);
+				map.SetTile(boundary, x + i, y + mapHeight - 1);
+				map.SetTile(boundary, x + mapHeight - 1, y + i);
 			}
-
-			//map.SetTile(boundary, x + 45, y + 1);
 			
             robot = new Robot(x + 10, y + 10);
             robot.AddChassis(new TrackedChassis());
             robot.AddWeapon(new MissilesWeapon());
             robot.AddElectronics(new Electronics());
 
-            
             map.AddRobot(robot);
 			
 			LightPost lightpost = new LightPost(4);
@@ -322,7 +319,6 @@ namespace Rawbots
 			PrintHelp();
 
 			GL.Enable(EnableCap.Lighting);
-			//GL.Enable(EnableCap.Light1);
             GL.Enable(EnableCap.ColorMaterial);
             GL.Enable(EnableCap.Texture2D);
 
@@ -683,7 +679,6 @@ namespace Rawbots
 			}	
 		}
 
-        //float[] globLight = { 0.2f, 0.2f, 0.2f, 1.0f };
 		float[] globLight = { 1.0f, 1.0f, 1.0f, 1.0f };
 
         public void setGlobalAmbientLight(float r, float g, float b, float a)
@@ -706,12 +701,6 @@ namespace Rawbots
 			camera.SetView();
 		
 			SkyBoxSphere.Render(camera);
-
-			//GL.Enable(EnableCap.Texture2D);
-			//tex.apply();
-
-			//Glu.gluSphere(quadric, 1.3f, 32, 32);
-			//GL.Disable(EnableCap.Texture2D);
             
 			ReferencePlane.setDimensions(50, 50);
             ReferencePlane.render();

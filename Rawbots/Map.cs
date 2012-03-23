@@ -150,9 +150,12 @@ namespace Rawbots
         {
 			GL.PushMatrix();
 
+			foreach (Light light in lights)
+			{
+				light.apply();
+			}
+
             /* Render terrain */
-            for (int i = 0; i < lights.Count; i++)
-                lights[i].apply();
 
             GL.PushMatrix();
 
@@ -192,17 +195,16 @@ namespace Rawbots
 
             GL.PopMatrix();
 
-            /* Render buildings (or blocks)*/
+            /* Render buildings (or blocks) */
 
             GL.PushMatrix();
 
-            for (int i = 0; i < blocks.Count; i++)
-            {
-                Block b = blocks[i];
-                GL.Translate(b.PosX * 1.0f, 0.0f, b.PosY * -1.0f);
-                b.Render();
-                GL.Translate(-b.PosX * 1.0f, 0.0f, b.PosY * 1.0f);
-            }
+			foreach (Block block in blocks)
+			{
+				GL.Translate(block.PosX * 1.0f, 0.0f, block.PosY * -1.0f);
+				block.Render();
+				GL.Translate(-block.PosX * 1.0f, 0.0f, block.PosY * 1.0f);
+			}
 
             GL.PopMatrix();
 
@@ -210,11 +212,10 @@ namespace Rawbots
 
             GL.PushMatrix();
             
-            for(int i = 0; i < bases.Count; i++)
-            {
-                Base b = bases[i];
-                b.Render();
-            }
+			foreach (Base cBase in bases)
+			{
+				cBase.Render();
+			}
 
             GL.PopMatrix();
 
@@ -228,8 +229,8 @@ namespace Rawbots
 
 			GL.PopMatrix();
 
-            for (int i = 0; i < lights.Count; i++)
-                lights[i].unapply();
+			foreach (Light light in lights)
+				light.unapply();
 
 			GL.PopMatrix();
         }

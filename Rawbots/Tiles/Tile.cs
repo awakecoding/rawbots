@@ -16,11 +16,8 @@ namespace Rawbots
 	public class Tile : Drawable
 	{
         public Plane plane;
+		private Light light;
         private bool teamNumber = false;
-
-        private Light light;
-
-		//protected OBJModel model;
 
 		public Tile()
 		{
@@ -36,7 +33,6 @@ namespace Rawbots
         public override void SetRenderMode(RenderMode renderMode)
         {
             base.SetRenderMode(renderMode);
-
             plane.SetRenderMode(renderMode);
         }
 
@@ -50,9 +46,9 @@ namespace Rawbots
             teamNumber = false;
         }
 
-        public void AddLight(Light l)
+        public void AddLight(Light light)
         { 
-            light = l;
+            this.light = light;
         }
 
         public Light GetLight()
@@ -62,20 +58,8 @@ namespace Rawbots
 
         public override void Render()
         {
-            GL.PushMatrix();
-
 			GL.Color3(0.3f, 0.3f, 0.3f);
 			model.Render();
-			//plane.render(1.0f);
-
-			//if (teamNumber)
-			//{
-			//    GL.Scale(0.5f, 0.5f, 0.5f);
-			//    GL.Rotate(90.0f, 1.0f, 0.0f, 0.0f);
-			//    TeamNumber.Render();
-			//}
-
-            GL.PopMatrix();
         }
 	}
 }

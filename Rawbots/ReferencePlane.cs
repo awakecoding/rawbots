@@ -41,6 +41,9 @@ namespace Rawbots
 
         public static void render()
         {
+			int i, j;
+			float di, dj;
+
             if (axis == XYZ || axis == XZ)
             {
                 GL.PushMatrix();
@@ -49,14 +52,16 @@ namespace Rawbots
 
                 GL.Translate(-width / 2 * 1.0f, 0.0f, height / 2 * 1.0f);
 
-                //Still Innefficient!
+                /* Still Innefficient! */
+
                 GL.Begin(BeginMode.LineLoop);
-                for (int i = 0; i < width; i++)
+
+                for (i = 0; i < width; i++)
                 {
-                    for (int j = 0; j < height; j++)
+                    for (j = 0; j < height; j++)
                     {
-                        float di = i * 1.0f;
-                        float dj = j * -1.0f;
+                        di = i * 1.0f;
+                        dj = j * -1.0f;
 
                         GL.Vertex3(0.0f + di, 0.0f, 0.0f + dj);
                         GL.Vertex3(1.0f + di, 0.0f, 0.0f + dj);
@@ -64,6 +69,7 @@ namespace Rawbots
                         GL.Vertex3(1.0f + di, 0.0f, -1.0f + dj);
                     }
                 }
+
                 GL.End();
 
                 GL.PopMatrix();
@@ -77,12 +83,13 @@ namespace Rawbots
                 GL.Rotate(90.0f, 0.0f, 0.0f, 1.0f);
 
                 GL.Begin(BeginMode.LineLoop);
-                for (int i = 0; i < width; i++)
+
+                for (i = 0; i < width; i++)
                 {
-                    for (int j = 0; j < height; j++)
+                    for (j = 0; j < height; j++)
                     {
-                        float di = i * 1.0f;
-                        float dj = j * -1.0f;
+                        di = i * 1.0f;
+                        dj = j * -1.0f;
 
                         GL.Vertex3(0.0f + di, 0.0f, 0.0f + dj);
                         GL.Vertex3(1.0f + di, 0.0f, 0.0f + dj);
@@ -99,9 +106,7 @@ namespace Rawbots
 
         ~ReferencePlane()
         {
- //           GL.DeleteBuffers(1, varr);
-        }
 
+        }
     }
-    
 }

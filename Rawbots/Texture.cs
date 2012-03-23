@@ -15,28 +15,25 @@ namespace Rawbots
 		string szFilename;
 
 		private static uint lastTexID = 0;
-		private static List<Texture> textureList = new List<Texture>();
+		private static Dictionary<string, Texture> textures = new Dictionary<string,Texture>();
 
 		public static Texture AcquireTexture(string filename)
 		{
-			for (int i = 0; i < textureList.Count; i++)
-			{
-				if (textureList[i].szFilename.CompareTo(filename) == 0) //if it already exists.
-					return textureList[i]; //then send it back the way
-			}
+			if (textures.ContainsKey(filename))
+				return textures[filename];
 
-			Texture texture = new Texture(filename); //otherwise, we have to create it
+			Texture texture = new Texture(filename);
+			textures.Add(filename, texture);
 
-			textureList.Add(texture);
 			return texture;
 		}
 
 		private Texture(string filename)
 		{
-			addTexture(filename);
+			LoadTexture(filename);
         }
 
-		private void addTexture(string filename)
+		private void LoadTexture(string filename)
 		{
 			szFilename = filename;
 			bmp = new Bitmap(filename);
@@ -60,7 +57,7 @@ namespace Rawbots
 
 		public void apply()
 		{
-			if (lastTexID == texId) //if the id is the same, save the trouble of rebinding.
+			if (lastTexID == texId) /* if the id is the same, save the trouble of rebinding. */
 				return;
 			
 			GL.BindTexture(TextureTarget.Texture2D, texId);
@@ -90,6 +87,5 @@ namespace Rawbots
 
 			return TextureUnit.Texture0;
 		}
-
 	}
 }

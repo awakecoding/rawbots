@@ -68,23 +68,29 @@ namespace Rawbots
 
         public void SetRenderMode(RenderMode renderMode)
         {
-            for (int i = 0; i < tiles.GetLength(0); i++)
-                for (int j = 0; j < tiles.GetLength(1); j++)
-                    tiles[i, j].SetRenderMode(renderMode);
+			for (int i = 0; i < tiles.GetLength(0); i++)
+			{
+				for (int j = 0; j < tiles.GetLength(1); j++)
+					tiles[i, j].SetRenderMode(renderMode);
+			}
         }
 
 		public void ShowTextures()
 		{
 			for (int i = 0; i < tiles.GetLength(0); i++)
+			{
 				for (int j = 0; j < tiles.GetLength(1); j++)
 					tiles[i, j].ShowTextures();
+			}
 		}
 
 		public void HideTextures()
 		{
 			for (int i = 0; i < tiles.GetLength(0); i++)
+			{
 				for (int j = 0; j < tiles.GetLength(1); j++)
 					tiles[i, j].HideTextures();
+			}
 		}
 
         public void setTile(Tile tile, int x, int y)
@@ -111,6 +117,8 @@ namespace Rawbots
 
 			width = getWidth();
 			height = getHeight();
+
+			GL.Color3(0.3f, 0.3f, 0.3f);
 
 			for (int i = 0; i < width; i++)
 			{
