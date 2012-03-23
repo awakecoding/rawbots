@@ -68,13 +68,13 @@
     <Compile Include="Base.cs" />
     <Compile Include="BlockSquareHole.cs" />
     <Compile Include="Config.cs" />
-    <Compile Include="FirstPersonCamera.cs" />
+    <Compile Include="Camera\FirstPersonCamera.cs" />
     <Compile Include="Light.cs" />
     <Compile Include="Material.cs" />
     <Compile Include="Model\ConeModel.cs" />
     <Compile Include="OBJModel.cs" />
     <Compile Include="RemoteControlUnit.cs" />
-    <Compile Include="RobotCamera.cs" />
+    <Compile Include="Camera\RobotCamera.cs" />
     <Compile Include="SkyBoxSphere.cs" />
     <Compile Include="Texture.cs" />
     <Compile Include="Tiles\Boundary.cs" />
@@ -91,7 +91,7 @@
     <Compile Include="Tiles\Pit.cs" />
     <Compile Include="Tiles\Tile.cs" />
     <Compile Include="Terrain.cs" />
-    <Compile Include="Camera.cs" />
+    <Compile Include="Camera\Camera.cs" />
     <Compile Include="Model\CylinderModel.cs" />
     <Compile Include="Model\CubeModel.cs" />
     <Compile Include="Model\Model.cs" />
