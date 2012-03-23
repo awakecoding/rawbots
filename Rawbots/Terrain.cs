@@ -102,21 +102,31 @@ namespace Rawbots
             return tiles.GetLength(1);
         }
 
-		public void BeginRender()
+		public void Render()
 		{
-            GL.PushMatrix();
-            GL.LineWidth(2.5f);
-		}
-		
-		public void EndRender()
-		{
+			int width, height;
+
+			GL.PushMatrix();
+			GL.LineWidth(2.5f);
+
+			width = getWidth();
+			height = getHeight();
+
+			for (int i = 0; i < width; i++)
+			{
+				for (int j = 0; j < height; j++)
+				{
+					tiles[i, j].Render();
+					GL.Translate(0.0f, 0.0f, -1.0f);
+				}
+
+				GL.Translate(1.0f, 0.0f, height * 1.0f);
+			}
+
+			GL.Translate(width * -1.0f, 0.0f, 0.0f);
+
 			GL.LineWidth(1.0f);
-            GL.PopMatrix();
-		}
-		
-		public void RenderTile(int x, int y)
-		{
-			tiles[x, y].RenderAll();
+			GL.PopMatrix();
 		}
 	}
 }

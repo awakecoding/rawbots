@@ -158,21 +158,11 @@ namespace Rawbots
 
 			GL.Translate(0.0f, 0.0f, 0.0f);
 
+			/* Render terrain */
+
             GL.PushMatrix();
 
-            terrain.BeginRender();
-
-            for (int i = 0; i < terrain.getWidth(); i++)
-            {
-                for (int j = 0; j < terrain.getHeight(); j++)
-                {
-                    GL.Translate(i * 1.0f, 0.0f, j * -1.0f);
-                    terrain.RenderTile(i, j);
-                    GL.Translate(-i * 1.0f, 0.0f, j * 1.0f);
-                }
-            }
-
-            terrain.EndRender();
+			terrain.Render();
 
             GL.PopMatrix();
 
