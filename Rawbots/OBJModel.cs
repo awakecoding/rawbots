@@ -47,6 +47,7 @@ namespace Rawbots
 			VertIdx[0] = Data[0][0] - 1;
 			VertIdx[1] = Data[0][1] - 1;
 			VertIdx[2] = Data[0][2] - 1;
+
             if (isQuad) //if we have a quad
                 VertIdx[3] = Data[0][3] - 1;
 
@@ -56,6 +57,7 @@ namespace Rawbots
 				TexCoordIdx[0] = Data[1][0] - 1;
 				TexCoordIdx[1] = Data[1][1] - 1;
 				TexCoordIdx[2] = Data[1][2] - 1;
+
                 if (isQuad)
                     TexCoordIdx[3] = Data[1][3] - 1;
 			}
@@ -66,6 +68,7 @@ namespace Rawbots
 				NormalIdx[0] = Data[2][0] - 1;
 				NormalIdx[1] = Data[2][1] - 1;
 				NormalIdx[2] = Data[2][2] - 1;
+
                 if (isQuad)
                     NormalIdx[3] = Data[2][3] - 1;
 			}
@@ -82,9 +85,6 @@ namespace Rawbots
 		private List<FaceGroup> FaceGroups = new List<FaceGroup>();
 		private FaceGroup currFaceGroup;
 
-		private Material material;
-		private Bitmap imgImage;
-
 		private bool HasTexCoords;
 		private bool HasNormals;
 
@@ -93,18 +93,42 @@ namespace Rawbots
 
 		private bool TexEnabled = true;
 
+		private static Dictionary<string, OBJModel> models = new Dictionary<string,OBJModel>();
+
 		public OBJModel(string filename)
 		{
 			pathFileName = filename;
 			Load(filename);
 		}
 
+		private void LoadFromExistingModel(OBJModel model)
+		{
+			Vertices = model.Vertices;
+			Normals = model.Normals;
+			TexCoords = model.TexCoords;
+			Faces = model.Faces;
+			FaceGroups = model.FaceGroups;
+			currFaceGroup = model.currFaceGroup;
+			HasTexCoords = model.HasTexCoords;
+			HasNormals = model.HasNormals;
+			pathFileName = model.pathFileName;
+			relativePath = model.relativePath;
+			TexEnabled = model.TexEnabled;
+		}
+
 		public bool Load(string filename)
 		{
-			char[] cLine = new char[256];
-			char[] seperators = new char[] { ' ', '/' };
-			string sLine;
+			if (models.ContainsKey(filename))
+			{
+				OBJModel model = models[filename];
+				LoadFromExistingModel(model);
+				return true;
+			}
+
 			string[] s;
+			string sLine;
+			char[] cLine = new char[256];
+			char[] separators = new char[] { ' ', '/' };
 			FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
 			StreamReader sr = new StreamReader(fs);
 
@@ -148,7 +172,7 @@ namespace Rawbots
 					{
 						fTemp = new float[3];
 						sLine = sr.ReadLine();
-						s = sLine.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
+						s = sLine.Split(separators, StringSplitOptions.RemoveEmptyEntries);
 
 						float.TryParse(s[0], out fTemp[0]);
 						float.TryParse(s[1], out fTemp[1]);
@@ -160,7 +184,7 @@ namespace Rawbots
 					{
 						fTemp = new float[2];
 						sLine = sr.ReadLine();
-						s = sLine.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
+						s = sLine.Split(separators, StringSplitOptions.RemoveEmptyEntries);
 
 						float.TryParse(s[0], out fTemp[0]);
 						float.TryParse(s[1], out fTemp[1]);
@@ -173,7 +197,7 @@ namespace Rawbots
 					{
 						fTemp = new float[3];
 						sLine = sr.ReadLine();
-						s = sLine.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
+						s = sLine.Split(separators, StringSplitOptions.RemoveEmptyEntries);
 
 						float.TryParse(s[0], out fTemp[0]);
 						float.TryParse(s[1], out fTemp[1]);
@@ -199,7 +223,7 @@ namespace Rawbots
 					if (HasTexCoords && HasNormals)
 					{
 						//f v/t/n v/t/n v/t/n (v/t/n)
-						s = sLine.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
+						s = sLine.Split(separators, StringSplitOptions.RemoveEmptyEntries);
 
 						faceSize = s.Length / 3;
 						isQuad = (faceSize == 4);
@@ -208,6 +232,7 @@ namespace Rawbots
 						uint.TryParse(s[0], out iTemp[0][0]);
 						uint.TryParse(s[3], out iTemp[0][1]);
 						uint.TryParse(s[6], out iTemp[0][2]);
+
 						if (isQuad)
 							uint.TryParse(s[9], out iTemp[0][3]);
 
@@ -215,6 +240,7 @@ namespace Rawbots
 						uint.TryParse(s[1], out iTemp[1][0]);
 						uint.TryParse(s[4], out iTemp[1][1]);
 						uint.TryParse(s[7], out iTemp[1][2]);
+
 						if (isQuad)
 							uint.TryParse(s[10], out iTemp[1][3]);
 
@@ -222,24 +248,28 @@ namespace Rawbots
 						uint.TryParse(s[2], out iTemp[2][0]);
 						uint.TryParse(s[5], out iTemp[2][1]);
 						uint.TryParse(s[8], out iTemp[2][2]);
+
 						if (isQuad)
 							uint.TryParse(s[11], out iTemp[2][3]);
 
 						Assertion(iTemp[0][0] - 1, (uint)Vertices.Count, lineNumber);
 						Assertion(iTemp[0][1] - 1, (uint)Vertices.Count, lineNumber);
 						Assertion(iTemp[0][2] - 1, (uint)Vertices.Count, lineNumber);
+
 						if (isQuad)
 							Assertion(iTemp[0][3] - 1, (uint)Vertices.Count, lineNumber);
 
 						Assertion(iTemp[1][0] - 1, (uint)TexCoords.Count, lineNumber);
 						Assertion(iTemp[1][1] - 1, (uint)TexCoords.Count, lineNumber);
 						Assertion(iTemp[1][2] - 1, (uint)TexCoords.Count, lineNumber);
+
 						if (isQuad)
 							Assertion(iTemp[1][3] - 1, (uint)TexCoords.Count, lineNumber);
 
 						Assertion(iTemp[2][0] - 1, (uint)Normals.Count, lineNumber);
 						Assertion(iTemp[2][1] - 1, (uint)Normals.Count, lineNumber);
 						Assertion(iTemp[2][2] - 1, (uint)Normals.Count, lineNumber);
+
 						if (isQuad)
 							Assertion(iTemp[2][3] - 1, (uint)Normals.Count, lineNumber);
 
@@ -249,7 +279,7 @@ namespace Rawbots
 					else if (HasTexCoords && !HasNormals)
 					{
 						//f v/t v/t v/t (v/t)
-						s = sLine.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
+						s = sLine.Split(separators, StringSplitOptions.RemoveEmptyEntries);
 
 						faceSize = s.Length / 3;
 						isQuad = (faceSize == 4);
@@ -258,6 +288,7 @@ namespace Rawbots
 						uint.TryParse(s[0], out iTemp[0][0]);
 						uint.TryParse(s[2], out iTemp[0][1]);
 						uint.TryParse(s[4], out iTemp[0][2]);
+
 						if (isQuad)
 							uint.TryParse(s[6], out iTemp[0][3]);
 
@@ -265,18 +296,21 @@ namespace Rawbots
 						uint.TryParse(s[1], out iTemp[1][0]);
 						uint.TryParse(s[3], out iTemp[1][1]);
 						uint.TryParse(s[5], out iTemp[1][2]);
+
 						if (isQuad)
 							uint.TryParse(s[7], out iTemp[1][3]);
 
 						Assertion(iTemp[0][0] - 1, (uint)Vertices.Count, lineNumber);
 						Assertion(iTemp[0][1] - 1, (uint)Vertices.Count, lineNumber);
 						Assertion(iTemp[0][2] - 1, (uint)Vertices.Count, lineNumber);
+
 						if (isQuad)
 							Assertion(iTemp[0][3] - 1, (uint)Vertices.Count, lineNumber);
 
 						Assertion(iTemp[1][0] - 1, (uint)TexCoords.Count, lineNumber);
 						Assertion(iTemp[1][1] - 1, (uint)TexCoords.Count, lineNumber);
 						Assertion(iTemp[1][2] - 1, (uint)TexCoords.Count, lineNumber);
+
 						if (isQuad)
 							Assertion(iTemp[1][3] - 1, (uint)Vertices.Count, lineNumber);
 
@@ -286,34 +320,40 @@ namespace Rawbots
 					else if (!HasTexCoords && HasNormals)
 					{
 						//f v//n v//n v//n (v//n)
-						s = sLine.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
+						s = sLine.Split(separators, StringSplitOptions.RemoveEmptyEntries);
 
 						faceSize = s.Length / 3;
 						isQuad = (faceSize == 4);
 
 						iTemp[0] = isQuad ? new uint[4] : new uint[3];
+
 						uint.TryParse(s[0], out iTemp[0][0]);
 						uint.TryParse(s[2], out iTemp[0][1]);
 						uint.TryParse(s[4], out iTemp[0][2]);
+						
 						if (isQuad)
 							uint.TryParse(s[6], out iTemp[0][3]);
 
 						iTemp[2] = isQuad ? new uint[4] : new uint[3];
+						
 						uint.TryParse(s[1], out iTemp[2][0]);
 						uint.TryParse(s[3], out iTemp[2][1]);
 						uint.TryParse(s[5], out iTemp[2][2]);
+						
 						if (isQuad)
 							uint.TryParse(s[7], out iTemp[2][3]);
 
 						Assertion(iTemp[0][0] - 1, (uint)Vertices.Count, lineNumber);
 						Assertion(iTemp[0][1] - 1, (uint)Vertices.Count, lineNumber);
 						Assertion(iTemp[0][2] - 1, (uint)Vertices.Count, lineNumber);
+
 						if (isQuad)
 							Assertion(iTemp[0][3] - 1, (uint)Vertices.Count, lineNumber);
 
 						Assertion(iTemp[2][0] - 1, (uint)Normals.Count, lineNumber);
 						Assertion(iTemp[2][1] - 1, (uint)Normals.Count, lineNumber);
 						Assertion(iTemp[2][2] - 1, (uint)Normals.Count, lineNumber);
+
 						if (isQuad)
 							Assertion(iTemp[2][3] - 1, (uint)Vertices.Count, lineNumber);
 
@@ -322,7 +362,7 @@ namespace Rawbots
 					}
 					else
 					{
-						s = sLine.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
+						s = sLine.Split(separators, StringSplitOptions.RemoveEmptyEntries);
 
 						faceSize = s.Length / 3;
 						isQuad = (faceSize == 4);
@@ -331,12 +371,14 @@ namespace Rawbots
 						uint.TryParse(s[0], out iTemp[0][0]);
 						uint.TryParse(s[1], out iTemp[0][1]);
 						uint.TryParse(s[2], out iTemp[0][2]);
+
 						if (isQuad)
 							uint.TryParse(s[3], out iTemp[0][3]);
 
 						Assertion(iTemp[0][0] - 1, (uint)Vertices.Count, lineNumber);
 						Assertion(iTemp[0][1] - 1, (uint)Vertices.Count, lineNumber);
 						Assertion(iTemp[0][2] - 1, (uint)Vertices.Count, lineNumber);
+
 						if (isQuad)
 							Assertion(iTemp[0][3] - 1, (uint)Vertices.Count, lineNumber);
 
@@ -348,7 +390,7 @@ namespace Rawbots
 				{
 					sLine = sr.ReadLine();
 
-					s = sLine.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
+					s = sLine.Split(separators, StringSplitOptions.RemoveEmptyEntries);
 
 					//material = new Material(relativePath + s[1]);
 					MaterialList = Material.ParseMaterials(relativePath + s[1]);
@@ -364,9 +406,10 @@ namespace Rawbots
 
 					sLine = sr.ReadLine();
 
-					s = sLine.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
+					s = sLine.Split(separators, StringSplitOptions.RemoveEmptyEntries);
 
-					if(MaterialList != null)
+					if (MaterialList != null)
+					{
 						for (int i = 0; i < MaterialList.Count; i++)
 						{
 							if (MaterialList[i].matName.CompareTo(s[0]) == 0)
@@ -374,6 +417,7 @@ namespace Rawbots
 								currFaceGroup.SetMaterial(MaterialList[i]);
 							}
 						}
+					}
 				}
 				else if (c != '\n')
 				{
@@ -387,6 +431,8 @@ namespace Rawbots
 			sr.Close();
 			fs.Close();
 
+			models.Add(filename, this);
+
 			return true;
 		}
 
@@ -394,7 +440,6 @@ namespace Rawbots
 		{
 			if (i > j)
 				throw new Exception("OBJ File ERROR: " + pathFileName + " IndexOutOfBounds " + i + " > " + j + " @ line " + lineNo);
-				
 		}
 
 		public void ShowTextures()
@@ -419,17 +464,18 @@ namespace Rawbots
 				uint[] tc2indices, n3indices, v3indices;
 				float[] tc2, n3, v3;
 
-				int iNumFaces = /*Faces.Count*/lf.Count;
+				int iNumFaces = lf.Count; /* Faces.Count */
 
 				if (HasTexCoords && TexEnabled)
 				{
 					GL.Enable(EnableCap.Texture2D);
-					
-					if (/*material*/fg.mat != null)
-						/*material*/fg.mat.apply();
+
+					if (fg.mat != null)
+						fg.mat.apply(); /*material*/
 				}
 
-				GL.Begin(/*Faces[0]*/lf[0].isQuad ? BeginMode.Quads : BeginMode.Triangles);
+				/* Faces[0] */
+				GL.Begin(lf[0].isQuad ? BeginMode.Quads : BeginMode.Triangles);
 
 				if (HasTexCoords && HasNormals)
 				{
