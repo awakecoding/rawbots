@@ -328,7 +328,7 @@ namespace Rawbots
 			tex = Texture.AcquireTexture(Game.resourcePath + "/space3.jpg");
 		}
 
-		public bool IsWindows()
+		public static bool IsWindows()
 		{
 			int platform = (int) Environment.OSVersion.Platform;
 
@@ -338,7 +338,7 @@ namespace Rawbots
 			return true;
 		}
 
-		public string GetPathSeparator()
+		public static string GetPathSeparator()
 		{
 			if (IsWindows())
 				return "\\";

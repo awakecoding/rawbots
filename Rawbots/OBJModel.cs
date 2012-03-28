@@ -129,17 +129,19 @@ namespace Rawbots
 
 			string[] s;
 			string sLine;
-			char[] cLine = new char[256];
+//			char[] cLine = new char[256];
 			char[] separators = new char[] { ' ', '/' };
 			FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
 			StreamReader sr = new StreamReader(fs);
 
 			string absolutePath = fs.Name;
-			char[] sep = new char[] { '\\' };
+			//char[] sep = new char[] { '\\', '/' };
+			char[] sep = new char[1];
+			sep[0] = Game.GetPathSeparator()[0];
 			string[] splitAbsolutePath = absolutePath.Split(sep);
 
-			for (i = 0; i < splitAbsolutePath.Length - 1; i++)
-				relativePath += splitAbsolutePath[i] + "\\";
+			for (int i = 0; i < splitAbsolutePath.Length - 1; i++)
+				relativePath += splitAbsolutePath[i] + sep[0];
 
 			int ic = sr.Read();
 			uint lineNumber = 1;
