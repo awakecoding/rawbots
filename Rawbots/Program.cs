@@ -76,7 +76,7 @@ namespace Rawbots
 			"Tab: Change Camera\r\n" +
 			"Escape: Exit Game\r\n";
 
-		Glu.GLUquadric quadric;
+//		Glu.GLUquadric quadric;
 		Texture tex;
 
 		public Game() : base(800, 600, GraphicsMode.Default, "Rawbots")
@@ -322,10 +322,10 @@ namespace Rawbots
             GL.Enable(EnableCap.ColorMaterial);
             GL.Enable(EnableCap.Texture2D);
 
-			quadric = Glu.gluNewQuadric();
-			Glu.gluQuadricNormals(quadric, Glu.GLU_SMOOTH);  
-			Glu.gluQuadricTexture(quadric, Gl.GL_TRUE);
-			tex = Texture.AcquireTexture(Game.resourcePath + "/space3.jpg");
+//			quadric = Glu.gluNewQuadric();
+//			Glu.gluQuadricNormals(quadric, Glu.GLU_SMOOTH);  
+//			Glu.gluQuadricTexture(quadric, Gl.GL_TRUE);
+//			tex = Texture.AcquireTexture(Game.resourcePath + "/space3.jpg");
 		}
 
 		public static bool IsWindows()

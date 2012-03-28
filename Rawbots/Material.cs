@@ -98,13 +98,14 @@ namespace Rawbots
 			float[] fTemp;
 
 			string absolutePath = fs.Name;
-			char[] sep = new char[] { '\\' };
+			char[] sep = new char[1];
+			sep[0] = Game.GetPathSeparator()[0];
 			string[] splitAbsolutePath = absolutePath.Split(sep);
 
 			string relativepath = "";
 
 			for (int i = 0; i < splitAbsolutePath.Length - 1; i++)
-				relativepath += splitAbsolutePath[i] + "\\";
+				relativepath += splitAbsolutePath[i] + sep[0];
 
 			int ic = sr.Read();
 			uint lineNumber = 1;
