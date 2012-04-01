@@ -11,6 +11,7 @@
 
 using System;
 using System.IO;
+using System.Drawing;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -42,9 +43,17 @@ namespace Rawbots
 
 		Robot activeRobot;
 
+		Point nullDelta;
+		Point mouseDelta;
+		Point prevMouseDelta;
+
+		Point mousePosition;
+		Point prevMousePosition;
+
 		Camera camera;
-		Camera globalCamera = new Camera(0.0f, 10.0f, 25.0f);
 		Camera rmcUnitCamera = new Camera(43.0f, 10.0f, 25.0f);
+		GlobalCamera globalCamera = new GlobalCamera(0.0f, 10.0f, 25.0f);
+
 		RobotCamera robotCamera = new RobotCamera(0.0f, 1.0f, 0.0f);
 
         Camera lightCamera1, lightCamera2, lightCamera3, lightCamera4;
@@ -315,17 +324,21 @@ namespace Rawbots
             light = new Light(LightName.Light3);
             light.setCutOff(45.0f);
             light.lookAt(0.0f, 6.0f, 0.0f,
-                         2.0f * (float)Math.Sqrt(2.0f), 0.0f, 2.0f * (float)Math.Sqrt(2.0f),
+                         2.0f * (float) Math.Sqrt(2.0f), 0.0f, 2.0f * (float)Math.Sqrt(2.0f),
                          1.0f, 1.0f, 1.0f);
             lightpost.AddLight(light);
 
             lightCamera4 = new Camera(0.0f, 6.0f, -49.0f,
-                         2.0f * (float)Math.Sqrt(2.0f), 0.0f, -49.0f + 2.0f * (float)Math.Sqrt(2.0f),
+                         2.0f * (float) Math.Sqrt(2.0f), 0.0f, -49.0f + 2.0f * (float)Math.Sqrt(2.0f),
                          0.0f, 1.0f, 0.0f);
 
             this.Title = this.baseTitle;
 
 			PrintHelp();
+
+			prevMousePosition = this.WindowCenter;
+			prevMouseDelta = new Point(0, 0);
+			nullDelta = new Point(0, 0);
 
 			GL.Enable(EnableCap.Lighting);
             GL.Enable(EnableCap.ColorMaterial);
@@ -380,6 +393,11 @@ namespace Rawbots
 			return cwd;
 		}
 
+		Point WindowCenter
+		{
+			get { return new Point((Bounds.Left + Bounds.Right) / 2, (Bounds.Top + Bounds.Bottom) / 2); }
+		}
+
 		public void PrintHelp()
 		{
             Console.WriteLine("Press ESC to Quit Program.");
@@ -404,8 +422,6 @@ namespace Rawbots
 			
 			GL.ClearColor(0.1f, 0.2f, 0.5f, 0.0f);
 			GL.Enable(EnableCap.DepthTest);
-			
-			
 		}
 
 		protected override void OnResize(EventArgs e)
@@ -421,7 +437,7 @@ namespace Rawbots
 
 		public void OnMouseMove(object sender, MouseMoveEventArgs args)
 		{
-			camera.MouseDeltaMotion(args.XDelta, args.YDelta);
+
 		}
 
 		public void OnKeyDown(object sender, KeyboardKeyEventArgs args)
@@ -626,9 +642,14 @@ namespace Rawbots
 						camera.PerformActions(Camera.Action.TILT_DOWN);
 						break;
 
+					case Key.M:
+						camera.PerformActions(Camera.Action.TOGGLE_MOUSE);
+						break;
+
 					case Key.Z:
 						map.HideTextures();
 						break;
+
 					case Key.X:
 						map.ShowTextures();
 						break;
@@ -663,6 +684,39 @@ namespace Rawbots
 			//{
 			//    l.setPosition(lightPos[0], lightPos[1] - 0.1f, lightPos[2], lightPos[3]);
 			//}
+
+            if (Keyboard[Key.Escape])
+                Exit();
+            else if (Keyboard[Key.F4])
+                ReferencePlane.setVisibleAxis(ReferencePlane.XYZ);
+            else if (Keyboard[Key.F5])
+                ReferencePlane.setVisibleAxis(ReferencePlane.XZ);
+            else if (Keyboard[Key.F6])
+                ReferencePlane.setVisibleAxis(ReferencePlane.XY);
+            else if (Keyboard[Key.F7])
+                ReferencePlane.setVisibleAxis(ReferencePlane.NONE);
+            else if (Keyboard[Key.F11])
+                cameraEnabled = false;
+            else if (Keyboard[Key.F12])
+                cameraEnabled = true;
+
+			mousePosition = new Point(Mouse.X, Mouse.Y);
+
+			mouseDelta = new Point(mousePosition.X - prevMousePosition.X,
+				mousePosition.Y - prevMousePosition.Y);
+
+			if (!mousePosition.Equals(WindowCenter) && !mouseDelta.Equals(nullDelta))
+			{
+				//Console.WriteLine("Deltas: (" + prevMouseDelta.X + ", " + prevMouseDelta.Y + ")  (" + mouseDelta.X + ", " + mouseDelta.Y + ")");
+
+				prevMousePosition = mousePosition;
+				prevMouseDelta = mouseDelta;
+
+				if (camera.MouseDeltaMotion(mouseDelta.X, mouseDelta.Y))
+				{
+					//System.Windows.Forms.Cursor.Position = WindowCenter;
+				}
+			}
 
 			if (cameraEnabled && (camera != rmcUnitCamera))
 			{

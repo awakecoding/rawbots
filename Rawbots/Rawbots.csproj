@@ -56,6 +56,7 @@
     <Reference Include="OpenTK, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4">
       <HintPath>..\Libraries\OpenTK\OpenTK.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Tao.OpenGl">
       <HintPath>..\Libraries\Tao\lib\Tao.OpenGl.dll</HintPath>
@@ -67,6 +68,8 @@
   <ItemGroup>
     <Compile Include="Base.cs" />
     <Compile Include="BlockSquareHole.cs" />
+    <Compile Include="ByteMap.cs" />
+    <Compile Include="Camera\GlobalCamera.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Camera\FirstPersonCamera.cs" />
     <Compile Include="Light.cs" />

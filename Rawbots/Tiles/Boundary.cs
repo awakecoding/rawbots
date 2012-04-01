@@ -21,5 +21,10 @@ namespace Rawbots
         {
 			model.Render();
         }
+
+		public override bool IsCollideable()
+		{
+			return true;
+		}
     }
 }

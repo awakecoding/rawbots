@@ -114,16 +114,21 @@ namespace Rawbots
 			cost[size] = cost[0];
 		}
 
-		public void ShowTextures()
+		public virtual void ShowTextures()
 		{
 			if (model != null)
 				model.ShowTextures();
 		}
 
-		public void HideTextures()
+		public virtual void HideTextures()
 		{
 			if (model != null)
 				model.HideTextures();
+		}
+
+		public virtual bool IsCollideable()
+		{
+			return false;
 		}
 	}
 }

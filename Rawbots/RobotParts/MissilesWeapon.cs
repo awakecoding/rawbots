@@ -21,14 +21,10 @@ namespace Rawbots
         private float inCylinderHeight;
         private float outCylinderRadius;
         private float outCylinderHeight;
-        private float cubeSize;
         private CylinderModel inCylinder;
         private CylinderModel outCylinder;
         private CubeModel middleBox;
         private CubeModel frame;
-        //CubeModel box; //For 1unit cubed box
-
-		//private OBJModel model;
 
 		public MissilesWeapon()
 		{    
@@ -42,7 +38,6 @@ namespace Rawbots
             outCylinder = new CylinderModel(outCylinderRadius, outCylinderHeight);
             outCylinder.SetColor(0.0f, 0.7f, 0.6f);
 
-            cubeSize = 1.0f; //Size of standard cube
             middleBox = new CubeModel();
             middleBox.SetColor(0.1f, 0.3f, 0.3f);
 

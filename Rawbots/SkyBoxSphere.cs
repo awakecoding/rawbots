@@ -9,6 +9,8 @@ namespace Rawbots
 
 		static SkyBoxSphere()
 		{
+			xOffset = 0.0f;
+			yOffset = 0.0f;
 			zOffset = -20.0f;
 			box = new OBJModel(Game.resourcePath + "/skybox.obj");
 			sphere = new OBJModel(Game.resourcePath + "/sphere-colored_2.obj");

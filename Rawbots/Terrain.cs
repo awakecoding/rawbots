@@ -15,13 +15,22 @@ namespace Rawbots
 {
 	public class Terrain
 	{
+		int width;
+		int height;
+
 		public Tile[,] tiles;
 		public Tile[,] Tiles { get { return tiles; } }
+
+		public ByteMap collisionMap;
 		
 		public Terrain(int width, int height)
         {
 			bool test = false;
-            tiles = new Tile[width, height];
+			this.width = width;
+			this.height = height;
+
+            tiles = new Tile[this.width, this.height];
+			collisionMap = new ByteMap(this.width, this.height);
 
 			if (test)
 			{
@@ -64,9 +73,32 @@ namespace Rawbots
                     }
                 }
 			}
+
+			GenerateCollisionMap();
 		}
 
-        public void SetRenderMode(RenderMode renderMode)
+		public void GenerateCollisionMap()
+		{
+			byte[,] bytes = collisionMap.Bytes;
+
+			for (int i = 0; i < collisionMap.Width; i++)
+			{
+				for (int j = 0; j < collisionMap.Height; j++)
+				{
+					if (tiles[i, j].IsCollideable())
+						bytes[i, j] = 0xFF;
+					else
+						bytes[i, j] = 0x00;
+				}
+			}
+		}
+
+		public ByteMap CollisionMap
+		{
+			get { return collisionMap; }
+		}
+
+		public void SetRenderMode(RenderMode renderMode)
         {
 			for (int i = 0; i < tiles.GetLength(0); i++)
 			{
@@ -96,6 +128,8 @@ namespace Rawbots
         public void setTile(Tile tile, int x, int y)
         {
             tiles[x, y] = tile;
+
+			GenerateCollisionMap();
         }
 
         public int getWidth()

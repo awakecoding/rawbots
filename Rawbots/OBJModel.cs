@@ -77,8 +77,6 @@ namespace Rawbots
 
 	public class OBJModel
 	{
-		int i, j;
-
 		private List<float[]> Vertices = new List<float[]>();
 		private List<float[]> Normals = new List<float[]>();
 		private List<float[]> TexCoords = new List<float[]>();
