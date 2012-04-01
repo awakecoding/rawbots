@@ -25,7 +25,6 @@ namespace Rawbots
         List<Block> blocks;
         List<Base> bases;
         List<Light> lights;
-		ByteMap collisionMap;
         RemoteControlUnit remoteControlUnit;
 
 		public Terrain Terrain { get { return terrain; } }
@@ -35,7 +34,6 @@ namespace Rawbots
 			this.width = width;
 			this.height = height;
 
-			collisionMap = new ByteMap(this.width, this.height);
 			terrain = new Terrain(this.width, this.height);
 			
 			robots = new List<Robot>();
@@ -49,7 +47,34 @@ namespace Rawbots
             remoteControlUnit.PosX = 43;
 			remoteControlUnit.PosY = 1;
 		}
-		
+
+		public int GetWidth()
+		{
+			return width;
+		}
+
+		public int GetHeight()
+		{
+			return height;
+		}
+
+		public ByteMap GetCollisionMap()
+		{
+			return terrain.CollisionMap;
+		}
+
+		public bool IsColliding(int x, int y)
+		{
+			bool colliding = terrain.CollisionMap.IsPositionSet(x, y);
+
+			if (colliding)
+			{
+				Console.WriteLine("collision at {0},{1}", x, y);
+			}
+
+			return colliding;
+		}
+
 		public void AddRobot(Robot robot)
 		{
 			robots.Add(robot);

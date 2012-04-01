@@ -251,10 +251,8 @@ namespace Rawbots
                 {
                     light.setCutOff(45.0f);
                     light.lookAt(0.0f, totalHeight/2, -1.0f,
-                                    0.0f, 0.0f, /*-2.0f*/-(totalHeight/2)/(float)Math.Tan((20.0f*Math.PI)/180.0f),
+                                    0.0f, 0.0f, -(totalHeight/2)/(float)Math.Tan((20.0f*Math.PI)/180.0f),
                                     0.0f, 1.0f, 0.0f);
-                    //light.setPosition(PosX, totalHeight, PosY, 1.0f);
-                    //light.setDirection(PosX, 0.0f, PosY);
                     light.apply();
                 }
             }
@@ -262,6 +260,11 @@ namespace Rawbots
 			finalTotalHeight = totalHeight;
 
 			GL.PopMatrix();
+		}
+
+		public override bool IsCollideable()
+		{
+			return true;
 		}
 	}
 }

@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
+using System.Drawing;
+using System.Collections.Generic;
 
 namespace Rawbots
 {
 	class RobotCamera : FirstPersonCamera
 	{
 		private Robot robot;
-		private float mapWidth;
-		private float mapHeight;
 		private bool attached;
 
 		private bool tiltLeft;
@@ -20,8 +19,6 @@ namespace Rawbots
 			: base(x, y, z)
 		{
 			robot = null;
-			mapWidth = 50.0f;
-			mapHeight = 50.0f;
 			tiltLeft = false;
 			tiltRight = false;
 			tiltUp = false;
@@ -46,10 +43,36 @@ namespace Rawbots
 
 		public override void PerformActions(Action actions)
 		{
+			float x, y;
+			float angle;
 			bool active;
-			base.PerformActions(actions);
+			float prevX;
+			float prevY;
+			float[] position;
+			float[] prevPosition;
+			bool cancelMove = false;
+
+			if (!attached)
+				return;
 
 			active = ((actions & Action.ACTIVE) != 0);
+
+			if ((actions & Action.TOGGLE_LIGHT) != 0)
+				robot.ToggleLight();
+
+			if ((actions & Action.MOVE_UP) != 0)
+				MoveUp();
+			if ((actions & Action.MOVE_DOWN) != 0)
+				MoveDown();
+			if ((actions & Action.MOVE_LEFT) != 0)
+				MoveLeft();
+			if ((actions & Action.MOVE_RIGHT) != 0)
+				MoveRight();
+
+			if ((actions & Action.ROTATE_RIGHT) != 0)
+				RotateRight();
+			if ((actions & Action.ROTATE_LEFT) != 0)
+				RotateLeft();
 
 			if ((actions & Action.TILT_LEFT) != 0)
 				tiltLeft = active;
@@ -60,40 +83,56 @@ namespace Rawbots
 			if ((actions & Action.TILT_DOWN) != 0)
 				tiltDown = active;
 
-			if (attached)
+			prevPosition = GetPosition();
+			prevX = prevPosition[0];
+			prevY = prevPosition[2];
+
+			position = GetPosition();
+			x = position[0];
+			y = position[2];
+
+			angle = GetXZViewAngle();
+
+			if (x < 0.0f)
+				x = 0.0f;
+
+			if (x > map.GetWidth())
+				x = map.GetWidth();
+
+			if (y < -map.GetHeight())
+				y = -map.GetHeight();
+
+			if (y > 0.0f)
+				y = 0.0f;
+
+			cancelMove = ((prevX != x) || (prevY != y));
+
+			if (!cancelMove)
 			{
-				float x, y;
-				float angle;
-				float[] position;
+				if (map.IsColliding((int) x, (int) y))
+					cancelMove = true;
+			}
 
-				position = GetPosition();
-				angle = GetXZViewAngle();
-
-				x = position[0];
-				y = position[2];
-
-				if (x < 0.0f)
-					x = 0.0f;
-
-				if (x > mapWidth)
-					x = mapWidth;
-
-				if (y < -mapHeight)
-					y = -mapHeight;
-
-				if (y > 0.0f)
-					y = 0.0f;
-
-                Console.WriteLine("Robot(" + x + "," + y + " @ " + angle + ")");
+			if (cancelMove)
+			{
+				if ((actions & Action.MOVE_UP) != 0)
+					MoveDown();
+				if ((actions & Action.MOVE_DOWN) != 0)
+					MoveUp();
+				if ((actions & Action.MOVE_LEFT) != 0)
+					MoveRight();
+				if ((actions & Action.MOVE_RIGHT) != 0)
+					MoveUp();
+			}
+			else
+			{
+				Console.WriteLine("Robot(" + x + "," + y + " @ " + angle + ")");
 
 				robot.PosX = x;
 				robot.PosY = y;
-
-				robot.Angle = -angle;
-
-				if ((actions & Action.TOGGLE_LIGHT) != 0)
-					robot.ToggleLight();
 			}
+
+			robot.Angle = -angle;
 		}
 
         public override void IdleAction()

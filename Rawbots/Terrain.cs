@@ -86,9 +86,11 @@ namespace Rawbots
 				for (int j = 0; j < collisionMap.Height; j++)
 				{
 					if (tiles[i, j].IsCollideable())
-						bytes[i, j] = 0xFF;
+					{
+						bytes[i, j] = ByteMap.TRUE;
+					}
 					else
-						bytes[i, j] = 0x00;
+						bytes[i, j] = ByteMap.FALSE;
 				}
 			}
 		}

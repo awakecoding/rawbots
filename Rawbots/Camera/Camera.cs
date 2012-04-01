@@ -45,9 +45,11 @@ namespace Rawbots
 			ACTIVE =			0x08000000
 		}
 
+		protected Map map;
+
 		private float delta = 1.0f;
 
-		private float[] Transform = new float[16];
+		protected float[] Transform = new float[16];
 
 		public Camera(float x, float y, float z)
 		{
@@ -61,6 +63,11 @@ namespace Rawbots
             Reset(0.0f, 0.0f, 0.0f);
             LookAt(eyex, eyey, eyez, centerx, centery, centerz, upx, upy, upz);
         }
+
+		public void SetMap(Map map)
+		{
+			this.map = map;
+		}
 
 		public void Reset(float x, float y, float z)
 		{
@@ -292,22 +299,22 @@ namespace Rawbots
 
 		public void MoveUp()
 		{
-			MoveLocal(0.0f, 0.0f, 1.0f, 0.5f);
+			MoveLocal(0.0f, 0.0f, 1.0f, delta / 2);
 		}
 
 		public void MoveDown()
 		{
-			MoveLocal(0.0f, 0.0f, -1.0f, 0.5f);
+			MoveLocal(0.0f, 0.0f, -1.0f, delta / 2);
 		}
 
 		public void MoveLeft()
 		{
-			MoveLocal(-1.0f, 0.0f, 0.0f, 0.5f);
+			MoveLocal(-1.0f, 0.0f, 0.0f, delta / 2);
 		}
 
 		public void MoveRight()
 		{
-			MoveLocal(1.0f, 0.0f, 0.0f, 0.5f);
+			MoveLocal(1.0f, 0.0f, 0.0f, delta / 2);
 		}
 
 		public void RotateUp()
@@ -322,12 +329,12 @@ namespace Rawbots
 
 		public void RotateLeft()
 		{
-			RotateLocal(-delta, 0.0f, 1.0f, 0.0f);
+			RotateLocal(-delta * 3, 0.0f, 1.0f, 0.0f);
 		}
 
 		public void RotateRight()
 		{
-			RotateLocal(delta, 0.0f, 1.0f, 0.0f);
+			RotateLocal(delta * 3, 0.0f, 1.0f, 0.0f);
 		}
 
 		public void RotateDeltaX(int dx)
