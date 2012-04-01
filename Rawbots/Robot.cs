@@ -173,7 +173,7 @@ namespace Rawbots
                 electronics.SetRenderMode(renderMode);
         }
 
-		public void ShowTextures()
+		public override void ShowTextures()
 		{
 			if (chassis != null)
 				chassis.ShowTextures();
@@ -186,7 +186,7 @@ namespace Rawbots
 				electronics.ShowTextures();
 		}
 
-		public void HideTextures()
+		public override void HideTextures()
 		{
 			if (chassis != null)
 				chassis.HideTextures();

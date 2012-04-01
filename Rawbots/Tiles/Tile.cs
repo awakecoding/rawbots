@@ -58,8 +58,16 @@ namespace Rawbots
 
         public override void Render()
         {
-			GL.Color3(0.3f, 0.3f, 0.3f);
-			model.Render();
+			if (teamNumber)
+			{
+				GL.Color3(0.3f, 0.3f, 0.3f);
+				model.Render();
+			}
+			else
+			{
+				GL.Color3(0.3f, 0.3f, 0.3f);
+				model.Render();
+			}
         }
 	}
 }

@@ -25,7 +25,8 @@ namespace Rawbots
         List<Block> blocks;
         List<Base> bases;
         List<Light> lights;
-        RemoteControlUnit rmc;
+		ByteMap collisionMap;
+        RemoteControlUnit remoteControlUnit;
 
 		public Terrain Terrain { get { return terrain; } }
 		
@@ -33,7 +34,8 @@ namespace Rawbots
 		{
 			this.width = width;
 			this.height = height;
-			
+
+			collisionMap = new ByteMap(this.width, this.height);
 			terrain = new Terrain(this.width, this.height);
 			
 			robots = new List<Robot>();
@@ -41,9 +43,10 @@ namespace Rawbots
             blocks = new List<Block>();
             bases = new List<Base>();
             lights = new List<Light>();
-            rmc = new RemoteControlUnit();
-            rmc.PosX = 43;
-            rmc.PosY = 1;
+
+            remoteControlUnit = new RemoteControlUnit();
+            remoteControlUnit.PosX = 43;
+			remoteControlUnit.PosY = 1;
 		}
 		
 		public void AddRobot(Robot robot)
@@ -119,7 +122,7 @@ namespace Rawbots
             terrain.SetRenderMode(renderMode);
 
             TeamNumber.SetRenderMode(renderMode);
-            rmc.SetRenderMode(renderMode);
+            remoteControlUnit.SetRenderMode(renderMode);
         }
 
 		public void ShowTextures()
@@ -131,7 +134,7 @@ namespace Rawbots
 
 			terrain.ShowTextures();
 
-			rmc.ShowTextures();
+			remoteControlUnit.ShowTextures();
 		}
 
 		public void HideTextures()
@@ -143,7 +146,7 @@ namespace Rawbots
 
 			terrain.HideTextures();
 
-			rmc.HideTextures();
+			remoteControlUnit.HideTextures();
 		}
 
         public void Render()
@@ -223,7 +226,7 @@ namespace Rawbots
 
             GL.PushMatrix();
 
-            rmc.Render();
+            remoteControlUnit.Render();
 
             GL.PopMatrix();
 

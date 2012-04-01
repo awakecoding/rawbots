@@ -87,5 +87,10 @@ namespace Rawbots
 
             GL.PopMatrix();
         }
+
+		public override bool IsCollideable()
+		{
+			return true;
+		}
     }
 }

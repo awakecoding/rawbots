@@ -84,8 +84,6 @@ namespace Rawbots
 			"Tab: Change Camera\r\n" +
 			"Escape: Exit Game\r\n";
 
-		Texture tex;
-
 		public Game() : base(800, 600, GraphicsMode.Default, "Rawbots")
 		{
 			VSync = VSyncMode.On;
