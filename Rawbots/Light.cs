@@ -62,6 +62,11 @@ namespace Rawbots
             Position[0] = x; Position[1] = y; Position[2] = z; Position[3] = w;
         }
 
+		public float[] getPosition()
+		{
+			return Position;
+		}
+
         public void setDirection(float x, float y, float z)
         {
             Direction[0] = x; Direction[1] = y; Direction[2] = z;
@@ -193,6 +198,71 @@ namespace Rawbots
         {
             //GL.Disable(Light.lightNameCapLookUp(lightName));
         }
+
+		public float[] getShadowMatrix(float[] normal)
+		{
+			return shadowMatrix(normal, Position);
+		}
+
+		public static float[] shadowMatrix(float[] plane, float[] light_pos)
+		{
+			float[] matOut = new float[16];
+
+			float dot = plane[0] * light_pos[0] + plane[1] * light_pos[1] + plane[2] * light_pos[2] + plane[3] * light_pos[3];
+
+			matOut[0] = dot - light_pos[0] * plane[0];
+			matOut[4] = -light_pos[0] * plane[1];
+			matOut[8] = -light_pos[0] * plane[2];
+			matOut[12] = -light_pos[0] * plane[3];
+
+			matOut[1] = -light_pos[1] * plane[0];
+			matOut[5] = dot - light_pos[1] * plane[1];
+			matOut[9] = -light_pos[1] * plane[2];
+			matOut[13] = -light_pos[1] * plane[3];
+
+			matOut[2] = -light_pos[2] * plane[0];
+			matOut[6] = -light_pos[2] * plane[1];
+			matOut[10] = dot - light_pos[2] * plane[2];
+			matOut[14] = -light_pos[2] * plane[3];
+
+			matOut[3] = -light_pos[3] * plane[0];
+			matOut[7] = -light_pos[3] * plane[1];
+			matOut[11] = -light_pos[3] * plane[2];
+			matOut[15] = dot - light_pos[3] * plane[3];
+
+			return matOut;
+		}
+
+		public static float[] calcNormal(float[] p0, float[] p1, float[] p2)
+		{
+			float[] v0 = new float[3];
+			float[] v1 = new float[3];
+			float[] pOut = new float[4];
+			float len;
+			
+			v0[0] = p1[0] - p0[0];
+			v0[1] = p1[1] - p0[1];
+			v0[2] = p1[2] - p0[2];
+			len = (float)Math.Sqrt(v0[0]*v0[0] + v0[1]*v0[1] + v0[2]*v0[2]);
+			v0[0] /= len;
+			v0[1] /= len;
+			v0[2] /= len;
+
+			v1[0] = p2[0] - p0[0];
+			v1[1] = p2[1] - p0[1];
+			v1[2] = p2[2] - p0[2];
+			len = (float)Math.Sqrt(v1[0]*v1[0] + v1[1]*v1[1] + v1[2]*v1[2]);
+			v1[0] /= len;
+			v1[1] /= len;
+			v1[2] /= len;
+
+			pOut[0] = v0[1]*v1[2] - v0[2]*v1[1];
+			pOut[1] = -(v0[0]*v1[2] - v0[2]*v1[0]);
+			pOut[2] = v0[0]*v1[1] - v0[1]*v1[0];
+			pOut[3] = -(pOut[0]*p0[0] + pOut[1]*p0[1] + pOut[2]*p0[2]);
+		
+			return pOut;
+		}
 
        public static EnableCap lightNameCapLookUp(LightName name)
         {

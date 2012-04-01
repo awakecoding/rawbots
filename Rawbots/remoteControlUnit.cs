@@ -18,8 +18,16 @@ namespace Rawbots
 {
     public class RemoteControlUnit : Model
     {
-        public int PosX { get; set; }
-        public int PosY { get; set; }
+        public float PosX { get; set; }
+        public float PosY { get; set; }
+		public bool Hovering = false;
+		public bool MovingLeft = false;
+		public bool MovingRight = false;
+		public bool MovingUp = false;
+		public bool MovingDown = false;
+		public float HoverHeight = 0.1f;
+		public float MIN_HOVER_HEIGHT = 0.1f;
+		public float MAX_HOVER_HEIGHT = 3.0f;
 
 		//private double cylinderRadius; //antenna
 		//private double cylinderHeight;
@@ -72,9 +80,65 @@ namespace Rawbots
 
 		//public override void HideTextures
 
+		public void Hover()
+		{
+			Hovering = true;
+		}
+
+		public void MoveLeft()
+		{
+			MovingLeft = true;
+		}
+
+		public void MoveRight()
+		{
+			MovingRight = true;
+		}
+
+		public void MoveUp()
+		{
+			MovingUp = true;
+		}
+
+		public void MoveDown()
+		{
+			MovingDown = true;
+		}
+
         public void Render()
         {
-            GL.Translate(PosX, 0.0f, -PosY);
+			if (Hovering)
+			{
+				if (HoverHeight <= MAX_HOVER_HEIGHT)
+					HoverHeight += 0.1f;
+			}
+			else
+			{
+				if (HoverHeight > MIN_HOVER_HEIGHT)
+					HoverHeight -= 0.1f;
+			}
+
+			if (MovingLeft)
+			{
+				PosX -= 0.1f;
+			}
+
+			if (MovingRight)
+			{
+				PosX += 0.1f;
+			}
+
+			if (MovingUp)
+			{
+				PosY += 0.1f;
+			}
+
+			if (MovingDown)
+			{
+				PosY -= 0.1f;
+			}
+
+			GL.Translate(PosX, HoverHeight, -PosY);
 
 			GL.PushMatrix();
 			GL.Scale(0.07f, 0.07f, 0.07f);
@@ -141,6 +205,11 @@ namespace Rawbots
 			//TeamNumber.Render();
 			//GL.PopMatrix();
 
+			Hovering = false;
+			MovingLeft = false;
+			MovingRight=false;
+			MovingUp = false;
+			MovingDown = false;
         }
     }
 }

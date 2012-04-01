@@ -144,6 +144,17 @@ namespace Rawbots
             return tiles.GetLength(1);
         }
 
+		public float[][] getPlane()
+		{
+			float[][] pPlane = new float[3][];
+
+			pPlane[0] = new float[] { 0.0f, 0.0f, 0.0f };
+			pPlane[1] = new float[] { tiles.Length * tiles[0, 0].getWidth(), 0.0f, 0.0f};
+			pPlane[2] = new float[] { 0.0f, tiles.Length * tiles[0, 0].getWidth(), 0.0f};
+
+			return pPlane;
+		}
+
 		public void Render()
 		{
 			int width, height;

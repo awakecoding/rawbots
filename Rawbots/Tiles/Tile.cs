@@ -56,6 +56,11 @@ namespace Rawbots
             return light;
         }
 
+		public float getWidth()
+		{
+			return 1.0f;
+		}
+
         public override void Render()
         {
 			if (teamNumber)
