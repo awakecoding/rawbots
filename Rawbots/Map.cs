@@ -146,14 +146,44 @@ namespace Rawbots
 			rmc.HideTextures();
 		}
 
+		public void HoverRMC()
+		{
+			rmc.Hover();
+		}
+
+		public void MoveRMCLeft()
+		{
+			rmc.MoveLeft();
+		}
+
+		public void MoveRMCRight()
+		{
+			rmc.MoveRight();
+		}
+
+		public void MoveRMCUp()
+		{
+			rmc.MoveUp();
+		}
+
+		public void MoveRMCDown()
+		{
+			rmc.MoveDown();
+		}
+
+		public float[] GetRMCPosition()
+		{
+			return new float[] { rmc.PosX, rmc.PosY };
+		}
+
         public void Render()
         {
 			GL.PushMatrix();
 
-			foreach (Light light in lights)
-			{
-				light.apply();
-			}
+			//foreach (Light light in lights)
+			//{
+			//    light.apply();
+			//}
 
             /* Render terrain */
 
@@ -223,14 +253,14 @@ namespace Rawbots
 
             GL.PushMatrix();
 
-            rmc.Render();
+			rmc.Render();
 
             GL.PopMatrix();
 
 			GL.PopMatrix();
 
-			foreach (Light light in lights)
-				light.unapply();
+			//foreach (Light light in lights)
+			//    light.unapply();
 
 			GL.PopMatrix();
         }

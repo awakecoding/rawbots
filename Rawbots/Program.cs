@@ -44,6 +44,7 @@ namespace Rawbots
 
 		Camera camera;
 		Camera globalCamera = new Camera(0.0f, 10.0f, 25.0f);
+		Camera rmcUnitCamera = new Camera(43.0f, 10.0f, 25.0f);
 		RobotCamera robotCamera = new RobotCamera(0.0f, 1.0f, 0.0f);
 
         Camera lightCamera1, lightCamera2, lightCamera3, lightCamera4;
@@ -76,8 +77,9 @@ namespace Rawbots
 			"Tab: Change Camera\r\n" +
 			"Escape: Exit Game\r\n";
 
-//		Glu.GLUquadric quadric;
-		Texture tex;
+		Robot someRobot;
+
+		Light l;
 
 		public Game() : base(800, 600, GraphicsMode.Default, "Rawbots")
 		{
@@ -104,6 +106,7 @@ namespace Rawbots
 			map = new Map(mapWidth, mapHeight);
 
 			camera = globalCamera;
+			
 			Mouse.Move += new EventHandler<MouseMoveEventArgs>(OnMouseMove);
 			Keyboard.KeyDown += new EventHandler<KeyboardKeyEventArgs>(OnKeyDown);
 			Keyboard.KeyUp += new EventHandler<KeyboardKeyEventArgs>(OnKeyUp);
@@ -132,6 +135,8 @@ namespace Rawbots
 			robot.AddChassis(new BipodChassis());
 			robot.AddWeapon(new MissilesWeapon());
             map.AddRobot(robot);
+
+			someRobot = robot;
 
             Light light = new Light(LightName.Light7);
             robot.AddLight(light);
@@ -268,6 +273,10 @@ namespace Rawbots
             
             lightpost.AddLight(light);
 
+			l = light;
+			
+
+
             lightCamera1 = new Camera(0.0f, 6.0f, 0.0f,
                          2.0f * (float)Math.Sqrt(2.0f), 0.0f, -2.0f * (float)Math.Sqrt(2.0f),
                          0.0f, 1.0f, 0.0f);
@@ -321,11 +330,7 @@ namespace Rawbots
 			GL.Enable(EnableCap.Lighting);
             GL.Enable(EnableCap.ColorMaterial);
             GL.Enable(EnableCap.Texture2D);
-
-//			quadric = Glu.gluNewQuadric();
-//			Glu.gluQuadricNormals(quadric, Glu.GLU_SMOOTH);  
-//			Glu.gluQuadricTexture(quadric, Gl.GL_TRUE);
-//			tex = Texture.AcquireTexture(Game.resourcePath + "/space3.jpg");
+			GL.PolygonOffset(-10.0f, -25.0f); //To Avoid Having Z-Fighting for projecting surfaces onto another surface (Shadows)
 		}
 
 		public static bool IsWindows()
@@ -429,18 +434,20 @@ namespace Rawbots
 
 				case Key.Tab:
 
-                    if (camera == globalCamera)
-                        camera = robotCamera;
-                    else if (camera == robotCamera)
-                        camera = lightCamera1;
-                    else if (camera == lightCamera1)
-                        camera = lightCamera2;
-                    else if (camera == lightCamera2)
-                        camera = lightCamera3;
-                    else if (camera == lightCamera3)
-                        camera = lightCamera4;
-                    else if (camera == lightCamera4)
-                        camera = globalCamera;
+					if (camera == globalCamera)
+						camera = robotCamera;
+					else if (camera == robotCamera)
+						camera = lightCamera1;
+					else if (camera == lightCamera1)
+						camera = lightCamera2;
+					else if (camera == lightCamera2)
+						camera = lightCamera3;
+					else if (camera == lightCamera3)
+						camera = lightCamera4;
+					else if (camera == lightCamera4)
+						camera = rmcUnitCamera;
+					else if (camera == rmcUnitCamera)
+						camera = globalCamera;
 					break;
 
 				case Key.F:
@@ -632,22 +639,32 @@ namespace Rawbots
 		{
 			base.OnUpdateFrame(e);
 
-            if (Keyboard[Key.Escape])
-                Exit();
-            else if (Keyboard[Key.F4])
-                ReferencePlane.setVisibleAxis(ReferencePlane.XYZ);
-            else if (Keyboard[Key.F5])
-                ReferencePlane.setVisibleAxis(ReferencePlane.XZ);
-            else if (Keyboard[Key.F6])
-                ReferencePlane.setVisibleAxis(ReferencePlane.XY);
-            else if (Keyboard[Key.F7])
-                ReferencePlane.setVisibleAxis(ReferencePlane.NONE);
-            else if (Keyboard[Key.F11])
-                cameraEnabled = false;
-            else if (Keyboard[Key.F12])
-                cameraEnabled = true;
+			if (Keyboard[Key.Escape])
+				Exit();
+			else if (Keyboard[Key.F4])
+				ReferencePlane.setVisibleAxis(ReferencePlane.XYZ);
+			else if (Keyboard[Key.F5])
+				ReferencePlane.setVisibleAxis(ReferencePlane.XZ);
+			else if (Keyboard[Key.F6])
+				ReferencePlane.setVisibleAxis(ReferencePlane.XY);
+			else if (Keyboard[Key.F7])
+				ReferencePlane.setVisibleAxis(ReferencePlane.NONE);
+			else if (Keyboard[Key.F11])
+				cameraEnabled = false;
+			else if (Keyboard[Key.F12])
+				cameraEnabled = true;
 
-			if (cameraEnabled)
+			//float[] lightPos = l.getPosition();
+			//if (Keyboard[Key.Plus])
+			//{
+			//    l.setPosition(lightPos[0], lightPos[1]+0.1f, lightPos[2], lightPos[3]);
+			//}
+			//else if (Keyboard[Key.Minus])
+			//{
+			//    l.setPosition(lightPos[0], lightPos[1] - 0.1f, lightPos[2], lightPos[3]);
+			//}
+
+			if (cameraEnabled && (camera != rmcUnitCamera))
 			{
 				Camera.Action action = Camera.Action.NONE;
 
@@ -672,11 +689,30 @@ namespace Rawbots
 				if (Keyboard[Key.E])
 					action |= Camera.Action.ROLL_RIGHT;
 
-                if (action != Camera.Action.NONE)
-                    camera.PerformActions(action);
-                else
-                    camera.IdleAction();
-			}	
+				if (action != Camera.Action.NONE)
+					camera.PerformActions(action);
+				else
+					camera.IdleAction();
+			}
+			else if (camera == rmcUnitCamera)
+			{
+				if (Keyboard[Key.Space])
+					map.HoverRMC();
+				if (Keyboard[Key.Left])
+					map.MoveRMCLeft();
+				if (Keyboard[Key.Right])
+					map.MoveRMCRight();
+				if (Keyboard[Key.Up])
+					map.MoveRMCUp();
+				if (Keyboard[Key.Down])
+					map.MoveRMCDown();
+
+				float[] rmcUnitPos = map.GetRMCPosition();
+
+				rmcUnitCamera.LookAt(rmcUnitPos[0], 6.0f, 8.0f - rmcUnitPos[1],
+									rmcUnitPos[0], 3.0f, 4.0f - rmcUnitPos[1],
+									 0.0f, 1.0f, 0.0f);
+			}
 		}
 
 		float[] globLight = { 1.0f, 1.0f, 1.0f, 1.0f };
@@ -707,6 +743,8 @@ namespace Rawbots
 
             map.Render();
 
+			//shadowTest();
+			
 			int totalTime = (Environment.TickCount & Int32.MaxValue) - startTime;
 
 			int fps = 0;
@@ -741,6 +779,34 @@ namespace Rawbots
 
 			SwapBuffers();
         }
+
+	    void shadowTest()
+		{
+			someRobot.RenderAll();
+
+			GL.PushMatrix();
+			float[] lPos = l.getPosition();
+			GL.Translate(lPos[0], lPos[1], lPos[2]);
+			GL.PointSize(50.0f);
+			GL.Begin(BeginMode.Points);
+			GL.Vertex3(0.0f, 0.0f, 0.0f);
+			GL.End();
+			GL.PointSize(1.0f);
+			GL.PopMatrix();
+
+			float[] mat = l.getShadowMatrix(new float[] { 0.0f, 1.0f, 0.0f, 0.0f });
+
+			GL.Enable(EnableCap.PolygonOffsetFill);
+			GL.MultMatrix(mat);
+			//GL.Enable(EnableCap.Blend);
+			GL.Color4(0.0f, 0.0f, 0.0f, 1.0f);
+			someRobot.HideTextures();
+			someRobot.RenderAll();
+			someRobot.ShowTextures();
+			//GL.Disable(EnableCap.Blend);
+
+			GL.Disable(EnableCap.PolygonOffsetFill);
+		}
 
 		[STAThread]
 		static void Main()
