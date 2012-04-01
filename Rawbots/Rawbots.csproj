@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="Base.cs" />
     <Compile Include="BlockSquareHole.cs" />
+    <Compile Include="Camera\GlobalCamera.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Camera\FirstPersonCamera.cs" />
     <Compile Include="Light.cs" />

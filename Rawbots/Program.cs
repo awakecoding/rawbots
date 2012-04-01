@@ -43,7 +43,7 @@ namespace Rawbots
 		Robot activeRobot;
 
 		Camera camera;
-		Camera globalCamera = new Camera(0.0f, 10.0f, 25.0f);
+		GlobalCamera globalCamera = new GlobalCamera(0.0f, 10.0f, 25.0f);
 		RobotCamera robotCamera = new RobotCamera(0.0f, 1.0f, 0.0f);
 
         Camera lightCamera1, lightCamera2, lightCamera3, lightCamera4;
