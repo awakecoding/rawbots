@@ -11,6 +11,7 @@
 
 using System;
 using System.IO;
+using System.Drawing;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -41,6 +42,13 @@ namespace Rawbots
 		public static string resourcePath;
 
 		Robot activeRobot;
+
+		Point nullDelta;
+		Point mouseDelta;
+		Point prevMouseDelta;
+
+		Point mousePosition;
+		Point prevMousePosition;
 
 		Camera camera;
 		GlobalCamera globalCamera = new GlobalCamera(0.0f, 10.0f, 25.0f);
@@ -76,7 +84,6 @@ namespace Rawbots
 			"Tab: Change Camera\r\n" +
 			"Escape: Exit Game\r\n";
 
-//		Glu.GLUquadric quadric;
 		Texture tex;
 
 		public Game() : base(800, 600, GraphicsMode.Default, "Rawbots")
@@ -306,26 +313,25 @@ namespace Rawbots
             light = new Light(LightName.Light3);
             light.setCutOff(45.0f);
             light.lookAt(0.0f, 6.0f, 0.0f,
-                         2.0f * (float)Math.Sqrt(2.0f), 0.0f, 2.0f * (float)Math.Sqrt(2.0f),
+                         2.0f * (float) Math.Sqrt(2.0f), 0.0f, 2.0f * (float)Math.Sqrt(2.0f),
                          1.0f, 1.0f, 1.0f);
             lightpost.AddLight(light);
 
             lightCamera4 = new Camera(0.0f, 6.0f, -49.0f,
-                         2.0f * (float)Math.Sqrt(2.0f), 0.0f, -49.0f + 2.0f * (float)Math.Sqrt(2.0f),
+                         2.0f * (float) Math.Sqrt(2.0f), 0.0f, -49.0f + 2.0f * (float)Math.Sqrt(2.0f),
                          0.0f, 1.0f, 0.0f);
 
             this.Title = this.baseTitle;
 
 			PrintHelp();
 
+			prevMousePosition = this.WindowCenter;
+			prevMouseDelta = new Point(0, 0);
+			nullDelta = new Point(0, 0);
+
 			GL.Enable(EnableCap.Lighting);
             GL.Enable(EnableCap.ColorMaterial);
             GL.Enable(EnableCap.Texture2D);
-
-//			quadric = Glu.gluNewQuadric();
-//			Glu.gluQuadricNormals(quadric, Glu.GLU_SMOOTH);  
-//			Glu.gluQuadricTexture(quadric, Gl.GL_TRUE);
-//			tex = Texture.AcquireTexture(Game.resourcePath + "/space3.jpg");
 		}
 
 		public static bool IsWindows()
@@ -375,6 +381,11 @@ namespace Rawbots
 			return cwd;
 		}
 
+		Point WindowCenter
+		{
+			get { return new Point((Bounds.Left + Bounds.Right) / 2, (Bounds.Top + Bounds.Bottom) / 2); }
+		}
+
 		public void PrintHelp()
 		{
             Console.WriteLine("Press ESC to Quit Program.");
@@ -399,8 +410,6 @@ namespace Rawbots
 			
 			GL.ClearColor(0.1f, 0.2f, 0.5f, 0.0f);
 			GL.Enable(EnableCap.DepthTest);
-			
-			
 		}
 
 		protected override void OnResize(EventArgs e)
@@ -416,7 +425,7 @@ namespace Rawbots
 
 		public void OnMouseMove(object sender, MouseMoveEventArgs args)
 		{
-			camera.MouseDeltaMotion(args.XDelta, args.YDelta);
+
 		}
 
 		public void OnKeyDown(object sender, KeyboardKeyEventArgs args)
@@ -619,9 +628,14 @@ namespace Rawbots
 						camera.PerformActions(Camera.Action.TILT_DOWN);
 						break;
 
+					case Key.M:
+						camera.PerformActions(Camera.Action.TOGGLE_MOUSE);
+						break;
+
 					case Key.Z:
 						map.HideTextures();
 						break;
+
 					case Key.X:
 						map.ShowTextures();
 						break;
@@ -646,6 +660,24 @@ namespace Rawbots
                 cameraEnabled = false;
             else if (Keyboard[Key.F12])
                 cameraEnabled = true;
+
+			mousePosition = new Point(Mouse.X, Mouse.Y);
+
+			mouseDelta = new Point(mousePosition.X - prevMousePosition.X,
+				mousePosition.Y - prevMousePosition.Y);
+
+			if (!mousePosition.Equals(WindowCenter) && !mouseDelta.Equals(nullDelta))
+			{
+				//Console.WriteLine("Deltas: (" + prevMouseDelta.X + ", " + prevMouseDelta.Y + ")  (" + mouseDelta.X + ", " + mouseDelta.Y + ")");
+
+				prevMousePosition = mousePosition;
+				prevMouseDelta = mouseDelta;
+
+				if (camera.MouseDeltaMotion(mouseDelta.X, mouseDelta.Y))
+				{
+					//System.Windows.Forms.Cursor.Position = WindowCenter;
+				}
+			}
 
 			if (cameraEnabled)
 			{

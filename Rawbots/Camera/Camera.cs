@@ -41,7 +41,8 @@ namespace Rawbots
 			TILT_DOWN =			0x00001000,
 			TILT_LEFT =			0x00002000,
 			TILT_RIGHT =		0x00004000,
-			ACTIVE =			0x00008000
+			TOGGLE_MOUSE =		0x00008000,
+			ACTIVE =			0x08000000
 		}
 
 		private float delta = 1.0f;
