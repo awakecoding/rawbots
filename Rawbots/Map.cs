@@ -45,6 +45,7 @@ namespace Rawbots
             lights = new List<Light>();
 
             remoteControlUnit = new RemoteControlUnit();
+			remoteControlUnit.AttachLight(new Light(LightName.Light4));
             remoteControlUnit.PosX = 43;
 			remoteControlUnit.PosY = 1;
 		}

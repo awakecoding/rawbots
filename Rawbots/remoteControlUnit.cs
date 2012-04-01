@@ -29,6 +29,8 @@ namespace Rawbots
 		public float MIN_HOVER_HEIGHT = 0.1f;
 		public float MAX_HOVER_HEIGHT = 3.0f;
 
+		public Light light;
+
 		//private double cylinderRadius; //antenna
 		//private double cylinderHeight;
 		//private CylinderModel cylinder;
@@ -105,6 +107,13 @@ namespace Rawbots
 			MovingDown = true;
 		}
 
+		public void AttachLight(Light l)
+		{
+			light = l;
+			light.setCutOff(45.0f);
+			light.setDirection(0.0f, -0.45f, -0.45f);
+		}
+
         public void Render()
         {
 			if (Hovering)
@@ -121,21 +130,31 @@ namespace Rawbots
 			if (MovingLeft)
 			{
 				PosX -= 0.1f;
+				light.setDirection(-0.45f, -0.45f, -0.45f);
 			}
 
 			if (MovingRight)
 			{
 				PosX += 0.1f;
+				light.setDirection(0.45f, -0.45f, -0.45f);
 			}
 
 			if (MovingUp)
 			{
 				PosY += 0.1f;
+				light.setDirection(0.0f, -0.45f, -0.45f);
 			}
 
 			if (MovingDown)
 			{
 				PosY -= 0.1f;
+				light.setDirection(0.0f, -0.45f, 0.45f);
+			}
+
+			if (light != null)
+			{
+				light.setPosition(PosX, HoverHeight, -PosY, 1.0f);
+				light.apply();
 			}
 
 			GL.Translate(PosX, HoverHeight, -PosY);
