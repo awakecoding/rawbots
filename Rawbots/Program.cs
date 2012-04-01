@@ -108,6 +108,9 @@ namespace Rawbots
 			mapHeight = 50;
 			map = new Map(mapWidth, mapHeight);
 
+			globalCamera.SetMap(map);
+			robotCamera.SetMap(map);
+
 			camera = globalCamera;
 			Mouse.Move += new EventHandler<MouseMoveEventArgs>(OnMouseMove);
 			Keyboard.KeyDown += new EventHandler<KeyboardKeyEventArgs>(OnKeyDown);
