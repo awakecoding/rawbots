@@ -31,6 +31,7 @@ namespace Rawbots
 		private float posY;
 		private int mapPosX;
 		private int mapPosY;
+		private float finalTotalHeight = 0.0f;
 
 		public int MapPosX
 		{
@@ -257,6 +258,8 @@ namespace Rawbots
                     light.apply();
                 }
             }
+
+			finalTotalHeight = totalHeight;
 
 			GL.PopMatrix();
 		}
