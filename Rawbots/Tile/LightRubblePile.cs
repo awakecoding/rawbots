@@ -5,19 +5,19 @@ using OpenTK.Graphics.OpenGL;
 
 namespace Rawbots
 {
-    class MediumRubbleTile : Tile
+    class LightRubblePile : Tile
     {
-        public MediumRubbleTile()
+        public LightRubblePile()
         {
 			PosX = PosY = 0;
-			model = new OBJModel(Game.resourcePath + "/Floor/floor_debris_2.obj");
+			model = new OBJModel(Game.resourcePath + "/Floor/floor_debris_1.obj");
         }
 
-		public MediumRubbleTile(int x, int y)
+		public LightRubblePile(int x, int y)
 		{
 			PosX = x;
 			PosY = y;
-			model = new OBJModel(Game.resourcePath + "/Floor/floor_debris_2.obj");
+			model = new OBJModel(Game.resourcePath + "/Floor/floor_debris_1.obj");
 		}
 
         public override void SetRenderMode(RenderMode renderMode)
@@ -28,9 +28,7 @@ namespace Rawbots
         public override void Render()
         {
             GL.PushMatrix();
-
 			model.Render();
-
             GL.PopMatrix();
         }
     }

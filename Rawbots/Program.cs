@@ -182,13 +182,13 @@ namespace Rawbots
             robot.AddChassis(new BipodChassis());
             map.AddRobot(robot);
 
-            Tile tile = new LightRubbleTile();
+            Tile tile = new LightRubblePile();
             map.SetTile(tile, x + 17, y + 1);
 
-            tile = new MediumRubbleTile();
+            tile = new MediumRubblePile();
             map.SetTile(tile, x + 19, y + 1);
 
-            tile = new HeavyRubbleTile();
+            tile = new HeavyRubblePile();
             map.SetTile(tile, x + 21, y + 1);
 
             Pit pit = new Pit();
@@ -244,17 +244,17 @@ namespace Rawbots
             Base b = new Base(x + 45, y + 5);
             map.AddBase(b);
 
-            Block block = new Block(false, x + 35, y + 1);
-            map.AddBlock(block);
+            FullPlainBlock fullPlainBlock = new FullPlainBlock(x + 35, y + 1);
+			map.AddBlock(fullPlainBlock);
 
-            block = new Block(true, x + 37, y + 1);
-            map.AddBlock(block);
+            HalfPlainBlock halfPlainBlock = new HalfPlainBlock(x + 37, y + 1);
+			map.AddBlock(halfPlainBlock);
 
-            BlockSquareHole bsh = new BlockSquareHole(false, x + 39, y + 1);
-            map.AddBlock(bsh);
+            FullSquareHoleBlock fullSquareHoleBlock = new FullSquareHoleBlock(x + 39, y + 1);
+			map.AddBlock(fullSquareHoleBlock);
 
-            bsh = new BlockSquareHole(true, x + 41, y + 1);
-            map.AddBlock(bsh);
+            HalfSquareHoleBlock halfSquareHoleBlock = new HalfSquareHoleBlock(x + 41, y + 1);
+			map.AddBlock(halfSquareHoleBlock);
 
 			Boundary boundary = new Boundary();
 

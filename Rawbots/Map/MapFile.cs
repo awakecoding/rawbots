@@ -171,11 +171,11 @@ namespace Rawbots
 			type = xml.GetAttribute("type");
 
 			if (type.Equals("LightRubble"))
-				tile = new LightRubbleTile(x, y);
+				tile = new LightRubblePile(x, y);
 			else if (type.Equals("MediumRubble"))
-				tile = new MediumRubbleTile(x, y);
+				tile = new MediumRubblePile(x, y);
 			else if (type.Equals("HeavyRubble"))
-				tile = new HeavyRubbleTile(x, y);
+				tile = new HeavyRubblePile(x, y);
 
 			return tile;
 		}
