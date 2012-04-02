@@ -5,12 +5,12 @@ using OpenTK.Graphics.OpenGL;
 
 namespace Rawbots
 {
-    class HeavyRubbleTile : Tile
+    class HeavyRubblePile : Tile
     {
         public CubeModel cube;
         public HemisphereModel hemiM;
 
-        public HeavyRubbleTile()
+        public HeavyRubblePile()
         {
 			PosX = PosY = 0;
 
@@ -27,7 +27,7 @@ namespace Rawbots
 			hemiM.AssignMaterial(material);
         }
 
-		public HeavyRubbleTile(int x, int y)
+		public HeavyRubblePile(int x, int y)
 		{
 			PosX = x;
 			PosY = y;

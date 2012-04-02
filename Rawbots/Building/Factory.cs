@@ -32,13 +32,12 @@ namespace Rawbots
 		private void Init()
 		{
 			robotPart = null;
-			blockFrontLeft = new Block(true);
-			blockFrontRight = new Block(true);
-			blockBackLeft = new Block(false);
-			blockBackMiddle = new Block(false);
-			blockBackRight = new Block(false);
+			blockFrontLeft = new HalfPlainBlock();
+			blockFrontRight = new HalfPlainBlock();
+			blockBackLeft = new FullPlainBlock();
+			blockBackMiddle = new FullPlainBlock();
+			blockBackRight = new FullPlainBlock();
 
-			//model = new OBJModel(Game.resourcePath + "/Factory/Factory.obj");
 			full = new OBJModel(Game.resourcePath + "/Factory/light_khaki_bldg.obj");
 			half = new OBJModel(Game.resourcePath + "/Factory/light_khaki_bldg_half.obj");
 		}

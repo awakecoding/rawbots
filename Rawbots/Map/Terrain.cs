@@ -47,15 +47,15 @@ namespace Rawbots
 	                            break;
 							
 	                        case 1:
-	                            tiles[i, j] = new LightRubbleTile();
+	                            tiles[i, j] = new LightRubblePile();
 	                            break;
 							
 	                        case 2:
-	                            tiles[i, j] = new MediumRubbleTile();
+	                            tiles[i, j] = new MediumRubblePile();
 	                            break;
 							
 	                        case 3:
-	                            tiles[i, j] = new HeavyRubbleTile();
+	                            tiles[i, j] = new HeavyRubblePile();
 	                            break;
 	                    }
 	
