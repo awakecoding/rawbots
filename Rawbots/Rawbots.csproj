@@ -73,6 +73,7 @@
     <Compile Include="Config.cs" />
     <Compile Include="Camera\FirstPersonCamera.cs" />
     <Compile Include="Light.cs" />
+    <Compile Include="MapFile.cs" />
     <Compile Include="Material.cs" />
     <Compile Include="Model\ConeModel.cs" />
     <Compile Include="OBJModel.cs" />

@@ -7,61 +7,31 @@ namespace Rawbots
 {
     class LightRubbleTile : Tile
     {
-        //public CubeModel cube;
-        //public HemisphereModel hemiM;
-
         public LightRubbleTile()
         {
-			//cube = new CubeModel();
-			//cube.SetColor(0.64f, 0.64f, 0.67f);
-
-			//hemiM = new HemisphereModel(1.0f);
-			//hemiM.LatitudinalSlices = 10;
-			//hemiM.LongitudinalSlices = 10;
-			//cube.SetColor(0.64f, 0.64f, 0.67f);
-			
-			//material = new Material(Material.MaterialType.ROCK_DIFFUSE);
-			//cube.AssignMaterial(material);
-			//hemiM.AssignMaterial(material);
-
+			PosX = PosY = 0;
 			model = new OBJModel(Game.resourcePath + "/Floor/floor_debris_1.obj");
         }
+
+		public LightRubbleTile(int x, int y)
+		{
+			PosX = x;
+			PosY = y;
+			model = new OBJModel(Game.resourcePath + "/Floor/floor_debris_1.obj");
+		}
 
         public override void SetRenderMode(RenderMode renderMode)
         {
             base.SetRenderMode(renderMode);
-
-			//cube.SetRenderMode(renderMode);
-			//hemiM.SetRenderMode(renderMode);
         }
 
         public override void Render()
         {
-            //base.Render();
-
-            //GL.Translate(0.0f, -0.05f, 0.0f);
-
             GL.PushMatrix();
 
 			model.Render();
-            //(0, 0, 0)
-
-            //smallPileOne(); //Draw First One
 
             GL.PopMatrix();
         }
-
-		//public void smallPileOne()
-		//{
-		//    GL.PushMatrix();
-
-		//    GL.Translate(0.0f, -0.05f, 0.0f);
-		//    GL.Rotate(45.0f, 1.0f, 1.0f, 1.0f);
-		//    GL.Scale(0.25f, 0.25f, 0.25f);
-
-		//    //cube.render(1.0f);
-
-		//    GL.PopMatrix();
-		//}
     }
 }

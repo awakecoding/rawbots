@@ -15,12 +15,31 @@ namespace Rawbots
 {
 	public class Tile : Drawable
 	{
+		public int PosX;
+		public int PosY;
+
         public Plane plane;
 		private Light light;
         private bool teamNumber = false;
 
 		public Tile()
 		{
+			PosX = PosY = 0;
+
+			plane = new Plane();
+			plane.SetRenderMode(RenderMode.SOLID);
+
+			material = new Material(Material.MaterialType.DIFFUSE_GRAY);
+			plane.AssignMaterial(material);
+
+			model = new OBJModel(Game.resourcePath + "/Floor/Tile.obj");
+		}
+
+		public Tile(int x, int y)
+		{
+			PosX = x;
+			PosY = y;
+
 			plane = new Plane();
 			plane.SetRenderMode(RenderMode.SOLID);
 

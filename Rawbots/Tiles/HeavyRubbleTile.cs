@@ -12,6 +12,8 @@ namespace Rawbots
 
         public HeavyRubbleTile()
         {
+			PosX = PosY = 0;
+
             cube = new CubeModel();
             cube.SetColor(0.64f, 0.64f, 0.67f);
 
@@ -24,6 +26,24 @@ namespace Rawbots
 			cube.AssignMaterial(material);
 			hemiM.AssignMaterial(material);
         }
+
+		public HeavyRubbleTile(int x, int y)
+		{
+			PosX = x;
+			PosY = y;
+
+			cube = new CubeModel();
+			cube.SetColor(0.64f, 0.64f, 0.67f);
+
+			hemiM = new HemisphereModel(1.0f);
+			hemiM.LatitudinalSlices = 10;
+			hemiM.LongitudinalSlices = 10;
+			cube.SetColor(0.64f, 0.64f, 0.67f);
+
+			material = new Material(Material.MaterialType.ROCK_DIFFUSE);
+			cube.AssignMaterial(material);
+			hemiM.AssignMaterial(material);
+		}
 
         public override void SetRenderMode(RenderMode renderMode)
         {
@@ -106,6 +126,5 @@ namespace Rawbots
 
             GL.PopMatrix();
         }
-
     }
 }

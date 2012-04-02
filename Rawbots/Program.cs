@@ -110,19 +110,10 @@ namespace Rawbots
 
 			resourcePath = DetectResourcePath();
 
-			mapWidth = 50;
-			mapHeight = 50;
-			map = new Map(mapWidth, mapHeight);
-
-			globalCamera.SetMap(map);
-			robotCamera.SetMap(map);
-
-			camera = globalCamera;
-			
 			Mouse.Move += new EventHandler<MouseMoveEventArgs>(OnMouseMove);
 			Keyboard.KeyDown += new EventHandler<KeyboardKeyEventArgs>(OnKeyDown);
 			Keyboard.KeyUp += new EventHandler<KeyboardKeyEventArgs>(OnKeyUp);
-			
+
 			Console.WriteLine("{0}", resourcePath);
 
 			if (useFonts)
@@ -130,13 +121,20 @@ namespace Rawbots
 				font = new QFont(resourcePath + "/Fonts/Ubuntu-R.ttf", 16);
 				font.Options.Colour = new Color4(1.0f, 1.0f, 1.0f, 1.0f);
 				font.Options.DropShadowActive = false;
-	
+
 				monoFont = new QFont(resourcePath + "/Fonts/UbuntuMono-R.ttf", 16);
 				monoFont.Options.Colour = new Color4(1.0f, 1.0f, 1.0f, 1.0f);
 				monoFont.Options.DropShadowActive = false;
 			}
 
 			GL.Disable(EnableCap.Texture2D);
+
+			//map = MapFile.Load(resourcePath + "/Maps/default.xml");
+
+			mapWidth = 50;
+			mapHeight = 50;
+
+			map = new Map(mapWidth, mapHeight);
 
 			Robot robot;
 
@@ -273,7 +271,7 @@ namespace Rawbots
             robot.AddElectronics(new Electronics());
 
             map.AddRobot(robot);
-			
+
 			LightPost lightpost = new LightPost(4);
 			map.SetTile(lightpost, x, y);
 
@@ -340,6 +338,11 @@ namespace Rawbots
 			prevMousePosition = this.WindowCenter;
 			prevMouseDelta = new Point(0, 0);
 			nullDelta = new Point(0, 0);
+
+			globalCamera.SetMap(map);
+			robotCamera.SetMap(map);
+
+			camera = globalCamera;
 
 			System.Windows.Forms.Cursor.Hide();
 

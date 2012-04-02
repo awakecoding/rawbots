@@ -19,6 +19,13 @@ namespace Rawbots
             sides = NORTH + SOUTH + EAST + WEST;
         }
 
+		public Pit(int x, int y)
+		{
+			this.PosX = x;
+			this.PosY = y;
+			sides = NORTH + SOUTH + EAST + WEST;
+		}
+
         public void setVisible(int sides)
         {
             this.sides = sides;
