@@ -89,7 +89,7 @@ namespace Rawbots
 
 			position = GetPosition();
 			x = position[0];
-			y = position[2];
+			y = -position[2];
 
 			angle = GetXZViewAngle();
 
@@ -99,19 +99,14 @@ namespace Rawbots
 			if (x > map.GetWidth())
 				x = map.GetWidth();
 
-			if (y < -map.GetHeight())
-				y = -map.GetHeight();
-
-			if (y > 0.0f)
+			if (y < 0.0f)
 				y = 0.0f;
 
-			cancelMove = ((prevX != x) || (prevY != y));
+			if (y > map.GetHeight())
+				y = map.GetHeight();
 
-			if (!cancelMove)
-			{
-				if (map.IsColliding((int) x, (int) y))
-					cancelMove = true;
-			}
+			if (map.IsColliding((int) x, (int) y))
+				cancelMove = true;
 
 			if (cancelMove)
 			{
@@ -126,10 +121,10 @@ namespace Rawbots
 			}
 			else
 			{
-				Console.WriteLine("Robot(" + x + "," + y + " @ " + angle + ")");
+				//Console.WriteLine("Robot(" + x + "," + y + " @ " + angle + ")");
 
 				robot.PosX = x;
-				robot.PosY = y;
+				robot.PosY = -y;
 			}
 
 			robot.Angle = -angle;

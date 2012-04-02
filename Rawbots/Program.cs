@@ -287,8 +287,6 @@ namespace Rawbots
 
 			l = light;
 			
-
-
             lightCamera1 = new Camera(0.0f, 6.0f, 0.0f,
                          2.0f * (float)Math.Sqrt(2.0f), 0.0f, -2.0f * (float)Math.Sqrt(2.0f),
                          0.0f, 1.0f, 0.0f);
