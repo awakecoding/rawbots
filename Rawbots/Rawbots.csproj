@@ -71,6 +71,7 @@
     <Compile Include="Block\FullPlainBlock.cs" />
     <Compile Include="Block\HalfSquareHoleBlock.cs" />
     <Compile Include="Building\Base.cs" />
+    <Compile Include="Robot\Projectile.cs" />
     <Compile Include="Utility\ByteMap.cs" />
     <Compile Include="Camera\GlobalCamera.cs" />
     <Compile Include="Utility\Collision.cs" />
