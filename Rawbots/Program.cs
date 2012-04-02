@@ -128,7 +128,10 @@ namespace Rawbots
 			}
 
 			GL.Disable(EnableCap.Texture2D);
+		}
 
+		public void LoadMap(string filename)
+		{
 			int x = 0;
 			int y = 0;
 			Light light;
@@ -138,7 +141,7 @@ namespace Rawbots
 
 			if (useMapFile)
 			{
-				map = MapFile.Load(resourcePath + "/Maps/default.xml");
+				map = MapFile.Load(resourcePath + "/Maps/" + filename);
 			}
 			else
 			{
@@ -356,7 +359,7 @@ namespace Rawbots
 			GL.Enable(EnableCap.Lighting);
             GL.Enable(EnableCap.ColorMaterial);
             GL.Enable(EnableCap.Texture2D);
-			GL.PolygonOffset(-10.0f, -25.0f); //To Avoid Having Z-Fighting for projecting surfaces onto another surface (Shadows)
+			GL.PolygonOffset(-10.0f, -25.0f); /* To Avoid Having Z-Fighting for projecting surfaces onto another surface (Shadows) */
 		}
 
 		public static bool IsWindows()
@@ -880,10 +883,21 @@ namespace Rawbots
 		}
 
 		[STAThread]
-		static void Main()
+		static void Main(string[] args)
 		{
+			string mapFileName = "default.xml";
+
+			for (int i = 0; i < args.Length; i++)
+			{
+				if (args[i].Equals("-m"))
+				{
+					mapFileName = args[++i];
+				}
+			}
+
 			using (Game game = new Game())
 			{
+				game.LoadMap(mapFileName);
 				game.Run();
 			}
 		}
