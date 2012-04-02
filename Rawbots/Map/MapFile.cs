@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Xml;
+using OpenTK.Graphics.OpenGL;
 
 namespace Rawbots
 {
@@ -329,6 +330,7 @@ namespace Rawbots
 			y = Int32.Parse(xml.GetAttribute("y"));
 
 			remoteControlUnit = new RemoteControlUnit(x, y);
+			remoteControlUnit.AttachLight(new Light(LightName.Light4));
 
 			return remoteControlUnit;
 		}
