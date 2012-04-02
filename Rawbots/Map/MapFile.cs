@@ -71,6 +71,10 @@ namespace Rawbots
 						{
 							map.AddBlock(LoadBlock(xml));
 						}
+						else if (xml.Name.Equals("RemoteControlUnit"))
+						{
+							map.SetRemoteControlUnit(LoadRemoteControlUnit(xml));
+						}
 						
 						break;
 
@@ -314,6 +318,19 @@ namespace Rawbots
 				block = new HalfSquareHoleBlock(x, y);
 
 			return block;
+		}
+
+		private static RemoteControlUnit LoadRemoteControlUnit(XmlTextReader xml)
+		{
+			int x, y;
+			RemoteControlUnit remoteControlUnit = null;
+
+			x = Int32.Parse(xml.GetAttribute("x"));
+			y = Int32.Parse(xml.GetAttribute("y"));
+
+			remoteControlUnit = new RemoteControlUnit(x, y);
+
+			return remoteControlUnit;
 		}
 	}
 }

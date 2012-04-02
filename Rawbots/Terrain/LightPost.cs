@@ -19,13 +19,11 @@ namespace Rawbots
         {
             base.SetRenderMode(renderMode);
         }
-			
-		private void drawLightPost()
+
+		private void DrawLightPost()
 		{
 			GL.PushMatrix();
-
 			model.Render();
-
 			GL.PopMatrix();
 		}
 		
@@ -46,7 +44,7 @@ namespace Rawbots
 				case 1:
 					GL.PushMatrix();
 					GL.Translate (-0.35f, 0.0f, -0.35f);
-                    drawLightPost();
+                    DrawLightPost();
                     GL.PopMatrix ();
 					break;
 				
@@ -54,7 +52,7 @@ namespace Rawbots
 				case 2:
 					GL.PushMatrix();
 					GL.Translate (0.35f, 0.0f, -0.35f);
-                    drawLightPost();
+                    DrawLightPost();
                     GL.PopMatrix ();
 					break;
 				
@@ -62,7 +60,7 @@ namespace Rawbots
 				case 3:
 					GL.PushMatrix();
 					GL.Translate (0.35f, 0.0f, 0.35f);
-                    drawLightPost();
+                    DrawLightPost();
                     GL.PopMatrix ();
 					break;
 				
@@ -70,7 +68,7 @@ namespace Rawbots
 				case 4:
 					GL.PushMatrix();
 					GL.Translate (-0.35f, 0.0f, 0.35f);
-                    drawLightPost();
+                    DrawLightPost();
                     GL.PopMatrix ();
 					break;
 				

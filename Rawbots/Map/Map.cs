@@ -41,11 +41,6 @@ namespace Rawbots
             blocks = new List<Block>();
             bases = new List<Base>();
             lights = new List<Light>();
-
-            remoteControlUnit = new RemoteControlUnit();
-			remoteControlUnit.AttachLight(new Light(LightName.Light4));
-            remoteControlUnit.PosX = 43;
-			remoteControlUnit.PosY = 1;
 		}
 
 		public int GetWidth()
@@ -74,18 +69,16 @@ namespace Rawbots
 
 			return colliding;
 		}
-		
-		//public bool IsColliding(float x, float y)
-		//{
-		//    bool colliding = terrain.CollisionMap.IsPositionSet(x, y);
 
-		//    if (colliding)
-		//    {
-		//        Console.WriteLine("collision at {0},{1}", x, y);
-		//    }
+		public void SetRemoteControlUnit(RemoteControlUnit remoteControlUnit)
+		{
+			this.remoteControlUnit = remoteControlUnit;
+		}
 
-		//    return colliding;
-		//}
+		public RemoteControlUnit GetRemoteControlUnit()
+		{
+			return this.remoteControlUnit;
+		}
 
 		public void AddRobot(Robot robot)
 		{
@@ -95,6 +88,11 @@ namespace Rawbots
 		public void RemoveRobot(Robot robot)
 		{
 			robots.Remove(robot);
+		}
+
+		public Robot GetActiveRobot()
+		{
+			return robots[0];
 		}
 
 		public List<Robot> GetRobots()
@@ -192,37 +190,37 @@ namespace Rawbots
 			remoteControlUnit.HideTextures();
 		}
 
-		public void HoverRMC()
+		public void HoverRemoteControlUnit()
 		{
 			remoteControlUnit.Hover();
 		}
 
-		public void MoveRMCLeft()
+		public void MoveRemoteControlUnitLeft()
 		{
 			remoteControlUnit.MoveLeft();
 		}
 
-		public void MoveRMCRight()
+		public void MoveRemoteControlUnitRight()
 		{
 			remoteControlUnit.MoveRight();
 		}
 
-		public void MoveRMCUp()
+		public void MoveRemoteControlUnitUp()
 		{
 			remoteControlUnit.MoveUp();
 		}
 
-		public void MoveRMCDown()
+		public void MoveRemoteControlUnitDown()
 		{
 			remoteControlUnit.MoveDown();
 		}
 
-		public float[] GetRMCPosition()
+		public float[] GetRemoteControlUnitPosition()
 		{
 			return new float[] { remoteControlUnit.PosX, remoteControlUnit.PosY };
 		}
 
-		public void AddRobotToRMCList(Robot r)
+		public void AddRobotToRemoteControlUnitList(Robot r)
 		{
 			remoteControlUnit.AddRobot(r);
 		}

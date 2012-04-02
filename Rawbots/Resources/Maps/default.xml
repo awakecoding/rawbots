@@ -45,6 +45,8 @@
 
 	<Base x="45" y="5"/>
 
+	<RemoteControlUnit x="43" y="1"/>
+
 	<Terrain width="50" height="50">
 
 		<Tile x="17" y="1" type="LightRubble"/>

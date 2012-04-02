@@ -156,12 +156,11 @@ namespace Rawbots
 
 				someRobot = robot;
 
-				light = new Light(LightName.Light7);
-				robot.AddLight(light);
-
-				activeRobot = robot;
-				robotCamera.Attach(robot);
-				map.AddRobotToRMCList(robot);
+				RemoteControlUnit remoteControlUnit = new RemoteControlUnit();
+				remoteControlUnit.AttachLight(new Light(LightName.Light4));
+				remoteControlUnit.PosX = 43;
+				remoteControlUnit.PosY = 1;
+				map.SetRemoteControlUnit(remoteControlUnit);
 
 				robot = new Robot(x + 3, y + 1);
 				robot.AddWeapon(new NuclearWeapon());
@@ -282,21 +281,30 @@ namespace Rawbots
 				map.AddRobot(robot);
 			}
 
+			activeRobot = map.GetActiveRobot();
+			robotCamera.Attach(activeRobot);
+			map.AddRobotToRemoteControlUnitList(activeRobot);
+
+			light = new Light(LightName.Light7);
+			activeRobot.AddLight(light);
+
+			someRobot = activeRobot;
+
 			LightPost lightpost = new LightPost(4);
 			map.SetTile(lightpost, x, y);
 
             light = new Light(LightName.Light0);
             light.setCutOff(45.0f);
             light.lookAt(0.0f, 6.0f, 0.0f,
-                         2.0f*(float)Math.Sqrt(2.0f), 0.0f, -2.0f*(float)Math.Sqrt(2.0f),
-                         1.0f, 1.0f, 1.0f);
+                         2.0f * (float) Math.Sqrt(2.0f), 0.0f, -2.0f * (float) Math.Sqrt(2.0f),
+						 1.0f, 1.0f, 1.0f);
             
             lightpost.AddLight(light);
 
 			l = light;
 			
             lightCamera1 = new Camera(0.0f, 6.0f, 0.0f,
-                         2.0f * (float)Math.Sqrt(2.0f), 0.0f, -2.0f * (float)Math.Sqrt(2.0f),
+                         2.0f * (float) Math.Sqrt(2.0f), 0.0f, -2.0f * (float) Math.Sqrt(2.0f),
                          0.0f, 1.0f, 0.0f);
 
             lightpost = new LightPost(3);
@@ -305,13 +313,13 @@ namespace Rawbots
             light = new Light(LightName.Light1);
             light.setCutOff(45.0f);
             light.lookAt(0.0f, 6.0f, 0.0f,
-                         -2.0f * (float)Math.Sqrt(2.0f), 0.0f, -2.0f * (float)Math.Sqrt(2.0f),
-                        0.0f, 0.0f, 1.0f);
+				-2.0f * (float) Math.Sqrt(2.0f), 0.0f, -2.0f * (float) Math.Sqrt(2.0f),
+				0.0f, 0.0f, 1.0f);
             lightpost.AddLight(light);
 
             lightCamera2 = new Camera(49.0f, 6.0f, 0.0f,
-                         49.0f - 2.0f * (float)Math.Sqrt(2.0f), 0.0f, -2.0f * (float)Math.Sqrt(2.0f),
-                         0.0f, 1.0f, 0.0f);
+				49.0f - 2.0f * (float) Math.Sqrt(2.0f), 0.0f, -2.0f * (float) Math.Sqrt(2.0f),
+				0.0f, 1.0f, 0.0f);
 
 			lightpost = new LightPost(2);
 			map.SetTile(lightpost, x + 49, y + 49);
@@ -319,13 +327,13 @@ namespace Rawbots
             light = new Light(LightName.Light2);
             light.setCutOff(45.0f);
             light.lookAt(0.0f, 6.0f, 0.0f,
-                         -2.0f * (float)Math.Sqrt(2.0f), 0.0f, 2.0f * (float)Math.Sqrt(2.0f),
-                         1.0f, 1.0f, 1.0f);
+				-2.0f * (float) Math.Sqrt(2.0f), 0.0f, 2.0f * (float) Math.Sqrt(2.0f),
+				1.0f, 1.0f, 1.0f);
             lightpost.AddLight(light);
 
             lightCamera3 = new Camera(49.0f, 6.0f, -49.0f,
-                         49.0f - 2.0f * (float)Math.Sqrt(2.0f), 0.0f, -49.0f + 2.0f * (float)Math.Sqrt(2.0f),
-                         0.0f, 1.0f, 0.0f);
+				49.0f - 2.0f * (float) Math.Sqrt(2.0f), 0.0f, -49.0f + 2.0f * (float) Math.Sqrt(2.0f),
+				0.0f, 1.0f, 0.0f);
 
 			lightpost = new LightPost(1);
 			map.SetTile(lightpost, x, y + 49);
@@ -333,13 +341,13 @@ namespace Rawbots
             light = new Light(LightName.Light3);
             light.setCutOff(45.0f);
             light.lookAt(0.0f, 6.0f, 0.0f,
-                         2.0f * (float) Math.Sqrt(2.0f), 0.0f, 2.0f * (float)Math.Sqrt(2.0f),
-                         1.0f, 1.0f, 1.0f);
+				2.0f * (float) Math.Sqrt(2.0f), 0.0f, 2.0f * (float) Math.Sqrt(2.0f),
+				1.0f, 1.0f, 1.0f);
             lightpost.AddLight(light);
 
             lightCamera4 = new Camera(0.0f, 6.0f, -49.0f,
-                         2.0f * (float) Math.Sqrt(2.0f), 0.0f, -49.0f + 2.0f * (float)Math.Sqrt(2.0f),
-                         0.0f, 1.0f, 0.0f);
+				2.0f * (float) Math.Sqrt(2.0f), 0.0f, -49.0f + 2.0f * (float) Math.Sqrt(2.0f),
+				0.0f, 1.0f, 0.0f);
 
             this.Title = this.baseTitle;
 
@@ -359,7 +367,9 @@ namespace Rawbots
 			GL.Enable(EnableCap.Lighting);
             GL.Enable(EnableCap.ColorMaterial);
             GL.Enable(EnableCap.Texture2D);
-			GL.PolygonOffset(-10.0f, -25.0f); /* To Avoid Having Z-Fighting for projecting surfaces onto another surface (Shadows) */
+
+			/* To Avoid Having Z-Fighting for projecting surfaces onto another surface (Shadows) */
+			GL.PolygonOffset(-10.0f, -25.0f);
 		}
 
 		public static bool IsWindows()
@@ -676,8 +686,6 @@ namespace Rawbots
 				}
 		}
 
-		bool mouseCentered = false;
-
 		protected override void OnUpdateFrame(FrameEventArgs e)
 		{
 			base.OnUpdateFrame(e);
@@ -769,19 +777,19 @@ namespace Rawbots
 			else if (camera == rmcUnitCamera)
 			{
 				if (Keyboard[Key.Space])
-					map.HoverRMC();
+					map.HoverRemoteControlUnit();
 				if (Keyboard[Key.Left])
-					map.MoveRMCLeft();
+					map.MoveRemoteControlUnitLeft();
 				if (Keyboard[Key.Right])
-					map.MoveRMCRight();
+					map.MoveRemoteControlUnitRight();
 				if (Keyboard[Key.Up])
-					map.MoveRMCUp();
+					map.MoveRemoteControlUnitUp();
 				if (Keyboard[Key.Down])
-					map.MoveRMCDown();
+					map.MoveRemoteControlUnitDown();
 				if (Keyboard[Key.ShiftLeft])
 					map.GrabRobot();
 
-				float[] rmcUnitPos = map.GetRMCPosition();
+				float[] rmcUnitPos = map.GetRemoteControlUnitPosition();
 
 				rmcUnitCamera.LookAt(rmcUnitPos[0], 6.0f, 8.0f - rmcUnitPos[1],
 									rmcUnitPos[0], 3.0f, 4.0f - rmcUnitPos[1],
