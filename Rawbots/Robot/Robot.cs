@@ -262,6 +262,16 @@ namespace Rawbots
 			GL.PopMatrix();
 		}
 
+		public bool RobotCollisionTest(Map map, float x, float y)
+		{
+			if (map.IsColliding((int)Math.Ceiling(x), (int)Math.Ceiling(y)))
+				return true;
+			if (map.IsColliding((int)Math.Floor(x), (int)Math.Floor(y)))
+				return true;
+
+			return false;
+		}
+
 		public override bool IsCollideable()
 		{
 			return true;

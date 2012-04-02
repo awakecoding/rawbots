@@ -222,6 +222,11 @@ namespace Rawbots
 			remoteControlUnit.AddRobot(r);
 		}
 
+		public void GrabRobot()
+		{
+			remoteControlUnit.GrabARobot();
+		}
+
         public void Render()
         {
 			GL.PushMatrix();

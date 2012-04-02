@@ -118,6 +118,11 @@ namespace Rawbots
 			MovingDown = true;
 		}
 
+		public void GrabARobot()
+		{
+			GrabRobot = true;
+		}
+
 		public void AttachLight(Light l)
 		{
 			light = l;
@@ -180,11 +185,14 @@ namespace Rawbots
 					HoverHeight -= 0.1f;
 			}
 
+			float rotation = 0.0f;
+
 			if (MovingLeft)
 			{
 				PosX -= 0.1f;
 				light.setDirection(-0.45f, -0.45f, -0.45f);
 				Console.WriteLine("RMC (" + PosX + "," + PosY + ")");
+				rotation = 90.0f;
 			}
 
 			if (MovingRight)
@@ -192,6 +200,7 @@ namespace Rawbots
 				PosX += 0.1f;
 				light.setDirection(0.45f, -0.45f, -0.45f);
 				Console.WriteLine("RMC (" + PosX + "," + PosY + ")");
+				rotation = -90.0f;
 			}
 
 			if (MovingUp)
@@ -206,12 +215,20 @@ namespace Rawbots
 				PosY -= 0.1f;
 				light.setDirection(0.0f, -0.45f, 0.45f);
 				Console.WriteLine("RMC (" + PosX + "," + PosY + ")");
+				rotation = 180.0f;
 			}
 
 			if (light != null)
 			{
 				light.setPosition(PosX, HoverHeight, -PosY, 1.0f);
 				light.apply();
+			}
+
+			if (robotToGrab != null && GrabRobot)
+			{
+				Console.WriteLine("Grabbing Robot");
+				robotToGrab.PosX = PosX; robotToGrab.PosY = -PosY;
+				robotToGrab.Angle = rotation;
 			}
 
 			GL.Translate(PosX, HoverHeight, -PosY);
@@ -281,6 +298,7 @@ namespace Rawbots
 			//TeamNumber.Render();
 			//GL.PopMatrix();
 
+			GrabRobot = false;
 			Hovering = false;
 			MovingLeft = false;
 			MovingRight=false;
