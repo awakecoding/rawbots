@@ -85,40 +85,35 @@ namespace Rawbots
 
 			//model.Render();
 
-			GL.Translate(-1.0f, 0.0f, 0.0f);
-			full.Render();
-			//blockBackLeft.Render();
-			GL.Translate(0.0f, 0.0f, 1.0f);
-			half.Render();
-			//blockFrontLeft.Render();
-			GL.Translate(1.0f, 0.0f, -1.0f);
-			full.Render();
-			//blockBackMiddle.Render();
+			/**
+			 * Factory
+			 * _____________
+			 * |_F_|_M_|_F_|
+			 * |_H_|   |_H_|
+			 * 
+			 * F = full
+			 * H = half
+			 * M = full + robot part
+			 * 
+			 */
+
+			full.Render(); /* Full (Left) */
 			GL.Translate(1.0f, 0.0f, 0.0f);
-			full.Render();
-			//blockBackRight.Render();
-			GL.Translate(0.0f, 0.0f, 1.0f);
-			half.Render();
-			//blockFrontRight.Render();
-			GL.Translate(-1.0f, 0.0f, -1.0f);
+			full.Render(); /* Full (Middle) */
+			GL.Translate(1.0f, 0.0f, 0.0f);
+			full.Render(); /* Full (Right) */
+			GL.Translate(-2.0f, 0.0f, 1.0f);
+			half.Render(); /* Half (left) */
+			GL.Translate(2.0f, 0.0f, 0.0f);
+			half.Render(); /* Half (Right) */
+			GL.Translate(-2.0f, 0.0f, -1.0f);
 
 			if (robotPart != null)
 			{
-				GL.Translate(0.0f, 1.0f, 0.0f);
+				GL.Translate(1.0f, 1.0f, 0.0f);
 				robotPart.RenderAll();
-				GL.Translate(0.0f, -1.0f, 0.0f);
+				GL.Translate(-1.0f, -1.0f, 0.0f);
 			}
-			
-			///* team number */
-			
-			//GL.PushMatrix();
-			
-			//GL.Scale(0.3f, 0.3f, 0.3f);
-			//GL.Translate(0.0f, 1.0f, 2.0f);
-			//TeamNumber.Render();
-			//GL.Translate(0.0f, -1.0f, -1.0f);
-			
-			//GL.PopMatrix();
 
 			GL.PopMatrix();
 		}
