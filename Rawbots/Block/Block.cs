@@ -14,7 +14,7 @@ using OpenTK.Graphics.OpenGL;
 
 namespace Rawbots
 {
-	public class Block : Model
+	public abstract class Block : Model
 	{
         public int PosX { get; set; }
         public int PosY { get; set; }

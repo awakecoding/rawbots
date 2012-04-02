@@ -13,7 +13,7 @@ using OpenTK.Graphics.OpenGL;
 
 namespace Rawbots
 {
-	public class Tile : Drawable
+	public abstract class Tile : Drawable
 	{
 		public int PosX;
 		public int PosY;
@@ -55,12 +55,12 @@ namespace Rawbots
             plane.SetRenderMode(renderMode);
         }
 
-        public void showTeamNumber()
+        public void ShowTeamNumber()
         {
             teamNumber = true;
         }
 
-        public void hideTeamNumber()
+        public void HideTeamNumber()
         {
             teamNumber = false;
         }
@@ -75,7 +75,7 @@ namespace Rawbots
             return light;
         }
 
-		public float getWidth()
+		public float GetWidth()
 		{
 			return 1.0f;
 		}

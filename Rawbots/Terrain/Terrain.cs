@@ -43,7 +43,7 @@ namespace Rawbots
 	                    switch (n % 4)
 	                    {
 	                        case 0:
-	                            tiles[i, j] = new Tile();
+	                            tiles[i, j] = new FloorTile();
 	                            break;
 							
 	                        case 1:
@@ -69,7 +69,7 @@ namespace Rawbots
                 {
                     for (int j = 0; j < tiles.GetLength(1); j++)
                     {
-                        tiles[i, j] = new Tile();
+                        tiles[i, j] = new FloorTile();
                     }
                 }
 			}
@@ -90,7 +90,9 @@ namespace Rawbots
 						bytes[i, j] = ByteMap.TRUE;
 					}
 					else
+					{
 						bytes[i, j] = ByteMap.FALSE;
+					}
 				}
 			}
 		}
@@ -105,7 +107,9 @@ namespace Rawbots
 			for (int i = 0; i < tiles.GetLength(0); i++)
 			{
 				for (int j = 0; j < tiles.GetLength(1); j++)
+				{
 					tiles[i, j].SetRenderMode(renderMode);
+				}
 			}
         }
 
@@ -114,7 +118,9 @@ namespace Rawbots
 			for (int i = 0; i < tiles.GetLength(0); i++)
 			{
 				for (int j = 0; j < tiles.GetLength(1); j++)
+				{
 					tiles[i, j].ShowTextures();
+				}
 			}
 		}
 
@@ -123,34 +129,35 @@ namespace Rawbots
 			for (int i = 0; i < tiles.GetLength(0); i++)
 			{
 				for (int j = 0; j < tiles.GetLength(1); j++)
+				{
 					tiles[i, j].HideTextures();
+				}
 			}
 		}
 
-        public void setTile(Tile tile, int x, int y)
+        public void SetTile(Tile tile, int x, int y)
         {
             tiles[x, y] = tile;
-
 			GenerateCollisionMap();
         }
 
-        public int getWidth()
+        public int GetWidth()
         {
             return tiles.GetLength(0);
         }
 
-        public int getHeight()
+        public int GetHeight()
         {
             return tiles.GetLength(1);
         }
 
-		public float[][] getPlane()
+		public float[][] GetPlane()
 		{
 			float[][] pPlane = new float[3][];
 
 			pPlane[0] = new float[] { 0.0f, 0.0f, 0.0f };
-			pPlane[1] = new float[] { tiles.Length * tiles[0, 0].getWidth(), 0.0f, 0.0f};
-			pPlane[2] = new float[] { 0.0f, tiles.Length * tiles[0, 0].getWidth(), 0.0f};
+			pPlane[1] = new float[] { tiles.Length * tiles[0, 0].GetWidth(), 0.0f, 0.0f};
+			pPlane[2] = new float[] { 0.0f, tiles.Length * tiles[0, 0].GetWidth(), 0.0f};
 
 			return pPlane;
 		}
@@ -162,8 +169,8 @@ namespace Rawbots
 			GL.PushMatrix();
 			GL.LineWidth(2.5f);
 
-			width = getWidth();
-			height = getHeight();
+			width = GetWidth();
+			height = GetHeight();
 
 			GL.Color3(0.3f, 0.3f, 0.3f);
 
@@ -185,4 +192,3 @@ namespace Rawbots
 		}
 	}
 }
-
