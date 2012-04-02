@@ -43,7 +43,7 @@
 	<Factory x="32" y="5" type="PhasersWeapon"/>
 	<Factory x="37" y="5" type="TrackedChassis"/>
 
-	<Base x="45" y="45"/>
+	<Base x="45" y="5"/>
 
 	<Terrain width="50" height="50">
 
@@ -72,6 +72,162 @@
 			<South/>
 		</Pit>
 
+		<!-- left side -->
+
+		<Boundary x="0" y="1"/>
+		<Boundary x="0" y="2"/>
+		<Boundary x="0" y="3"/>
+		<Boundary x="0" y="4"/>
+		<Boundary x="0" y="5"/>
+		<Boundary x="0" y="6"/>
+		<Boundary x="0" y="7"/>
+		<Boundary x="0" y="8"/>
+		<Boundary x="0" y="9"/>
+		<Boundary x="0" y="10"/>
+		<Boundary x="0" y="11"/>
+		<Boundary x="0" y="12"/>
+		<Boundary x="0" y="13"/>
+		<Boundary x="0" y="14"/>
+		<Boundary x="0" y="15"/>
+		<Boundary x="0" y="16"/>
+		<Boundary x="0" y="17"/>
+		<Boundary x="0" y="18"/>
+		<Boundary x="0" y="19"/>
+		<Boundary x="0" y="20"/>
+		<Boundary x="0" y="21"/>
+		<Boundary x="0" y="22"/>
+		<Boundary x="0" y="23"/>
+		<Boundary x="0" y="24"/>
+		<Boundary x="0" y="25"/>
+		<Boundary x="0" y="26"/>
+		<Boundary x="0" y="27"/>
+		<Boundary x="0" y="28"/>
+		<Boundary x="0" y="29"/>
+		<Boundary x="0" y="30"/>
+		<Boundary x="0" y="31"/>
+		<Boundary x="0" y="32"/>
+		<Boundary x="0" y="33"/>
+		<Boundary x="0" y="34"/>
+		<Boundary x="0" y="35"/>
+		<Boundary x="0" y="36"/>
+		<Boundary x="0" y="37"/>
+		<Boundary x="0" y="38"/>
+		<Boundary x="0" y="39"/>
+		<Boundary x="0" y="40"/>
+		<Boundary x="0" y="41"/>
+		<Boundary x="0" y="42"/>
+		<Boundary x="0" y="43"/>
+		<Boundary x="0" y="44"/>
+		<Boundary x="0" y="45"/>
+		<Boundary x="0" y="46"/>
+		<Boundary x="0" y="47"/>
+		<Boundary x="0" y="48"/>
+
+		<!-- right side -->
+
+		<Boundary x="49" y="1"/>
+		<Boundary x="49" y="2"/>
+		<Boundary x="49" y="3"/>
+		<Boundary x="49" y="4"/>
+		<Boundary x="49" y="5"/>
+		<Boundary x="49" y="6"/>
+		<Boundary x="49" y="7"/>
+		<Boundary x="49" y="8"/>
+		<Boundary x="49" y="9"/>
+		<Boundary x="49" y="10"/>
+		<Boundary x="49" y="11"/>
+		<Boundary x="49" y="12"/>
+		<Boundary x="49" y="13"/>
+		<Boundary x="49" y="14"/>
+		<Boundary x="49" y="15"/>
+		<Boundary x="49" y="16"/>
+		<Boundary x="49" y="17"/>
+		<Boundary x="49" y="18"/>
+		<Boundary x="49" y="19"/>
+		<Boundary x="49" y="20"/>
+		<Boundary x="49" y="21"/>
+		<Boundary x="49" y="22"/>
+		<Boundary x="49" y="23"/>
+		<Boundary x="49" y="24"/>
+		<Boundary x="49" y="25"/>
+		<Boundary x="49" y="26"/>
+		<Boundary x="49" y="27"/>
+		<Boundary x="49" y="28"/>
+		<Boundary x="49" y="29"/>
+		<Boundary x="49" y="30"/>
+		<Boundary x="49" y="31"/>
+		<Boundary x="49" y="32"/>
+		<Boundary x="49" y="33"/>
+		<Boundary x="49" y="34"/>
+		<Boundary x="49" y="35"/>
+		<Boundary x="49" y="36"/>
+		<Boundary x="49" y="37"/>
+		<Boundary x="49" y="38"/>
+		<Boundary x="49" y="39"/>
+		<Boundary x="49" y="40"/>
+		<Boundary x="49" y="41"/>
+		<Boundary x="49" y="42"/>
+		<Boundary x="49" y="43"/>
+		<Boundary x="49" y="44"/>
+		<Boundary x="49" y="45"/>
+		<Boundary x="49" y="46"/>
+		<Boundary x="49" y="47"/>
+		<Boundary x="49" y="48"/>
+
+		<!-- bottom side -->
+
+		<Boundary x="1" y="0"/>
+		<Boundary x="2" y="0"/>
+		<Boundary x="3" y="0"/>
+		<Boundary x="4" y="0"/>
+		<Boundary x="5" y="0"/>
+		<Boundary x="6" y="0"/>
+		<Boundary x="7" y="0"/>
+		<Boundary x="8" y="0"/>
+		<Boundary x="9" y="0"/>
+		<Boundary x="10" y="0"/>
+		<Boundary x="11" y="0"/>
+		<Boundary x="12" y="0"/>
+		<Boundary x="13" y="0"/>
+		<Boundary x="14" y="0"/>
+		<Boundary x="15" y="0"/>
+		<Boundary x="16" y="0"/>
+		<Boundary x="17" y="0"/>
+		<Boundary x="18" y="0"/>
+		<Boundary x="19" y="0"/>
+		<Boundary x="20" y="0"/>
+		<Boundary x="21" y="0"/>
+		<Boundary x="22" y="0"/>
+		<Boundary x="23" y="0"/>
+		<Boundary x="24" y="0"/>
+		<Boundary x="25" y="0"/>
+		<Boundary x="26" y="0"/>
+		<Boundary x="27" y="0"/>
+		<Boundary x="28" y="0"/>
+		<Boundary x="29" y="0"/>
+		<Boundary x="30" y="0"/>
+		<Boundary x="31" y="0"/>
+		<Boundary x="32" y="0"/>
+		<Boundary x="33" y="0"/>
+		<Boundary x="34" y="0"/>
+		<Boundary x="35" y="0"/>
+		<Boundary x="36" y="0"/>
+		<Boundary x="37" y="0"/>
+		<Boundary x="38" y="0"/>
+		<Boundary x="39" y="0"/>
+		<Boundary x="40" y="0"/>
+		<Boundary x="41" y="0"/>
+		<Boundary x="42" y="0"/>
+		<Boundary x="43" y="0"/>
+		<Boundary x="44" y="0"/>
+		<Boundary x="45" y="0"/>
+		<Boundary x="46" y="0"/>
+		<Boundary x="47" y="0"/>
+		<Boundary x="48" y="0"/>
+
+		<!-- top side -->
+
+		<Boundary x="0" y="49"/>
 		<Boundary x="1" y="49"/>
 		<Boundary x="2" y="49"/>
 		<Boundary x="3" y="49"/>
@@ -120,6 +276,7 @@
 		<Boundary x="46" y="49"/>
 		<Boundary x="47" y="49"/>
 		<Boundary x="48" y="49"/>
+		<Boundary x="49" y="49"/>
 
 	</Terrain>
 
