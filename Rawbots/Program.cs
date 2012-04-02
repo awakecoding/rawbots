@@ -343,6 +343,8 @@ namespace Rawbots
 			prevMouseDelta = new Point(0, 0);
 			nullDelta = new Point(0, 0);
 
+			System.Windows.Forms.Cursor.Hide();
+
 			GL.Enable(EnableCap.Lighting);
             GL.Enable(EnableCap.ColorMaterial);
             GL.Enable(EnableCap.Texture2D);
@@ -440,7 +442,8 @@ namespace Rawbots
 
 		public void OnMouseMove(object sender, MouseMoveEventArgs args)
 		{
-
+			mouseDelta.X += args.XDelta;
+			mouseDelta.Y += args.YDelta;
 		}
 
 		public void OnKeyDown(object sender, KeyboardKeyEventArgs args)
@@ -659,6 +662,8 @@ namespace Rawbots
 				}
 		}
 
+		bool mouseCentered = false;
+
 		protected override void OnUpdateFrame(FrameEventArgs e)
 		{
 			base.OnUpdateFrame(e);
@@ -705,19 +710,15 @@ namespace Rawbots
 
 			mousePosition = new Point(Mouse.X, Mouse.Y);
 
-			mouseDelta = new Point(mousePosition.X - prevMousePosition.X,
-				mousePosition.Y - prevMousePosition.Y);
+			mouseDelta = new Point(mousePosition.X - PointToClient(WindowCenter).X,
+				mousePosition.Y - PointToClient(WindowCenter).Y);
 
-			if (!mousePosition.Equals(WindowCenter) && !mouseDelta.Equals(nullDelta))
+			if (!mouseDelta.Equals(nullDelta))
 			{
-				//Console.WriteLine("Deltas: (" + prevMouseDelta.X + ", " + prevMouseDelta.Y + ")  (" + mouseDelta.X + ", " + mouseDelta.Y + ")");
-
-				prevMousePosition = mousePosition;
-				prevMouseDelta = mouseDelta;
-
 				if (camera.MouseDeltaMotion(mouseDelta.X, mouseDelta.Y))
 				{
-					//System.Windows.Forms.Cursor.Position = WindowCenter;
+					mouseDelta.X = mouseDelta.Y = 0;
+					System.Windows.Forms.Cursor.Position = WindowCenter;
 				}
 			}
 
