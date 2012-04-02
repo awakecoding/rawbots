@@ -8,9 +8,9 @@ namespace Rawbots
 {
     public class Light
     {
-        float[] Ambient = { 0.0f, 0.0f, 0.0f, 0.0f};
-        float[] Diffuse = { 1.0f, 1.0f, 1.0f, 1.0f};
-        float[] Specular = { 1.0f, 1.0f, 1.0f, 1.0f};
+        float[] Ambient = { 0.0f, 0.0f, 0.0f, 0.0f };
+        float[] Diffuse = { 1.0f, 1.0f, 1.0f, 1.0f };
+        float[] Specular = { 1.0f, 1.0f, 1.0f, 1.0f };
         
         float[] Position = { 0.0f, 0.0f, 1.0f, 0.0f };
         float[] Direction = { 0.0f, 0.0f, -1.0f};
@@ -18,10 +18,8 @@ namespace Rawbots
         float SpotCutOff = 180.0f;
 
         float Attenuation = 0.0f;
-        SphereModel sphere_source = new SphereModel(0.05f);
-        ConeModel cone_source = new ConeModel();
-
-        //float[] matrix;
+        SphereModel sphereSource = new SphereModel(0.05f);
+        ConeModel coneSource = new ConeModel();
 
         bool debug = true;
 
@@ -31,12 +29,12 @@ namespace Rawbots
 
         public Light(LightName name)
         {
-            sphere_source.LatitudinalSlices = 8;
-            sphere_source.LongitudinalSlices = 8;
-            sphere_source.SetColor(1.0f, 1.0f, 1.0f);
-            sphere_source.SetRenderMode(RenderMode.WIRE);
-            cone_source.SetColor(1.0f, 1.0f, 1.0f);
-            cone_source.SetRenderMode(RenderMode.WIRE);
+            sphereSource.LatitudinalSlices = 8;
+            sphereSource.LongitudinalSlices = 8;
+            sphereSource.SetColor(1.0f, 1.0f, 1.0f);
+            sphereSource.SetRenderMode(RenderMode.WIRE);
+            coneSource.SetColor(1.0f, 1.0f, 1.0f);
+            coneSource.SetRenderMode(RenderMode.WIRE);
 
             lightName = name;
             GL.Enable(lightNameCapLookUp(name));
@@ -76,29 +74,6 @@ namespace Rawbots
                            float centerx, float centery, float centerz,
                            float upx, float upy, float upz)
         {
-            //Matrix4 matr = Matrix4.LookAt(eyex, eyey, eyez,
-            //                              centerx, centery, centerz,
-            //                              upx, upy, upz);
-            //matrix = matr;
-
-            //float newXeye = matr.Row0.X * eyex + matr.Row0.Y * eyey + matr.Row0.Z * eyez + matr.Row0.W * 1.0f;
-            //float newYeye = matr.Row1.X * eyex + matr.Row1.Y * eyey + matr.Row1.Z * eyez + matr.Row1.W * 1.0f;
-            //float newZeye = matr.Row2.X * eyex + matr.Row2.Y * eyey + matr.Row2.Z * eyez + matr.Row2.W * 1.0f;
-
-            //setPosition(newXeye, newYeye, newZeye, 1.0f);
-
-            //float newXdir = matr.Row0.Z * -1.0f + matr.Row0.W * 1.0f;
-            //float newYdir = matr.Row1.Z * -1.0f + matr.Row1.W * 1.0f;
-            //float newZdir = matr.Row2.Z * -1.0f + matr.Row2.W * 1.0f;
-
-            //float mag = (float)Math.Sqrt(newXdir * newXdir + newYdir * newYdir + newZdir * newZdir);
-
-            //newXdir /= mag;
-            //newYdir /= mag;
-            //newZdir /= mag;
-
-            //setDirection(newXdir, newYdir, newZdir);
-
             setPosition(eyex, eyey, eyez, 1.0f);
 
             float dirX = centerx - eyex; 
@@ -148,12 +123,12 @@ namespace Rawbots
                 if (SpotCutOff == 180.0f)
                 {
                     GL.Translate(Position[0], Position[1], Position[2]);
-                    sphere_source.render();
+                    sphereSource.render();
                 }
                 else if (SpotCutOff >= 0.0f || SpotCutOff <= 90.0f)
                 {
                     GL.Translate(Position[0], Position[1], Position[2]);
-                    sphere_source.render();
+                    sphereSource.render();
                     GL.Translate(-Position[0], -Position[1], -Position[2]);
 
                     //GL.Color3(1.0f, 1.0f, 0.0f);
@@ -163,17 +138,6 @@ namespace Rawbots
                                Position[1] + getRayLength() * Direction[1],
                                Position[2] + getRayLength() * Direction[2]);
                     GL.End();
-
-                    //GL.LoadIdentity();
-                    //GL.MultMatrix(matrix);
-                    
-                    //GL.Color3(1.0f, 0.0f, 0.0f);
-                    //GL.Begin(BeginMode.Lines);
-                    //GL.Vertex3(0.0f, 0.0f, 1.0f);
-                    //GL.Vertex3(0.0f, 0.0f, /*getRayLength()*/0.0f);
-                    //GL.End();
-
-                    //cone_source.render(/*3.0f*/getRayLength() * Math.Tan(SpotCutOff / 180.0f * Math.PI), getRayLength(), 20, 20);
                 }
 
                 GL.PopMatrix();
@@ -189,14 +153,12 @@ namespace Rawbots
             GL.Light(lightName, LightParameter.SpotDirection, Direction);
             GL.Light(lightName, LightParameter.SpotExponent, SpotExp);
 
-            //GL.Enable(Light.lightNameCapLookUp(lightName));
-
 			GL.PopMatrix();
         }
 
         public void unapply()
         {
-            //GL.Disable(Light.lightNameCapLookUp(lightName));
+
         }
 
 		public float[] getShadowMatrix(float[] normal)

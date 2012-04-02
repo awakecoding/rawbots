@@ -66,71 +66,65 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base.cs" />
-    <Compile Include="BlockSquareHole.cs" />
-    <Compile Include="ByteMap.cs" />
+    <Compile Include="Building\Base.cs" />
+    <Compile Include="Tile\BlockSquareHole.cs" />
+    <Compile Include="Utility\ByteMap.cs" />
     <Compile Include="Camera\GlobalCamera.cs" />
-    <Compile Include="Config.cs" />
+    <Compile Include="Utility\Config.cs" />
     <Compile Include="Camera\FirstPersonCamera.cs" />
-    <Compile Include="Light.cs" />
-    <Compile Include="MapFile.cs" />
-    <Compile Include="Material.cs" />
+    <Compile Include="Utility\Light.cs" />
+    <Compile Include="Map\MapFile.cs" />
+    <Compile Include="Utility\Material.cs" />
     <Compile Include="Model\ConeModel.cs" />
-    <Compile Include="OBJModel.cs" />
-    <Compile Include="RemoteControlUnit.cs" />
+    <Compile Include="Utility\OBJModel.cs" />
     <Compile Include="Camera\RobotCamera.cs" />
-    <Compile Include="SkyBoxSphere.cs" />
-    <Compile Include="Texture.cs" />
-    <Compile Include="Tiles\Boundary.cs" />
-    <Compile Include="Tiles\HeavyRubbleTile.cs" />
-    <Compile Include="Tiles\LightRubbleTile.cs" />
-    <Compile Include="Tiles\MediumRubbleTile.cs" />
+    <Compile Include="Robot\RemoteControlUnit.cs" />
+    <Compile Include="Map\SkyBoxSphere.cs" />
+    <Compile Include="Utility\Texture.cs" />
+    <Compile Include="Tile\Boundary.cs" />
+    <Compile Include="Tile\HeavyRubbleTile.cs" />
+    <Compile Include="Tile\LightRubbleTile.cs" />
+    <Compile Include="Tile\MediumRubbleTile.cs" />
     <Compile Include="Model\Drawable.cs" />
     <Compile Include="Model\Plane.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReferencePlane.cs" />
-    <Compile Include="Robot.cs" />
-    <Compile Include="TeamNumber.cs" />
-    <Compile Include="Tiles\Pit.cs" />
-    <Compile Include="Tiles\Tile.cs" />
-    <Compile Include="Terrain.cs" />
+    <Compile Include="Map\ReferencePlane.cs" />
+    <Compile Include="Robot\Robot.cs" />
+    <Compile Include="Utility\TeamNumber.cs" />
+    <Compile Include="Tile\Pit.cs" />
+    <Compile Include="Tile\Tile.cs" />
+    <Compile Include="Map\Terrain.cs" />
     <Compile Include="Camera\Camera.cs" />
     <Compile Include="Model\CylinderModel.cs" />
     <Compile Include="Model\CubeModel.cs" />
     <Compile Include="Model\Model.cs" />
-    <Compile Include="RobotParts\BipodChassis.cs" />
-    <Compile Include="RobotParts\AntiGravChassis.cs" />
-    <Compile Include="RobotParts\CannonWeapon.cs" />
-    <Compile Include="RobotParts\Electronics.cs" />
-    <Compile Include="RobotParts\MissilesWeapon.cs" />
-    <Compile Include="RobotParts\NuclearWeapon.cs" />
-    <Compile Include="RobotParts\Chassis.cs" />
-    <Compile Include="RobotParts\PhasersWeapon.cs" />
-    <Compile Include="RobotParts\RobotPart.cs" />
-    <Compile Include="RobotParts\TrackedChassis.cs" />
-    <Compile Include="RobotParts\Weapon.cs" />
+    <Compile Include="Robot\BipodChassis.cs" />
+    <Compile Include="Robot\AntiGravChassis.cs" />
+    <Compile Include="Robot\CannonWeapon.cs" />
+    <Compile Include="Robot\Electronics.cs" />
+    <Compile Include="Robot\MissilesWeapon.cs" />
+    <Compile Include="Robot\NuclearWeapon.cs" />
+    <Compile Include="Robot\Chassis.cs" />
+    <Compile Include="Robot\PhasersWeapon.cs" />
+    <Compile Include="Robot\RobotPart.cs" />
+    <Compile Include="Robot\TrackedChassis.cs" />
+    <Compile Include="Robot\Weapon.cs" />
     <Compile Include="Model\HemisphereModel.cs" />
     <Compile Include="Model\SphereModel.cs" />
     <Compile Include="Model\HalfCylinderModel.cs" />
-    <Compile Include="Block.cs" />
-    <Compile Include="Map.cs" />
-    <Compile Include="Factories\Factory.cs" />
-    <Compile Include="Factories\CannonWeaponFactory.cs" />
-    <Compile Include="Factories\AntiGravChassisFactory.cs" />
-    <Compile Include="Factories\BipodChassisFactory.cs" />
-    <Compile Include="Factories\MissilesWeaponFactory.cs" />
-    <Compile Include="Factories\NuclearWeaponFactory.cs" />
-    <Compile Include="Factories\PhasersWeaponFactory.cs" />
-    <Compile Include="Factories\TrackedChassisFactory.cs" />
-    <Compile Include="Factories\ElectronicsFactory.cs" />
-    <Compile Include="Tiles\LightPost.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="OpenGL32.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="gliConfig.ini" />
+    <Compile Include="Tile\Block.cs" />
+    <Compile Include="Map\Map.cs" />
+    <Compile Include="Building\Factory.cs" />
+    <Compile Include="Building\CannonWeaponFactory.cs" />
+    <Compile Include="Building\AntiGravChassisFactory.cs" />
+    <Compile Include="Building\BipodChassisFactory.cs" />
+    <Compile Include="Building\MissilesWeaponFactory.cs" />
+    <Compile Include="Building\NuclearWeaponFactory.cs" />
+    <Compile Include="Building\PhasersWeaponFactory.cs" />
+    <Compile Include="Building\TrackedChassisFactory.cs" />
+    <Compile Include="Building\ElectronicsFactory.cs" />
+    <Compile Include="Tile\LightPost.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
