@@ -105,8 +105,10 @@ namespace Rawbots
 			if (y > map.GetHeight())
 				y = map.GetHeight();
 
-			Console.WriteLine("Robot(" + x + "," + y + ")");
-			if (map.IsColliding((int) x, (int) y))
+			Console.WriteLine("Robot(" + x + "," + y + ") (" + Math.Floor(x) + "," + Math.Ceiling(y) + ")");
+			if (map.IsColliding((int) Math.Ceiling(x), (int) Math.Ceiling(y)))
+				cancelMove = true;
+			if (map.IsColliding((int)Math.Floor(x), (int)Math.Floor(y)))
 				cancelMove = true;
 
 			if (cancelMove)
