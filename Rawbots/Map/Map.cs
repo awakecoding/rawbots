@@ -127,9 +127,14 @@ namespace Rawbots
             bases.Add(b);
         }
 
-        public void SetTile(Tile t, int x, int y)
+		public void SetTerrain(Terrain terrain)
+		{
+			this.terrain = terrain;
+		}
+
+        public void SetTile(Tile tile, int x, int y)
         {
-            terrain.setTile(t, x, y);
+            terrain.SetTile(tile, x, y);
         }
 
         public void SetRenderMode(RenderMode renderMode)
@@ -231,12 +236,7 @@ namespace Rawbots
         {
 			GL.PushMatrix();
 
-			//foreach (Light light in lights)
-			//{
-			//    light.apply();
-			//}
-
-            /* Render terrain */
+            /* Render Map */
 
             GL.PushMatrix();
 

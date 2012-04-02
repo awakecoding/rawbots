@@ -128,150 +128,159 @@ namespace Rawbots
 			}
 
 			GL.Disable(EnableCap.Texture2D);
+		}
 
-			//map = MapFile.Load(resourcePath + "/Maps/default.xml");
-
+		public void LoadMap(string filename)
+		{
+			int x = 0;
+			int y = 0;
+			Light light;
 			mapWidth = 50;
 			mapHeight = 50;
+			bool useMapFile = false;
 
-			map = new Map(mapWidth, mapHeight);
-
-			Robot robot;
-
-            int x = 0;
-            int y = 0;
-			
-			robot = new Robot(x + 1, y + 1);
-			robot.AddChassis(new BipodChassis());
-			robot.AddWeapon(new MissilesWeapon());
-            map.AddRobot(robot);
-
-			someRobot = robot;
-
-            Light light = new Light(LightName.Light7);
-            robot.AddLight(light);
-
-			activeRobot = robot;
-			robotCamera.Attach(robot);
-			map.AddRobotToRMCList(robot);
-
-			robot = new Robot(x + 3, y + 1);
-			robot.AddWeapon(new NuclearWeapon());
-			map.AddRobot(robot);
-			
-			robot = new Robot(x + 5, y + 1);
-			robot.AddWeapon(new PhasersWeapon());
-			map.AddRobot(robot);
-
-            robot = new Robot(x + 7, y + 1);
-            robot.AddWeapon(new MissilesWeapon());
-            map.AddRobot(robot);
-
-            robot = new Robot(x + 9, y + 1);
-            robot.AddWeapon(new CannonWeapon());
-            map.AddRobot(robot);
-
-            robot = new Robot(x + 11, y + 1);
-            robot.AddChassis(new AntiGravChassis());
-            map.AddRobot(robot);
-
-            robot = new Robot(x + 13, y + 1);
-            robot.AddChassis(new TrackedChassis());
-            map.AddRobot(robot);
-
-            robot = new Robot(x + 15, y + 1);
-            robot.AddChassis(new BipodChassis());
-            map.AddRobot(robot);
-
-            Tile tile = new LightRubblePile();
-            map.SetTile(tile, x + 17, y + 1);
-
-            tile = new MediumRubblePile();
-            map.SetTile(tile, x + 19, y + 1);
-
-            tile = new HeavyRubblePile();
-            map.SetTile(tile, x + 21, y + 1);
-
-            Pit pit = new Pit();
-            pit.setVisible(Pit.NORTH);
-            map.SetTile(pit, x + 23, y + 1);
-
-            pit = new Pit();
-            pit.setVisible(Pit.EAST);
-            map.SetTile(pit, x + 25, y + 1);
-
-            pit = new Pit();
-            pit.setVisible(Pit.WEST);
-            map.SetTile(pit, x + 27, y + 1);
-
-            pit = new Pit();
-            pit.setVisible(Pit.SOUTH);
-            map.SetTile(pit, x + 29, y + 1);
-
-            pit = new Pit();
-            pit.setVisible(Pit.EAST + Pit.WEST);
-            map.SetTile(pit, x + 31, y + 1);
-
-            pit = new Pit();
-            pit.setVisible(Pit.NORTH + Pit.SOUTH);
-            map.SetTile(pit, x + 33, y + 1);
-			
-			Factory factory;
-			
-			factory = new AntiGravChassisFactory(x + 2, y + 5);
-			map.AddFactory(factory);
-
-            factory = new BipodChassisFactory(x + 7, y + 5);
-            map.AddFactory(factory);
-
-            factory = new CannonWeaponFactory(x + 12, y + 5);
-            map.AddFactory(factory);
-
-            factory = new ElectronicsFactory(x + 17, y + 5);
-            map.AddFactory(factory);
-
-            factory = new MissilesWeaponFactory(x + 22, y + 5);
-            map.AddFactory(factory);
-
-            factory = new NuclearWeaponFactory(x + 27, y + 5);
-            map.AddFactory(factory);
-
-            factory = new PhasersWeaponFactory(x + 32, y + 5);
-            map.AddFactory(factory);
-
-            factory = new TrackedChassisFactory(x + 37, y + 5);
-            map.AddFactory(factory);
-
-            Base b = new Base(x + 45, y + 5);
-            map.AddBase(b);
-
-            FullPlainBlock fullPlainBlock = new FullPlainBlock(x + 35, y + 1);
-			map.AddBlock(fullPlainBlock);
-
-            HalfPlainBlock halfPlainBlock = new HalfPlainBlock(x + 37, y + 1);
-			map.AddBlock(halfPlainBlock);
-
-            FullSquareHoleBlock fullSquareHoleBlock = new FullSquareHoleBlock(x + 39, y + 1);
-			map.AddBlock(fullSquareHoleBlock);
-
-            HalfSquareHoleBlock halfSquareHoleBlock = new HalfSquareHoleBlock(x + 41, y + 1);
-			map.AddBlock(halfSquareHoleBlock);
-
-			Boundary boundary = new Boundary();
-
-			for (int i = 1; i < mapHeight - 1; i++)
+			if (useMapFile)
 			{
-				map.SetTile(boundary, x, y + i);
-				map.SetTile(boundary, x + i, y + mapHeight - 1);
-				map.SetTile(boundary, x + mapHeight - 1, y + i);
+				map = MapFile.Load(resourcePath + "/Maps/" + filename);
 			}
-			
-            robot = new Robot(x + 10, y + 10);
-            robot.AddChassis(new TrackedChassis());
-            robot.AddWeapon(new MissilesWeapon());
-            robot.AddElectronics(new Electronics());
+			else
+			{
+				map = new Map(mapWidth, mapHeight);
 
-            map.AddRobot(robot);
+				Robot robot;
+
+				robot = new Robot(x + 1, y + 1);
+				robot.AddChassis(new BipodChassis());
+				robot.AddWeapon(new MissilesWeapon());
+				map.AddRobot(robot);
+
+				someRobot = robot;
+
+				light = new Light(LightName.Light7);
+				robot.AddLight(light);
+
+				activeRobot = robot;
+				robotCamera.Attach(robot);
+				map.AddRobotToRMCList(robot);
+
+				robot = new Robot(x + 3, y + 1);
+				robot.AddWeapon(new NuclearWeapon());
+				map.AddRobot(robot);
+
+				robot = new Robot(x + 5, y + 1);
+				robot.AddWeapon(new PhasersWeapon());
+				map.AddRobot(robot);
+
+				robot = new Robot(x + 7, y + 1);
+				robot.AddWeapon(new MissilesWeapon());
+				map.AddRobot(robot);
+
+				robot = new Robot(x + 9, y + 1);
+				robot.AddWeapon(new CannonWeapon());
+				map.AddRobot(robot);
+
+				robot = new Robot(x + 11, y + 1);
+				robot.AddChassis(new AntiGravChassis());
+				map.AddRobot(robot);
+
+				robot = new Robot(x + 13, y + 1);
+				robot.AddChassis(new TrackedChassis());
+				map.AddRobot(robot);
+
+				robot = new Robot(x + 15, y + 1);
+				robot.AddChassis(new BipodChassis());
+				map.AddRobot(robot);
+
+				Tile tile = new LightRubblePile();
+				map.SetTile(tile, x + 17, y + 1);
+
+				tile = new MediumRubblePile();
+				map.SetTile(tile, x + 19, y + 1);
+
+				tile = new HeavyRubblePile();
+				map.SetTile(tile, x + 21, y + 1);
+
+				Pit pit = new Pit();
+				pit.setVisible(Pit.NORTH);
+				map.SetTile(pit, x + 23, y + 1);
+
+				pit = new Pit();
+				pit.setVisible(Pit.EAST);
+				map.SetTile(pit, x + 25, y + 1);
+
+				pit = new Pit();
+				pit.setVisible(Pit.WEST);
+				map.SetTile(pit, x + 27, y + 1);
+
+				pit = new Pit();
+				pit.setVisible(Pit.SOUTH);
+				map.SetTile(pit, x + 29, y + 1);
+
+				pit = new Pit();
+				pit.setVisible(Pit.EAST + Pit.WEST);
+				map.SetTile(pit, x + 31, y + 1);
+
+				pit = new Pit();
+				pit.setVisible(Pit.NORTH + Pit.SOUTH);
+				map.SetTile(pit, x + 33, y + 1);
+
+				Factory factory;
+
+				factory = new AntiGravChassisFactory(x + 2, y + 5);
+				map.AddFactory(factory);
+
+				factory = new BipodChassisFactory(x + 7, y + 5);
+				map.AddFactory(factory);
+
+				factory = new CannonWeaponFactory(x + 12, y + 5);
+				map.AddFactory(factory);
+
+				factory = new ElectronicsFactory(x + 17, y + 5);
+				map.AddFactory(factory);
+
+				factory = new MissilesWeaponFactory(x + 22, y + 5);
+				map.AddFactory(factory);
+
+				factory = new NuclearWeaponFactory(x + 27, y + 5);
+				map.AddFactory(factory);
+
+				factory = new PhasersWeaponFactory(x + 32, y + 5);
+				map.AddFactory(factory);
+
+				factory = new TrackedChassisFactory(x + 37, y + 5);
+				map.AddFactory(factory);
+
+				Base b = new Base(x + 45, y + 5);
+				map.AddBase(b);
+
+				FullPlainBlock fullPlainBlock = new FullPlainBlock(x + 35, y + 1);
+				map.AddBlock(fullPlainBlock);
+
+				HalfPlainBlock halfPlainBlock = new HalfPlainBlock(x + 37, y + 1);
+				map.AddBlock(halfPlainBlock);
+
+				FullSquareHoleBlock fullSquareHoleBlock = new FullSquareHoleBlock(x + 39, y + 1);
+				map.AddBlock(fullSquareHoleBlock);
+
+				HalfSquareHoleBlock halfSquareHoleBlock = new HalfSquareHoleBlock(x + 41, y + 1);
+				map.AddBlock(halfSquareHoleBlock);
+
+				Boundary boundary = new Boundary();
+
+				for (int i = 1; i < mapHeight - 1; i++)
+				{
+					map.SetTile(boundary, x, y + i);
+					map.SetTile(boundary, x + i, y + mapHeight - 1);
+					map.SetTile(boundary, x + mapHeight - 1, y + i);
+				}
+
+				robot = new Robot(x + 10, y + 10);
+				robot.AddChassis(new TrackedChassis());
+				robot.AddWeapon(new MissilesWeapon());
+				robot.AddElectronics(new Electronics());
+
+				map.AddRobot(robot);
+			}
 
 			LightPost lightpost = new LightPost(4);
 			map.SetTile(lightpost, x, y);
@@ -350,7 +359,7 @@ namespace Rawbots
 			GL.Enable(EnableCap.Lighting);
             GL.Enable(EnableCap.ColorMaterial);
             GL.Enable(EnableCap.Texture2D);
-			GL.PolygonOffset(-10.0f, -25.0f); //To Avoid Having Z-Fighting for projecting surfaces onto another surface (Shadows)
+			GL.PolygonOffset(-10.0f, -25.0f); /* To Avoid Having Z-Fighting for projecting surfaces onto another surface (Shadows) */
 		}
 
 		public static bool IsWindows()
@@ -874,10 +883,21 @@ namespace Rawbots
 		}
 
 		[STAThread]
-		static void Main()
+		static void Main(string[] args)
 		{
+			string mapFileName = "default.xml";
+
+			for (int i = 0; i < args.Length; i++)
+			{
+				if (args[i].Equals("-m"))
+				{
+					mapFileName = args[++i];
+				}
+			}
+
 			using (Game game = new Game())
 			{
+				game.LoadMap(mapFileName);
 				game.Run();
 			}
 		}

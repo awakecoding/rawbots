@@ -20,8 +20,10 @@ namespace Rawbots
 				switch (xml.NodeType)
 				{
 					case XmlNodeType.Element:
+
 						if (xml.Name.Equals("Map"))
 							map = LoadMap(xml);
+						
 						break;
 				}
 
@@ -45,39 +47,38 @@ namespace Rawbots
 
 			while (xml.Read())
 			{
-				Console.WriteLine(xml.NodeType);
-
 				switch (xml.NodeType)
 				{
 					case XmlNodeType.Element:
+
 						if (xml.Name.Equals("Robot"))
 						{
 							map.AddRobot(LoadRobot(xml));
+						}
+						else if (xml.Name.Equals("Base"))
+						{
+							map.AddBase(LoadBase(xml));
 						}
 						else if (xml.Name.Equals("Factory"))
 						{
 							map.AddFactory(LoadFactory(xml));
 						}
-						else if (xml.Name.Equals("Tile"))
+						else if (xml.Name.Equals("Terrain"))
 						{
-							Tile tile = LoadTile(xml);
-							map.SetTile(tile, tile.PosX, tile.PosY);
+							map.SetTerrain(LoadTerrain(xml));
 						}
-						else if (xml.Name.Equals("Pit"))
+						else if (xml.Name.Equals("Block"))
 						{
-							Pit pit = LoadPit(xml);
-							map.SetTile(pit, pit.PosX, pit.PosY);
+							map.AddBlock(LoadBlock(xml));
 						}
-						else if (xml.Name.Equals("Boundary"))
-						{
-							Boundary boundary = LoadBoundary(xml);
-							map.SetTile(boundary, boundary.PosX, boundary.PosY);
-						}
+						
 						break;
 
 					case XmlNodeType.EndElement:
+
 						if (xml.Name.Equals("Map"))
 							return map;
+				
 						break;
 				}
 			}
@@ -121,13 +122,28 @@ namespace Rawbots
 						break;
 
 					case XmlNodeType.EndElement:
+
 						if (xml.Name.Equals("Robot"))
 							return robot;
+						
 						break;
 				}
 			}
 
 			return robot;
+		}
+
+		private static Base LoadBase(XmlTextReader xml)
+		{
+			int x, y;
+			Base robotBase;
+
+			x = Int32.Parse(xml.GetAttribute("x"));
+			y = Int32.Parse(xml.GetAttribute("y"));
+
+			robotBase = new Base(x, y);
+
+			return robotBase;
 		}
 
 		private static Factory LoadFactory(XmlTextReader xml)
@@ -158,6 +174,52 @@ namespace Rawbots
 				factory = new ElectronicsFactory(x, y);
 
 			return factory;
+		}
+
+		private static Terrain LoadTerrain(XmlTextReader xml)
+		{
+			int width, height;
+			Terrain terrain = null;
+
+			width = Int32.Parse(xml.GetAttribute("width"));
+			height = Int32.Parse(xml.GetAttribute("height"));
+
+			terrain = new Terrain(width, height);
+
+			while (xml.Read())
+			{
+				switch (xml.NodeType)
+				{
+					case XmlNodeType.Element:
+
+						if (xml.Name.Equals("Tile"))
+						{
+							Tile tile = LoadTile(xml);
+							terrain.SetTile(tile, tile.PosX, tile.PosY);
+						}
+						else if (xml.Name.Equals("Pit"))
+						{
+							Pit pit = LoadPit(xml);
+							terrain.SetTile(pit, pit.PosX, pit.PosY);
+						}
+						else if (xml.Name.Equals("Boundary"))
+						{
+							Boundary boundary = LoadBoundary(xml);
+							terrain.SetTile(boundary, boundary.PosX, boundary.PosY);
+						}
+
+						break;
+
+					case XmlNodeType.EndElement:
+
+						if (xml.Name.Equals("Terrain"))
+							return terrain;
+						
+						break;
+				}
+			}
+
+			return terrain;
 		}
 
 		private static Tile LoadTile(XmlTextReader xml)
@@ -208,8 +270,10 @@ namespace Rawbots
 						break;
 
 					case XmlNodeType.EndElement:
+
 						if (xml.Name.Equals("Pit"))
 							return pit;
+						
 						break;
 				}
 			}
@@ -228,6 +292,28 @@ namespace Rawbots
 			boundary = new Boundary(x, y);
 
 			return boundary;
+		}
+
+		private static Block LoadBlock(XmlTextReader xml)
+		{
+			int x, y;
+			string type;
+			Block block = null;
+
+			x = Int32.Parse(xml.GetAttribute("x"));
+			y = Int32.Parse(xml.GetAttribute("y"));
+			type = xml.GetAttribute("type");
+
+			if (type.Equals("FullPlain"))
+				block = new FullPlainBlock(x, y);
+			else if (type.Equals("HalfPlain"))
+				block = new HalfPlainBlock(x, y);
+			else if (type.Equals("FullSquareHole"))
+				block = new FullSquareHoleBlock(x, y);
+			else if (type.Equals("HalfSquareHole"))
+				block = new HalfSquareHoleBlock(x, y);
+
+			return block;
 		}
 	}
 }

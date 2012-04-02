@@ -140,7 +140,7 @@ namespace Rawbots
 			robot.Angle = -angle;
 		}
 
-		public float[] GetPosition()
+		public override float[] GetPosition()
 		{
 			return base.GetPosition();
 		}

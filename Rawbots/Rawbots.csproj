@@ -72,6 +72,7 @@
     <Compile Include="Block\HalfSquareHoleBlock.cs" />
     <Compile Include="Building\Base.cs" />
     <Compile Include="Robot\Projectile.cs" />
+    <Compile Include="Terrain\FloorTile.cs" />
     <Compile Include="Utility\ByteMap.cs" />
     <Compile Include="Camera\GlobalCamera.cs" />
     <Compile Include="Utility\Collision.cs" />
@@ -87,9 +88,9 @@
     <Compile Include="Map\SkyBoxSphere.cs" />
     <Compile Include="Utility\Texture.cs" />
     <Compile Include="Block\Boundary.cs" />
-    <Compile Include="Tile\HeavyRubblePile.cs" />
-    <Compile Include="Tile\LightRubblePile.cs" />
-    <Compile Include="Tile\MediumRubblePile.cs" />
+    <Compile Include="Terrain\HeavyRubblePile.cs" />
+    <Compile Include="Terrain\LightRubblePile.cs" />
+    <Compile Include="Terrain\MediumRubblePile.cs" />
     <Compile Include="Model\Drawable.cs" />
     <Compile Include="Model\Plane.cs" />
     <Compile Include="Program.cs" />
@@ -97,9 +98,9 @@
     <Compile Include="Map\ReferencePlane.cs" />
     <Compile Include="Robot\Robot.cs" />
     <Compile Include="Utility\TeamNumber.cs" />
-    <Compile Include="Tile\Pit.cs" />
-    <Compile Include="Tile\Tile.cs" />
-    <Compile Include="Map\Terrain.cs" />
+    <Compile Include="Terrain\Pit.cs" />
+    <Compile Include="Terrain\Tile.cs" />
+    <Compile Include="Terrain\Terrain.cs" />
     <Compile Include="Camera\Camera.cs" />
     <Compile Include="Model\CylinderModel.cs" />
     <Compile Include="Model\CubeModel.cs" />
@@ -129,7 +130,7 @@
     <Compile Include="Building\PhasersWeaponFactory.cs" />
     <Compile Include="Building\TrackedChassisFactory.cs" />
     <Compile Include="Building\ElectronicsFactory.cs" />
-    <Compile Include="Tile\LightPost.cs" />
+    <Compile Include="Terrain\LightPost.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

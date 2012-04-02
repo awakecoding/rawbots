@@ -15,7 +15,7 @@ namespace Rawbots
 
 		public Boundary(int x, int y)
 		{
-			this.PosX = y;
+			this.PosX = x;
 			this.PosY = y;
 			model = new OBJModel(Game.resourcePath + "/Boundary/Boundary.obj");
 		}
@@ -23,11 +23,6 @@ namespace Rawbots
         public override void SetRenderMode(RenderMode renderMode)
         {
             base.SetRenderMode(renderMode);
-        }
-
-        public override void Render()
-        {
-			model.Render();
         }
 
 		public override bool IsCollideable()
