@@ -30,6 +30,9 @@ namespace Rawbots
 			Robot previousRobot = robot;
 			this.robot = robot;
 			attached = true;
+			float rotation = robot.Angle;
+			Reset(robot.PosX, 1.0f, robot.PosY);
+			RotateLocal(-rotation, 0.0f, 1.0f, 0.0f);
 			return previousRobot;
 		}
 
@@ -106,10 +109,11 @@ namespace Rawbots
 				y = map.GetHeight();
 
 			Console.WriteLine("Robot(" + x + "," + y + ") (" + Math.Floor(x) + "," + Math.Ceiling(y) + ")");
-			if (map.IsColliding((int)Math.Ceiling(x), (int)Math.Ceiling(y)))
-				cancelMove = true;
-			if (map.IsColliding((int)Math.Floor(x), (int)Math.Floor(y)))
-				cancelMove = true;
+			cancelMove = robot.RobotCollisionTest(map, x, y);
+			//if (map.IsColliding((int)Math.Ceiling(x), (int)Math.Ceiling(y)))
+			//    cancelMove = true;
+			//if (map.IsColliding((int)Math.Floor(x), (int)Math.Floor(y)))
+			//    cancelMove = true;
 
 			//if (map.IsColliding(x, y))
 			//    cancelMove = true;
@@ -138,7 +142,7 @@ namespace Rawbots
 
 		public float[] GetPosition()
 		{
-			return this.GetPosition();
+			return base.GetPosition();
 		}
 
         public override void IdleAction()
