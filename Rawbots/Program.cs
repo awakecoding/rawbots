@@ -788,6 +788,8 @@ namespace Rawbots
 					map.MoveRemoteControlUnitDown();
 				if (Keyboard[Key.ShiftLeft])
 					map.GrabRobot();
+				if (Keyboard[Key.AltLeft])
+					map.FireProjectileFromRobot();
 
 				float[] rmcUnitPos = map.GetRemoteControlUnitPosition();
 

@@ -89,16 +89,23 @@ namespace Rawbots
 			GrabRobot = true;
 		}
 
+		public Robot GetRobot()
+		{
+			return robotToGrab;
+		}
+
 		public void AttachLight(Light l)
 		{
 			light = l;
 			light.setCutOff(45.0f);
 			light.setDirection(0.0f, -0.45f, -0.45f);
 		}
+		
+		Robot robotToGrab;
 
         public void Render()
         {
-			Robot robotToGrab = null;
+			robotToGrab = null;
 
 			for (int i = 0; i < robotList.Count; i++)
 			{
