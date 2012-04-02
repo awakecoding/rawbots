@@ -74,6 +74,18 @@ namespace Rawbots
 
 			return colliding;
 		}
+		
+		//public bool IsColliding(float x, float y)
+		//{
+		//    bool colliding = terrain.CollisionMap.IsPositionSet(x, y);
+
+		//    if (colliding)
+		//    {
+		//        Console.WriteLine("collision at {0},{1}", x, y);
+		//    }
+
+		//    return colliding;
+		//}
 
 		public void AddRobot(Robot robot)
 		{
@@ -203,6 +215,11 @@ namespace Rawbots
 		public float[] GetRMCPosition()
 		{
 			return new float[] { remoteControlUnit.PosX, remoteControlUnit.PosY };
+		}
+
+		public void AddRobotToRMCList(Robot r)
+		{
+			remoteControlUnit.AddRobot(r);
 		}
 
         public void Render()

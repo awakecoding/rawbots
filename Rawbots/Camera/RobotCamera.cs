@@ -106,10 +106,13 @@ namespace Rawbots
 				y = map.GetHeight();
 
 			Console.WriteLine("Robot(" + x + "," + y + ") (" + Math.Floor(x) + "," + Math.Ceiling(y) + ")");
-			if (map.IsColliding((int) Math.Ceiling(x), (int) Math.Ceiling(y)))
+			if (map.IsColliding((int)Math.Ceiling(x), (int)Math.Ceiling(y)))
 				cancelMove = true;
 			if (map.IsColliding((int)Math.Floor(x), (int)Math.Floor(y)))
 				cancelMove = true;
+
+			//if (map.IsColliding(x, y))
+			//    cancelMove = true;
 
 			if (cancelMove)
 			{
@@ -131,6 +134,11 @@ namespace Rawbots
 			}
 
 			robot.Angle = -angle;
+		}
+
+		public float[] GetPosition()
+		{
+			return this.GetPosition();
 		}
 
         public override void IdleAction()

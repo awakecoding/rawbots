@@ -13,6 +13,7 @@
 using System;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
+using System.Collections.Generic;
 
 namespace Rawbots
 {
@@ -25,11 +26,14 @@ namespace Rawbots
 		public bool MovingRight = false;
 		public bool MovingUp = false;
 		public bool MovingDown = false;
+		public bool GrabRobot = false;
 		public float HoverHeight = 0.1f;
-		public float MIN_HOVER_HEIGHT = 0.1f;
+		public float MIN_HOVER_HEIGHT = 0.2f;
 		public float MAX_HOVER_HEIGHT = 3.0f;
 
 		public Light light;
+
+		public List<Robot> robotList;
 
 		//private double cylinderRadius; //antenna
 		//private double cylinderHeight;
@@ -70,7 +74,9 @@ namespace Rawbots
 			//cylinder.AssignMaterial(material);
 
 			model = new OBJModel(Game.resourcePath + "/AI/Brain_AI.obj");
-        }
+
+			robotList = new List<Robot>();
+		}
 
         public override void SetRenderMode(RenderMode renderMode)
         {
@@ -81,6 +87,11 @@ namespace Rawbots
         }
 
 		//public override void HideTextures
+
+		public void AddRobot(Robot r)
+		{
+			robotList.Add(r);
+		}
 
 		public void Hover()
 		{
@@ -116,6 +127,45 @@ namespace Rawbots
 
         public void Render()
         {
+			Robot robotToGrab = null;
+
+			for (int i = 0; i < robotList.Count; i++)
+			{
+				Robot r = robotList[i];
+
+				float invY = -(r.PosY);
+
+				float[] UpperLeft = new float[] { PosX, PosY };
+				float[] UpperRight = new float[] { PosX + 1.0f, PosY };
+				float[] LowerLeft = new float[] { PosX, PosY + 1.0f };
+				float[] LowerRight = new float[] { PosX + 1.0f, PosY + 1.0f };
+
+				//if (UpperLeft[0] >= r.PosX && UpperLeft[0] <= r.PosX + 1.0f)
+				//    if (UpperLeft[1] >= invY && UpperLeft[1] <= invY + 1.0f)
+				//        Console.WriteLine("Robot Hit Upper Left");
+
+				//if (UpperRight[0] >= r.PosX && UpperRight[0] <= r.PosX + 1.0f)
+				//    if (UpperRight[1] >= invY && UpperRight[1] <= invY + 1.0f)
+				//        Console.WriteLine("Robot Hit Upper Right");
+
+				//if (LowerRight[0] >= r.PosX && LowerRight[0] <= r.PosX + 1.0f)
+				//    if (LowerRight[1] >= invY && LowerRight[1] <= invY + 1.0f)
+				//        Console.WriteLine("Robot Hit Lower Right");
+
+				//if (LowerLeft[0] >= r.PosX && LowerLeft[0] <= r.PosX + 1.0f)
+				//    if (LowerLeft[1] >= invY && LowerLeft[1] <= invY + 1.0f)
+				//        Console.WriteLine("Robot Hit Lower Left");
+
+				if (Utility.Collision.IntersectionTest2D(PosX, PosY, 1.0f, 1.0f,
+													 r.PosX, invY, 1.0f, 1.0f))
+				{
+					Console.WriteLine("Robot " + i + " hit");
+					robotToGrab = robotList[i];
+				}
+			}
+
+			float minHeight = MIN_HOVER_HEIGHT;
+
 			if (Hovering)
 			{
 				if (HoverHeight <= MAX_HOVER_HEIGHT)
@@ -123,7 +173,10 @@ namespace Rawbots
 			}
 			else
 			{
-				if (HoverHeight > MIN_HOVER_HEIGHT)
+				if (robotToGrab != null)
+					minHeight += robotToGrab.GetHeight();
+
+				if (HoverHeight > minHeight)
 					HoverHeight -= 0.1f;
 			}
 
@@ -131,24 +184,28 @@ namespace Rawbots
 			{
 				PosX -= 0.1f;
 				light.setDirection(-0.45f, -0.45f, -0.45f);
+				Console.WriteLine("RMC (" + PosX + "," + PosY + ")");
 			}
 
 			if (MovingRight)
 			{
 				PosX += 0.1f;
 				light.setDirection(0.45f, -0.45f, -0.45f);
+				Console.WriteLine("RMC (" + PosX + "," + PosY + ")");
 			}
 
 			if (MovingUp)
 			{
 				PosY += 0.1f;
 				light.setDirection(0.0f, -0.45f, -0.45f);
+				Console.WriteLine("RMC (" + PosX + "," + PosY + ")");
 			}
 
 			if (MovingDown)
 			{
 				PosY -= 0.1f;
 				light.setDirection(0.0f, -0.45f, 0.45f);
+				Console.WriteLine("RMC (" + PosX + "," + PosY + ")");
 			}
 
 			if (light != null)

@@ -153,6 +153,7 @@ namespace Rawbots
 
 			activeRobot = robot;
 			robotCamera.Attach(robot);
+			map.AddRobotToRMCList(robot);
 
 			robot = new Robot(x + 3, y + 1);
 			robot.AddWeapon(new NuclearWeapon());
