@@ -54,7 +54,7 @@ namespace Rawbots
 		Camera rmcUnitCamera = new Camera(43.0f, 10.0f, 25.0f);
 		GlobalCamera globalCamera = new GlobalCamera(0.0f, 10.0f, 25.0f);
 
-		RobotCamera robotCamera = new RobotCamera(0.0f, 0.0f/*1.0f*/, 0.0f);
+		RobotCamera robotCamera = new RobotCamera(0.0f, 0.0f, 0.0f);
 
         Camera lightCamera1, lightCamera2, lightCamera3, lightCamera4;
 
@@ -135,151 +135,11 @@ namespace Rawbots
 			int x = 0;
 			int y = 0;
 			Light light;
-			mapWidth = 50;
-			mapHeight = 50;
-			bool useMapFile = false;
+		
+			map = MapFile.Load(resourcePath + "/Maps/" + filename);
 
-			if (useMapFile)
-			{
-				map = MapFile.Load(resourcePath + "/Maps/" + filename);
-			}
-			else
-			{
-				map = new Map(mapWidth, mapHeight);
-
-				Robot robot;
-
-				robot = new Robot(x + 1, y + 1);
-				robot.AddChassis(new BipodChassis());
-				robot.AddWeapon(new MissilesWeapon());
-				map.AddRobot(robot);
-
-				someRobot = robot;
-
-				RemoteControlUnit remoteControlUnit = new RemoteControlUnit();
-				remoteControlUnit.AttachLight(new Light(LightName.Light4));
-				remoteControlUnit.PosX = 43;
-				remoteControlUnit.PosY = 1;
-				map.SetRemoteControlUnit(remoteControlUnit);
-
-				robot = new Robot(x + 3, y + 1);
-				robot.AddWeapon(new NuclearWeapon());
-				map.AddRobot(robot);
-
-				robot = new Robot(x + 5, y + 1);
-				robot.AddWeapon(new PhasersWeapon());
-				map.AddRobot(robot);
-
-				robot = new Robot(x + 7, y + 1);
-				robot.AddWeapon(new MissilesWeapon());
-				map.AddRobot(robot);
-
-				robot = new Robot(x + 9, y + 1);
-				robot.AddWeapon(new CannonWeapon());
-				map.AddRobot(robot);
-
-				robot = new Robot(x + 11, y + 1);
-				robot.AddChassis(new AntiGravChassis());
-				map.AddRobot(robot);
-
-				robot = new Robot(x + 13, y + 1);
-				robot.AddChassis(new TrackedChassis());
-				map.AddRobot(robot);
-
-				robot = new Robot(x + 15, y + 1);
-				robot.AddChassis(new BipodChassis());
-				map.AddRobot(robot);
-
-				Tile tile = new LightRubblePile();
-				map.SetTile(tile, x + 17, y + 1);
-
-				tile = new MediumRubblePile();
-				map.SetTile(tile, x + 19, y + 1);
-
-				tile = new HeavyRubblePile();
-				map.SetTile(tile, x + 21, y + 1);
-
-				Pit pit = new Pit();
-				pit.setVisible(Pit.NORTH);
-				map.SetTile(pit, x + 23, y + 1);
-
-				pit = new Pit();
-				pit.setVisible(Pit.EAST);
-				map.SetTile(pit, x + 25, y + 1);
-
-				pit = new Pit();
-				pit.setVisible(Pit.WEST);
-				map.SetTile(pit, x + 27, y + 1);
-
-				pit = new Pit();
-				pit.setVisible(Pit.SOUTH);
-				map.SetTile(pit, x + 29, y + 1);
-
-				pit = new Pit();
-				pit.setVisible(Pit.EAST + Pit.WEST);
-				map.SetTile(pit, x + 31, y + 1);
-
-				pit = new Pit();
-				pit.setVisible(Pit.NORTH + Pit.SOUTH);
-				map.SetTile(pit, x + 33, y + 1);
-
-				Factory factory;
-
-				factory = new AntiGravChassisFactory(x + 2, y + 5);
-				map.AddFactory(factory);
-
-				factory = new BipodChassisFactory(x + 7, y + 5);
-				map.AddFactory(factory);
-
-				factory = new CannonWeaponFactory(x + 12, y + 5);
-				map.AddFactory(factory);
-
-				factory = new ElectronicsFactory(x + 17, y + 5);
-				map.AddFactory(factory);
-
-				factory = new MissilesWeaponFactory(x + 22, y + 5);
-				map.AddFactory(factory);
-
-				factory = new NuclearWeaponFactory(x + 27, y + 5);
-				map.AddFactory(factory);
-
-				factory = new PhasersWeaponFactory(x + 32, y + 5);
-				map.AddFactory(factory);
-
-				factory = new TrackedChassisFactory(x + 37, y + 5);
-				map.AddFactory(factory);
-
-				Base b = new Base(x + 45, y + 5);
-				map.AddBase(b);
-
-				FullPlainBlock fullPlainBlock = new FullPlainBlock(x + 35, y + 1);
-				map.AddBlock(fullPlainBlock);
-
-				HalfPlainBlock halfPlainBlock = new HalfPlainBlock(x + 37, y + 1);
-				map.AddBlock(halfPlainBlock);
-
-				FullSquareHoleBlock fullSquareHoleBlock = new FullSquareHoleBlock(x + 39, y + 1);
-				map.AddBlock(fullSquareHoleBlock);
-
-				HalfSquareHoleBlock halfSquareHoleBlock = new HalfSquareHoleBlock(x + 41, y + 1);
-				map.AddBlock(halfSquareHoleBlock);
-
-				Boundary boundary = new Boundary();
-
-				for (int i = 1; i < mapHeight - 1; i++)
-				{
-					map.SetTile(boundary, x, y + i);
-					map.SetTile(boundary, x + i, y + mapHeight - 1);
-					map.SetTile(boundary, x + mapHeight - 1, y + i);
-				}
-
-				robot = new Robot(x + 10, y + 10);
-				robot.AddChassis(new TrackedChassis());
-				robot.AddWeapon(new MissilesWeapon());
-				robot.AddElectronics(new Electronics());
-
-				map.AddRobot(robot);
-			}
+			mapWidth = map.GetWidth();
+			mapHeight = map.GetHeight();
 
 			activeRobot = map.GetActiveRobot();
 			robotCamera.Attach(activeRobot);
@@ -456,7 +316,7 @@ namespace Rawbots
 
 			GL.Viewport(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width, ClientRectangle.Height);
 
-			Matrix4 projection = Matrix4.CreatePerspectiveFieldOfView((float) Math.PI / 4, Width / (float) Height, 1.0f, /*64.0f*/120.0f);
+			Matrix4 projection = Matrix4.CreatePerspectiveFieldOfView((float) Math.PI / 4, Width / (float) Height, 1.0f, 120.0f);
 			GL.MatrixMode(MatrixMode.Projection);
 			GL.LoadMatrix(ref projection);
 		}
@@ -792,8 +652,7 @@ namespace Rawbots
 				float[] rmcUnitPos = map.GetRemoteControlUnitPosition();
 
 				rmcUnitCamera.LookAt(rmcUnitPos[0], 6.0f, 8.0f - rmcUnitPos[1],
-									rmcUnitPos[0], 3.0f, 4.0f - rmcUnitPos[1],
-									 0.0f, 1.0f, 0.0f);
+					rmcUnitPos[0], 3.0f, 4.0f - rmcUnitPos[1], 0.0f, 1.0f, 0.0f);
 			}
 		}
 

@@ -54,9 +54,9 @@ namespace Rawbots
             base.SetRenderMode(renderMode);
         }
 
-		public void AddRobot(Robot r)
+		public void AddRobot(Robot robot)
 		{
-			robotList.Add(r);
+			robotList.Add(robot);
 		}
 
 		public void Hover()
@@ -89,11 +89,11 @@ namespace Rawbots
 			GrabRobot = true;
 		}
 
-		public void AttachLight(Light l)
+		public void AttachLight(Light light)
 		{
-			light = l;
-			light.setCutOff(45.0f);
-			light.setDirection(0.0f, -0.45f, -0.45f);
+			this.light = light;
+			this.light.setCutOff(45.0f);
+			this.light.setDirection(0.0f, -0.45f, -0.45f);
 		}
 
         public void Render()
