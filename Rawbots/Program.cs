@@ -54,7 +54,7 @@ namespace Rawbots
 		Camera rmcUnitCamera = new Camera(43.0f, 10.0f, 25.0f);
 		GlobalCamera globalCamera = new GlobalCamera(0.0f, 10.0f, 25.0f);
 
-		RobotCamera robotCamera = new RobotCamera(0.0f, 1.0f, 0.0f);
+		RobotCamera robotCamera = new RobotCamera(0.0f, 0.0f/*1.0f*/, 0.0f);
 
         Camera lightCamera1, lightCamera2, lightCamera3, lightCamera4;
 
@@ -158,6 +158,7 @@ namespace Rawbots
 
 				activeRobot = robot;
 				robotCamera.Attach(robot);
+				map.AddRobotToRMCList(robot);
 
 				robot = new Robot(x + 3, y + 1);
 				robot.AddWeapon(new NuclearWeapon());
@@ -464,7 +465,10 @@ namespace Rawbots
 				case Key.Tab:
 
 					if (camera == globalCamera)
+					{
 						camera = robotCamera;
+						robotCamera.Attach(someRobot);
+					}
 					else if (camera == robotCamera)
 						camera = lightCamera1;
 					else if (camera == lightCamera1)
@@ -771,6 +775,8 @@ namespace Rawbots
 					map.MoveRMCUp();
 				if (Keyboard[Key.Down])
 					map.MoveRMCDown();
+				if (Keyboard[Key.ShiftLeft])
+					map.GrabRobot();
 
 				float[] rmcUnitPos = map.GetRMCPosition();
 

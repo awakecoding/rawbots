@@ -74,6 +74,7 @@
     <Compile Include="Terrain\FloorTile.cs" />
     <Compile Include="Utility\ByteMap.cs" />
     <Compile Include="Camera\GlobalCamera.cs" />
+    <Compile Include="Utility\Collision.cs" />
     <Compile Include="Utility\Config.cs" />
     <Compile Include="Camera\FirstPersonCamera.cs" />
     <Compile Include="Utility\Light.cs" />

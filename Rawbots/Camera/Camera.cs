@@ -119,7 +119,7 @@ namespace Rawbots
 			Transform[11] = w;
 		}
 
-		public float[] GetPosition()
+		public virtual float[] GetPosition()
 		{
 			return new float[] { Transform[12], Transform[13], Transform[14], Transform[15] };
 		}
