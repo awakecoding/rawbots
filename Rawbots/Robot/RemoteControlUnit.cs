@@ -137,7 +137,7 @@ namespace Rawbots
 				if (Utility.Collision.IntersectionTest2D(PosX, PosY, 1.0f, 1.0f,
 													 r.PosX, invY, 1.0f, 1.0f))
 				{
-					Console.WriteLine("Robot " + i + " hit");
+					//Console.WriteLine("Robot " + i + " hit");
 					robotToGrab = robotList[i];
 				}
 			}
@@ -164,7 +164,7 @@ namespace Rawbots
 			{
 				PosX -= 0.1f;
 				light.setDirection(-0.45f, -0.45f, -0.45f);
-				Console.WriteLine("RMC (" + PosX + "," + PosY + ")");
+				//Console.WriteLine("RMC (" + PosX + "," + PosY + ")");
 				rotation = 90.0f;
 			}
 
@@ -172,7 +172,7 @@ namespace Rawbots
 			{
 				PosX += 0.1f;
 				light.setDirection(0.45f, -0.45f, -0.45f);
-				Console.WriteLine("RMC (" + PosX + "," + PosY + ")");
+				//Console.WriteLine("RMC (" + PosX + "," + PosY + ")");
 				rotation = -90.0f;
 			}
 
@@ -180,14 +180,14 @@ namespace Rawbots
 			{
 				PosY += 0.1f;
 				light.setDirection(0.0f, -0.45f, -0.45f);
-				Console.WriteLine("RMC (" + PosX + "," + PosY + ")");
+				//Console.WriteLine("RMC (" + PosX + "," + PosY + ")");
 			}
 
 			if (MovingDown)
 			{
 				PosY -= 0.1f;
 				light.setDirection(0.0f, -0.45f, 0.45f);
-				Console.WriteLine("RMC (" + PosX + "," + PosY + ")");
+				//Console.WriteLine("RMC (" + PosX + "," + PosY + ")");
 				rotation = 180.0f;
 			}
 
@@ -199,7 +199,7 @@ namespace Rawbots
 
 			if (robotToGrab != null && GrabRobot)
 			{
-				Console.WriteLine("Grabbing Robot");
+				//Console.WriteLine("Grabbing Robot");
 				robotToGrab.PosX = PosX; robotToGrab.PosY = -PosY;
 				robotToGrab.Angle = rotation;
 			}

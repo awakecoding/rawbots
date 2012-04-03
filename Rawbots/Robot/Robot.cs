@@ -200,6 +200,13 @@ namespace Rawbots
 				electronics.HideTextures();
 		}
 
+		public Projectile FireProjectile(float dirx, float diry)
+		{
+			Projectile projectile = new Projectile(this, PosX, PosY, dirx, diry);
+
+			return projectile;
+		}
+
 		public void Render()
 		{
 			if (!show)
@@ -260,6 +267,17 @@ namespace Rawbots
 			finalTotalHeight = totalHeight;
 
 			GL.PopMatrix();
+		}
+
+		public bool ProjectileTest(Projectile projectile)
+		{
+			if (Utility.Collision.IntersectionTest2D(projectile.PosX, projectile.PosY, 0.25f, 0.25f, PosX, PosY, 1.0f, 1.0f) && projectile.self != this)
+			{
+				Console.WriteLine("Robot got hit!");
+				return true;
+			}
+
+			return false;
 		}
 
 		public bool RobotCollisionTest(Map map, float x, float y)

@@ -6,27 +6,43 @@ using OpenTK.Graphics.OpenGL;
 
 namespace Rawbots
 {
-	class Projectile : Drawable
+	public class Projectile : Drawable
 	{
-		float PosX, PosY, DirX, DirY;
+		public float PosX, PosY, DirX, DirY;
 		
-		const int LIFE_TIME = 1000;
+		const int LIFE_TIME = 50;
 		int lifeTime = LIFE_TIME; //The time of life the projectile is in function till it dies or gets hit
 
-		SphereModel flare = new SphereModel(1.0f);
+		SphereModel flare = new SphereModel(0.25f);
 
-		public Projectile(float x, float y, float xdir, float yDir)
+		public Robot self;
+
+		public Projectile(Robot robot, float x, float y, float xdir, float yDir)
 		{
+			self = robot; //to make sure it doesn't get damaged by its own fire.
 			PosX = x; PosY = y;
 			DirX = xdir; DirY = yDir;
 			flare.SetColor(0.75f, 0.0f, 0.0f);
 			flare.SetRenderMode(RenderMode.SOLID);
 		}
 
+		public bool IsDead()
+		{
+			return !(lifeTime > 0);
+		}
+
 		public override void Render()
 		{
-			
-			flare.render();
+			if (lifeTime > 0)
+			{
+				PosX += DirX;
+				PosY += DirY;
+
+				GL.Translate(PosX, 0.5f, PosY);
+				flare.render();
+
+				lifeTime--;
+			}
 		}
 	}
 }

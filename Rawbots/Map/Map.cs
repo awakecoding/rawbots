@@ -25,6 +25,7 @@ namespace Rawbots
         List<Block> blocks;
         List<Base> bases;
         List<Light> lights;
+		List<Projectile> projectiles;
         RemoteControlUnit remoteControlUnit;
 
 		public Terrain Terrain { get { return terrain; } }
@@ -41,6 +42,7 @@ namespace Rawbots
             blocks = new List<Block>();
             bases = new List<Base>();
             lights = new List<Light>();
+			projectiles = new List<Projectile>();
 		}
 
 		public int GetWidth()
@@ -230,8 +232,35 @@ namespace Rawbots
 			remoteControlUnit.GrabARobot();
 		}
 
+		public void FireProjectileFromRobot()
+		{
+			Robot robot = remoteControlUnit.GetRobot();
+
+			if (robot != null)
+			{
+				if (remoteControlUnit.MovingDown)
+					projectiles.Add(robot.FireProjectile(0.0f, 1.0f));
+				else if (remoteControlUnit.MovingUp)
+					projectiles.Add(robot.FireProjectile(0.0f, -1.0f));
+				else if (remoteControlUnit.MovingLeft)
+					projectiles.Add(robot.FireProjectile(-1.0f, 0.0f));
+				else if (remoteControlUnit.MovingRight)
+					projectiles.Add(robot.FireProjectile(1.0f, 0.0f));
+			}
+		}
+
         public void Render()
         {
+			for (int i = 0; i < projectiles.Count; i++)
+			{
+				if (projectiles[i].IsDead())
+				{
+					projectiles.Remove(projectiles[i]);
+					i = 0; //Reset count back to 0
+				}
+				
+			}
+
 			GL.PushMatrix();
 
             /* Render Map */
@@ -254,12 +283,32 @@ namespace Rawbots
 
             foreach (Robot robot in robots)
             {
+				for (int i = 0; i < projectiles.Count; i++)
+				{
+					if (robot.ProjectileTest(projectiles[i]))
+					{
+						projectiles.Remove(projectiles[i]);
+						i = 0;
+					}
+				}
+
 				GL.Translate(robot.PosX * 1.0f, 0.0f, robot.PosY * 1.0f);
                 robot.RenderAll();
 				GL.Translate(-robot.PosX * 1.0f, 0.0f, robot.PosY * -1.0f);
             }
 
             GL.PopMatrix();
+
+			/* Render projectiles */
+
+			GL.PushMatrix();
+
+			foreach (Projectile projectile in projectiles)
+			{
+				projectile.RenderAll();
+			}
+
+			GL.PopMatrix();
 
             /* Render factories */
 
