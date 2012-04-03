@@ -63,6 +63,8 @@ namespace Rawbots
 		int renderModeCount;
 		int shadingModeCount;
 
+		int fovyscale = 4;
+
 		float[] ambientLight = {1.0f, 1.0f, 1.0f}; // white bright light
 		bool ambientLights = true;
 		
@@ -316,7 +318,7 @@ namespace Rawbots
 
 			GL.Viewport(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width, ClientRectangle.Height);
 
-			Matrix4 projection = Matrix4.CreatePerspectiveFieldOfView((float) Math.PI / 4, Width / (float) Height, 1.0f, 120.0f);
+			Matrix4 projection = Matrix4.CreatePerspectiveFieldOfView((float)Math.PI / fovyscale, Width / (float)Height, 1.0f, 120.0f);
 			GL.MatrixMode(MatrixMode.Projection);
 			GL.LoadMatrix(ref projection);
 		}
@@ -475,6 +477,26 @@ namespace Rawbots
 				case Key.B:
 					SkyBoxSphere.ChangeEnvironment();
 					break;
+				case Key.Minus:
+					if (fovyscale > 2)
+					{
+						fovyscale--; // Zoom out.
+
+						Matrix4 projection = Matrix4.CreatePerspectiveFieldOfView((float)Math.PI / fovyscale, Width / (float)Height, 1.0f, /*64.0f*/120.0f);
+						GL.MatrixMode(MatrixMode.Projection);
+						GL.LoadMatrix(ref projection);
+					}
+					break;
+				case Key.Plus:
+					if (fovyscale < 10)
+					{
+						fovyscale++; // Zoom in.
+
+						Matrix4 projection = Matrix4.CreatePerspectiveFieldOfView((float)Math.PI / fovyscale, Width / (float)Height, 1.0f, /*64.0f*/120.0f);
+						GL.MatrixMode(MatrixMode.Projection);
+						GL.LoadMatrix(ref projection);
+					}
+					break;
 			}
 		}
 		
@@ -562,7 +584,7 @@ namespace Rawbots
 
 			if (map.isEnemyDefeated() || map.isFriendlyDefeated())
 			{
-				string statement = map.isEnemyDefeated() ? "YOU WON! Replay a new game? (Y/N)" : "YOU LOST! Replay a new game?"
+				string statement = map.isEnemyDefeated() ? "YOU WON! Replay a new game? (Y/N)" : "YOU LOST! Replay a new game?";
 				Console.WriteLine(statement);
 				string answer = "";
 
