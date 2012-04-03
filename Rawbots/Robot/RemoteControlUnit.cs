@@ -197,7 +197,7 @@ namespace Rawbots
 				light.apply();
 			}
 
-			if (robotToGrab != null && GrabRobot)
+			if (robotToGrab != null && GrabRobot && robotToGrab.IsFriendly())
 			{
 				//Console.WriteLine("Grabbing Robot");
 				robotToGrab.PosX = PosX; robotToGrab.PosY = -PosY;

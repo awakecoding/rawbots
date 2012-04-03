@@ -21,6 +21,7 @@ namespace Rawbots
 		int height;
 		Terrain terrain;
 		List<Robot> robots;
+		int friendlyCount = 0;
 		List<Factory> factories;
         List<Block> blocks;
         List<Base> bases;
@@ -85,8 +86,13 @@ namespace Rawbots
 		public void AddRobot(Robot robot)
 		{
 			robots.Add(robot);
+			if (robot.IsFriendly())
+				friendlyCount++;
+
+			FloorTile ft = (FloorTile)terrain.tiles[robot.MapPosX, robot.MapPosY];
+			ft.MarkOccupied();
 		}
-		
+
 		public void RemoveRobot(Robot robot)
 		{
 			robots.Remove(robot);
@@ -251,6 +257,32 @@ namespace Rawbots
 
         public void Render()
         {
+			//Track all unoccupied tiles and clean up
+			for(int i = 0; i < terrain.tiles.GetLength(0); i++)
+				for (int j = 0; j < terrain.tiles.GetLength(1); j++)
+				{
+					Tile t = terrain.tiles[i, j];
+					FloorTile ft = null;
+					if (t is FloorTile)
+					{
+						ft = (FloorTile)t;
+						ft.MarkUnOccupied(); //initially, its unoccupied					
+					}
+
+					if (!t.IsCollideable() && t is FloorTile)
+					{	
+						for (int k = 0; k < robots.Count; k++) //till the robot says otherwise!
+						{
+							int robPosX = robots[k].MapPosX;
+							int robPosY = robots[k].MapPosY;
+
+							if (robPosX == i && robPosY == j) //check if its occupied
+								ft.MarkOccupied(); //if it is, then mark it occupied
+						}
+					}
+				}
+
+			//Track all travelling projectiles fired by the robots
 			for (int i = 0; i < projectiles.Count; i++)
 			{
 				if (projectiles[i].IsDead())
@@ -258,7 +290,6 @@ namespace Rawbots
 					projectiles.Remove(projectiles[i]);
 					i = 0; //Reset count back to 0
 				}
-				
 			}
 
 			GL.PushMatrix();
@@ -302,9 +333,9 @@ namespace Rawbots
 				}
 				else
 				{
-					GL.Translate(robot.PosX * 1.0f, 0.0f, robot.PosY * 1.0f);
+					//GL.Translate(robot.PosX * 1.0f, 0.0f, robot.PosY * 1.0f);
 					robot.RenderAll();
-					GL.Translate(-robot.PosX * 1.0f, 0.0f, robot.PosY * -1.0f);
+					//GL.Translate(-robot.PosX * 1.0f, 0.0f, robot.PosY * -1.0f);
 				}
 			}
 

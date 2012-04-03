@@ -101,6 +101,10 @@ namespace Rawbots
 
 			robot = new Robot(x, y);
 
+			string friendly = xml.GetAttribute("f");
+			if (friendly != null)
+				robot.MarkFriendly();
+
 			while (xml.Read())
 			{
 				switch (xml.NodeType)

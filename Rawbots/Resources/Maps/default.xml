@@ -236,7 +236,7 @@
 
 	</Terrain>
 
-  <Robot x="1" y="1">
+  <Robot x="1" y="1" f="1">
     <BipodChassis/>
     <MissilesWeapon/>
   </Robot>

@@ -35,6 +35,20 @@ namespace Rawbots
 
 		private int life = 100; //life meter
 
+		private bool friend = false; //Identifies whether friend or foe
+
+		private int waitTime = 4000; //Wait for 4 seconds
+		private int startTime = 0;
+
+		private const int INIT = 0;
+		private const int INIT_WAITING = 1;
+		private const int WAITING = 2;
+		private const int INIT_MOVING = 3;
+		private const int MOVING = 4;
+		private const int POSSESSED = 5;
+		private int state = INIT;
+		private int prevState;
+
 		public int MapPosX
 		{
 			get { return mapPosX; }
@@ -104,6 +118,36 @@ namespace Rawbots
 			Init();			
 			MapPosX = x;
 			MapPosY = y;
+		}
+
+		public void UpdateState()
+		{
+			int currTime = 0;
+
+			switch (state)
+			{ 
+				case INIT:
+					state = INIT_WAITING;
+					break;
+				case INIT_WAITING:
+					startTime = Environment.TickCount & Int32.MaxValue;
+					state = WAITING;
+					break;
+				case WAITING:
+					currTime = Environment.TickCount & Int32.MaxValue;
+					if (currTime - startTime > waitTime)
+						state = INIT_MOVING;
+					break;
+				case INIT_MOVING:
+					//Here we try to find the shortest path to our friend
+					//We will use Dijktra's algorithm to find it
+
+					break;
+				case MOVING:
+					break;
+				case POSSESSED:
+					break;
+			}
 		}
 
 		public void ToggleLight()
@@ -211,6 +255,8 @@ namespace Rawbots
 
 		public void Render()
 		{
+			GL.Translate(PosX * 1.0f, 0.0f, PosY * 1.0f);
+
 			if (!show)
 				return;
 
@@ -269,6 +315,18 @@ namespace Rawbots
 			finalTotalHeight = totalHeight;
 
 			GL.PopMatrix();
+
+			GL.Translate(PosX * 1.0f, 0.0f, PosY * -1.0f);
+		}
+
+		public void MarkFriendly()
+		{
+			friend = true;
+		}
+
+		public bool IsFriendly()
+		{
+			return friend;
 		}
 
 		public bool IsDead()
