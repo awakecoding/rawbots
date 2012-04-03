@@ -229,6 +229,9 @@ namespace Rawbots
             if (material != null)
                 material.apply();
 
+			float[] color = new float[4];
+			GL.GetFloat(GetPName.CurrentColor, color);
+
             switch (renderMode)
             {
                 case RenderMode.SOLID:
@@ -248,6 +251,8 @@ namespace Rawbots
 					renderWireSphere(Radius, LongitudinalSlices, LatitudinalSlices);
 					break;
             }
+
+			GL.Color4(color[0], color[1], color[2], color[3]);
 
             Material.unapply();
         }
