@@ -178,54 +178,54 @@
 
 		<!-- bottom side -->
 
-		<Boundary x="1" y="0"/>
-		<Boundary x="2" y="0"/>
-		<Boundary x="3" y="0"/>
-		<Boundary x="4" y="0"/>
-		<Boundary x="5" y="0"/>
-		<Boundary x="6" y="0"/>
-		<Boundary x="7" y="0"/>
-		<Boundary x="8" y="0"/>
-		<Boundary x="9" y="0"/>
-		<Boundary x="10" y="0"/>
-		<Boundary x="11" y="0"/>
-		<Boundary x="12" y="0"/>
-		<Boundary x="13" y="0"/>
-		<Boundary x="14" y="0"/>
-		<Boundary x="15" y="0"/>
-		<Boundary x="16" y="0"/>
-		<Boundary x="17" y="0"/>
-		<Boundary x="18" y="0"/>
-		<Boundary x="19" y="0"/>
-		<Boundary x="20" y="0"/>
-		<Boundary x="21" y="0"/>
-		<Boundary x="22" y="0"/>
-		<Boundary x="23" y="0"/>
-		<Boundary x="24" y="0"/>
-		<Boundary x="25" y="0"/>
-		<Boundary x="26" y="0"/>
-		<Boundary x="27" y="0"/>
-		<Boundary x="28" y="0"/>
-		<Boundary x="29" y="0"/>
-		<Boundary x="30" y="0"/>
-		<Boundary x="31" y="0"/>
-		<Boundary x="32" y="0"/>
-		<Boundary x="33" y="0"/>
-		<Boundary x="34" y="0"/>
-		<Boundary x="35" y="0"/>
-		<Boundary x="36" y="0"/>
-		<Boundary x="37" y="0"/>
-		<Boundary x="38" y="0"/>
-		<Boundary x="39" y="0"/>
-		<Boundary x="40" y="0"/>
-		<Boundary x="41" y="0"/>
-		<Boundary x="42" y="0"/>
-		<Boundary x="43" y="0"/>
-		<Boundary x="44" y="0"/>
-		<Boundary x="45" y="0"/>
-		<Boundary x="46" y="0"/>
-		<Boundary x="47" y="0"/>
-		<Boundary x="48" y="0"/>
+		<Boundary x="1" y="0" t="1"/>
+		<Boundary x="2" y="0" t="1"/>
+		<Boundary x="3" y="0" t="1"/>
+		<Boundary x="4" y="0" t="1"/>
+		<Boundary x="5" y="0" t="1"/>
+		<Boundary x="6" y="0" t="1"/>
+		<Boundary x="7" y="0" t="1"/>
+		<Boundary x="8" y="0" t="1"/>
+		<Boundary x="9" y="0" t="1"/>
+		<Boundary x="10" y="0" t="1"/>
+		<Boundary x="11" y="0" t="1"/>
+		<Boundary x="12" y="0" t="1"/>
+		<Boundary x="13" y="0" t="1"/>
+		<Boundary x="14" y="0" t="1"/>
+		<Boundary x="15" y="0" t="1"/>
+		<Boundary x="16" y="0" t="1"/>
+		<Boundary x="17" y="0" t="1"/>
+		<Boundary x="18" y="0" t="1"/>
+		<Boundary x="19" y="0" t="1"/>
+		<Boundary x="20" y="0" t="1"/>
+		<Boundary x="21" y="0" t="1"/>
+		<Boundary x="22" y="0" t="1"/>
+		<Boundary x="23" y="0" t="1"/>
+		<Boundary x="24" y="0" t="1"/>
+		<Boundary x="25" y="0" t="1"/>
+		<Boundary x="26" y="0" t="1"/>
+		<Boundary x="27" y="0" t="1"/>
+		<Boundary x="28" y="0" t="1"/>
+		<Boundary x="29" y="0" t="1"/>
+		<Boundary x="30" y="0" t="1"/>
+		<Boundary x="31" y="0" t="1"/>
+		<Boundary x="32" y="0" t="1"/>
+		<Boundary x="33" y="0" t="1"/>
+		<Boundary x="34" y="0" t="1"/>
+		<Boundary x="35" y="0" t="1"/>
+		<Boundary x="36" y="0" t="1"/>
+		<Boundary x="37" y="0" t="1"/>
+		<Boundary x="38" y="0" t="1"/>
+		<Boundary x="39" y="0" t="1"/>
+		<Boundary x="40" y="0" t="1"/>
+		<Boundary x="41" y="0" t="1"/>
+		<Boundary x="42" y="0" t="1"/>
+		<Boundary x="43" y="0" t="1"/>
+		<Boundary x="44" y="0" t="1"/>
+		<Boundary x="45" y="0" t="1"/>
+		<Boundary x="46" y="0" t="1"/>
+		<Boundary x="47" y="0" t="1"/>
+		<Boundary x="48" y="0" t="1"/>
 
 		<!-- top side -->
 

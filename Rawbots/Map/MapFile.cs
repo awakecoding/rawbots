@@ -293,8 +293,11 @@ namespace Rawbots
 
 			x = Int32.Parse(xml.GetAttribute("x"));
 			y = Int32.Parse(xml.GetAttribute("y"));
-
-			boundary = new Boundary(x, y);
+			string s = xml.GetAttribute("t");
+			if (s != null)
+				boundary = new Boundary(x, y, true);
+			else
+				boundary = new Boundary(x, y);
 
 			return boundary;
 		}
