@@ -1,52 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?> 
 
 <Map width="50" height="50">
-
-	<Robot x="1" y="1">
-		<BipodChassis/>
-		<MissilesWeapon/>
-	</Robot>
-	<Robot x="3" y="1">
-		<NuclearWeapon/>
-	</Robot>
-	<Robot x="5" y="1">
-		<PhasersWeapon/>
-	</Robot>
-	<Robot x="7" y="1">
-		<MissilesWeapon/>
-	</Robot>
-	<Robot x="9" y="1">
-		<CannonWeapon/>
-	</Robot>
-	<Robot x="11" y="1">
-		<AntiGravChassis/>
-	</Robot>
-	<Robot x="13" y="1">
-		<TrackedChassis/>
-	</Robot>
-	<Robot x="15" y="1">
-		<BipodChassis/>
-	</Robot>
-
-	<Robot x="10" y="10">
-		<TrackedChassis/>
-		<MissilesWeapon/>
-		<Electronics/>
-	</Robot>
-
-	<Factory x="2" y="5" type="AntiGravChassis"/>
-	<Factory x="7" y="5" type="BipodChassis"/>
-	<Factory x="12" y="5" type="CannonWeapon"/>
-	<Factory x="17" y="5" type="Electronics"/>
-	<Factory x="22" y="5" type="MissilesWeapon"/>
-	<Factory x="27" y="5" type="NuclearWeapon"/>
-	<Factory x="32" y="5" type="PhasersWeapon"/>
-	<Factory x="37" y="5" type="TrackedChassis"/>
-
-	<Base x="45" y="5"/>
-
-	<RemoteControlUnit x="43" y="1"/>
-
 	<Terrain width="50" height="50">
 
 		<Tile x="17" y="1" type="LightRubble"/>
@@ -282,6 +236,51 @@
 
 	</Terrain>
 
+  <Robot x="1" y="1">
+    <BipodChassis/>
+    <MissilesWeapon/>
+  </Robot>
+  <Robot x="3" y="1">
+    <NuclearWeapon/>
+  </Robot>
+  <Robot x="5" y="1">
+    <PhasersWeapon/>
+  </Robot>
+  <Robot x="7" y="1">
+    <MissilesWeapon/>
+  </Robot>
+  <Robot x="9" y="1">
+    <CannonWeapon/>
+  </Robot>
+  <Robot x="11" y="1">
+    <AntiGravChassis/>
+  </Robot>
+  <Robot x="13" y="1">
+    <TrackedChassis/>
+  </Robot>
+  <Robot x="15" y="1">
+    <BipodChassis/>
+  </Robot>
+
+  <Robot x="10" y="10">
+    <TrackedChassis/>
+    <MissilesWeapon/>
+    <Electronics/>
+  </Robot>
+
+  <Factory x="2" y="5" type="AntiGravChassis"/>
+  <Factory x="7" y="5" type="BipodChassis"/>
+  <Factory x="12" y="5" type="CannonWeapon"/>
+  <Factory x="17" y="5" type="Electronics"/>
+  <Factory x="22" y="5" type="MissilesWeapon"/>
+  <Factory x="27" y="5" type="NuclearWeapon"/>
+  <Factory x="32" y="5" type="PhasersWeapon"/>
+  <Factory x="37" y="5" type="TrackedChassis"/>
+
+  <Base x="45" y="5"/>
+
+  <RemoteControlUnit x="43" y="1"/>
+  
 	<Block x="35" y="1" type="FullPlain"/>
 	<Block x="37" y="1" type="HalfPlain"/>
 	<Block x="39" y="1" type="FullSquareHole"/>
