@@ -33,6 +33,8 @@ namespace Rawbots
 		private int mapPosY;
 		private float finalTotalHeight = 0.0f;
 
+		private int life = 100; //life meter
+
 		public int MapPosX
 		{
 			get { return mapPosX; }
@@ -269,11 +271,17 @@ namespace Rawbots
 			GL.PopMatrix();
 		}
 
+		public bool IsDead()
+		{
+			return !(life > 0);
+		}
+
 		public bool ProjectileTest(Projectile projectile)
 		{
 			if (Utility.Collision.IntersectionTest2D(projectile.PosX, projectile.PosY, 0.25f, 0.25f, PosX, PosY, 1.0f, 1.0f) && projectile.self != this)
 			{
 				Console.WriteLine("Robot got hit!");
+				life -= 10;
 				return true;
 			}
 

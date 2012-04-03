@@ -281,8 +281,10 @@ namespace Rawbots
 
             GL.PushMatrix();
 
-            foreach (Robot robot in robots)
-            {
+			for (int j = 0; j < robots.Count; j++)
+			{
+				Robot robot = robots[j];
+
 				for (int i = 0; i < projectiles.Count; i++)
 				{
 					if (robot.ProjectileTest(projectiles[i]))
@@ -292,10 +294,19 @@ namespace Rawbots
 					}
 				}
 
-				GL.Translate(robot.PosX * 1.0f, 0.0f, robot.PosY * 1.0f);
-                robot.RenderAll();
-				GL.Translate(-robot.PosX * 1.0f, 0.0f, robot.PosY * -1.0f);
-            }
+				if (robot.IsDead())
+				{
+					robots.Remove(robot);
+					SetTile(new LightRubblePile(), robot.MapPosX, robot.MapPosY);
+					j = 0;
+				}
+				else
+				{
+					GL.Translate(robot.PosX * 1.0f, 0.0f, robot.PosY * 1.0f);
+					robot.RenderAll();
+					GL.Translate(-robot.PosX * 1.0f, 0.0f, robot.PosY * -1.0f);
+				}
+			}
 
             GL.PopMatrix();
 
