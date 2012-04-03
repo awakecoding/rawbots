@@ -550,9 +550,46 @@ namespace Rawbots
 		{
 			base.OnUpdateFrame(e);
 
+			//float[] lightPos = l.getPosition();
+			//if (Keyboard[Key.Plus])
+			//{
+			//    l.setPosition(lightPos[0], lightPos[1]+0.1f, lightPos[2], lightPos[3]);
+			//}
+			//else if (Keyboard[Key.Minus])
+			//{
+			//    l.setPosition(lightPos[0], lightPos[1] - 0.1f, lightPos[2], lightPos[3]);
+			//}
+
+			if (map.isEnemyDefeated() || map.isFriendlyDefeated())
+			{
+				string statement = map.isEnemyDefeated() ? "YOU WON! Replay a new game? (Y/N)" : "YOU LOST! Replay a new game?"
+				Console.WriteLine(statement);
+				string answer = "";
+
+				while (!(string.Compare(answer, "Y") == 0) 
+					|| !(string.Compare(answer, "N") == 0)
+					|| !(string.Compare(answer, "y") == 0)
+					|| !(string.Compare(answer, "n") == 0))
+				{
+					answer = Console.ReadLine();
+
+					if (string.Compare(answer, "Y") == 0 || string.Compare(answer, "y") == 0)
+					{
+						instance.LoadMap(mapFile);
+						break;
+					}
+					else if (string.Compare(answer, "N") == 0 || string.Compare(answer, "n") == 0)
+					{
+						Exit();
+						Console.WriteLine("GAME OVER!");
+						break;
+					}
+				}
+		   }
+
 			if (Keyboard[Key.Escape])
 				Exit();
-			else if (Keyboard[Key.F4])
+			if (Keyboard[Key.F4])
 				ReferencePlane.setVisibleAxis(ReferencePlane.XYZ);
 			else if (Keyboard[Key.F5])
 				ReferencePlane.setVisibleAxis(ReferencePlane.XZ);
@@ -564,31 +601,6 @@ namespace Rawbots
 				cameraEnabled = false;
 			else if (Keyboard[Key.F12])
 				cameraEnabled = true;
-
-			//float[] lightPos = l.getPosition();
-			//if (Keyboard[Key.Plus])
-			//{
-			//    l.setPosition(lightPos[0], lightPos[1]+0.1f, lightPos[2], lightPos[3]);
-			//}
-			//else if (Keyboard[Key.Minus])
-			//{
-			//    l.setPosition(lightPos[0], lightPos[1] - 0.1f, lightPos[2], lightPos[3]);
-			//}
-
-            if (Keyboard[Key.Escape])
-                Exit();
-            else if (Keyboard[Key.F4])
-                ReferencePlane.setVisibleAxis(ReferencePlane.XYZ);
-            else if (Keyboard[Key.F5])
-                ReferencePlane.setVisibleAxis(ReferencePlane.XZ);
-            else if (Keyboard[Key.F6])
-                ReferencePlane.setVisibleAxis(ReferencePlane.XY);
-            else if (Keyboard[Key.F7])
-                ReferencePlane.setVisibleAxis(ReferencePlane.NONE);
-            else if (Keyboard[Key.F11])
-                cameraEnabled = false;
-            else if (Keyboard[Key.F12])
-                cameraEnabled = true;
 
 			mousePosition = new Point(Mouse.X, Mouse.Y);
 
@@ -751,10 +763,14 @@ namespace Rawbots
 			GL.Disable(EnableCap.PolygonOffsetFill);
 		}
 
+		static string mapFile;
+		static Game instance;
+
 		[STAThread]
 		static void Main(string[] args)
 		{
 			string mapFileName = "default.xml";
+			mapFile = mapFileName;
 
 			for (int i = 0; i < args.Length; i++)
 			{
@@ -766,6 +782,7 @@ namespace Rawbots
 
 			using (Game game = new Game())
 			{
+				instance = game;
 				game.LoadMap(mapFileName);
 				game.Run();
 			}

@@ -22,6 +22,7 @@ namespace Rawbots
 		Terrain terrain;
 		List<Robot> robots;
 		int friendlyCount = 0;
+		int enemyCount = 0;
 		List<Factory> factories;
         List<Block> blocks;
         List<Base> bases;
@@ -86,8 +87,10 @@ namespace Rawbots
 		public void AddRobot(Robot robot)
 		{
 			robots.Add(robot);
-			if (robot.IsFriendly())
-				friendlyCount++;
+			//if (robot.IsFriendly())
+			//    friendlyCount++;
+			//else
+			//    enemyCount++;
 
 			FloorTile ft = (FloorTile)terrain.tiles[robot.MapPosX, robot.MapPosY];
 			ft.MarkOccupied();
@@ -142,6 +145,34 @@ namespace Rawbots
         {
             terrain.SetTile(tile, x, y);
         }
+
+		public bool isEnemyDefeated()
+		{
+			enemyCount = 0;
+
+			for (int i = 0; i < robots.Count; i++)
+			{
+				Robot robot = robots[i];
+				if (!robot.IsFriendly())
+					enemyCount++;
+			}
+
+			return !(enemyCount > 0);
+		}
+
+		public bool isFriendlyDefeated()
+		{
+			friendlyCount = 0;
+
+			for (int i = 0; i < robots.Count; i++)
+			{
+				Robot robot = robots[i];
+				if (robot.IsFriendly())
+					friendlyCount++;
+			}
+
+			return !(friendlyCount > 0);
+		}
 
         public void SetRenderMode(RenderMode renderMode)
         {
