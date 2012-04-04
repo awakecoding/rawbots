@@ -119,11 +119,11 @@ namespace Rawbots
 			Console.WriteLine("Robot(" + x + "," + y + ") (" + Math.Floor(x) + "," + Math.Ceiling(y) + ")");
 				
 			ByteMap bMap = map.Terrain.CollisionMap;
-			bMap.Bytes[(int)x, (int)y] = ByteMap.FALSE;
+			bMap.Bytes[(int)x, (int)y] = ByteMap.FALSE; //Disable testing your own collision area before testing others
 
 			cancelMove = robot.RobotCollisionTest(map, x, y);
 
-			bMap.Bytes[(int)x, (int)y] = ByteMap.TRUE;
+			bMap.Bytes[(int)x, (int)y] = ByteMap.TRUE;	//Re-enable your own collision after the test
 			//if (map.IsColliding((int)Math.Ceiling(x), (int)Math.Ceiling(y)))
 			//    cancelMove = true;
 			//if (map.IsColliding((int)Math.Floor(x), (int)Math.Floor(y)))
