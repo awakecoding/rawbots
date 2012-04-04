@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Rawbots.AntiGravChassisFactory" Collapsed="true">
+    <Position X="65.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Building\AntiGravChassisFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.BipodChassisFactory" Collapsed="true">
+    <Position X="69.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Building\BipodChassisFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.CannonWeaponFactory" Collapsed="true">
+    <Position X="54" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Building\CannonWeaponFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.ElectronicsFactory" Collapsed="true">
+    <Position X="56.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Building\ElectronicsFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.Factory" Collapsed="true">
+    <Position X="62" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAgAAEBAACAAAAAwAAAAgACACgAABAiAAAAAAA=</HashCode>
+      <FileName>Building\Factory.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="RobotPart" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Rawbots.MissilesWeaponFactory" Collapsed="true">
+    <Position X="58.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Building\MissilesWeaponFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.NuclearWeaponFactory" Collapsed="true">
+    <Position X="60.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Building\NuclearWeaponFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.PhasersWeaponFactory" Collapsed="true">
+    <Position X="63" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Building\PhasersWeaponFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.TrackedChassisFactory" Collapsed="true">
+    <Position X="67.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Building\TrackedChassisFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.Model" Collapsed="true">
+    <Position X="62" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQKAIAAAAAAAADAAAUAAABAAASUAIiABAgCBABoAAA=</HashCode>
+      <FileName>Model\Model.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.RobotPart" Collapsed="true">
+    <Position X="59.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACAAAIAAACAAAAEABABAAAACAA=</HashCode>
+      <FileName>Robot\RobotPart.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

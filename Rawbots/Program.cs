@@ -31,6 +31,7 @@ namespace Rawbots
 		Map map;
 		int mapWidth;
 		int mapHeight;
+		bool gameOver = false;
 		bool useFonts = false;
         bool cameraEnabled = true;
 		string baseTitle = "Rawbots";
@@ -73,6 +74,10 @@ namespace Rawbots
 		bool topRightCornerLight = true;
 		bool topLeftCornerLight = true;
 		bool allPostLights = true;
+
+		string gameOverText =
+			"/!\\ GAME OVER /!\\\r\n" +
+			"~ ALL OF YOUR RAWBOTS ARE BELONG TO US ~\r\n";
 
 		string cameraHelpText =
 			"W: Move Up\r\n" +
@@ -585,27 +590,35 @@ namespace Rawbots
 			if (map.isEnemyDefeated() || map.isFriendlyDefeated())
 			{
 				string statement = map.isEnemyDefeated() ? "YOU WON! Replay a new game? (Y/N)" : "YOU LOST! Replay a new game?";
-				Console.WriteLine(statement);
-				string answer = "";
 
-				while (!(string.Compare(answer, "Y") == 0) 
-					|| !(string.Compare(answer, "N") == 0)
-					|| !(string.Compare(answer, "y") == 0)
-					|| !(string.Compare(answer, "n") == 0))
+				if (this.WindowState == WindowState.Fullscreen)
 				{
-					answer = Console.ReadLine();
+					Console.WriteLine(statement);
+					string answer = "";
 
-					if (string.Compare(answer, "Y") == 0 || string.Compare(answer, "y") == 0)
+					while (!(string.Compare(answer, "Y") == 0)
+						|| !(string.Compare(answer, "N") == 0)
+						|| !(string.Compare(answer, "y") == 0)
+						|| !(string.Compare(answer, "n") == 0))
 					{
-						instance.LoadMap(mapFile);
-						break;
+						answer = Console.ReadLine();
+
+						if (string.Compare(answer, "Y") == 0 || string.Compare(answer, "y") == 0)
+						{
+							instance.LoadMap(mapFile);
+							break;
+						}
+						else if (string.Compare(answer, "N") == 0 || string.Compare(answer, "n") == 0)
+						{
+							Exit();
+							Console.WriteLine("GAME OVER!");
+							break;
+						}
 					}
-					else if (string.Compare(answer, "N") == 0 || string.Compare(answer, "n") == 0)
-					{
-						Exit();
-						Console.WriteLine("GAME OVER!");
-						break;
-					}
+				}
+				else
+				{
+					gameOver = true;
 				}
 		   }
 
@@ -747,7 +760,15 @@ namespace Rawbots
 					monoFont.Print(cameraHelpText, QFontAlignment.Left);
 					GL.PopMatrix();
 				}
-				
+
+				if (gameOver)
+				{
+					GL.PushMatrix();
+					GL.Translate(config.ScreenWidth * 0.50, 0.0, 0.0);
+					monoFont.Print(gameOverText, QFontAlignment.Centre);
+					GL.PopMatrix();
+				}
+
 				QFont.End();
 				GL.Disable(EnableCap.Texture2D);
 			}

@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Rawbots.Block" Collapsed="true">
+    <Position X="14.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAwAAAAAAAAAgAABAAAAAAAAA=</HashCode>
+      <FileName>Block\Block.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.FullPlainBlock" Collapsed="true">
+    <Position X="11" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Block\FullPlainBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.FullSquareHoleBlock" Collapsed="true">
+    <Position X="13.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Block\FullSquareHoleBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.HalfPlainBlock" Collapsed="true">
+    <Position X="15.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Block\HalfPlainBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.HalfSquareHoleBlock" Collapsed="true">
+    <Position X="17.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Block\HalfSquareHoleBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.Model" Collapsed="true">
+    <Position X="14.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQKAIAAAAAAAADAAAUAAABAAASUAIiABAgCBABoAAA=</HashCode>
+      <FileName>Model\Model.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

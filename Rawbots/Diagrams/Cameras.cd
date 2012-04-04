@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Rawbots.Camera" Collapsed="true">
+    <Position X="4.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIEAEAAACKgABIABCAAQIAUCEACEAgAYQAEAAMHCIAI=</HashCode>
+      <FileName>Camera\Camera.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.FirstPersonCamera" Collapsed="true">
+    <Position X="5.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAgAAAAAAAAEBAAAAAAAAAAAAAABBBAABAkEABAA=</HashCode>
+      <FileName>Camera\FirstPersonCamera.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.GlobalCamera" Collapsed="true">
+    <Position X="3.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEBAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Camera\GlobalCamera.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.RobotCamera" Collapsed="true">
+    <Position X="5.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAIBAAAFAAAABMAAAAAAAAAAAAEAAQI=</HashCode>
+      <FileName>Camera\RobotCamera.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

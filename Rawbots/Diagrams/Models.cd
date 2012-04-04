@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Rawbots.ConeModel" Collapsed="true">
+    <Position X="33.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAIQAAA=</HashCode>
+      <FileName>Model\ConeModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.CubeModel" Collapsed="true">
+    <Position X="37.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEgAAAAAEAAEAAQCAAAAAAABAAIgAAICAAQAgA=</HashCode>
+      <FileName>Model\CubeModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.CylinderModel" Collapsed="true">
+    <Position X="40" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgCAEAAAQAAAQAgAAAAAAAQIAECIAAAAAQAAA=</HashCode>
+      <FileName>Model\CylinderModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.HalfCylinderModel" Collapsed="true">
+    <Position X="28.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAQAAAAAAAAQAAAAAIAAAIAAAAAQAAA=</HashCode>
+      <FileName>Model\HalfCylinderModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.HemisphereModel" Collapsed="true">
+    <Position X="31" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAgCAAAAAEAAAAAAAAAAAAAAAAAAGAAAAAQgAA=</HashCode>
+      <FileName>Model\HemisphereModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.Model" Collapsed="true">
+    <Position X="34.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQKAIAAAAAAAADAAAUAAABAAASUAIiABAgCBABoAAA=</HashCode>
+      <FileName>Model\Model.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.SphereModel" Collapsed="true">
+    <Position X="35.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAQAACAQAAAEAAAAAAAAAAAAAAAAAAGAAAABQgAA=</HashCode>
+      <FileName>Model\SphereModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -47,7 +47,6 @@ namespace Rawbots
 		private const int MOVING = 4;
 		private const int POSSESSED = 5;
 		private int state = INIT;
-		private int prevState;
 
 		private const int UP = 0;	//0 degrees
 		private const int DOWN = 1; //180 degrees
@@ -415,6 +414,17 @@ namespace Rawbots
 		public override bool IsCollideable()
 		{
 			return true;
+		}
+
+		public RobotPart RobotPart
+		{
+			get
+			{
+				throw new System.NotImplementedException();
+			}
+			set
+			{
+			}
 		}
 	}
 }
