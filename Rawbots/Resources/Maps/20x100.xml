@@ -300,7 +300,8 @@
 	<Factory x="12" y="5" type="CannonWeapon"/>
 	<Factory x="17" y="5" type="Electronics"/>
 
-	<Base x="7" y="5"/>
+	<Base x="3" y="3"/>
+	<Base x="17" y="96"/>
 
 	<RemoteControlUnit x="5" y="1"/>
   
