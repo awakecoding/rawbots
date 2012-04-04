@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Rawbots.Model" Collapsed="true">
+    <Position X="41.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQKAIAAAAAAAADAAAUAAABAAASUAIiABAgCBABoAAA=</HashCode>
+      <FileName>Model\Model.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.AntiGravChassis" Collapsed="true">
+    <Position X="43" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Robot\AntiGravChassis.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.BipodChassis" Collapsed="true">
+    <Position X="38.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAABAAAAAAAAA=</HashCode>
+      <FileName>Robot\BipodChassis.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.CannonWeapon" Collapsed="true">
+    <Position X="45" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAAAAAAAAAAAAACAAgAABAAAAAIAAA=</HashCode>
+      <FileName>Robot\CannonWeapon.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.Chassis" Collapsed="true">
+    <Position X="40.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Robot\Chassis.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.Electronics" Collapsed="true">
+    <Position X="44" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAABAAAAAAAAA=</HashCode>
+      <FileName>Robot\Electronics.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.MissilesWeapon" Collapsed="true">
+    <Position X="47.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAEAAQAAAEAAAAAAAAAAAAICAAgAIBAAAQAIAQA=</HashCode>
+      <FileName>Robot\MissilesWeapon.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.NuclearWeapon" Collapsed="true">
+    <Position X="49.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEACAAAAAQAAAAAAAAAAAAiAAgAABAAAAAIAAA=</HashCode>
+      <FileName>Robot\NuclearWeapon.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.PhasersWeapon" Collapsed="true">
+    <Position X="51.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAAAAAAAAAAAAACAAgAABAAAAAIAAA=</HashCode>
+      <FileName>Robot\PhasersWeapon.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.RobotPart" Collapsed="true">
+    <Position X="44" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACAAAIAAACAAAAEABABAAAACAA=</HashCode>
+      <FileName>Robot\RobotPart.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.TrackedChassis" Collapsed="true">
+    <Position X="40.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAABAAAAAAAAA=</HashCode>
+      <FileName>Robot\TrackedChassis.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.Weapon" Collapsed="true">
+    <Position X="48.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>Robot\Weapon.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.Robot" Collapsed="true">
+    <Position X="41.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAMKBAUAAAAQgAQAAAAw0AICAQKIEIgHgFCi1ayICAA=</HashCode>
+      <FileName>Robot\Robot.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="RobotPart" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

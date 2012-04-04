@@ -116,6 +116,17 @@ namespace Rawbots
 
 			GL.PopMatrix();
 		}
+
+		public RobotPart RobotPart
+		{
+			get
+			{
+				throw new System.NotImplementedException();
+			}
+			set
+			{
+			}
+		}
 	}
 }
 

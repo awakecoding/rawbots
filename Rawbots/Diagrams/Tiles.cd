@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Rawbots.Boundary" Collapsed="true">
+    <Position X="15.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAgAABAABAAAAAA=</HashCode>
+      <FileName>Block\Boundary.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.Drawable" Collapsed="true">
+    <Position X="20.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAACAAAAAABAAAAAACAA=</HashCode>
+      <FileName>Model\Drawable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.FloorTile" Collapsed="true">
+    <Position X="18" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAABAAAAAAAAAAAAAAAAAAAEAABAABAAAAAA=</HashCode>
+      <FileName>Terrain\FloorTile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.HeavyRubblePile" Collapsed="true">
+    <Position X="20.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAAAIAgAAAAAAAAAAAAgAABAAAAAAAAQ=</HashCode>
+      <FileName>Terrain\HeavyRubblePile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.LightPost" Collapsed="true">
+    <Position X="22.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAIAAAAAAAAAgAABAAAAAAAAA=</HashCode>
+      <FileName>Terrain\LightPost.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.LightRubblePile" Collapsed="true">
+    <Position X="24.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAABAAAAAAAAA=</HashCode>
+      <FileName>Terrain\LightRubblePile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.MediumRubblePile" Collapsed="true">
+    <Position X="27" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAABAAAAAAAAA=</HashCode>
+      <FileName>Terrain\MediumRubblePile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.Pit" Collapsed="true">
+    <Position X="13.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAhAAAAAABAAAQAAAAgAAAAAAAQBAABAAAAAA=</HashCode>
+      <FileName>Terrain\Pit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rawbots.Tile" Collapsed="true">
+    <Position X="20.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAKAIIAAAAAAAAAwAAAAAIAEggAABAAAEAAAAA=</HashCode>
+      <FileName>Terrain\Tile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
