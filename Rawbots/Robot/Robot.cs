@@ -49,6 +49,22 @@ namespace Rawbots
 		private int state = INIT;
 		private int prevState;
 
+		private const int UP = 0;	//0 degrees
+		private const int DOWN = 1; //180 degrees
+		private const int LEFT = 2; //-90 degrees
+		private const int RIGHT = 3; //90 degrees
+		private const int MAX_DIRECTIONS = 4;
+		private float[] DirectionAngles = new float[] { 0.0f, 180.0f, -90.0f, 90.0f};
+		private float currAngle = 0; //keep track of the current angle
+		private float angleToTurn = 0;
+		private int prevFacingDirection = UP;
+		private int currFacingDirection = UP;
+
+		private int currFrame = 0;
+		private int MAX_FRAMES = 100;
+
+		public Random random;
+
 		public int MapPosX
 		{
 			get { return mapPosX; }
@@ -111,6 +127,7 @@ namespace Rawbots
 			Init();
 			MapPosX = 0;
 			MapPosY = 0;
+			random = new Random(Environment.TickCount & Int32.MaxValue);
 		}
 		
 		public Robot(int x, int y)
@@ -118,6 +135,7 @@ namespace Rawbots
 			Init();			
 			MapPosX = x;
 			MapPosY = y;
+			random = new Random(Environment.TickCount & Int32.MaxValue);
 		}
 
 		public void UpdateState()
@@ -141,13 +159,43 @@ namespace Rawbots
 				case INIT_MOVING:
 					//Here we try to find the shortest path to our friend
 					//We will use Dijktra's algorithm to find it
+					prevFacingDirection = currFacingDirection;
+					int dir = random.Next(3);
+					currFacingDirection = ((dir+1) + prevFacingDirection)%MAX_DIRECTIONS;
+					
+					switch (currFacingDirection)
+					{ 
+						case UP:
+							angleToTurn = DirectionAngles[prevFacingDirection] - DirectionAngles[UP];
+							break;
+						case DOWN:
+							angleToTurn = DirectionAngles[prevFacingDirection] - DirectionAngles[DOWN];
+							break;
+						case LEFT:
+							angleToTurn = DirectionAngles[prevFacingDirection] - DirectionAngles[LEFT];
+							break;
+						case RIGHT:
+							angleToTurn = DirectionAngles[prevFacingDirection] - DirectionAngles[RIGHT];
+							break;
+					}
 
+					state = MOVING;
 					break;
 				case MOVING:
+					Angle = linearTween(currFrame, DirectionAngles[currFacingDirection], angleToTurn, MAX_FRAMES);
+					if (currFrame < MAX_FRAMES)
+						currFrame++;
+					else
+						state = INIT_WAITING;
 					break;
 				case POSSESSED:
 					break;
 			}
+		}
+
+		public float linearTween(float t, float b, float c, float d) 
+		{
+			return c*t/d + b;
 		}
 
 		public void ToggleLight()
@@ -349,9 +397,17 @@ namespace Rawbots
 		public bool RobotCollisionTest(Map map, float x, float y)
 		{
 			if (map.IsColliding((int)Math.Ceiling(x), (int)Math.Ceiling(y)))
+			{
+				Console.WriteLine("Robot (" + x + "," + y + ") Ceil(" + Math.Ceiling(x) + "," + Math.Ceiling(y) + ")");
 				return true;
+			}
 			if (map.IsColliding((int)Math.Floor(x), (int)Math.Floor(y)))
+			{
+				Console.WriteLine("Robot (" + x + "," + y + ") Floot(" + Math.Floor(x) + "," + Math.Floor(y) + ")");
 				return true;
+			}
+			//if (map.IsColliding((int)x, (int)y))
+			//    return true;
 
 			return false;
 		}
