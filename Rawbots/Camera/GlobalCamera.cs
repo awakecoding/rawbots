@@ -24,12 +24,11 @@ namespace Rawbots
 			if (!mouseEnabled)
 				return false;
 
-			if (dx != 0)
+			if (Math.Abs(dx) > Math.Abs(dy))
 			{
 				RotateDeltaX(dx / 4);
 			}
-
-			if (dy != 0)
+			else
 			{
 				RotateDeltaY(dy / 4);
 			}
