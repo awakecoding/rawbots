@@ -149,6 +149,11 @@ namespace Rawbots
 			}
 		}
 
+		public int GetALife()
+		{
+			return life;
+		}
+
 		public void ToggleLight()
 		{
 			lightOn = (lightOn) ? false : true;
