@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<Map width="20" height="100">
+	<Terrain width="20" height="100">
+
+		<!-- left side -->
+
+		<Boundary x="0" y="1"/>
+		<Boundary x="0" y="2"/>
+		<Boundary x="0" y="3"/>
+		<Boundary x="0" y="4"/>
+		<Boundary x="0" y="5"/>
+		<Boundary x="0" y="6"/>
+		<Boundary x="0" y="7"/>
+		<Boundary x="0" y="8"/>
+		<Boundary x="0" y="9"/>
+		<Boundary x="0" y="10"/>
+		<Boundary x="0" y="11"/>
+		<Boundary x="0" y="12"/>
+		<Boundary x="0" y="13"/>
+		<Boundary x="0" y="14"/>
+		<Boundary x="0" y="15"/>
+		<Boundary x="0" y="16"/>
+		<Boundary x="0" y="17"/>
+		<Boundary x="0" y="18"/>
+
+		<!-- right side -->
+
+		<Boundary x="19" y="1"/>
+		<Boundary x="19" y="2"/>
+		<Boundary x="19" y="3"/>
+		<Boundary x="19" y="4"/>
+		<Boundary x="19" y="5"/>
+		<Boundary x="19" y="6"/>
+		<Boundary x="19" y="7"/>
+		<Boundary x="19" y="8"/>
+		<Boundary x="19" y="9"/>
+		<Boundary x="19" y="10"/>
+		<Boundary x="19" y="11"/>
+		<Boundary x="19" y="12"/>
+		<Boundary x="19" y="13"/>
+		<Boundary x="19" y="14"/>
+		<Boundary x="19" y="15"/>
+		<Boundary x="19" y="16"/>
+		<Boundary x="19" y="17"/>
+		<Boundary x="19" y="18"/>
+
+		<!-- bottom side -->
+
+		<Boundary x="1" y="0" t="1"/>
+		<Boundary x="2" y="0" t="1"/>
+		<Boundary x="3" y="0" t="1"/>
+		<Boundary x="4" y="0" t="1"/>
+		<Boundary x="5" y="0" t="1"/>
+		<Boundary x="6" y="0" t="1"/>
+		<Boundary x="7" y="0" t="1"/>
+		<Boundary x="8" y="0" t="1"/>
+		<Boundary x="9" y="0" t="1"/>
+		<Boundary x="10" y="0" t="1"/>
+		<Boundary x="11" y="0" t="1"/>
+		<Boundary x="12" y="0" t="1"/>
+		<Boundary x="13" y="0" t="1"/>
+		<Boundary x="14" y="0" t="1"/>
+		<Boundary x="15" y="0" t="1"/>
+		<Boundary x="16" y="0" t="1"/>
+		<Boundary x="17" y="0" t="1"/>
+		<Boundary x="18" y="0" t="1"/>
+
+		<!-- top side -->
+
+
+
+	</Terrain>
+
+	<Robot x="1" y="1" f="1">
+  		<BipodChassis/>
+  		<MissilesWeapon/>
+	</Robot>
+
+	<Robot x="3" y="1">
+  		<NuclearWeapon/>
+	</Robot>
+
+	<Robot x="5" y="1">
+  		<PhasersWeapon/>
+	</Robot>
+
+	<Robot x="7" y="1">
+  		<MissilesWeapon/>
+	</Robot>
+
+	<Robot x="9" y="1">
+  		<CannonWeapon/>
+	</Robot>
+
+	<Robot x="11" y="1">
+  		<AntiGravChassis/>
+
+	</Robot>
+		<Robot x="13" y="1">
+  		<TrackedChassis/>
+	</Robot>
+
+	<Robot x="15" y="1">
+  		<BipodChassis/>
+	</Robot>
+
+	<Robot x="10" y="10">
+  		<TrackedChassis/>
+  		<MissilesWeapon/>
+  		<Electronics/>
+	</Robot>
+
+	<Factory x="2" y="5" type="AntiGravChassis"/>
+	<Factory x="7" y="5" type="BipodChassis"/>
+	<Factory x="12" y="5" type="CannonWeapon"/>
+	<Factory x="17" y="5" type="Electronics"/>
+
+	<Base x="7" y="5"/>
+
+	<RemoteControlUnit x="5" y="1"/>
+  
+	<Block x="12" y="35" type="FullPlain"/>
+	<Block x="12" y="37" type="HalfPlain"/>
+	<Block x="12" y="39" type="FullSquareHole"/>
+	<Block x="12" y="41" type="HalfSquareHole"/>
+</Map>

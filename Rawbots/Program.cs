@@ -170,7 +170,7 @@ namespace Rawbots
                          0.0f, 1.0f, 0.0f);
 
             lightpost = new LightPost(3);
-			map.SetTile(lightpost, x + 49, y);
+			map.SetTile(lightpost, x + mapWidth - 1, y);
 
             light = new Light(LightName.Light1);
             light.setCutOff(45.0f);
@@ -179,12 +179,12 @@ namespace Rawbots
 				0.0f, 0.0f, 1.0f);
             lightpost.AddLight(light);
 
-            lightCamera2 = new Camera(49.0f, 6.0f, 0.0f,
-				49.0f - 2.0f * (float) Math.Sqrt(2.0f), 0.0f, -2.0f * (float) Math.Sqrt(2.0f),
+            lightCamera2 = new Camera(mapWidth - 1, 6.0f, 0.0f,
+				(mapWidth - 1) - 2.0f * (float) Math.Sqrt(2.0f), 0.0f, -2.0f * (float) Math.Sqrt(2.0f),
 				0.0f, 1.0f, 0.0f);
 
 			lightpost = new LightPost(2);
-			map.SetTile(lightpost, x + 49, y + 49);
+			map.SetTile(lightpost, x + mapWidth - 1, y + mapHeight -1);
 
             light = new Light(LightName.Light2);
             light.setCutOff(45.0f);
@@ -193,12 +193,12 @@ namespace Rawbots
 				1.0f, 1.0f, 1.0f);
             lightpost.AddLight(light);
 
-            lightCamera3 = new Camera(49.0f, 6.0f, -49.0f,
-				49.0f - 2.0f * (float) Math.Sqrt(2.0f), 0.0f, -49.0f + 2.0f * (float) Math.Sqrt(2.0f),
+            lightCamera3 = new Camera(mapWidth, 6.0f, -(mapHeight - 1),
+				(mapWidth - 1) - 2.0f * (float) Math.Sqrt(2.0f), 0.0f, -(mapHeight - 1) + 2.0f * (float) Math.Sqrt(2.0f),
 				0.0f, 1.0f, 0.0f);
 
 			lightpost = new LightPost(1);
-			map.SetTile(lightpost, x, y + 49);
+			map.SetTile(lightpost, x, y + (mapHeight - 1));
 
             light = new Light(LightName.Light3);
             light.setCutOff(45.0f);
@@ -207,8 +207,8 @@ namespace Rawbots
 				1.0f, 1.0f, 1.0f);
             lightpost.AddLight(light);
 
-            lightCamera4 = new Camera(0.0f, 6.0f, -49.0f,
-				2.0f * (float) Math.Sqrt(2.0f), 0.0f, -49.0f + 2.0f * (float) Math.Sqrt(2.0f),
+            lightCamera4 = new Camera(0.0f, 6.0f, -(mapHeight - 1),
+				2.0f * (float) Math.Sqrt(2.0f), 0.0f, -(mapHeight - 1) + 2.0f * (float) Math.Sqrt(2.0f),
 				0.0f, 1.0f, 0.0f);
 
             this.Title = this.baseTitle;
