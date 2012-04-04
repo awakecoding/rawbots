@@ -64,13 +64,21 @@ namespace Rawbots
 				robot.ToggleLight();
 
 			if ((actions & Action.MOVE_UP) != 0)
+			{
 				MoveUp();
+			}
 			if ((actions & Action.MOVE_DOWN) != 0)
+			{
 				MoveDown();
+			}
 			if ((actions & Action.MOVE_LEFT) != 0)
+			{
 				MoveLeft();
+			}
 			if ((actions & Action.MOVE_RIGHT) != 0)
+			{
 				MoveRight();
+			}
 
 			if ((actions & Action.ROTATE_RIGHT) != 0)
 				RotateRight();
@@ -109,7 +117,13 @@ namespace Rawbots
 				y = map.GetHeight();
 
 			Console.WriteLine("Robot(" + x + "," + y + ") (" + Math.Floor(x) + "," + Math.Ceiling(y) + ")");
+				
+			ByteMap bMap = map.Terrain.CollisionMap;
+			bMap.Bytes[(int)x, (int)y] = ByteMap.FALSE;
+
 			cancelMove = robot.RobotCollisionTest(map, x, y);
+
+			bMap.Bytes[(int)x, (int)y] = ByteMap.TRUE;
 			//if (map.IsColliding((int)Math.Ceiling(x), (int)Math.Ceiling(y)))
 			//    cancelMove = true;
 			//if (map.IsColliding((int)Math.Floor(x), (int)Math.Floor(y)))
