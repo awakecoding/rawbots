@@ -192,9 +192,15 @@ namespace Rawbots
 			}
 		}
 
+<<<<<<< HEAD
 		public float linearTween(float t, float b, float c, float d) 
 		{
 			return c*t/d + b;
+=======
+		public int GetALife()
+		{
+			return life;
+>>>>>>> b8f5b9c6547ded96314d6b4338395af7187c8fa8
 		}
 
 		public void ToggleLight()

@@ -31,6 +31,7 @@ namespace Rawbots
 		Map map;
 		int mapWidth;
 		int mapHeight;
+		bool gameStats = true;
 		bool gameOver = false;
 		bool useFonts = false;
         bool cameraEnabled = true;
@@ -74,6 +75,13 @@ namespace Rawbots
 		bool topRightCornerLight = true;
 		bool topLeftCornerLight = true;
 		bool allPostLights = true;
+
+		string gameStatsText;
+
+		string gameStatsFormat =
+			"Game Stats:\r\n" +
+			"Robots Remaining: {0}\r\n" +
+			"Active Robot Life: {1}\r\n";
 
 		string gameOverText =
 			"/!\\ GAME OVER /!\\\r\n" +
@@ -563,6 +571,10 @@ namespace Rawbots
 						camera.PerformActions(Camera.Action.TOGGLE_MOUSE);
 						break;
 
+					case Key.G:
+						gameStats = (gameStats) ? false : true;
+						break;
+
 					case Key.Z:
 						map.HideTextures();
 						break;
@@ -758,6 +770,16 @@ namespace Rawbots
 					GL.PushMatrix();
 					GL.Translate(config.ScreenWidth * 0.75, 0.0, 0.0);
 					monoFont.Print(cameraHelpText, QFontAlignment.Left);
+					GL.PopMatrix();
+				}
+
+				if (gameStats)
+				{
+					GL.PushMatrix();
+					GL.Translate(0.0, config.ScreenHeight * 0.10f, 0.0);
+					gameStatsText = String.Format(gameStatsFormat,
+						map.GetRobots().Count, activeRobot.GetALife());
+					monoFont.Print(gameStatsText, QFontAlignment.Left);
 					GL.PopMatrix();
 				}
 

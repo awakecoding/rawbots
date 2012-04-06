@@ -1,5 +1,5 @@
 # Exported from Wings 3D 1.4.1
-mtllib Skybox.mtl
+mtllib skybox.mtl
 o cube1
 #8 vertices, 6 faces
 v -68.56715628 -68.56715628 68.56715628
